@@ -5,9 +5,10 @@ const { readdir, readFile } = require("fs").promises;
 import { basename, extname, resolve, join } from "path";
 import rimraf from "rimraf";
 import * as log from "cli-block";
+const ncp = require("ncp").ncp;
 
 // Functionality
-import { settings } from "./settings";
+import { settings, logSettings } from "./settings";
 import { ISettings, IFile } from "./types";
 import Handlebars from "handlebars";
 import {
@@ -95,7 +96,7 @@ const getLayout = async (settings: ISettings): Promise<ISettings> => {
 	return { ...settings, layout: layoutFile };
 };
 
-const createFolder = (settings: ISettings): ISettings => {
+const createFolder = async (settings: ISettings): Promise<ISettings> => {
 	if (settings.cleanBefore) rimraf.sync(settings.output);
 	return settings;
 };
@@ -119,7 +120,7 @@ const setMeta = async (settings: ISettings): Promise<ISettings> => {
 
 const createFiles = async (settings: ISettings): Promise<ISettings> => {
 	const template = Handlebars.compile(settings.layout);
-	log.BLOCK_START("Files");
+	log.BLOCK_MID("Creating pages");
 	await asyncForEach(settings.files, async (file: IFile) => {
 		try {
 			const contents = template({
@@ -144,11 +145,29 @@ const setStylesheet = (settings: ISettings): ISettings => {
 	};
 };
 
-getFiles(settings())
+const copyFolders = async (settings: ISettings): Promise<ISettings> => {
+	if (settings.copy.length > 0) {
+		log.BLOCK_MID("Copy folders");
+		await asyncForEach(settings.copy, async (folder) => {
+			await ncp(folder, settings.output + "/" + folder, (err) => {
+				if (!err) log.BLOCK_LINE_SUCCESS(folder);
+			});
+		});
+	}
+	return settings;
+};
+const start = async (settings: ISettings): Promise<ISettings> => {
+	return settings;
+};
+start(settings())
 	.then((s) => {
 		log.START("Creating Your documentation");
+		log.BLOCK_START();
+		log.BLOCK_LINE("Blockie is now building your documentation");
+		logSettings(s);
 		return s;
 	})
+	.then(getFiles)
 	.then(fileData)
 	.then(toHtml)
 	.then(setMeta)
@@ -156,7 +175,9 @@ getFiles(settings())
 	.then(setStylesheet)
 	.then(createFolder)
 	.then(createFiles)
+	.then(copyFolders)
 	.then(() => {
-		log.BLOCK_END("Done :)");
-		console.log();
+		setTimeout(() => {
+			log.BLOCK_END("Done :)");
+		}, 10);
 	});

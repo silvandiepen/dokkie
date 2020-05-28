@@ -37,6 +37,7 @@ const { readdir, readFile } = require("fs").promises;
 const path_1 = require("path");
 const rimraf_1 = __importDefault(require("rimraf"));
 const log = __importStar(require("cli-block"));
+const ncp = require("ncp").ncp;
 // Functionality
 const settings_1 = require("./settings");
 const handlebars_1 = __importDefault(require("handlebars"));
@@ -101,11 +102,11 @@ const getLayout = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     }
     return Object.assign(Object.assign({}, settings), { layout: layoutFile });
 });
-const createFolder = (settings) => {
+const createFolder = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     if (settings.cleanBefore)
         rimraf_1.default.sync(settings.output);
     return settings;
-};
+});
 const setMeta = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     const files = yield Promise.all(settings.files.map((file) => __awaiter(void 0, void 0, void 0, function* () {
         return (file = Object.assign(Object.assign({}, file), { title: yield utils_1.getTitle(file), route: utils_1.makeRoute(file, settings), destpath: utils_1.makePath(file, settings), filename: utils_1.makeFileName(file) }));
@@ -114,7 +115,7 @@ const setMeta = (settings) => __awaiter(void 0, void 0, void 0, function* () {
 });
 const createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     const template = handlebars_1.default.compile(settings.layout);
-    log.BLOCK_START("Files");
+    log.BLOCK_MID("Creating pages");
     yield utils_1.asyncForEach(settings.files, (file) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const contents = template({
@@ -134,11 +135,30 @@ const createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* ()
 const setStylesheet = (settings) => {
     return Object.assign(Object.assign({}, settings), { style: `https://coat.guyn.nl/theme/${settings.theme}.css` });
 };
-getFiles(settings_1.settings())
+const copyFolders = (settings) => __awaiter(void 0, void 0, void 0, function* () {
+    if (settings.copy.length > 0) {
+        log.BLOCK_MID("Copy folders");
+        yield utils_1.asyncForEach(settings.copy, (folder) => __awaiter(void 0, void 0, void 0, function* () {
+            yield ncp(folder, settings.output + "/" + folder, (err) => {
+                if (!err)
+                    log.BLOCK_LINE_SUCCESS(folder);
+            });
+        }));
+    }
+    return settings;
+});
+const start = (settings) => __awaiter(void 0, void 0, void 0, function* () {
+    return settings;
+});
+start(settings_1.settings())
     .then((s) => {
     log.START("Creating Your documentation");
+    log.BLOCK_START();
+    log.BLOCK_LINE("Blockie is now building your documentation");
+    settings_1.logSettings(s);
     return s;
 })
+    .then(getFiles)
     .then(fileData)
     .then(toHtml)
     .then(setMeta)
@@ -146,8 +166,10 @@ getFiles(settings_1.settings())
     .then(setStylesheet)
     .then(createFolder)
     .then(createFiles)
+    .then(copyFolders)
     .then(() => {
-    log.BLOCK_END("Done :)");
-    console.log();
+    setTimeout(() => {
+        log.BLOCK_END("Done :)");
+    }, 10);
 });
 //# sourceMappingURL=index.js.map

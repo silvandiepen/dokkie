@@ -66,7 +66,9 @@ exports.writeThatFile = (file, contents) => __awaiter(void 0, void 0, void 0, fu
         const filePath = path_1.join(file.destpath, file.filename);
         yield createFolder(path_1.dirname(filePath));
         yield writeFile(filePath, contents);
-        log.BLOCK_ROW_LINE([file.name, file.route]);
+        log.BLOCK_LINE_SUCCESS(file.title);
+        log.BLOCK_ROW_LINE([`  ${file.name}${file.ext}`, `→ ${file.route}`]);
+        log.BLOCK_LINE();
     }
     catch (err) {
         console.log(err);

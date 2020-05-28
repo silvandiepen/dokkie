@@ -23,6 +23,7 @@ export interface ISettings {
 	cleanBefore: boolean;
 	theme: string;
 	style?: string;
+	copy: string[];
 }
 export interface IMarkdown {
 	document: string;

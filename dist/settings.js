@@ -1,10 +1,30 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.settings = void 0;
+exports.logSettings = exports.settings = void 0;
 const yargs_1 = __importDefault(require("yargs"));
+const log = __importStar(require("cli-block"));
 exports.settings = () => {
     const cs = yargs_1.default.options({
         in: {
@@ -47,6 +67,11 @@ exports.settings = () => {
             default: ["node_modules", "dist", "docs"],
             alias: "excludeFolders",
         },
+        copy: {
+            required: false,
+            type: "array",
+            default: [],
+        },
     }).argv;
     return {
         input: cs.in,
@@ -56,6 +81,11 @@ exports.settings = () => {
         extensions: cs.ext,
         cleanBefore: cs.clean,
         theme: cs.theme,
+        copy: cs.copy,
     };
+};
+exports.logSettings = (settings) => {
+    log.BLOCK_MID("Settings");
+    log.BLOCK_SETTINGS(settings);
 };
 //# sourceMappingURL=settings.js.map

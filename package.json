@@ -6,7 +6,7 @@
 	"bin": "dist/index.js",
 	"scripts": {
 		"build": "tsc",
-		"dokkie": "node dist/index.js --layout=advanced",
+		"dokkie": "node dist/index.js --layout=advanced --copy=template",
 		"dev": "tsc -w",
 		"prepublishOnly": "npm run build && npm run dokkie"
 	},
@@ -30,6 +30,7 @@
 		"handlebars": "^4.7.6",
 		"markdown-it": "^11.0.0",
 		"markdown-it-meta": "0.0.1",
+		"ncp": "^2.0.0",
 		"rimraf": "^3.0.2",
 		"yargs": "^15.3.1"
 	}

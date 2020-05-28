@@ -42,7 +42,9 @@ export const writeThatFile = async (
 		const filePath = join(file.destpath, file.filename);
 		await createFolder(dirname(filePath));
 		await writeFile(filePath, contents);
-		log.BLOCK_ROW_LINE([file.name, file.route]);
+		log.BLOCK_LINE_SUCCESS(file.title);
+		log.BLOCK_ROW_LINE([`  ${file.name}${file.ext}`, `→ ${file.route}`]);
+		log.BLOCK_LINE();
 	} catch (err) {
 		console.log(err);
 	}

@@ -1,4 +1,5 @@
 import yargs from "yargs";
+import * as log from "cli-block";
 
 import { ISettings } from "./types";
 
@@ -44,6 +45,11 @@ export const settings = (): ISettings => {
 			default: ["node_modules", "dist", "docs"],
 			alias: "excludeFolders",
 		},
+		copy: {
+			required: false,
+			type: "array",
+			default: [],
+		},
 	}).argv;
 
 	return {
@@ -54,5 +60,10 @@ export const settings = (): ISettings => {
 		extensions: cs.ext,
 		cleanBefore: cs.clean,
 		theme: cs.theme,
+		copy: cs.copy,
 	};
+};
+export const logSettings = (settings: ISettings): void => {
+	log.BLOCK_MID("Settings");
+	log.BLOCK_SETTINGS(settings);
 };
