@@ -6,7 +6,7 @@
 	"bin": "dist/index.js",
 	"scripts": {
 		"build": "tsc",
-		"dokkie": "node dist/index.js",
+		"dokkie": "node dist/index.js --layout=advanced",
 		"dev": "tsc -w"
 	},
 	"keywords": [
