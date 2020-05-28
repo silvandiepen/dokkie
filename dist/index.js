@@ -154,7 +154,7 @@ start(settings_1.settings())
     .then((s) => {
     log.START("Creating Your documentation");
     log.BLOCK_START();
-    log.BLOCK_LINE("Blockie is now building your documentation");
+    log.BLOCK_LINE("Dokkie is now building your documentation");
     settings_1.logSettings(s);
     return s;
 })
