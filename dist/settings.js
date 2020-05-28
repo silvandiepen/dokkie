@@ -75,7 +75,7 @@ exports.settings = () => {
         strip: {
             required: false,
             type: "array",
-            default: [],
+            default: ["pages"],
         },
     }).argv;
     return {

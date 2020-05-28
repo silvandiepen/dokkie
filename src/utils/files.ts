@@ -76,7 +76,7 @@ export const buildNavigation = (settings: ISettings): INavigation[] => {
 	settings.files.forEach((file) => {
 		navigation.push({
 			name: file.title,
-			link: "/" + file.route,
+			link: file.route.charAt(0) === "/" ? file.route : "/" + file.route,
 		});
 	});
 
