@@ -6,8 +6,8 @@
 	"bin": "dist/index.js",
 	"scripts": {
 		"build": "tsc",
-		"dev": "tsc -w",
-		"test": "node dist/index.js"
+		"dokkie": "node dist/index.js",
+		"dev": "tsc -w"
 	},
 	"keywords": [
 		"Documentation",
