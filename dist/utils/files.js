@@ -39,13 +39,13 @@ exports.asyncForEach = (array, callback) => __awaiter(void 0, void 0, void 0, fu
     }
 });
 exports.makeRoute = (file, settings) => {
-    const pre = path_1.join(__dirname, "../../").replace(/\/$/, "");
+    const pre = path_1.join(process.cwd()).replace(/\/$/, "");
     const post = path_1.dirname(file.path).replace(pre, "");
     const route = path_1.join(post, exports.makeFileName(file));
     return route;
 };
 exports.makePath = (file, settings) => {
-    const pre = path_1.join(__dirname, "../../").replace(/\/$/, "");
+    const pre = path_1.join(process.cwd()).replace(/\/$/, "");
     const post = path_1.dirname(file.path).replace(pre, "");
     const route = path_1.join(pre, settings.output, post);
     return route;
