@@ -46,6 +46,7 @@ exports.makeRoute = (file, settings) => {
         settings.strip.forEach((ignoredPath) => {
             route = route.replace("/" + ignoredPath, "");
         });
+    route = route.charAt(0) === "/" ? route : "/" + route;
     return route;
 };
 exports.makePath = (file, settings) => {
@@ -98,7 +99,7 @@ exports.buildNavigation = (settings) => {
     settings.files.forEach((file) => {
         navigation.push({
             name: file.title,
-            link: "/" + file.route,
+            link: file.route,
         });
     });
     return navigation;

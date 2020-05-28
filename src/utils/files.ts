@@ -19,6 +19,8 @@ export const makeRoute = (file: IFile, settings: ISettings): string => {
 			route = route.replace("/" + ignoredPath, "");
 		});
 
+	route = route.charAt(0) === "/" ? route : "/" + route;
+
 	return route;
 };
 export const makePath = (file: IFile, settings: ISettings): string => {
@@ -76,7 +78,7 @@ export const buildNavigation = (settings: ISettings): INavigation[] => {
 	settings.files.forEach((file) => {
 		navigation.push({
 			name: file.title,
-			link: file.route.charAt(0) === "/" ? file.route : "/" + file.route,
+			link: file.route,
 		});
 	});
 
