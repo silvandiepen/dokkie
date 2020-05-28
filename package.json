@@ -1,0 +1,31 @@
+{
+	"name": "dokkie",
+	"version": "0.0.1",
+	"description": "Create good looking documentation from your Readme",
+	"main": "dist/index.js",
+	"bin": "dist/index.js",
+	"scripts": {
+		"build": "tsc",
+		"dev": "tsc -w",
+		"test": "node dist/index.js"
+	},
+	"keywords": [
+		"Documentation",
+		"Create",
+		"Markdown"
+	],
+	"author": "Sil van Diepen",
+	"license": "MIT",
+	"devDependencies": {
+		"@types/jest": "^25.2.3",
+		"@types/markdown-it": "^10.0.1",
+		"@types/rimraf": "^3.0.0",
+		"handlebars": "^4.7.6",
+		"jest": "^26.0.1",
+		"markdown-it": "^11.0.0",
+		"markdown-it-meta": "0.0.1",
+		"ts-jest": "^26.0.0",
+		"typescript": "^3.9.3",
+		"yargs": "^15.3.1"
+	}
+}
