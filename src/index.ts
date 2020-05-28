@@ -9,14 +9,13 @@ const ncp = require("ncp").ncp;
 
 // Functionality
 import { settings, logSettings } from "./settings";
-import { ISettings, IFile } from "./types";
+import { ISettings, IFile, INavigation } from "./types";
 import Handlebars from "handlebars";
 import {
 	writeThatFile,
 	asyncForEach,
 	getTitle,
 	mdToHtml,
-	buildNavigation,
 	makeFileName,
 	makeRoute,
 	makePath,
@@ -96,11 +95,6 @@ const getLayout = async (settings: ISettings): Promise<ISettings> => {
 	return { ...settings, layout: layoutFile };
 };
 
-const createFolder = async (settings: ISettings): Promise<ISettings> => {
-	if (settings.cleanBefore) rimraf.sync(settings.output);
-	return settings;
-};
-
 const setMeta = async (settings: ISettings): Promise<ISettings> => {
 	const files = await Promise.all(
 		settings.files.map(
@@ -118,7 +112,17 @@ const setMeta = async (settings: ISettings): Promise<ISettings> => {
 	return { ...settings, files: files };
 };
 
-const createFiles = async (settings: ISettings): Promise<ISettings> => {
+const setStylesheet = (settings: ISettings): ISettings => {
+	return {
+		...settings,
+		style: `https://coat.guyn.nl/theme/${settings.theme}.css`,
+	};
+};
+const createFolder = async (settings: ISettings): Promise<void> => {
+	if (settings.cleanBefore) rimraf.sync(settings.output);
+};
+
+const createFiles = async (settings: ISettings): Promise<void> => {
 	const template = Handlebars.compile(settings.layout);
 	log.BLOCK_MID("Creating pages");
 	await asyncForEach(settings.files, async (file: IFile) => {
@@ -127,25 +131,15 @@ const createFiles = async (settings: ISettings): Promise<ISettings> => {
 				title: file.title,
 				content: file.html,
 				style: settings.style,
-				navigation: buildNavigation(settings),
+				navigation: settings.navigation,
 			});
 			await writeThatFile(file, contents);
 		} catch (err) {
 			console.log(err);
 		}
 	});
-
-	return settings;
 };
-
-const setStylesheet = (settings: ISettings): ISettings => {
-	return {
-		...settings,
-		style: `https://coat.guyn.nl/theme/${settings.theme}.css`,
-	};
-};
-
-const copyFolders = async (settings: ISettings): Promise<ISettings> => {
+const copyFolders = async (settings: ISettings): Promise<void> => {
 	if (settings.copy.length > 0) {
 		log.BLOCK_MID("Copy folders");
 		await asyncForEach(settings.copy, async (folder) => {
@@ -154,11 +148,52 @@ const copyFolders = async (settings: ISettings): Promise<ISettings> => {
 			});
 		});
 	}
-	return settings;
 };
 const start = async (settings: ISettings): Promise<ISettings> => {
 	return settings;
 };
+
+const buildNavigation = async (settings: ISettings): Promise<ISettings> => {
+	let nav: INavigation[] = [];
+
+	settings.files.forEach((file: IFile) => {
+		const link = file.route.replace("index.html", "");
+		const linkPath = link.substr(1, link.length - 2).split("/");
+		const parent = linkPath[linkPath.length - 2]
+			? linkPath[linkPath.length - 2]
+			: "";
+		nav.push({
+			name: file.title,
+			link: link,
+			path: linkPath,
+			self: linkPath[linkPath.length - 1],
+			parent: file.meta.parent ? file.meta.parent : parent,
+		});
+	});
+
+	let newNav = [];
+
+	if (!settings.flat)
+		nav
+			.filter((item) => item.parent == "")
+			.forEach((item) => {
+				newNav.push({
+					name: item.name,
+					link: item.link,
+					children: nav
+						.filter(
+							(subitem) => subitem.parent === item.self && item.self !== ""
+						)
+						.map((mapitem) => ({
+							name: mapitem.name,
+							link: mapitem.link,
+						})),
+				});
+			});
+
+	return { ...settings, navigation: settings.flat ? nav : newNav };
+};
+
 start(settings())
 	.then((s) => {
 		log.START("Creating Your documentation");
@@ -173,9 +208,13 @@ start(settings())
 	.then(setMeta)
 	.then(getLayout)
 	.then(setStylesheet)
-	.then(createFolder)
-	.then(createFiles)
-	.then(copyFolders)
+	.then(buildNavigation)
+	.then(async (s) => {
+		await createFolder(s);
+		await createFiles(s);
+		await copyFolders(s);
+		return s;
+	})
 	.then(() => {
 		setTimeout(() => {
 			log.BLOCK_END("Done :)");

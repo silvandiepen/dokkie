@@ -13,8 +13,16 @@
 		<nav>
 			<ul>
 				{{#each navigation}}
-				<li><a href="{{ link }}">{{ name }}</a></li>
-				{{/each}}
+				<li>
+					<a href="{{ link }}">{{ name }}</a>
+					{{#if children.[1] }}
+					<ul>
+						{{#each children}}
+						<li><a href="{{ link }}">{{ name }}</a></li>
+						{{/each}}
+					</ul>
+					{{/if}} {{/each}}
+				</li>
 			</ul>
 		</nav>
 		{{/if}}

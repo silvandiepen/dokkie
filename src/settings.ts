@@ -55,6 +55,12 @@ export const settings = (): ISettings => {
 			type: "array",
 			default: ["pages"],
 		},
+		flat: {
+			required: false,
+			type: "boolean",
+			default: false,
+			alias: "flatNavigation",
+		},
 	}).argv;
 
 	return {
@@ -67,6 +73,7 @@ export const settings = (): ISettings => {
 		theme: cs.theme,
 		copy: cs.copy,
 		strip: cs.strip,
+		flat: cs.flat,
 	};
 };
 export const logSettings = (settings: ISettings): void => {

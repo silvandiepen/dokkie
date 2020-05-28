@@ -1,3 +1,6 @@
+---
+parent: about
+---
 # License
 
 ## The MIT License (MIT)

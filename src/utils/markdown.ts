@@ -10,9 +10,11 @@ md.use(meta);
 */
 export const mdToHtml = async (file: IFile): Promise<IMarkdown> => {
 	const renderedDocument = md.render(file.data);
+	const meta = md.meta;
+	md.meta = [];
 	return {
 		document: renderedDocument,
-		meta: md.meta,
+		meta: meta,
 	};
 };
 

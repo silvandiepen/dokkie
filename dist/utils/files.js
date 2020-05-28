@@ -28,7 +28,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.buildNavigation = exports.getTitle = exports.writeThatFile = exports.makeFileName = exports.makePath = exports.makeRoute = exports.asyncForEach = void 0;
+exports.getTitle = exports.writeThatFile = exports.makeFileName = exports.makePath = exports.makeRoute = exports.asyncForEach = void 0;
 const { writeFile, mkdir } = require("fs").promises;
 const path_1 = require("path");
 const markdown_1 = require("./markdown");
@@ -94,14 +94,4 @@ exports.getTitle = (file) => __awaiter(void 0, void 0, void 0, function* () {
         return file.name;
     }
 });
-exports.buildNavigation = (settings) => {
-    const navigation = [];
-    settings.files.forEach((file) => {
-        navigation.push({
-            name: file.title,
-            link: file.route,
-        });
-    });
-    return navigation;
-};
 //# sourceMappingURL=files.js.map

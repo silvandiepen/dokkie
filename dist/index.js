@@ -102,16 +102,18 @@ const getLayout = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     }
     return Object.assign(Object.assign({}, settings), { layout: layoutFile });
 });
-const createFolder = (settings) => __awaiter(void 0, void 0, void 0, function* () {
-    if (settings.cleanBefore)
-        rimraf_1.default.sync(settings.output);
-    return settings;
-});
 const setMeta = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     const files = yield Promise.all(settings.files.map((file) => __awaiter(void 0, void 0, void 0, function* () {
         return (file = Object.assign(Object.assign({}, file), { title: yield utils_1.getTitle(file), route: utils_1.makeRoute(file, settings), destpath: utils_1.makePath(file, settings), filename: utils_1.makeFileName(file) }));
     }))).then((res) => res);
     return Object.assign(Object.assign({}, settings), { files: files });
+});
+const setStylesheet = (settings) => {
+    return Object.assign(Object.assign({}, settings), { style: `https://coat.guyn.nl/theme/${settings.theme}.css` });
+};
+const createFolder = (settings) => __awaiter(void 0, void 0, void 0, function* () {
+    if (settings.cleanBefore)
+        rimraf_1.default.sync(settings.output);
 });
 const createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     const template = handlebars_1.default.compile(settings.layout);
@@ -122,7 +124,7 @@ const createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* ()
                 title: file.title,
                 content: file.html,
                 style: settings.style,
-                navigation: utils_1.buildNavigation(settings),
+                navigation: settings.navigation,
             });
             yield utils_1.writeThatFile(file, contents);
         }
@@ -130,11 +132,7 @@ const createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* ()
             console.log(err);
         }
     }));
-    return settings;
 });
-const setStylesheet = (settings) => {
-    return Object.assign(Object.assign({}, settings), { style: `https://coat.guyn.nl/theme/${settings.theme}.css` });
-};
 const copyFolders = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     if (settings.copy.length > 0) {
         log.BLOCK_MID("Copy folders");
@@ -145,10 +143,43 @@ const copyFolders = (settings) => __awaiter(void 0, void 0, void 0, function* ()
             });
         }));
     }
-    return settings;
 });
 const start = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     return settings;
+});
+const buildNavigation = (settings) => __awaiter(void 0, void 0, void 0, function* () {
+    let nav = [];
+    settings.files.forEach((file) => {
+        const link = file.route.replace("index.html", "");
+        const linkPath = link.substr(1, link.length - 2).split("/");
+        const parent = linkPath[linkPath.length - 2]
+            ? linkPath[linkPath.length - 2]
+            : "";
+        nav.push({
+            name: file.title,
+            link: link,
+            path: linkPath,
+            self: linkPath[linkPath.length - 1],
+            parent: file.meta.parent ? file.meta.parent : parent,
+        });
+    });
+    let newNav = [];
+    if (!settings.flat)
+        nav
+            .filter((item) => item.parent == "")
+            .forEach((item) => {
+            newNav.push({
+                name: item.name,
+                link: item.link,
+                children: nav
+                    .filter((subitem) => subitem.parent === item.self && item.self !== "")
+                    .map((mapitem) => ({
+                    name: mapitem.name,
+                    link: mapitem.link,
+                })),
+            });
+        });
+    return Object.assign(Object.assign({}, settings), { navigation: settings.flat ? nav : newNav });
 });
 start(settings_1.settings())
     .then((s) => {
@@ -164,9 +195,13 @@ start(settings_1.settings())
     .then(setMeta)
     .then(getLayout)
     .then(setStylesheet)
-    .then(createFolder)
-    .then(createFiles)
-    .then(copyFolders)
+    .then(buildNavigation)
+    .then((s) => __awaiter(void 0, void 0, void 0, function* () {
+    yield createFolder(s);
+    yield createFiles(s);
+    yield copyFolders(s);
+    return s;
+}))
     .then(() => {
     setTimeout(() => {
         log.BLOCK_END("Done :)");

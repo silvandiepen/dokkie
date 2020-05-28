@@ -16,15 +16,17 @@ export interface IFile {
 export interface ISettings {
 	input: string;
 	output: string;
-	files?: IFile[] | any;
 	layout: string;
 	excludeFolders: string[];
 	extensions: string[];
 	cleanBefore: boolean;
 	theme: string;
-	style?: string;
 	copy: string[];
 	strip: string[];
+	files?: IFile[] | any;
+	style?: string;
+	navigation?: INavigation[];
+	flat?: boolean;
 }
 export interface IMarkdown {
 	document: string;
@@ -33,4 +35,7 @@ export interface IMarkdown {
 export interface INavigation {
 	name: string;
 	link: string;
+	self?: string;
+	path?: string[];
+	parent?: string;
 }

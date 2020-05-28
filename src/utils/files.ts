@@ -71,16 +71,3 @@ export const getTitle = async (file: IFile): Promise<string> => {
 		return file.name;
 	}
 };
-
-export const buildNavigation = (settings: ISettings): INavigation[] => {
-	const navigation = [];
-
-	settings.files.forEach((file) => {
-		navigation.push({
-			name: file.title,
-			link: file.route,
-		});
-	});
-
-	return navigation;
-};

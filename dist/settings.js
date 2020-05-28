@@ -77,6 +77,12 @@ exports.settings = () => {
             type: "array",
             default: ["pages"],
         },
+        flat: {
+            required: false,
+            type: "boolean",
+            default: false,
+            alias: "flatNavigation",
+        },
     }).argv;
     return {
         input: cs.in,
@@ -88,6 +94,7 @@ exports.settings = () => {
         theme: cs.theme,
         copy: cs.copy,
         strip: cs.strip,
+        flat: cs.flat,
     };
 };
 exports.logSettings = (settings) => {
