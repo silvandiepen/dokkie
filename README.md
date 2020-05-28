@@ -55,3 +55,13 @@ Dokkie uses Handlebars for templating and gives you the following options;
 | `Content`    | The content of the files which are being rendered.                                                                                                                                                  |
 | `Title`      | The title can be given as meta information in a markdown file. If not given, Dokkie will search for the first H1 in the file. If that's not found, the name of the file will be used for the title. |
 | `Navigation` | Dokkie gives the template a navigation, which is build up out of all the files which are found.                                                                                                     |
+
+#### Available Layouts
+
+- **default** A default theme with navigation
+- **simple** Simple html pages without any navigation
+- **advanced** Advanced loads some extra scripts and enables code highlighting.
+
+### Themes
+
+When a default Layout is used, you can set the `theme` option. The themes are all being used from [coat](https://coat.guyn.nl).
