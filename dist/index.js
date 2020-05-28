@@ -34,12 +34,10 @@ const getFileTree = (dir, settings) => __awaiter(void 0, void 0, void 0, functio
         else
             return null;
     }));
-    // return files;
     return Array.prototype.concat(...files).filter((r) => r !== null);
 });
 const getFiles = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     const files = yield getFileTree(settings.input, settings);
-    console.log(files);
     return Object.assign(Object.assign({}, settings), { files: files });
 });
 const fileData = (settings) => __awaiter(void 0, void 0, void 0, function* () {
@@ -80,17 +78,24 @@ const getLayout = (settings) => __awaiter(void 0, void 0, void 0, function* () {
 const createFolder = (settings) => {
     if (settings.cleanBefore)
         rimraf_1.default.sync(settings.output);
-    // if (!exists(settings.output)) mkdir(settings.output);
     return settings;
 };
+const setMeta = (settings) => __awaiter(void 0, void 0, void 0, function* () {
+    const files = yield Promise.all(settings.files.map((file) => __awaiter(void 0, void 0, void 0, function* () {
+        return (file = Object.assign(Object.assign({}, file), { title: yield utils_1.getTitle(file), route: utils_1.makeRoute(file, settings), destpath: utils_1.makePath(file, settings), filename: utils_1.makeFileName(file) }));
+    }))).then((res) => res);
+    console.log("files", files);
+    return Object.assign(Object.assign({}, settings), { files: files });
+});
 const createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     const template = handlebars_1.default.compile(settings.layout);
     yield utils_1.asyncForEach(settings.files, (file) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const contents = template({
-                title: utils_1.getTitle(file),
+                title: file.title,
                 content: file.html,
                 style: settings.style,
+                navigation: utils_1.buildNavigation(settings),
             });
             yield utils_1.writeThatFile(file, contents, settings);
         }
@@ -106,9 +111,10 @@ const setStylesheet = (settings) => {
 getFiles(settings_1.settings())
     .then(fileData)
     .then(toHtml)
+    .then(setMeta)
     .then(getLayout)
     .then(setStylesheet)
     .then(createFolder)
     .then(createFiles)
-    .then((res) => console.log(res));
+    .then(() => console.log("Congrats, you've build your docs!"));
 //# sourceMappingURL=index.js.map

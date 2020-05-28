@@ -7,6 +7,17 @@
 		<link rel="stylesheet" type="text/css" href="{{ style }}" />
 	</head>
 	<body>
-		{{{ content }}}
+		{{#if navigation}}
+		<nav>
+			<ul>
+				{{#each navigation}}
+				<li><a href="{{ link }}">{{ name }}</a></li>
+				{{/each}}
+			</ul>
+		</nav>
+		{{/if}}
+		<div class="content">
+			{{{ content }}}
+		</div>
 	</body>
 </html>

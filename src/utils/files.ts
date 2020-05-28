@@ -1,7 +1,7 @@
 const { writeFile, mkdir } = require("fs").promises;
 import { join, dirname } from "path";
 import { getTitleFromMD } from "./markdown";
-import { IFile, ISettings } from "../types";
+import { IFile, ISettings, INavigation } from "../types";
 
 export const asyncForEach = async (array: any, callback: any) => {
 	for (let index = 0; index < array.length; index++) {
@@ -9,13 +9,19 @@ export const asyncForEach = async (array: any, callback: any) => {
 	}
 };
 
-const makeRoute = (file: IFile, settings: ISettings): string => {
+export const makeRoute = (file: IFile, settings: ISettings): string => {
+	const pre = join(__dirname, "../../").replace(/\/$/, "");
+	const post = dirname(file.path).replace(pre, "");
+	const route = join(post, makeFileName(file));
+	return route;
+};
+export const makePath = (file: IFile, settings: ISettings): string => {
 	const pre = join(__dirname, "../../").replace(/\/$/, "");
 	const post = dirname(file.path).replace(pre, "");
 	const route = join(pre, settings.output, post);
 	return route;
 };
-const makeFileName = (file: IFile): string => {
+export const makeFileName = (file: IFile): string => {
 	const filename =
 		file.name == "README" || file.name == "Readme" || file.name == "readme"
 			? "index"
@@ -34,7 +40,7 @@ export const writeThatFile = async (
 	settings: ISettings
 ): Promise<void> => {
 	try {
-		const filePath = join(makeRoute(file, settings), makeFileName(file));
+		const filePath = join(file.destpath, file.filename);
 		await createFolder(dirname(filePath));
 		await writeFile(filePath, contents);
 	} catch (err) {
@@ -43,10 +49,28 @@ export const writeThatFile = async (
 };
 
 export const getTitle = async (file: IFile): Promise<string> => {
-	if (file.meta && file.meta.title) return file.meta.title;
-	else if (file.ext == ".md" && getTitleFromMD(file.data))
+	if (file.meta && file.meta.title) {
+		console.log("USING meta title", file.meta.title);
+		return file.meta.title;
+	} else if (file.ext === ".md" && getTitleFromMD(file.data)) {
+		console.log("USING MD title", getTitleFromMD(file.data));
 		return getTitleFromMD(file.data);
-	else {
+	} else {
+		console.log("USING file title", file.name);
+
 		return file.name;
 	}
+};
+
+export const buildNavigation = (settings: ISettings): INavigation[] => {
+	const navigation = [];
+
+	settings.files.forEach((file) => {
+		navigation.push({
+			name: file.title,
+			link: file.route,
+		});
+	});
+
+	return navigation;
 };

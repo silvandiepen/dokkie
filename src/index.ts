@@ -9,7 +9,16 @@ import rimraf from "rimraf";
 import { settings } from "./settings";
 import { ISettings, IFile } from "./types";
 import Handlebars from "handlebars";
-import { writeThatFile, asyncForEach, getTitle, mdToHtml } from "./utils";
+import {
+	writeThatFile,
+	asyncForEach,
+	getTitle,
+	mdToHtml,
+	buildNavigation,
+	makeFileName,
+	makeRoute,
+	makePath,
+} from "./utils";
 
 const getFileTree = async (
 	dir: string,
@@ -30,14 +39,11 @@ const getFileTree = async (
 			else return null;
 		})
 	);
-	// return files;
 	return Array.prototype.concat(...files).filter((r) => r !== null);
 };
 
 const getFiles = async (settings: ISettings): Promise<ISettings> => {
 	const files = await getFileTree(settings.input, settings);
-
-	console.log(files);
 	return { ...settings, files: files };
 };
 
@@ -86,14 +92,33 @@ const createFolder = (settings: ISettings): ISettings => {
 	return settings;
 };
 
+const setMeta = async (settings: ISettings): Promise<ISettings> => {
+	const files = await Promise.all(
+		settings.files.map(
+			async (file: IFile) =>
+				(file = {
+					...file,
+					title: await getTitle(file),
+					route: makeRoute(file, settings),
+					destpath: makePath(file, settings),
+					filename: makeFileName(file),
+				})
+		)
+	).then((res) => res);
+
+	console.log("files", files);
+	return { ...settings, files: files };
+};
+
 const createFiles = async (settings: ISettings): Promise<ISettings> => {
 	const template = Handlebars.compile(settings.layout);
 	await asyncForEach(settings.files, async (file: IFile) => {
 		try {
 			const contents = template({
-				title: getTitle(file),
+				title: file.title,
 				content: file.html,
 				style: settings.style,
+				navigation: buildNavigation(settings),
 			});
 			await writeThatFile(file, contents, settings);
 		} catch (err) {
@@ -114,6 +139,7 @@ const setStylesheet = (settings: ISettings): ISettings => {
 getFiles(settings())
 	.then(fileData)
 	.then(toHtml)
+	.then(setMeta)
 	.then(getLayout)
 	.then(setStylesheet)
 	.then(createFolder)
