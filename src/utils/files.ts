@@ -2,7 +2,7 @@ const { writeFile, mkdir } = require("fs").promises;
 import { join, dirname } from "path";
 import { getTitleFromMD } from "./markdown";
 import { IFile, ISettings, INavigation } from "../types";
-
+import * as log from "cli-block";
 export const asyncForEach = async (array: any, callback: any) => {
 	for (let index = 0; index < array.length; index++) {
 		await callback(array[index], index, array);
@@ -36,13 +36,13 @@ const createFolder = async (folder): Promise<void> => {
 };
 export const writeThatFile = async (
 	file: IFile,
-	contents: string,
-	settings: ISettings
+	contents: string
 ): Promise<void> => {
 	try {
 		const filePath = join(file.destpath, file.filename);
 		await createFolder(dirname(filePath));
 		await writeFile(filePath, contents);
+		log.BLOCK_ROW_LINE([file.name, file.route]);
 	} catch (err) {
 		console.log(err);
 	}
@@ -50,14 +50,10 @@ export const writeThatFile = async (
 
 export const getTitle = async (file: IFile): Promise<string> => {
 	if (file.meta && file.meta.title) {
-		console.log("USING meta title", file.meta.title);
 		return file.meta.title;
 	} else if (file.ext === ".md" && getTitleFromMD(file.data)) {
-		console.log("USING MD title", getTitleFromMD(file.data));
 		return getTitleFromMD(file.data);
 	} else {
-		console.log("USING file title", file.name);
-
 		return file.name;
 	}
 };

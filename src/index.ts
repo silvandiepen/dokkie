@@ -2,8 +2,9 @@
 
 // Filesystem
 const { readdir, readFile } = require("fs").promises;
-import { basename, extname, resolve } from "path";
+import { basename, extname, resolve, join } from "path";
 import rimraf from "rimraf";
+import * as log from "cli-block";
 
 // Functionality
 import { settings } from "./settings";
@@ -82,7 +83,7 @@ const toHtml = async (settings: ISettings): Promise<ISettings> => {
 
 const getLayout = async (settings: ISettings): Promise<ISettings> => {
 	const layoutFile = await readFile(
-		`template/${settings.layout}.html`
+		join(__dirname, "../", `template/${settings.layout}.html`)
 	).then((res) => res.toString());
 	return { ...settings, layout: layoutFile };
 };
@@ -106,12 +107,12 @@ const setMeta = async (settings: ISettings): Promise<ISettings> => {
 		)
 	).then((res) => res);
 
-	console.log("files", files);
 	return { ...settings, files: files };
 };
 
 const createFiles = async (settings: ISettings): Promise<ISettings> => {
 	const template = Handlebars.compile(settings.layout);
+	log.BLOCK_START("Files");
 	await asyncForEach(settings.files, async (file: IFile) => {
 		try {
 			const contents = template({
@@ -120,7 +121,7 @@ const createFiles = async (settings: ISettings): Promise<ISettings> => {
 				style: settings.style,
 				navigation: buildNavigation(settings),
 			});
-			await writeThatFile(file, contents, settings);
+			await writeThatFile(file, contents);
 		} catch (err) {
 			console.log(err);
 		}
@@ -137,6 +138,10 @@ const setStylesheet = (settings: ISettings): ISettings => {
 };
 
 getFiles(settings())
+	.then((s) => {
+		log.START("Creating Your documentation");
+		return s;
+	})
 	.then(fileData)
 	.then(toHtml)
 	.then(setMeta)
@@ -144,4 +149,7 @@ getFiles(settings())
 	.then(setStylesheet)
 	.then(createFolder)
 	.then(createFiles)
-	.then(() => console.log("Congrats, you've build your docs!"));
+	.then(() => {
+		log.BLOCK_END("Done :)");
+		console.log();
+	});
