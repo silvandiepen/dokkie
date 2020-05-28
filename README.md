@@ -23,3 +23,12 @@ There are many ways to deploy your documentation. My recommended way is to check
 ### Configuration
 
 By default, you don't have to do anything! It will automatically create your documentation website. But, there are quite some things you can change.
+
+| argument    | default                    | description                                                   |
+| ----------- | -------------------------- | ------------------------------------------------------------- |
+| input       | `.`                        | Input folder to search for files.                             |
+| output      | `docs`                     | Output folder for pages                                       |
+| layout      | `default`                  | Html layout used                                              |
+| cleanBefore | `true`                     | Remove the docs folder before creating a new one.             |
+| extensions  | `.md`                      | All file extensions which can be used (supported; .md, .html) |
+| exclude     | `node_modules, dist, docs` | Exclude folders from searching for files.                     |

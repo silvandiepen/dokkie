@@ -5,13 +5,13 @@ import { ISettings } from "./types";
 export const settings = (): ISettings => {
 	const cs = yargs.options({
 		in: {
-			required: true,
+			required: false,
 			type: "string",
 			default: ".",
 			alias: "input",
 		},
 		out: {
-			required: true,
+			required: false,
 			type: "string",
 			default: "docs",
 			alias: "output",
@@ -32,14 +32,26 @@ export const settings = (): ISettings => {
 			type: "string",
 			default: "coat",
 		},
+		ext: {
+			required: false,
+			type: "array",
+			default: [".md"],
+			alias: "extensions",
+		},
+		exclude: {
+			required: false,
+			type: "array",
+			default: ["node_modules", "dist", "docs"],
+			alias: "excludeFolders",
+		},
 	}).argv;
 
 	return {
 		input: cs.in,
 		output: cs.out,
 		layout: cs.layout,
-		excludeFolders: ["node_modules", "dist", "docs"],
-		extensions: [".md"],
+		excludeFolders: cs.exclude,
+		extensions: cs.ext,
 		cleanBefore: cs.clean,
 		theme: cs.theme,
 	};
