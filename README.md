@@ -26,15 +26,17 @@ By default, you don't have to do anything! It will automatically create your doc
 
 **Default configuration**
 
-| argument      | default                    | description                                                                               |
-| ------------- | -------------------------- | ----------------------------------------------------------------------------------------- |
-| `input`       | `.`                        | Input folder to search for files.                                                         |
-| `output`      | `docs`                     | Output folder for pages                                                                   |
-| `layout`      | `default`                  | Html layout used                                                                          |
-| `theme`       | `coat`                     | When a default layout is chosen, you can choose a theme from (coat)[https://coat.guyn.nl] |
-| `cleanBefore` | `true`                     | Remove the docs folder before creating a new one.                                         |
-| `extensions`  | `.md`                      | All file extensions which can be used (supported; .md, .html)                             |
-| `exclude`     | `node_modules, dist, docs` | Exclude folders from searching for files.                                                 |
+| argument      | default                    | description                                                                                                |
+| ------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `input`       | `.`                        | Input folder to search for files.                                                                          |
+| `output`      | `docs`                     | Output folder for pages                                                                                    |
+| `layout`      | `default`                  | Html layout used                                                                                           |
+| `theme`       | `coat`                     | When a default layout is chosen, you can choose a theme from (coat)[https://coat.guyn.nl]                  |
+| `cleanBefore` | `true`                     | Remove the docs folder before creating a new one.                                                          |
+| `extensions`  | `.md`                      | All file extensions which can be used (supported; .md, .html)                                              |
+| `exclude`     | `node_modules, dist, docs` | Exclude folders from searching for files.                                                                  |
+| `copy`        | `null`                     | Copy a folder into your output.                                                                            |
+| `strip`       | `pages`                    | Remove parts of paths to get files directly in their root. All files in `pages`, will be directly in docs. |
 
 **Custom configuration**
 

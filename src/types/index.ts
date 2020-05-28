@@ -24,6 +24,7 @@ export interface ISettings {
 	theme: string;
 	style?: string;
 	copy: string[];
+	strip: string[];
 }
 export interface IMarkdown {
 	document: string;

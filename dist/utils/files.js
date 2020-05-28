@@ -41,13 +41,21 @@ exports.asyncForEach = (array, callback) => __awaiter(void 0, void 0, void 0, fu
 exports.makeRoute = (file, settings) => {
     const pre = path_1.join(process.cwd()).replace(/\/$/, "");
     const post = path_1.dirname(file.path).replace(pre, "");
-    const route = path_1.join(post, exports.makeFileName(file));
+    let route = path_1.join(post, exports.makeFileName(file));
+    if (settings.strip)
+        settings.strip.forEach((ignoredPath) => {
+            route = route.replace("/" + ignoredPath, "");
+        });
     return route;
 };
 exports.makePath = (file, settings) => {
     const pre = path_1.join(process.cwd()).replace(/\/$/, "");
     const post = path_1.dirname(file.path).replace(pre, "");
-    const route = path_1.join(pre, settings.output, post);
+    let route = path_1.join(pre, settings.output, post);
+    if (settings.strip)
+        settings.strip.forEach((ignoredPath) => {
+            route = route.replace("/" + ignoredPath, "");
+        });
     return route;
 };
 exports.makeFileName = (file) => {
@@ -90,7 +98,7 @@ exports.buildNavigation = (settings) => {
     settings.files.forEach((file) => {
         navigation.push({
             name: file.title,
-            link: file.route,
+            link: "/" + file.route,
         });
     });
     return navigation;

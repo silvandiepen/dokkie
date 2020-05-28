@@ -12,13 +12,23 @@ export const asyncForEach = async (array: any, callback: any) => {
 export const makeRoute = (file: IFile, settings: ISettings): string => {
 	const pre = join(process.cwd()).replace(/\/$/, "");
 	const post = dirname(file.path).replace(pre, "");
-	const route = join(post, makeFileName(file));
+	let route = join(post, makeFileName(file));
+
+	if (settings.strip)
+		settings.strip.forEach((ignoredPath) => {
+			route = route.replace("/" + ignoredPath, "");
+		});
+
 	return route;
 };
 export const makePath = (file: IFile, settings: ISettings): string => {
 	const pre = join(process.cwd()).replace(/\/$/, "");
 	const post = dirname(file.path).replace(pre, "");
-	const route = join(pre, settings.output, post);
+	let route = join(pre, settings.output, post);
+	if (settings.strip)
+		settings.strip.forEach((ignoredPath) => {
+			route = route.replace("/" + ignoredPath, "");
+		});
 	return route;
 };
 export const makeFileName = (file: IFile): string => {

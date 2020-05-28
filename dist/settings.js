@@ -72,6 +72,11 @@ exports.settings = () => {
             type: "array",
             default: [],
         },
+        strip: {
+            required: false,
+            type: "array",
+            default: [],
+        },
     }).argv;
     return {
         input: cs.in,
@@ -82,6 +87,7 @@ exports.settings = () => {
         cleanBefore: cs.clean,
         theme: cs.theme,
         copy: cs.copy,
+        strip: cs.strip,
     };
 };
 exports.logSettings = (settings) => {

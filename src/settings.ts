@@ -50,6 +50,11 @@ export const settings = (): ISettings => {
 			type: "array",
 			default: [],
 		},
+		strip: {
+			required: false,
+			type: "array",
+			default: ["pages"],
+		},
 	}).argv;
 
 	return {
@@ -61,6 +66,7 @@ export const settings = (): ISettings => {
 		cleanBefore: cs.clean,
 		theme: cs.theme,
 		copy: cs.copy,
+		strip: cs.strip,
 	};
 };
 export const logSettings = (settings: ISettings): void => {

@@ -6,7 +6,7 @@
 	"bin": "dist/index.js",
 	"scripts": {
 		"build": "tsc",
-		"dokkie": "node dist/index.js --layout=advanced --copy=template",
+		"dokkie": "node dist/index.js --layout=advanced --strip=pages",
 		"dev": "tsc -w",
 		"prepublishOnly": "npm run build && npm run dokkie"
 	},
