@@ -118,4 +118,4 @@ getFiles(settings())
 	.then(setStylesheet)
 	.then(createFolder)
 	.then(createFiles)
-	.then((res) => console.log(res));
+	.then(() => console.log("Congrats, you've build your docs!"));
