@@ -7,7 +7,8 @@
 	"scripts": {
 		"build": "tsc",
 		"dokkie": "node dist/index.js --layout=advanced",
-		"dev": "tsc -w"
+		"dev": "tsc -w",
+		"prepublishOnly": "npm run build && npm run dokkie"
 	},
 	"keywords": [
 		"Documentation",

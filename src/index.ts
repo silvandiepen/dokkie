@@ -82,9 +82,16 @@ const toHtml = async (settings: ISettings): Promise<ISettings> => {
 };
 
 const getLayout = async (settings: ISettings): Promise<ISettings> => {
-	const layoutFile = await readFile(
-		join(__dirname, "../", `template/${settings.layout}.html`)
-	).then((res) => res.toString());
+	let layoutFile = "";
+	if (settings.layout.includes(".html")) {
+		layoutFile = await readFile(
+			join(process.cwd(), settings.layout)
+		).then((res) => res.toString());
+	} else {
+		layoutFile = await readFile(
+			join(__dirname, "../", `template/${settings.layout}.html`)
+		).then((res) => res.toString());
+	}
 	return { ...settings, layout: layoutFile };
 };
 

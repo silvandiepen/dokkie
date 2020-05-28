@@ -92,7 +92,13 @@ const toHtml = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     return Object.assign(Object.assign({}, settings), { files: settings.files });
 });
 const getLayout = (settings) => __awaiter(void 0, void 0, void 0, function* () {
-    const layoutFile = yield readFile(path_1.join(__dirname, "../", `template/${settings.layout}.html`)).then((res) => res.toString());
+    let layoutFile = "";
+    if (settings.layout.includes(".html")) {
+        layoutFile = yield readFile(path_1.join(process.cwd(), settings.layout)).then((res) => res.toString());
+    }
+    else {
+        layoutFile = yield readFile(path_1.join(__dirname, "../", `template/${settings.layout}.html`)).then((res) => res.toString());
+    }
     return Object.assign(Object.assign({}, settings), { layout: layoutFile });
 });
 const createFolder = (settings) => {
