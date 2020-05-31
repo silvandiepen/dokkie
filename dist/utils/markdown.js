@@ -1,4 +1,5 @@
 "use strict";
+// Markdown
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -13,11 +14,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getTitleFromMD = exports.mdToHtml = void 0;
-// Markdown
-const markdown_it_1 = __importDefault(require("markdown-it"));
 const markdown_it_meta_1 = __importDefault(require("markdown-it-meta"));
+const markdown_it_prism_1 = __importDefault(require("markdown-it-prism"));
+const markdown_it_1 = __importDefault(require("markdown-it"));
+// const MarkdownIt = require("markdown-it")({
+// 	html: true,
+// 	linkify: true,
+// 	typographer: true,
+// }).use();
 const md = new markdown_it_1.default();
 md.use(markdown_it_meta_1.default);
+md.use(markdown_it_prism_1.default);
 /*
     Convert Markdown Data to html and filter meta.
 */
