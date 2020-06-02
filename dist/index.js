@@ -38,7 +38,7 @@ const path_1 = require("path");
 const rimraf_1 = __importDefault(require("rimraf"));
 const log = __importStar(require("cli-block"));
 const ncp = require("ncp").ncp;
-const prettier = require("prettier");
+const prettier_1 = __importDefault(require("prettier"));
 // Functionality
 const settings_1 = require("./settings");
 const utils_1 = require("./utils");
@@ -86,15 +86,15 @@ const getPackageInformation = (settings) => __awaiter(void 0, void 0, void 0, fu
     }
     return settings;
 });
-const overruleWithLocalConfig = (settings) => __awaiter(void 0, void 0, void 0, function* () {
+const loadLocalConfig = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let configData = yield readFile(".dokkierc.json").then((res) => JSON.parse(res.toString()));
+        let configData = yield readFile("dokkie.config.json").then((res) => JSON.parse(res.toString()));
         log.BLOCK_MID("Local configuration");
         log.BLOCK_SETTINGS(configData);
-        return Object.assign(Object.assign({}, settings), configData);
+        return Object.assign(Object.assign({}, settings), { localConfig: configData });
     }
     catch (err) {
-        console.log(err);
+        // console.log(err);
     }
     return settings;
 });
@@ -114,6 +114,33 @@ const toHtml = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     }));
     return Object.assign(Object.assign({}, settings), { files: settings.files });
 });
+const setLocalConfig = (settings) => {
+    if (settings.localConfig) {
+        if (settings.localConfig.input)
+            settings.input = settings.localConfig.input;
+        if (settings.localConfig.output)
+            settings.output = settings.localConfig.output;
+        if (settings.localConfig.layout)
+            settings.layout = settings.localConfig.layout;
+        if (settings.localConfig.cleanBefore)
+            settings.cleanBefore = settings.localConfig.cleanBefore;
+        if (settings.localConfig.theme)
+            settings.theme = settings.localConfig.theme;
+        if (settings.localConfig.extensions)
+            settings.extensions = settings.localConfig.extensions;
+        if (settings.localConfig.excludeFolders)
+            settings.excludeFolders = settings.localConfig.excludeFolders;
+        if (settings.localConfig.copy)
+            settings.copy = settings.localConfig.copy;
+        if (settings.localConfig.strip)
+            settings.strip = settings.localConfig.strip;
+        if (settings.localConfig.flat)
+            settings.flat = settings.localConfig.flat;
+        if (settings.localConfig.showNavigation)
+            settings.showNavigation = settings.localConfig.showNavigation;
+    }
+    return settings;
+};
 const getLayout = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     let layoutFile = "";
     if (settings.layout.includes(".hbs") || settings.layout.includes(".html")) {
@@ -135,6 +162,12 @@ const getStyles = (settings) => {
     if (settings.theme && !settings.theme.includes("http")) {
         styles.push(`https://coat.guyn.nl/theme/${settings.theme}.css`);
     }
+    // If there are addable stylesheets available
+    if (settings.localConfig.add.stylesheets)
+        styles = styles.concat(settings.localConfig.add.stylesheets);
+    // If there are overruling stylesheets
+    if (settings.localConfig.overrule.stylesheets)
+        styles = settings.localConfig.overrule.stylesheets;
     // To Embeddable link scripts
     const stylesScripts = styles
         .map((s) => (s = `<link rel="stylesheet" type="text/css" href="${s}"/>`))
@@ -143,6 +176,12 @@ const getStyles = (settings) => {
 };
 const getScripts = (settings) => {
     let scripts = [];
+    // If there are addable stylesheets available
+    if (settings.localConfig.add.scripts)
+        scripts = scripts.concat(settings.localConfig.add.scripts);
+    // If there are overruling stylesheets
+    if (settings.localConfig.overrule.scripts)
+        scripts = settings.localConfig.overrule.scripts;
     const scriptScripts = scripts
         .map((s) => (s = `<script type="text/javascript" src="${s}"></script>`))
         .join("");
@@ -171,7 +210,7 @@ const createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* ()
                 footerNavigation: settings.showNavigation.includes("footer"),
                 sidebarNavigation: settings.showNavigation.includes("sidebar"),
             });
-            yield utils_1.writeThatFile(file, prettier.format(contents, { parser: "html" }));
+            yield utils_1.writeThatFile(file, prettier_1.default.format(contents, { parser: "html" }));
         }
         catch (err) {
             console.log(err);
@@ -234,6 +273,8 @@ start(settings_1.settings())
     settings_1.logSettings(s);
     return s;
 })
+    .then(loadLocalConfig)
+    .then(setLocalConfig)
     .then(getFiles)
     .then(fileData)
     .then(getPackageInformation)
@@ -243,7 +284,6 @@ start(settings_1.settings())
     .then(getStyles)
     .then(getScripts)
     .then(buildNavigation)
-    .then(overruleWithLocalConfig)
     .then((s) => __awaiter(void 0, void 0, void 0, function* () {
     yield createFolder(s);
     yield createFiles(s);

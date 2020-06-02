@@ -1,7 +1,7 @@
 const { writeFile, mkdir } = require("fs").promises;
 import { join, dirname } from "path";
 import { getTitleFromMD } from "./markdown";
-import { IFile, ISettings, INavigation } from "../types";
+import { IFile, ISettings } from "../types";
 import * as log from "cli-block";
 export const asyncForEach = async (array: any, callback: any) => {
 	for (let index = 0; index < array.length; index++) {

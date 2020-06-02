@@ -23,25 +23,43 @@ export interface IPackageJson {
 	license: string;
 	[key: string]: unknown;
 }
-export interface ISettings {
-	input: string;
+
+export interface IArgumentSettings {
+	input?: string;
 	output: string;
 	layout: string;
-	excludeFolders: string[];
-	extensions: string[];
 	cleanBefore: boolean;
 	theme: string;
+	extensions: string[];
+	excludeFolders: string[];
 	copy: string[];
 	strip: string[];
+	flat: boolean;
+	showNavigation: string[];
+	codeHighlight: boolean;
+}
+export interface ISettings extends IArgumentSettings {
 	files?: IFile[] | any;
-	style?: string;
 	navigation?: INavigation[];
-	flat?: boolean;
 	package?: IPackageJson;
 	scripts?: string;
 	styles?: string;
-	showNavigation: string[];
+	localConfig?: ILocalConfig;
 }
+
+interface ILocalConfigOverrule {
+	stylesheets: string[];
+	scripts: string[];
+}
+interface ILocalConfigAdd {
+	stylesheets: string[];
+	scripts: string[];
+}
+interface ILocalConfig extends IArgumentSettings {
+	overrule?: ILocalConfigOverrule;
+	add?: ILocalConfigAdd;
+}
+
 export interface IMarkdown {
 	document: string;
 	meta: any;

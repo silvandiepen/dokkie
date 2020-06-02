@@ -66,6 +66,11 @@ export const settings = (): ISettings => {
 			type: "array",
 			default: ["header", "footer", "sidebar"],
 		},
+		codeHighlight: {
+			required: false,
+			type: "boolean",
+			default: true,
+		},
 	}).argv;
 
 	return {
@@ -80,6 +85,7 @@ export const settings = (): ISettings => {
 		strip: cs.strip,
 		flat: cs.flat,
 		showNavigation: cs.nav,
+		codeHighlight: cs.codeHighlight,
 	};
 };
 export const logSettings = (settings: ISettings): void => {

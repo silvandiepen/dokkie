@@ -6,7 +6,7 @@ import { basename, extname, resolve, join } from "path";
 import rimraf from "rimraf";
 import * as log from "cli-block";
 const ncp = require("ncp").ncp;
-const prettier = require("prettier");
+import prettier from "prettier";
 
 // Functionality
 import { settings, logSettings } from "./settings";
@@ -80,16 +80,14 @@ const getPackageInformation = async (
 	return settings;
 };
 
-const overruleWithLocalConfig = async (
-	settings: ISettings
-): Promise<ISettings> => {
+const loadLocalConfig = async (settings: ISettings): Promise<ISettings> => {
 	try {
 		let configData = await readFile("dokkie.config.json").then((res) =>
 			JSON.parse(res.toString())
 		);
 		log.BLOCK_MID("Local configuration");
 		log.BLOCK_SETTINGS(configData);
-		return { ...settings, ...configData };
+		return { ...settings, localConfig: configData };
 	} catch (err) {
 		// console.log(err);
 	}
@@ -113,6 +111,29 @@ const toHtml = async (settings: ISettings): Promise<ISettings> => {
 	return { ...settings, files: settings.files };
 };
 
+const setLocalConfig = (settings: ISettings): ISettings => {
+	if (settings.localConfig) {
+		if (settings.localConfig.input) settings.input = settings.localConfig.input;
+		if (settings.localConfig.output)
+			settings.output = settings.localConfig.output;
+		if (settings.localConfig.layout)
+			settings.layout = settings.localConfig.layout;
+		if (settings.localConfig.cleanBefore)
+			settings.cleanBefore = settings.localConfig.cleanBefore;
+		if (settings.localConfig.theme) settings.theme = settings.localConfig.theme;
+		if (settings.localConfig.extensions)
+			settings.extensions = settings.localConfig.extensions;
+		if (settings.localConfig.excludeFolders)
+			settings.excludeFolders = settings.localConfig.excludeFolders;
+		if (settings.localConfig.copy) settings.copy = settings.localConfig.copy;
+		if (settings.localConfig.strip) settings.strip = settings.localConfig.strip;
+		if (settings.localConfig.flat) settings.flat = settings.localConfig.flat;
+		if (settings.localConfig.showNavigation)
+			settings.showNavigation = settings.localConfig.showNavigation;
+	}
+
+	return settings;
+};
 const getLayout = async (settings: ISettings): Promise<ISettings> => {
 	let layoutFile = "";
 	if (settings.layout.includes(".hbs") || settings.layout.includes(".html")) {
@@ -151,6 +172,14 @@ const getStyles = (settings: ISettings): ISettings => {
 		styles.push(`https://coat.guyn.nl/theme/${settings.theme}.css`);
 	}
 
+	// If there are addable stylesheets available
+	if (settings.localConfig.add.stylesheets)
+		styles = styles.concat(settings.localConfig.add.stylesheets);
+
+	// If there are overruling stylesheets
+	if (settings.localConfig.overrule.stylesheets)
+		styles = settings.localConfig.overrule.stylesheets;
+
 	// To Embeddable link scripts
 	const stylesScripts = styles
 		.map((s) => (s = `<link rel="stylesheet" type="text/css" href="${s}"/>`))
@@ -164,6 +193,14 @@ const getStyles = (settings: ISettings): ISettings => {
 
 const getScripts = (settings: ISettings): ISettings => {
 	let scripts = [];
+	// If there are addable stylesheets available
+	if (settings.localConfig.add.scripts)
+		scripts = scripts.concat(settings.localConfig.add.scripts);
+
+	// If there are overruling stylesheets
+	if (settings.localConfig.overrule.scripts)
+		scripts = settings.localConfig.overrule.scripts;
+
 	const scriptScripts = scripts
 		.map((s) => (s = `<script type="text/javascript" src="${s}"></script>`))
 		.join("");
@@ -265,6 +302,8 @@ start(settings())
 		logSettings(s);
 		return s;
 	})
+	.then(loadLocalConfig)
+	.then(setLocalConfig)
 	.then(getFiles)
 	.then(fileData)
 	.then(getPackageInformation)
@@ -274,7 +313,6 @@ start(settings())
 	.then(getStyles)
 	.then(getScripts)
 	.then(buildNavigation)
-	.then(overruleWithLocalConfig)
 	.then(async (s) => {
 		await createFolder(s);
 		await createFiles(s);

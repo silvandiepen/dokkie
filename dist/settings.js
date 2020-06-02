@@ -88,6 +88,11 @@ exports.settings = () => {
             type: "array",
             default: ["header", "footer", "sidebar"],
         },
+        codeHighlight: {
+            required: false,
+            type: "boolean",
+            default: true,
+        },
     }).argv;
     return {
         input: cs.in,
@@ -101,6 +106,7 @@ exports.settings = () => {
         strip: cs.strip,
         flat: cs.flat,
         showNavigation: cs.nav,
+        codeHighlight: cs.codeHighlight,
     };
 };
 exports.logSettings = (settings) => {
