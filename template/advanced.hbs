@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		{{#if package.description}}
+		<meta name="description" content="{{ package.description }}" />
+		{{/if}} {{#if package.keywords}}
+		<meta name="keywords" content="{{ package.keywords }}" />
+		{{/if}} {{#if package.author}}
+		<meta name="author" content="{{ package.author }}" />
+		{{/if}}
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{{ title }}</title>
+		{{{ styles }}} {{{ scripts }}}
+	</head>
+	<body>
+		{{#if navigation.[2] }}
+		<nav>
+			<ul>
+				{{#each navigation}}
+				<li>
+					<a href="{{ link }}">{{ name }}</a>
+					{{#if children.[1] }}
+					<ul>
+						{{#each children}}
+						<li><a href="{{ link }}">{{ name }}</a></li>
+						{{/each}}
+					</ul>
+					{{/if}} {{/each}}
+				</li>
+			</ul>
+		</nav>
+		{{/if}}
+		<div class="content">
+			{{{ content }}}
+		</div>
+		{{#if package}}
+		<footer>
+			{{#if package.license}}
+			<span>{{package.name}}@{{ package.version }}</span>
+			{{/if}} {{#if package.license}}<span>{{ package.license }}</span>{{/if}}
+			{{#if package.author}}<span>&copy; {{ package.author }}</span>{{/if}}
+		</footer>
+		{{/if}}
+	</body>
+</html>

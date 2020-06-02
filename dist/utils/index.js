@@ -12,4 +12,5 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./files"), exports);
 __exportStar(require("./markdown"), exports);
+__exportStar(require("./handlebars"), exports);
 //# sourceMappingURL=index.js.map

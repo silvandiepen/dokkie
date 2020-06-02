@@ -38,9 +38,9 @@ const path_1 = require("path");
 const rimraf_1 = __importDefault(require("rimraf"));
 const log = __importStar(require("cli-block"));
 const ncp = require("ncp").ncp;
+const prettier = require("prettier");
 // Functionality
 const settings_1 = require("./settings");
-const handlebars_1 = __importDefault(require("handlebars"));
 const utils_1 = require("./utils");
 const getFileTree = (dir, settings) => __awaiter(void 0, void 0, void 0, function* () {
     const dirents = yield readdir(dir, { withFileTypes: true });
@@ -76,6 +76,18 @@ const getFileData = (file) => __awaiter(void 0, void 0, void 0, function* () {
         console.log(err);
     }
 });
+const getPackageInformation = (settings) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("test");
+    try {
+        let PackageData = yield readFile("package.json").then((res) => res.toString());
+        console.log(PackageData);
+        return Object.assign(Object.assign({}, settings), { package: JSON.parse(PackageData) });
+    }
+    catch (err) {
+        console.log(err);
+    }
+    return settings;
+});
 const toHtml = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     yield utils_1.asyncForEach(settings.files, (file) => __awaiter(void 0, void 0, void 0, function* () {
         switch (file.ext) {
@@ -94,11 +106,11 @@ const toHtml = (settings) => __awaiter(void 0, void 0, void 0, function* () {
 });
 const getLayout = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     let layoutFile = "";
-    if (settings.layout.includes(".html")) {
+    if (settings.layout.includes(".hbs") || settings.layout.includes(".html")) {
         layoutFile = yield readFile(path_1.join(process.cwd(), settings.layout)).then((res) => res.toString());
     }
     else {
-        layoutFile = yield readFile(path_1.join(__dirname, "../", `template/${settings.layout}.html`)).then((res) => res.toString());
+        layoutFile = yield readFile(path_1.join(__dirname, "../", `template/${settings.layout}.hbs`)).then((res) => res.toString());
     }
     return Object.assign(Object.assign({}, settings), { layout: layoutFile });
 });
@@ -108,25 +120,45 @@ const setMeta = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     }))).then((res) => res);
     return Object.assign(Object.assign({}, settings), { files: files });
 });
-const setStylesheet = (settings) => {
-    return Object.assign(Object.assign({}, settings), { style: `https://coat.guyn.nl/theme/${settings.theme}.css` });
+const getStyles = (settings) => {
+    let styles = [];
+    if (settings.theme && !settings.theme.includes("http")) {
+        styles.push(`https://coat.guyn.nl/theme/${settings.theme}.css`);
+    }
+    // To Embeddable link scripts
+    const stylesScripts = styles
+        .map((s) => (s = `<link rel="stylesheet" type="text/css" href="${s}"/>`))
+        .join("");
+    return Object.assign(Object.assign({}, settings), { styles: stylesScripts });
+};
+const getScripts = (settings) => {
+    let scripts = [];
+    const scriptScripts = scripts
+        .map((s) => (s = `<script type="text/javascript" src="${s}"></script>`))
+        .join("");
+    return Object.assign(Object.assign({}, settings), { scripts: scriptScripts });
 };
 const createFolder = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     if (settings.cleanBefore)
         rimraf_1.default.sync(settings.output);
 });
 const createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* () {
-    const template = handlebars_1.default.compile(settings.layout);
+    const template = utils_1.Handlebars.compile(settings.layout);
     log.BLOCK_MID("Creating pages");
     yield utils_1.asyncForEach(settings.files, (file) => __awaiter(void 0, void 0, void 0, function* () {
         try {
+            const currentLink = file.route.replace("index.html", "");
             const contents = template({
                 title: file.title,
                 content: file.html,
-                style: settings.style,
+                currentLink: currentLink,
+                currentId: currentLink.replace(/\//g, " ").trim().replace(/\s+/g, "-"),
+                styles: settings.styles ? settings.styles : null,
+                scripts: settings.scripts ? settings.scripts : null,
                 navigation: settings.navigation,
+                package: settings.package ? settings.package : null,
             });
-            yield utils_1.writeThatFile(file, contents);
+            yield utils_1.writeThatFile(file, prettier.format(contents, { parser: "html" }));
         }
         catch (err) {
             console.log(err);
@@ -191,10 +223,12 @@ start(settings_1.settings())
 })
     .then(getFiles)
     .then(fileData)
+    .then(getPackageInformation)
     .then(toHtml)
     .then(setMeta)
     .then(getLayout)
-    .then(setStylesheet)
+    .then(getStyles)
+    .then(getScripts)
     .then(buildNavigation)
     .then((s) => __awaiter(void 0, void 0, void 0, function* () {
     yield createFolder(s);

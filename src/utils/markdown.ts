@@ -5,11 +5,7 @@ import { IMarkdown, IFile, MarkdownItExtended } from "../types";
 import meta from "markdown-it-meta";
 import prism from "markdown-it-prism";
 import MarkdownIt from "markdown-it";
-// const MarkdownIt = require("markdown-it")({
-// 	html: true,
-// 	linkify: true,
-// 	typographer: true,
-// }).use();
+
 const md: MarkdownItExtended = new MarkdownIt();
 
 md.use(meta);

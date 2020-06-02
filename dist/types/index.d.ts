@@ -12,6 +12,15 @@ export interface IFile {
     filename?: string;
     route?: string;
 }
+export interface IPackageJson {
+    author: string;
+    description: string;
+    keywords: string[];
+    version: string;
+    name: string;
+    license: string;
+    [key: string]: unknown;
+}
 export interface ISettings {
     input: string;
     output: string;
@@ -26,6 +35,9 @@ export interface ISettings {
     style?: string;
     navigation?: INavigation[];
     flat?: boolean;
+    package?: IPackageJson;
+    scripts?: string;
+    styles?: string;
 }
 export interface IMarkdown {
     document: string;

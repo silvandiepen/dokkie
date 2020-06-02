@@ -6,11 +6,12 @@ import { basename, extname, resolve, join } from "path";
 import rimraf from "rimraf";
 import * as log from "cli-block";
 const ncp = require("ncp").ncp;
+const prettier = require("prettier");
 
 // Functionality
 import { settings, logSettings } from "./settings";
 import { ISettings, IFile, INavigation } from "./types";
-import Handlebars from "handlebars";
+
 import {
 	writeThatFile,
 	asyncForEach,
@@ -19,6 +20,7 @@ import {
 	makeFileName,
 	makeRoute,
 	makePath,
+	Handlebars,
 } from "./utils";
 
 const getFileTree = async (
@@ -48,7 +50,7 @@ const getFiles = async (settings: ISettings): Promise<ISettings> => {
 	return { ...settings, files: files };
 };
 
-const fileData = async (settings: ISettings): Promise<any> => {
+const fileData = async (settings: ISettings): Promise<ISettings> => {
 	await asyncForEach(settings.files, async (file) => {
 		file.data = await getFileData(file);
 	});
@@ -62,6 +64,20 @@ const getFileData = async (file: IFile): Promise<IFile> => {
 	} catch (err) {
 		console.log(err);
 	}
+};
+
+const getPackageInformation = async (
+	settings: ISettings
+): Promise<ISettings> => {
+	try {
+		let PackageData = await readFile("package.json").then((res) =>
+			res.toString()
+		);
+		return { ...settings, package: JSON.parse(PackageData) };
+	} catch (err) {
+		console.log(err);
+	}
+	return settings;
 };
 
 const toHtml = async (settings: ISettings): Promise<ISettings> => {
@@ -83,13 +99,13 @@ const toHtml = async (settings: ISettings): Promise<ISettings> => {
 
 const getLayout = async (settings: ISettings): Promise<ISettings> => {
 	let layoutFile = "";
-	if (settings.layout.includes(".html")) {
+	if (settings.layout.includes(".hbs") || settings.layout.includes(".html")) {
 		layoutFile = await readFile(
 			join(process.cwd(), settings.layout)
 		).then((res) => res.toString());
 	} else {
 		layoutFile = await readFile(
-			join(__dirname, "../", `template/${settings.layout}.html`)
+			join(__dirname, "../", `template/${settings.layout}.hbs`)
 		).then((res) => res.toString());
 	}
 	return { ...settings, layout: layoutFile };
@@ -112,10 +128,32 @@ const setMeta = async (settings: ISettings): Promise<ISettings> => {
 	return { ...settings, files: files };
 };
 
-const setStylesheet = (settings: ISettings): ISettings => {
+const getStyles = (settings: ISettings): ISettings => {
+	let styles = [];
+
+	if (settings.theme && !settings.theme.includes("http")) {
+		styles.push(`https://coat.guyn.nl/theme/${settings.theme}.css`);
+	}
+
+	// To Embeddable link scripts
+	const stylesScripts = styles
+		.map((s) => (s = `<link rel="stylesheet" type="text/css" href="${s}"/>`))
+		.join("");
+
 	return {
 		...settings,
-		style: `https://coat.guyn.nl/theme/${settings.theme}.css`,
+		styles: stylesScripts,
+	};
+};
+
+const getScripts = (settings: ISettings): ISettings => {
+	let scripts = [];
+	const scriptScripts = scripts
+		.map((s) => (s = `<script type="text/javascript" src="${s}"></script>`))
+		.join("");
+	return {
+		...settings,
+		scripts: scriptScripts,
 	};
 };
 const createFolder = async (settings: ISettings): Promise<void> => {
@@ -124,16 +162,22 @@ const createFolder = async (settings: ISettings): Promise<void> => {
 
 const createFiles = async (settings: ISettings): Promise<void> => {
 	const template = Handlebars.compile(settings.layout);
+
 	log.BLOCK_MID("Creating pages");
 	await asyncForEach(settings.files, async (file: IFile) => {
 		try {
+			const currentLink = file.route.replace("index.html", "");
 			const contents = template({
 				title: file.title,
 				content: file.html,
-				style: settings.style,
+				currentLink: currentLink,
+				currentId: currentLink.replace(/\//g, " ").trim().replace(/\s+/g, "-"),
+				styles: settings.styles ? settings.styles : null,
+				scripts: settings.scripts ? settings.scripts : null,
 				navigation: settings.navigation,
+				package: settings.package ? settings.package : null,
 			});
-			await writeThatFile(file, contents);
+			await writeThatFile(file, prettier.format(contents, { parser: "html" }));
 		} catch (err) {
 			console.log(err);
 		}
@@ -204,10 +248,12 @@ start(settings())
 	})
 	.then(getFiles)
 	.then(fileData)
+	.then(getPackageInformation)
 	.then(toHtml)
 	.then(setMeta)
 	.then(getLayout)
-	.then(setStylesheet)
+	.then(getStyles)
+	.then(getScripts)
 	.then(buildNavigation)
 	.then(async (s) => {
 		await createFolder(s);
