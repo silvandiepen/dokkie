@@ -80,6 +80,22 @@ const getPackageInformation = async (
 	return settings;
 };
 
+const overruleWithLocalConfig = async (
+	settings: ISettings
+): Promise<ISettings> => {
+	try {
+		let configData = await readFile("dokkie.config.json").then((res) =>
+			JSON.parse(res.toString())
+		);
+		log.BLOCK_MID("Local configuration");
+		log.BLOCK_SETTINGS(configData);
+		return { ...settings, ...configData };
+	} catch (err) {
+		// console.log(err);
+	}
+	return settings;
+};
+
 const toHtml = async (settings: ISettings): Promise<ISettings> => {
 	await asyncForEach(settings.files, async (file: IFile) => {
 		switch (file.ext) {
@@ -258,6 +274,7 @@ start(settings())
 	.then(getStyles)
 	.then(getScripts)
 	.then(buildNavigation)
+	.then(overruleWithLocalConfig)
 	.then(async (s) => {
 		await createFolder(s);
 		await createFiles(s);

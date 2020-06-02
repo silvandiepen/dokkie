@@ -86,6 +86,18 @@ const getPackageInformation = (settings) => __awaiter(void 0, void 0, void 0, fu
     }
     return settings;
 });
+const overruleWithLocalConfig = (settings) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let configData = yield readFile(".dokkierc.json").then((res) => JSON.parse(res.toString()));
+        log.BLOCK_MID("Local configuration");
+        log.BLOCK_SETTINGS(configData);
+        return Object.assign(Object.assign({}, settings), configData);
+    }
+    catch (err) {
+        console.log(err);
+    }
+    return settings;
+});
 const toHtml = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     yield utils_1.asyncForEach(settings.files, (file) => __awaiter(void 0, void 0, void 0, function* () {
         switch (file.ext) {
@@ -231,6 +243,7 @@ start(settings_1.settings())
     .then(getStyles)
     .then(getScripts)
     .then(buildNavigation)
+    .then(overruleWithLocalConfig)
     .then((s) => __awaiter(void 0, void 0, void 0, function* () {
     yield createFolder(s);
     yield createFiles(s);
