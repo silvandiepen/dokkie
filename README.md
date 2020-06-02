@@ -37,6 +37,8 @@ By default, you don't have to do anything! It will automatically create your doc
 | `exclude`     | `node_modules, dist, docs` | Exclude folders from searching for files.                                                                  |
 | `copy`        | `null`                     | Copy a folder into your output.                                                                            |
 | `strip`       | `pages`                    | Remove parts of paths to get files directly in their root. All files in `pages`, will be directly in docs. |
+| `navigation`  | `header, footer, sidebar`  | Define which navigations should be shown                                                                   |
+| `flat`        | `false`                    | Make the navigation flat.                                                                                  |
 
 **Custom configuration**
 
