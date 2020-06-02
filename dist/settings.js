@@ -83,6 +83,11 @@ exports.settings = () => {
             default: false,
             alias: "flatNavigation",
         },
+        nav: {
+            required: false,
+            type: "array",
+            default: ["header", "footer", "sidebar"],
+        },
     }).argv;
     return {
         input: cs.in,
@@ -95,6 +100,7 @@ exports.settings = () => {
         copy: cs.copy,
         strip: cs.strip,
         flat: cs.flat,
+        showNavigation: cs.nav,
     };
 };
 exports.logSettings = (settings) => {

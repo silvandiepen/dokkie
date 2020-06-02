@@ -77,10 +77,8 @@ const getFileData = (file) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 const getPackageInformation = (settings) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("test");
     try {
         let PackageData = yield readFile("package.json").then((res) => res.toString());
-        console.log(PackageData);
         return Object.assign(Object.assign({}, settings), { package: JSON.parse(PackageData) });
     }
     catch (err) {
@@ -157,6 +155,9 @@ const createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* ()
                 scripts: settings.scripts ? settings.scripts : null,
                 navigation: settings.navigation,
                 package: settings.package ? settings.package : null,
+                headerNavigation: settings.showNavigation.includes("header"),
+                footerNavigation: settings.showNavigation.includes("footer"),
+                sidebarNavigation: settings.showNavigation.includes("sidebar"),
             });
             yield utils_1.writeThatFile(file, prettier.format(contents, { parser: "html" }));
         }

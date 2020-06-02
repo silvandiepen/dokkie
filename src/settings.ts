@@ -61,6 +61,11 @@ export const settings = (): ISettings => {
 			default: false,
 			alias: "flatNavigation",
 		},
+		nav: {
+			required: false,
+			type: "array",
+			default: ["header", "footer", "sidebar"],
+		},
 	}).argv;
 
 	return {
@@ -74,6 +79,7 @@ export const settings = (): ISettings => {
 		copy: cs.copy,
 		strip: cs.strip,
 		flat: cs.flat,
+		showNavigation: cs.nav,
 	};
 };
 export const logSettings = (settings: ISettings): void => {

@@ -17,6 +17,30 @@
 
 <body id="{{currentId}}">
 
+	{{#if sidebarNavigation }}
+	{{#if navigation.[2] }}
+	<!--- Page Header -->
+	<sidebar id="sidebar">
+		<nav>
+			<ul>
+				{{#each navigation}}
+				<li>
+					<a href="{{ link }}">{{ name }}</a>
+					{{#if children.[1] }}
+					<ul>
+						{{#each children}}
+						<li><a href="{{ link }}">{{ name }}</a></li>
+						{{/each}}
+					</ul>
+					{{/if}} {{/each}}
+				</li>
+			</ul>
+		</nav>
+	</sidebar>
+	{{/if}}
+	{{/if}}
+
+	{{#if headerNavigation }}
 	{{#if navigation.[2] }}
 	<!--- Page Header -->
 	<header id="header">
@@ -37,6 +61,8 @@
 		</nav>
 	</header>
 	{{/if}}
+	{{/if}}
+
 
 	<!--- Main Content -->
 	<main id="main" class="content">
@@ -46,6 +72,7 @@
 
 	<!--- Page Footer Content -->
 	<footer id="footer">
+		{{#if footerNavigation }}
 		<nav>
 			<ul>
 				{{#each navigation}}
@@ -71,6 +98,7 @@
 				{{/each}}
 			</ul>
 		</nav>
+		{{/if}}
 		{{#if package}}
 		<footnote>
 			{{#if package.name}}<span>{{package.name}}@{{ package.version }}</span>{{/if}}

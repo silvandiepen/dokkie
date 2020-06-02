@@ -176,6 +176,9 @@ const createFiles = async (settings: ISettings): Promise<void> => {
 				scripts: settings.scripts ? settings.scripts : null,
 				navigation: settings.navigation,
 				package: settings.package ? settings.package : null,
+				headerNavigation: settings.showNavigation.includes("header"),
+				footerNavigation: settings.showNavigation.includes("footer"),
+				sidebarNavigation: settings.showNavigation.includes("sidebar"),
 			});
 			await writeThatFile(file, prettier.format(contents, { parser: "html" }));
 		} catch (err) {

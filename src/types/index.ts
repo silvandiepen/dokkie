@@ -40,6 +40,7 @@ export interface ISettings {
 	package?: IPackageJson;
 	scripts?: string;
 	styles?: string;
+	showNavigation: string[];
 }
 export interface IMarkdown {
 	document: string;
