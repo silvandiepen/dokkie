@@ -6,7 +6,11 @@ import meta from "markdown-it-meta";
 import prism from "markdown-it-prism";
 import MarkdownIt from "markdown-it";
 
-const md: MarkdownItExtended = new MarkdownIt();
+const md: MarkdownItExtended = new MarkdownIt({
+	html: true,
+	linkify: true,
+	typographer: true,
+});
 
 md.use(meta);
 md.use(prism);
