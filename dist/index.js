@@ -138,6 +138,7 @@ const setLocalConfig = (settings) => {
             settings.flatNavigation = settings.localConfig.flatNavigation;
         if (settings.localConfig.showNavigation)
             settings.showNavigation = settings.localConfig.showNavigation;
+        console.log(settings.showNavigation);
     }
     return settings;
 };
