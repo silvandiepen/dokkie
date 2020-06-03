@@ -15,7 +15,7 @@ import { ISettings, IFile, INavigation } from "./types";
 import {
 	writeThatFile,
 	asyncForEach,
-	getTitle,
+	getPageTitle,
 	mdToHtml,
 	makeFileName,
 	makeRoute,
@@ -147,7 +147,7 @@ const toHtml = async (settings: ISettings): Promise<ISettings> => {
 
 const filterFiles = async (settings: ISettings): Promise<ISettings> => {
 	const files = settings.files.filter((file: IFile) =>
-		file.meta.remove ? file : null
+		file.meta.remove ? null : file
 	);
 	return { ...settings, files: files };
 };
@@ -172,7 +172,7 @@ const setMeta = async (settings: ISettings): Promise<ISettings> => {
 			async (file: IFile) =>
 				(file = {
 					...file,
-					title: await getTitle(file),
+					title: await getPageTitle(file),
 					route: makeRoute(file, settings),
 					destpath: makePath(file, settings),
 					filename: makeFileName(file),

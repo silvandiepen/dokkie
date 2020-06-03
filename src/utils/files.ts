@@ -62,7 +62,7 @@ export const writeThatFile = async (
 	}
 };
 
-export const getTitle = async (file: IFile): Promise<string> => {
+export const getPageTitle = async (file: IFile): Promise<string> => {
 	if (file.meta && file.meta.title) {
 		return file.meta.title;
 	} else if (file.ext === ".md" && getTitleFromMD(file.data)) {

@@ -148,7 +148,8 @@ const toHtml = (settings) => __awaiter(void 0, void 0, void 0, function* () {
 });
 // Filter files
 const filterFiles = (settings) => __awaiter(void 0, void 0, void 0, function* () {
-    const files = settings.files.filter((file) => file.meta.remove ? file : null);
+    const files = settings.files.filter((file) => file.meta.remove ? null : file);
+    console.log(files);
     return Object.assign(Object.assign({}, settings), { files: files });
 });
 const getLayout = (settings) => __awaiter(void 0, void 0, void 0, function* () {
@@ -163,7 +164,7 @@ const getLayout = (settings) => __awaiter(void 0, void 0, void 0, function* () {
 });
 const setMeta = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     const files = yield Promise.all(settings.files.map((file) => __awaiter(void 0, void 0, void 0, function* () {
-        return (file = Object.assign(Object.assign({}, file), { title: yield utils_1.getTitle(file), route: utils_1.makeRoute(file, settings), destpath: utils_1.makePath(file, settings), filename: utils_1.makeFileName(file) }));
+        return (file = Object.assign(Object.assign({}, file), { title: yield utils_1.getPageTitle(file), route: utils_1.makeRoute(file, settings), destpath: utils_1.makePath(file, settings), filename: utils_1.makeFileName(file) }));
     }))).then((res) => res);
     return Object.assign(Object.assign({}, settings), { files: files });
 });

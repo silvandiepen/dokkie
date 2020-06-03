@@ -28,7 +28,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getTitle = exports.writeThatFile = exports.makeFileName = exports.makePath = exports.makeRoute = exports.asyncForEach = void 0;
+exports.getPageTitle = exports.writeThatFile = exports.makeFileName = exports.makePath = exports.makeRoute = exports.asyncForEach = void 0;
 const { writeFile, mkdir } = require("fs").promises;
 const path_1 = require("path");
 const markdown_1 = require("./markdown");
@@ -83,7 +83,7 @@ exports.writeThatFile = (file, contents) => __awaiter(void 0, void 0, void 0, fu
         console.log(err);
     }
 });
-exports.getTitle = (file) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getPageTitle = (file) => __awaiter(void 0, void 0, void 0, function* () {
     if (file.meta && file.meta.title) {
         return file.meta.title;
     }
