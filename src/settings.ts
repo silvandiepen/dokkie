@@ -31,7 +31,7 @@ export const settings = (): ISettings => {
 		theme: {
 			required: false,
 			type: "string",
-			default: "coat",
+			default: "coat-ext",
 		},
 		ext: {
 			required: false,
