@@ -80,6 +80,8 @@ const getPackageInformation = async (
 	return settings;
 };
 
+// Load the local confi and show
+
 const loadLocalConfig = async (settings: ISettings): Promise<ISettings> => {
 	try {
 		let configData = await readFile("dokkie.config.json").then((res) =>
@@ -94,22 +96,7 @@ const loadLocalConfig = async (settings: ISettings): Promise<ISettings> => {
 	return settings;
 };
 
-const toHtml = async (settings: ISettings): Promise<ISettings> => {
-	await asyncForEach(settings.files, async (file: IFile) => {
-		switch (file.ext) {
-			case ".md":
-				const markdownData = await mdToHtml(file);
-				file.meta = markdownData.meta;
-				file.html = markdownData.document;
-				break;
-			case ".html":
-				file.meta = {};
-				file.html = file.data;
-				break;
-		}
-	});
-	return { ...settings, files: settings.files };
-};
+// Set the local config to the settings
 
 const setLocalConfig = (settings: ISettings): ISettings => {
 	if (settings.localConfig) {
@@ -135,6 +122,34 @@ const setLocalConfig = (settings: ISettings): ISettings => {
 
 	return settings;
 };
+// Convert filedata to html.
+
+const toHtml = async (settings: ISettings): Promise<ISettings> => {
+	await asyncForEach(settings.files, async (file: IFile) => {
+		switch (file.ext) {
+			case ".md":
+				const markdownData = await mdToHtml(file);
+				file.meta = markdownData.meta;
+				file.html = markdownData.document;
+				break;
+			case ".html":
+				file.meta = {};
+				file.html = file.data;
+				break;
+		}
+	});
+	return { ...settings, files: settings.files };
+};
+
+// Filter files
+
+const filterFiles = async (settings: ISettings): Promise<ISettings> => {
+	const files = settings.files.filter((file: IFile) =>
+		file.meta.remove ? file : null
+	);
+	return { ...settings, files: files };
+};
+
 const getLayout = async (settings: ISettings): Promise<ISettings> => {
 	let layoutFile = "";
 	if (settings.layout.includes(".hbs") || settings.layout.includes(".html")) {
@@ -263,13 +278,14 @@ const buildNavigation = async (settings: ISettings): Promise<ISettings> => {
 		const parent = linkPath[linkPath.length - 2]
 			? linkPath[linkPath.length - 2]
 			: "";
-		nav.push({
-			name: file.title,
-			link: link,
-			path: linkPath,
-			self: linkPath[linkPath.length - 1],
-			parent: file.meta.parent ? file.meta.parent : parent,
-		});
+		if (!file.meta.hide)
+			nav.push({
+				name: file.title,
+				link: link,
+				path: linkPath,
+				self: linkPath[linkPath.length - 1],
+				parent: file.meta.parent ? file.meta.parent : parent,
+			});
 	});
 
 	let newNav = [];
@@ -312,6 +328,7 @@ start(settings())
 	.then(fileData)
 	.then(getPackageInformation)
 	.then(toHtml)
+	.then(filterFiles)
 	.then(setMeta)
 	.then(getLayout)
 	.then(getStyles)
