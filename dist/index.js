@@ -86,6 +86,7 @@ const getPackageInformation = (settings) => __awaiter(void 0, void 0, void 0, fu
     }
     return settings;
 });
+// Load the local confi and show
 const loadLocalConfig = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let configData = yield readFile("dokkie.config.json").then((res) => JSON.parse(res.toString()));
@@ -98,22 +99,7 @@ const loadLocalConfig = (settings) => __awaiter(void 0, void 0, void 0, function
     }
     return settings;
 });
-const toHtml = (settings) => __awaiter(void 0, void 0, void 0, function* () {
-    yield utils_1.asyncForEach(settings.files, (file) => __awaiter(void 0, void 0, void 0, function* () {
-        switch (file.ext) {
-            case ".md":
-                const markdownData = yield utils_1.mdToHtml(file);
-                file.meta = markdownData.meta;
-                file.html = markdownData.document;
-                break;
-            case ".html":
-                file.meta = {};
-                file.html = file.data;
-                break;
-        }
-    }));
-    return Object.assign(Object.assign({}, settings), { files: settings.files });
-});
+// Set the local config to the settings
 const setLocalConfig = (settings) => {
     if (settings.localConfig) {
         if (settings.localConfig.input)
@@ -141,6 +127,28 @@ const setLocalConfig = (settings) => {
     }
     return settings;
 };
+// Convert filedata to html.
+const toHtml = (settings) => __awaiter(void 0, void 0, void 0, function* () {
+    yield utils_1.asyncForEach(settings.files, (file) => __awaiter(void 0, void 0, void 0, function* () {
+        switch (file.ext) {
+            case ".md":
+                const markdownData = yield utils_1.mdToHtml(file);
+                file.meta = markdownData.meta;
+                file.html = markdownData.document;
+                break;
+            case ".html":
+                file.meta = {};
+                file.html = file.data;
+                break;
+        }
+    }));
+    return Object.assign(Object.assign({}, settings), { files: settings.files });
+});
+// Filter files
+const filterFiles = (settings) => __awaiter(void 0, void 0, void 0, function* () {
+    const files = settings.files.filter((file) => file.meta.remove ? file : null);
+    return Object.assign(Object.assign({}, settings), { files: files });
+});
 const getLayout = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     let layoutFile = "";
     if (settings.layout.includes(".hbs") || settings.layout.includes(".html")) {
@@ -241,13 +249,14 @@ const buildNavigation = (settings) => __awaiter(void 0, void 0, void 0, function
         const parent = linkPath[linkPath.length - 2]
             ? linkPath[linkPath.length - 2]
             : "";
-        nav.push({
-            name: file.title,
-            link: link,
-            path: linkPath,
-            self: linkPath[linkPath.length - 1],
-            parent: file.meta.parent ? file.meta.parent : parent,
-        });
+        if (!file.meta.hide)
+            nav.push({
+                name: file.title,
+                link: link,
+                path: linkPath,
+                self: linkPath[linkPath.length - 1],
+                parent: file.meta.parent ? file.meta.parent : parent,
+            });
     });
     let newNav = [];
     if (!settings.flatNavigation)
@@ -284,6 +293,7 @@ start(settings_1.settings())
     .then(fileData)
     .then(getPackageInformation)
     .then(toHtml)
+    .then(filterFiles)
     .then(setMeta)
     .then(getLayout)
     .then(getStyles)

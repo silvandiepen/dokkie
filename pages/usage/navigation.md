@@ -10,7 +10,7 @@ By default you will get a footer navigation and a top navigation. But you can al
 
 ```json
 {
-	"navigation": ["header", "footer", "sidebar"]
+	"showNavigation": ["header", "footer", "sidebar"]
 }
 ```
 
@@ -22,6 +22,6 @@ Dokkie creates the navigation, like you structure your files. But if you want, y
 
 ```json
 {
-	"flat": true
+	"flatNavigation": true
 }
 ```
