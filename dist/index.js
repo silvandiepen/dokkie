@@ -138,7 +138,6 @@ const setLocalConfig = (settings) => {
             settings.flatNavigation = settings.localConfig.flatNavigation;
         if (settings.localConfig.showNavigation)
             settings.showNavigation = settings.localConfig.showNavigation;
-        console.log(settings.showNavigation);
     }
     return settings;
 };
@@ -273,11 +272,14 @@ start(settings_1.settings())
     log.START("Creating Your documentation");
     log.BLOCK_START();
     log.BLOCK_LINE("Dokkie is now building your documentation");
-    settings_1.logSettings(s);
     return s;
 })
     .then(loadLocalConfig)
     .then(setLocalConfig)
+    .then((s) => {
+    settings_1.logSettings(s);
+    return s;
+})
     .then(getFiles)
     .then(fileData)
     .then(getPackageInformation)

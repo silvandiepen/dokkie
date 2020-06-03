@@ -28,4 +28,4 @@ If you are fond of using emoji's in your code. Go ahead! :)
 
 Create styled tasklists in your documentation!
 
-[x] Add tasklists
+- [x] Add tasklists
