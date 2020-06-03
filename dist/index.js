@@ -124,6 +124,8 @@ const setLocalConfig = (settings) => {
             settings.flatNavigation = settings.localConfig.flatNavigation;
         if (settings.localConfig.showNavigation)
             settings.showNavigation = settings.localConfig.showNavigation;
+        if (settings.localConfig.projectTitle)
+            settings.projectTitle = settings.localConfig.projectTitle;
     }
     return settings;
 };
@@ -208,6 +210,9 @@ const createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* ()
         try {
             const currentLink = file.route.replace("index.html", "");
             const contents = template({
+                projectTitle: settings.projectTitle == ""
+                    ? settings.package.name
+                    : settings.projectTitle,
                 title: file.title,
                 content: file.html,
                 currentLink: currentLink,

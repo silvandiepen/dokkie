@@ -92,6 +92,11 @@ exports.settings = () => {
             type: "boolean",
             default: true,
         },
+        projectTitle: {
+            require: false,
+            type: "string",
+            default: "",
+        },
     }).argv;
     return {
         input: cs.in,
@@ -106,6 +111,7 @@ exports.settings = () => {
         flatNavigation: cs.flatNavigation,
         showNavigation: cs.showNavigation,
         codeHighlight: cs.codeHighlight,
+        projectTitle: cs.projectTitle,
     };
 };
 exports.logSettings = (settings) => {
