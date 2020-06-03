@@ -31,7 +31,7 @@ export interface IArgumentSettings {
     excludeFolders: string[];
     copy: string[];
     strip: string[];
-    flat: boolean;
+    flatNavigation: boolean;
     showNavigation: string[];
     codeHighlight: boolean;
 }
