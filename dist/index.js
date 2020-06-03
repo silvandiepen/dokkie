@@ -149,7 +149,6 @@ const toHtml = (settings) => __awaiter(void 0, void 0, void 0, function* () {
 // Filter files
 const filterFiles = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     const files = settings.files.filter((file) => file.meta.remove ? null : file);
-    console.log(files);
     return Object.assign(Object.assign({}, settings), { files: files });
 });
 const getLayout = (settings) => __awaiter(void 0, void 0, void 0, function* () {
