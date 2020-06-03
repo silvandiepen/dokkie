@@ -300,11 +300,14 @@ start(settings())
 		log.START("Creating Your documentation");
 		log.BLOCK_START();
 		log.BLOCK_LINE("Dokkie is now building your documentation");
-		logSettings(s);
 		return s;
 	})
 	.then(loadLocalConfig)
 	.then(setLocalConfig)
+	.then((s) => {
+		logSettings(s);
+		return s;
+	})
 	.then(getFiles)
 	.then(fileData)
 	.then(getPackageInformation)
