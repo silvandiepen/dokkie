@@ -1,5 +1,7 @@
 # Dokkie
 
+### A Static site generator for your documentation without any extra code in your repository
+
 Dokkie gets your Readme Documentation into a page with one command. Don't bother doing anything else, just keep your Readme up to date and automatically generate a complete webpage out of it.
 
 You know, when you make a package, you create a Readme.md. Well, that
@@ -24,25 +26,7 @@ There are many ways to deploy your documentation. My recommended way is to check
 
 By default, you don't have to do anything! It will automatically create your documentation website. But, there are quite some things you can change.
 
-**Default configuration**
-
-| argument      | default                    | description                                                                                                |
-| ------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `input`       | `.`                        | Input folder to search for files.                                                                          |
-| `output`      | `docs`                     | Output folder for pages                                                                                    |
-| `layout`      | `default`                  | Html layout used                                                                                           |
-| `theme`       | `coat`                     | When a default layout is chosen, you can choose a theme from (coat)[https://coat.guyn.nl]                  |
-| `cleanBefore` | `true`                     | Remove the docs folder before creating a new one.                                                          |
-| `extensions`  | `.md`                      | All file extensions which can be used (supported; .md, .html)                                              |
-| `exclude`     | `node_modules, dist, docs` | Exclude folders from searching for files.                                                                  |
-| `copy`        | `null`                     | Copy a folder into your output.                                                                            |
-| `strip`       | `pages`                    | Remove parts of paths to get files directly in their root. All files in `pages`, will be directly in docs. |
-| `navigation`  | `header, footer, sidebar`  | Define which navigations should be shown                                                                   |
-| `flat`        | `false`                    | Make the navigation flat.                                                                                  |
-
-**Custom configuration**
-
-All settings can be configured.
+[Configuration](/usage/configuration)
 
 ### Layouts
 

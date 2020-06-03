@@ -55,16 +55,15 @@ export const settings = (): ISettings => {
 			type: "array",
 			default: ["pages"],
 		},
-		flat: {
+		flatNavigation: {
 			required: false,
 			type: "boolean",
 			default: false,
-			alias: "flatNavigation",
 		},
-		nav: {
+		showNavigation: {
 			required: false,
 			type: "array",
-			default: ["header", "footer", "sidebar"],
+			default: ["header", "footer"],
 		},
 		codeHighlight: {
 			required: false,
@@ -83,8 +82,8 @@ export const settings = (): ISettings => {
 		theme: cs.theme,
 		copy: cs.copy,
 		strip: cs.strip,
-		flat: cs.flat,
-		showNavigation: cs.nav,
+		flatNavigation: cs.flatNavigation,
+		showNavigation: cs.showNavigation,
 		codeHighlight: cs.codeHighlight,
 	};
 };

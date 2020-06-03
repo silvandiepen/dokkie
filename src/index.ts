@@ -127,7 +127,8 @@ const setLocalConfig = (settings: ISettings): ISettings => {
 			settings.excludeFolders = settings.localConfig.excludeFolders;
 		if (settings.localConfig.copy) settings.copy = settings.localConfig.copy;
 		if (settings.localConfig.strip) settings.strip = settings.localConfig.strip;
-		if (settings.localConfig.flat) settings.flat = settings.localConfig.flat;
+		if (settings.localConfig.flatNavigation)
+			settings.flatNavigation = settings.localConfig.flat;
 		if (settings.localConfig.showNavigation)
 			settings.showNavigation = settings.localConfig.showNavigation;
 	}
@@ -273,7 +274,7 @@ const buildNavigation = async (settings: ISettings): Promise<ISettings> => {
 
 	let newNav = [];
 
-	if (!settings.flat)
+	if (!settings.flatNavigation)
 		nav
 			.filter((item) => item.parent == "")
 			.forEach((item) => {
@@ -291,7 +292,7 @@ const buildNavigation = async (settings: ISettings): Promise<ISettings> => {
 				});
 			});
 
-	return { ...settings, navigation: settings.flat ? nav : newNav };
+	return { ...settings, navigation: settings.flatNavigation ? nav : newNav };
 };
 
 start(settings())
