@@ -20,6 +20,7 @@ Configuration can be done multiple ways, the easiest way is doing this through t
 | `showNavigation` | `header, footer`           | `header`, `footer`,`sidebar`                            | Define which navigations should be shown                                                                   |
 | `flatNavigation` | `false`                    | `true` / `false`                                        | Make the navigation flat.                                                                                  |
 | `codeHighlight`  | `true`                     | `true` / `false`                                        | Use Prism to create highlighted code                                                                       |
+| `projectTitle`   | `""`                       |                                                         | Title of the documentation                                                                                 |
 
 ### API
 

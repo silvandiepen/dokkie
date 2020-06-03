@@ -70,6 +70,11 @@ export const settings = (): ISettings => {
 			type: "boolean",
 			default: true,
 		},
+		projectTitle: {
+			require: false,
+			type: "string",
+			default: "",
+		},
 	}).argv;
 
 	return {
@@ -85,6 +90,7 @@ export const settings = (): ISettings => {
 		flatNavigation: cs.flatNavigation,
 		showNavigation: cs.showNavigation,
 		codeHighlight: cs.codeHighlight,
+		projectTitle: cs.projectTitle,
 	};
 };
 export const logSettings = (settings: ISettings): void => {
