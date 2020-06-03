@@ -128,7 +128,7 @@ const setLocalConfig = (settings: ISettings): ISettings => {
 		if (settings.localConfig.copy) settings.copy = settings.localConfig.copy;
 		if (settings.localConfig.strip) settings.strip = settings.localConfig.strip;
 		if (settings.localConfig.flatNavigation)
-			settings.flatNavigation = settings.localConfig.flat;
+			settings.flatNavigation = settings.localConfig.flatNavigation;
 		if (settings.localConfig.showNavigation)
 			settings.showNavigation = settings.localConfig.showNavigation;
 	}
