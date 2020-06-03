@@ -4,16 +4,25 @@ import { IMarkdown, IFile, MarkdownItExtended } from "../types";
 
 import meta from "markdown-it-meta";
 import prism from "markdown-it-prism";
+import anchors from "markdown-it-anchor";
+import { html5Media } from "markdown-it-html5-media";
+import emoji from "markdown-it-emoji";
 import MarkdownIt from "markdown-it";
+import taskLists from "markdown-it-task-lists";
 
 const md: MarkdownItExtended = new MarkdownIt({
 	html: true,
 	linkify: true,
+	breaks: true,
 	typographer: true,
 });
 
 md.use(meta);
 md.use(prism);
+md.use(anchors);
+md.use(html5Media);
+md.use(emoji);
+md.use(taskLists, { enabled: true });
 
 /*
 	Convert Markdown Data to html and filter meta.

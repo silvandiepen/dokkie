@@ -1,8 +1,0 @@
-{
-	"overrule": {
-		"stylesheets": ["/style.css"]
-	},
-	"add": {
-		"scripts": ["script.js"]
-	}
-}

@@ -16,10 +16,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getTitleFromMD = exports.mdToHtml = void 0;
 const markdown_it_meta_1 = __importDefault(require("markdown-it-meta"));
 const markdown_it_prism_1 = __importDefault(require("markdown-it-prism"));
+const markdown_it_anchor_1 = __importDefault(require("markdown-it-anchor"));
+const markdown_it_html5_media_1 = require("markdown-it-html5-media");
+const markdown_it_emoji_1 = __importDefault(require("markdown-it-emoji"));
 const markdown_it_1 = __importDefault(require("markdown-it"));
-const md = new markdown_it_1.default();
+const markdown_it_task_lists_1 = __importDefault(require("markdown-it-task-lists"));
+const md = new markdown_it_1.default({
+    html: true,
+    linkify: true,
+    breaks: true,
+    typographer: true,
+});
 md.use(markdown_it_meta_1.default);
 md.use(markdown_it_prism_1.default);
+md.use(markdown_it_anchor_1.default);
+md.use(markdown_it_html5_media_1.html5Media);
+md.use(markdown_it_emoji_1.default);
+md.use(markdown_it_task_lists_1.default, { enabled: true });
 /*
     Convert Markdown Data to html and filter meta.
 */

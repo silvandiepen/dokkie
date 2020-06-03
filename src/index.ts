@@ -173,12 +173,12 @@ const getStyles = (settings: ISettings): ISettings => {
 	}
 
 	// If there are addable stylesheets available
-	if (settings.localConfig.add.stylesheets)
+	if (settings.localConfig?.add?.stylesheets)
 		styles = styles.concat(settings.localConfig.add.stylesheets);
 
 	// If there are overruling stylesheets
-	if (settings.localConfig.overrule.stylesheets)
-		styles = settings.localConfig.overrule.stylesheets;
+	if (settings.localConfig?.overrule?.stylesheets)
+		styles = settings.localConfig?.overrule?.stylesheets;
 
 	// To Embeddable link scripts
 	const stylesScripts = styles
@@ -194,11 +194,11 @@ const getStyles = (settings: ISettings): ISettings => {
 const getScripts = (settings: ISettings): ISettings => {
 	let scripts = [];
 	// If there are addable stylesheets available
-	if (settings.localConfig.add.scripts)
+	if (settings.localConfig?.add?.scripts)
 		scripts = scripts.concat(settings.localConfig.add.scripts);
 
 	// If there are overruling stylesheets
-	if (settings.localConfig.overrule.scripts)
+	if (settings.localConfig?.overrule?.scripts)
 		scripts = settings.localConfig.overrule.scripts;
 
 	const scriptScripts = scripts
