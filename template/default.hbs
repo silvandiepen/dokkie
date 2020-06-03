@@ -17,6 +17,29 @@
 
 <body id="{{currentId}}">
 
+	{{#if headerNavigation }}
+	{{#if navigation.[2] }}
+	<!--- Page Header -->
+	<header id="header">
+		<nav>
+			<ul>
+				{{#each navigation}}
+				<li>
+					<a href="{{ link }}">{{ name }}</a>
+					{{#if children.[1] }}
+					<ul>
+						{{#each children}}
+						<li><a href="{{ link }}">{{ name }}</a></li>
+						{{/each}}
+					</ul>
+					{{/if}} {{/each}}
+				</li>
+			</ul>
+		</nav>
+	</header>
+	{{/if}}
+	{{/if}}
+
 	{{#if sidebarNavigation }}
 	{{#if navigation.[2] }}
 	<!--- Page Header -->
@@ -40,28 +63,6 @@
 	{{/if}}
 	{{/if}}
 
-	{{#if headerNavigation }}
-	{{#if navigation.[2] }}
-	<!--- Page Header -->
-	<header id="header">
-		<nav>
-			<ul>
-				{{#each navigation}}
-				<li>
-					<a href="{{ link }}">{{ name }}</a>
-					{{#if children.[1] }}
-					<ul>
-						{{#each children}}
-						<li><a href="{{ link }}">{{ name }}</a></li>
-						{{/each}}
-					</ul>
-					{{/if}} {{/each}}
-				</li>
-			</ul>
-		</nav>
-	</header>
-	{{/if}}
-	{{/if}}
 
 
 	<!--- Main Content -->

@@ -17,31 +17,8 @@
 
 <body id="{{currentId}}">
 
-	{{#if sidebarNavigation }}
-	{{#if navigation.[1] }}
-	<!--- Page Header -->
-	<sidebar id="sidebar">
-		<nav>
-			<ul>
-				{{#each navigation}}
-				<li>
-					<a href="{{ link }}">{{ name }}</a>
-					{{#if children.[1] }}
-					<ul>
-						{{#each children}}
-						<li><a href="{{ link }}">{{ name }}</a></li>
-						{{/each}}
-					</ul>
-					{{/if}} {{/each}}
-				</li>
-			</ul>
-		</nav>
-	</sidebar>
-	{{/if}}
-	{{/if}}
-
 	{{#if headerNavigation }}
-	{{#if navigation.[1] }}
+	{{#if navigation.[2] }}
 	<!--- Page Header -->
 	<header id="header">
 		<nav>
@@ -63,6 +40,30 @@
 	{{/if}}
 	{{/if}}
 
+	{{#if sidebarNavigation }}
+	{{#if navigation.[2] }}
+	<!--- Page Header -->
+	<sidebar id="sidebar">
+		<nav>
+			<ul>
+				{{#each navigation}}
+				<li>
+					<a href="{{ link }}">{{ name }}</a>
+					{{#if children.[1] }}
+					<ul>
+						{{#each children}}
+						<li><a href="{{ link }}">{{ name }}</a></li>
+						{{/each}}
+					</ul>
+					{{/if}} {{/each}}
+				</li>
+			</ul>
+		</nav>
+	</sidebar>
+	{{/if}}
+	{{/if}}
+
+
 
 	<!--- Main Content -->
 	<main id="main" class="content">
@@ -73,7 +74,6 @@
 	<!--- Page Footer Content -->
 	<footer id="footer">
 		{{#if footerNavigation }}
-		{{#if navigation.[1] }}
 		<nav>
 			<ul>
 				{{#each navigation}}
@@ -99,7 +99,6 @@
 				{{/each}}
 			</ul>
 		</nav>
-		{{/if}}
 		{{/if}}
 		{{#if package}}
 		<footnote>
