@@ -8,7 +8,9 @@
 		"build": "tsc",
 		"dokkie": "npm run build && node dist/index.js --strip=pages",
 		"dev": "tsc -w",
-		"prepublishOnly": "npm run build && npm run dokkie"
+		"pre": "npm run build && npm run dokkie",
+		"precommit": "npm run pre",
+		"prepublishOnly": "npm run pre"
 	},
 	"keywords": [
 		"Documentation",
@@ -21,6 +23,7 @@
 		"@types/jest": "^25.2.3",
 		"@types/markdown-it": "^10.0.1",
 		"@types/rimraf": "^3.0.0",
+		"git-pre-commit": "^2.1.4",
 		"jest": "^26.0.1",
 		"ts-jest": "^26.0.0",
 		"typescript": "^3.9.3"
