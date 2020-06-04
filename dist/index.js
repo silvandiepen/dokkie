@@ -28,308 +28,44 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 // Filesystem
-const { readdir, readFile, lstat } = require("fs").promises;
-const path_1 = require("path");
-const rimraf_1 = __importDefault(require("rimraf"));
 const log = __importStar(require("cli-block"));
-const ncp = require("ncp").ncp;
-const prettier_1 = __importDefault(require("prettier"));
-const consoleJson = (json) => {
-    console.log(JSON.stringify(json, null, 4));
-};
 // Functionality
 const settings_1 = require("./settings");
 const utils_1 = require("./utils");
-const getFileTree = (dir, settings) => __awaiter(void 0, void 0, void 0, function* () {
-    const dirents = yield readdir(dir, { withFileTypes: true });
-    const files = yield Promise.all(dirents.map((dirent) => {
-        const res = path_1.resolve(dir, dirent.name);
-        const ext = path_1.extname(res);
-        if ((settings.extensions.includes(ext) || dirent.isDirectory()) &&
-            !settings.excludeFolders.includes(dirent.name))
-            return dirent.isDirectory()
-                ? getFileTree(res, settings)
-                : { name: path_1.basename(res).replace(ext, ""), path: res, ext: ext };
-        else
-            return null;
-    }));
-    return Array.prototype.concat(...files).filter((r) => r !== null);
-});
-const getFiles = (settings) => __awaiter(void 0, void 0, void 0, function* () {
-    const files = yield getFileTree(settings.input, settings);
-    return Object.assign(Object.assign({}, settings), { files: files });
-});
-const fileData = (settings) => __awaiter(void 0, void 0, void 0, function* () {
-    yield utils_1.asyncForEach(settings.files, (file) => __awaiter(void 0, void 0, void 0, function* () {
-        file.data = yield getFileData(file);
-    }));
-    return Object.assign({}, settings);
-});
-const getFileData = (file) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        let fileData = yield readFile(file.path).then((res) => res.toString());
-        return fileData;
-    }
-    catch (err) {
-        console.log(err);
-    }
-});
-const getPackageInformation = (settings) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        let PackageData = yield readFile("package.json").then((res) => res.toString());
-        return Object.assign(Object.assign({}, settings), { package: JSON.parse(PackageData) });
-    }
-    catch (err) {
-        console.log(err);
-    }
+const steps_1 = require("./steps");
+const buildDokkie = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     return settings;
 });
-// Load the local confi and show
-const loadLocalConfig = (settings) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        let configData = yield readFile("dokkie.config.json").then((res) => JSON.parse(res.toString()));
-        log.BLOCK_MID("Local configuration");
-        log.BLOCK_SETTINGS(configData);
-        return Object.assign(Object.assign({}, settings), { localConfig: configData });
-    }
-    catch (err) {
-        // console.log(err);
-    }
-    return settings;
-});
-// Set the local config to the settings
-const setLocalConfig = (settings) => {
-    if (settings.localConfig) {
-        if (settings.localConfig.input)
-            settings.input = settings.localConfig.input;
-        if (settings.localConfig.output)
-            settings.output = settings.localConfig.output;
-        if (settings.localConfig.layout)
-            settings.layout = settings.localConfig.layout;
-        if (settings.localConfig.cleanBefore)
-            settings.cleanBefore = settings.localConfig.cleanBefore;
-        if (settings.localConfig.theme)
-            settings.theme = settings.localConfig.theme;
-        if (settings.localConfig.extensions)
-            settings.extensions = settings.localConfig.extensions;
-        if (settings.localConfig.excludeFolders)
-            settings.excludeFolders = settings.localConfig.excludeFolders;
-        if (settings.localConfig.copy)
-            settings.copy = settings.localConfig.copy;
-        if (settings.localConfig.strip)
-            settings.strip = settings.localConfig.strip;
-        if (settings.localConfig.flatNavigation)
-            settings.flatNavigation = settings.localConfig.flatNavigation;
-        if (settings.localConfig.showNavigation)
-            settings.showNavigation = settings.localConfig.showNavigation;
-        if (settings.localConfig.projectTitle)
-            settings.projectTitle = settings.localConfig.projectTitle;
-    }
-    return settings;
-};
-// Convert filedata to html.
-const convertDataToHtml = (settings) => __awaiter(void 0, void 0, void 0, function* () {
-    yield utils_1.asyncForEach(settings.files, (file) => __awaiter(void 0, void 0, void 0, function* () {
-        switch (file.ext) {
-            case ".md":
-                const markdownData = yield utils_1.mdToHtml(file);
-                file.meta = markdownData.meta;
-                file.html = markdownData.document;
-                break;
-            case ".html":
-                file.meta = {};
-                file.html = file.data;
-                break;
-        }
-    }));
-    return Object.assign(Object.assign({}, settings), { files: settings.files });
-});
-// Filter files
-const filterHiddenPages = (settings) => __awaiter(void 0, void 0, void 0, function* () {
-    const files = settings.files.filter((file) => file.meta.remove ? null : file);
-    return Object.assign(Object.assign({}, settings), { files: files });
-});
-const getLayout = (settings) => __awaiter(void 0, void 0, void 0, function* () {
-    let layoutFile = "";
-    if (settings.layout.includes(".hbs") || settings.layout.includes(".html")) {
-        layoutFile = yield readFile(path_1.join(process.cwd(), settings.layout)).then((res) => res.toString());
-    }
-    else {
-        layoutFile = yield readFile(path_1.join(__dirname, "../", `template/${settings.layout}.hbs`)).then((res) => res.toString());
-    }
-    return Object.assign(Object.assign({}, settings), { layout: layoutFile });
-});
-const setMetadata = (settings) => __awaiter(void 0, void 0, void 0, function* () {
-    const files = yield Promise.all(settings.files.map((file) => __awaiter(void 0, void 0, void 0, function* () {
-        return (file = Object.assign(Object.assign({}, file), { title: yield utils_1.getPageTitle(file), route: utils_1.makeRoute(file, settings), destpath: utils_1.makePath(file, settings), filename: utils_1.makeFileName(file) }));
-    }))).then((res) => res);
-    return Object.assign(Object.assign({}, settings), { files: files });
-});
-const getStyles = (settings) => {
-    var _a, _b, _c, _d, _e, _f;
-    let styles = [];
-    if (settings.theme && !settings.theme.includes("http")) {
-        styles.push(`https://coat.guyn.nl/theme/${settings.theme}.css`);
-    }
-    // If there are addable stylesheets available
-    if ((_b = (_a = settings.localConfig) === null || _a === void 0 ? void 0 : _a.add) === null || _b === void 0 ? void 0 : _b.stylesheets)
-        styles = styles.concat(settings.localConfig.add.stylesheets);
-    // If there are overruling stylesheets
-    if ((_d = (_c = settings.localConfig) === null || _c === void 0 ? void 0 : _c.overrule) === null || _d === void 0 ? void 0 : _d.stylesheets)
-        styles = (_f = (_e = settings.localConfig) === null || _e === void 0 ? void 0 : _e.overrule) === null || _f === void 0 ? void 0 : _f.stylesheets;
-    // To Embeddable link scripts
-    const stylesScripts = styles
-        .map((s) => (s = `<link rel="stylesheet" type="text/css" href="${s}"/>`))
-        .join("");
-    return Object.assign(Object.assign({}, settings), { styles: stylesScripts });
-};
-const getScripts = (settings) => {
-    var _a, _b, _c, _d;
-    let scripts = [];
-    // If there are addable stylesheets available
-    if ((_b = (_a = settings.localConfig) === null || _a === void 0 ? void 0 : _a.add) === null || _b === void 0 ? void 0 : _b.scripts)
-        scripts = scripts.concat(settings.localConfig.add.scripts);
-    // If there are overruling stylesheets
-    if ((_d = (_c = settings.localConfig) === null || _c === void 0 ? void 0 : _c.overrule) === null || _d === void 0 ? void 0 : _d.scripts)
-        scripts = settings.localConfig.overrule.scripts;
-    const scriptScripts = scripts
-        .map((s) => (s = `<script type="text/javascript" src="${s}"></script>`))
-        .join("");
-    return Object.assign(Object.assign({}, settings), { scripts: scriptScripts });
-};
-const cleanFolder = (settings) => __awaiter(void 0, void 0, void 0, function* () {
-    if (settings.cleanBefore)
-        rimraf_1.default.sync(settings.output);
-});
-const filterNavigation = (nav, parent) => {
-    // consoleJson(nav);
-    const filteredNav = nav.map((item) => {
-        var _a;
-        // consoleJson({
-        // 	name: item.name,
-        // 	parent: parent,
-        // 	hasMetaMenu: !item.meta?.menu,
-        // });
-        if (!((_a = item.meta) === null || _a === void 0 ? void 0 : _a.menu) ||
-            (item.meta.menu && item.meta.menu.includes(parent))) {
-            if (item.children)
-                return Object.assign(Object.assign({}, item), { children: filterNavigation(item.children, parent).filter(Boolean) });
-            else {
-                return Object.assign({}, item);
-            }
-        }
-    });
-    return filteredNav;
-};
-const getNavigation = (settings, filter) => settings.showNavigation.includes(filter)
-    ? filterNavigation(Array.from(settings.navigation), filter).filter(Boolean)
-    : [];
-const createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* () {
-    const template = utils_1.Handlebars.compile(settings.layout);
-    log.BLOCK_MID("Creating pages");
-    yield utils_1.asyncForEach(settings.files, (file) => __awaiter(void 0, void 0, void 0, function* () {
-        try {
-            const currentLink = file.route.replace("index.html", "");
-            const contents = template({
-                projectTitle: settings.projectTitle == ""
-                    ? settings.package.name
-                    : settings.projectTitle,
-                title: file.title,
-                content: file.html,
-                currentLink: currentLink,
-                currentId: currentLink.replace(/\//g, " ").trim().replace(/\s+/g, "-"),
-                styles: settings.styles ? settings.styles : null,
-                scripts: settings.scripts ? settings.scripts : null,
-                package: settings.package ? settings.package : null,
-                navigation: settings.navigation,
-                headerNavigation: getNavigation(settings, "header"),
-                sidebarNavigation: getNavigation(settings, "sidebar"),
-                footerNavigation: getNavigation(settings, "footer"),
-            });
-            yield utils_1.writeThatFile(file, prettier_1.default.format(contents, { parser: "html" }));
-        }
-        catch (err) {
-            console.log(err);
-        }
-    }));
-});
-const copyFolders = (settings) => __awaiter(void 0, void 0, void 0, function* () {
-    if (settings.copy.length > 0) {
-        log.BLOCK_MID("Copy files/folders");
-        yield utils_1.asyncForEach(settings.copy, (folder) => __awaiter(void 0, void 0, void 0, function* () {
-            yield ncp(folder, settings.output + "/" + folder.split("/")[folder.split("/").length - 1], (err) => {
-                if (!err)
-                    log.BLOCK_LINE_SUCCESS(folder);
-                else
-                    console.log(err);
-            });
-        }));
-    }
-});
-const start = (settings) => __awaiter(void 0, void 0, void 0, function* () {
-    return settings;
-});
-const buildNavigation = (settings) => __awaiter(void 0, void 0, void 0, function* () {
-    let nav = [];
-    settings.files.forEach((file) => {
-        const link = file.route.replace("index.html", "");
-        const linkPath = link.substr(1, link.length - 2).split("/");
-        const parent = linkPath[linkPath.length - 2]
-            ? linkPath[linkPath.length - 2]
-            : "";
-        if (!file.meta.hide)
-            nav.push({
-                name: file.title,
-                link: link,
-                path: linkPath,
-                self: linkPath[linkPath.length - 1],
-                parent: file.meta.parent
-                    ? file.meta.parent.split(",").map((i) => i.trim())
-                    : parent,
-                meta: file.meta,
-            });
-    });
-    let newNav = [];
-    if (!settings.flatNavigation)
-        nav
-            .filter((item) => item.parent == "")
-            .forEach((item) => {
-            newNav.push(Object.assign(Object.assign({}, item), { children: nav.filter((subitem) => subitem.parent.includes(item.self) && item.self !== "") }));
-        });
-    return Object.assign(Object.assign({}, settings), { navigation: settings.flatNavigation ? nav : newNav });
-});
-start(settings_1.settings())
+buildDokkie(settings_1.settings())
     .then((s) => {
     log.START("Creating Your documentation");
     log.BLOCK_START();
     log.BLOCK_LINE("Dokkie is now building your documentation");
     return s;
 })
-    .then(loadLocalConfig)
-    .then(setLocalConfig)
+    .then(steps_1.loadLocalConfig)
+    .then(steps_1.setLocalConfig)
     .then((s) => {
     settings_1.logSettings(s);
     return s;
 })
-    .then(getFiles)
-    .then(fileData)
-    .then(getPackageInformation)
-    .then(convertDataToHtml)
-    .then(filterHiddenPages)
-    .then(setMetadata)
-    .then(getLayout)
-    .then(getStyles)
-    .then(getScripts)
-    .then(buildNavigation)
+    .then(steps_1.getFiles)
+    .then(steps_1.fileData)
+    .then(steps_1.getPackageInformation)
+    .then(steps_1.convertDataToHtml)
+    .then(steps_1.filterHiddenPages)
+    .then(steps_1.setMetadata)
+    .then(steps_1.getLayout)
+    .then(steps_1.getStyles)
+    .then(steps_1.getScripts)
+    .then(steps_1.buildNavigation)
     .then((s) => __awaiter(void 0, void 0, void 0, function* () {
-    yield cleanFolder(s);
-    yield createFiles(s);
-    yield copyFolders(s);
+    yield steps_1.cleanFolder(s);
+    yield steps_1.createFiles(s);
+    yield utils_1.createFavicons(s);
+    yield steps_1.copyFolders(s);
     return s;
 }))
     .then(() => {

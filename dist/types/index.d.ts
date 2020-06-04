@@ -35,6 +35,7 @@ export interface IArgumentSettings {
     showNavigation: string[];
     codeHighlight: boolean;
     projectTitle: string;
+    favicon: string;
 }
 export interface ISettings extends IArgumentSettings {
     files?: IFile[] | any;

@@ -75,6 +75,11 @@ export const settings = (): ISettings => {
 			type: "string",
 			default: "",
 		},
+		favicon: {
+			require: false,
+			type: "string",
+			default: "",
+		},
 	}).argv;
 
 	return {
@@ -91,6 +96,7 @@ export const settings = (): ISettings => {
 		showNavigation: cs.showNavigation,
 		codeHighlight: cs.codeHighlight,
 		projectTitle: cs.projectTitle,
+		favicon: cs.favicon,
 	};
 };
 export const logSettings = (settings: ISettings): void => {

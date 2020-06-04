@@ -97,6 +97,11 @@ exports.settings = () => {
             type: "string",
             default: "",
         },
+        favicon: {
+            require: false,
+            type: "string",
+            default: "",
+        },
     }).argv;
     return {
         input: cs.in,
@@ -112,6 +117,7 @@ exports.settings = () => {
         showNavigation: cs.showNavigation,
         codeHighlight: cs.codeHighlight,
         projectTitle: cs.projectTitle,
+        favicon: cs.favicon,
     };
 };
 exports.logSettings = (settings) => {
