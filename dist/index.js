@@ -33,7 +33,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 // Filesystem
-const { readdir, readFile } = require("fs").promises;
+const { readdir, readFile, lstat } = require("fs").promises;
 const path_1 = require("path");
 const rimraf_1 = __importDefault(require("rimraf"));
 const log = __importStar(require("cli-block"));
@@ -260,11 +260,13 @@ const createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* ()
 });
 const copyFolders = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     if (settings.copy.length > 0) {
-        log.BLOCK_MID("Copy folders");
+        log.BLOCK_MID("Copy files/folders");
         yield utils_1.asyncForEach(settings.copy, (folder) => __awaiter(void 0, void 0, void 0, function* () {
-            yield ncp(folder, settings.output + "/" + folder, (err) => {
+            yield ncp(folder, settings.output + "/" + folder.split("/")[folder.split("/").length - 1], (err) => {
                 if (!err)
                     log.BLOCK_LINE_SUCCESS(folder);
+                else
+                    console.log(err);
             });
         }));
     }

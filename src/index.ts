@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 // Filesystem
-const { readdir, readFile } = require("fs").promises;
+const { readdir, readFile, lstat } = require("fs").promises;
 import { basename, extname, resolve, join } from "path";
 import rimraf from "rimraf";
 import * as log from "cli-block";
@@ -300,11 +300,16 @@ const createFiles = async (settings: ISettings): Promise<void> => {
 };
 const copyFolders = async (settings: ISettings): Promise<void> => {
 	if (settings.copy.length > 0) {
-		log.BLOCK_MID("Copy folders");
+		log.BLOCK_MID("Copy files/folders");
 		await asyncForEach(settings.copy, async (folder) => {
-			await ncp(folder, settings.output + "/" + folder, (err) => {
-				if (!err) log.BLOCK_LINE_SUCCESS(folder);
-			});
+			await ncp(
+				folder,
+				settings.output + "/" + folder.split("/")[folder.split("/").length - 1],
+				(err) => {
+					if (!err) log.BLOCK_LINE_SUCCESS(folder);
+					else console.log(err);
+				}
+			);
 		});
 	}
 };

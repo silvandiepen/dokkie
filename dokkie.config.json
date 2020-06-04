@@ -1,4 +1,5 @@
 {
 	"projectTitle": "Dokkie",
-	"showNavigation": ["header", "footer", "sidebar"]
+	"showNavigation": ["header", "footer", "sidebar"],
+	"copy": ["dist", "src/types"]
 }
