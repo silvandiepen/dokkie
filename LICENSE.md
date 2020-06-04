@@ -1,5 +1,6 @@
 ---
-parent: about
+parent: about, usage
+menu: footer
 ---
 
 # License

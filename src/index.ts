@@ -8,6 +8,10 @@ import * as log from "cli-block";
 const ncp = require("ncp").ncp;
 import prettier from "prettier";
 
+const consoleJson = (json: any) => {
+	console.log(JSON.stringify(json, null, 4));
+};
+
 // Functionality
 import { settings, logSettings } from "./settings";
 import { ISettings, IFile, INavigation } from "./types";
@@ -126,7 +130,7 @@ const setLocalConfig = (settings: ISettings): ISettings => {
 };
 // Convert filedata to html.
 
-const toHtml = async (settings: ISettings): Promise<ISettings> => {
+const convertDataToHtml = async (settings: ISettings): Promise<ISettings> => {
 	await asyncForEach(settings.files, async (file: IFile) => {
 		switch (file.ext) {
 			case ".md":
@@ -145,7 +149,7 @@ const toHtml = async (settings: ISettings): Promise<ISettings> => {
 
 // Filter files
 
-const filterFiles = async (settings: ISettings): Promise<ISettings> => {
+const filterHiddenPages = async (settings: ISettings): Promise<ISettings> => {
 	const files = settings.files.filter((file: IFile) =>
 		file.meta.remove ? null : file
 	);
@@ -166,7 +170,7 @@ const getLayout = async (settings: ISettings): Promise<ISettings> => {
 	return { ...settings, layout: layoutFile };
 };
 
-const setMeta = async (settings: ISettings): Promise<ISettings> => {
+const setMetadata = async (settings: ISettings): Promise<ISettings> => {
 	const files = await Promise.all(
 		settings.files.map(
 			async (file: IFile) =>
@@ -227,9 +231,42 @@ const getScripts = (settings: ISettings): ISettings => {
 		scripts: scriptScripts,
 	};
 };
-const createFolder = async (settings: ISettings): Promise<void> => {
+const cleanFolder = async (settings: ISettings): Promise<void> => {
 	if (settings.cleanBefore) rimraf.sync(settings.output);
 };
+
+const filterNavigation = (
+	nav: INavigation[],
+	parent: string
+): INavigation[] => {
+	// consoleJson(nav);
+	const filteredNav = nav.map((item) => {
+		// consoleJson({
+		// 	name: item.name,
+		// 	parent: parent,
+		// 	hasMetaMenu: !item.meta?.menu,
+		// });
+		if (
+			!item.meta?.menu ||
+			(item.meta.menu && item.meta.menu.includes(parent))
+		) {
+			if (item.children)
+				return {
+					...item,
+					children: filterNavigation(item.children, parent).filter(Boolean),
+				};
+			else {
+				return { ...item };
+			}
+		}
+	});
+	return filteredNav;
+};
+
+const getNavigation = (settings: ISettings, filter: string): INavigation[] =>
+	settings.showNavigation.includes(filter)
+		? filterNavigation(Array.from(settings.navigation), filter).filter(Boolean)
+		: [];
 
 const createFiles = async (settings: ISettings): Promise<void> => {
 	const template = Handlebars.compile(settings.layout);
@@ -249,11 +286,11 @@ const createFiles = async (settings: ISettings): Promise<void> => {
 				currentId: currentLink.replace(/\//g, " ").trim().replace(/\s+/g, "-"),
 				styles: settings.styles ? settings.styles : null,
 				scripts: settings.scripts ? settings.scripts : null,
-				navigation: settings.navigation,
 				package: settings.package ? settings.package : null,
-				headerNavigation: settings.showNavigation.includes("header"),
-				footerNavigation: settings.showNavigation.includes("footer"),
-				sidebarNavigation: settings.showNavigation.includes("sidebar"),
+				navigation: settings.navigation,
+				headerNavigation: getNavigation(settings, "header"),
+				sidebarNavigation: getNavigation(settings, "sidebar"),
+				footerNavigation: getNavigation(settings, "footer"),
 			});
 			await writeThatFile(file, prettier.format(contents, { parser: "html" }));
 		} catch (err) {
@@ -290,7 +327,10 @@ const buildNavigation = async (settings: ISettings): Promise<ISettings> => {
 				link: link,
 				path: linkPath,
 				self: linkPath[linkPath.length - 1],
-				parent: file.meta.parent ? file.meta.parent : parent,
+				parent: file.meta.parent
+					? file.meta.parent.split(",").map((i: string) => i.trim())
+					: parent,
+				meta: file.meta,
 			});
 	});
 
@@ -301,19 +341,12 @@ const buildNavigation = async (settings: ISettings): Promise<ISettings> => {
 			.filter((item) => item.parent == "")
 			.forEach((item) => {
 				newNav.push({
-					name: item.name,
-					link: item.link,
-					children: nav
-						.filter(
-							(subitem) => subitem.parent === item.self && item.self !== ""
-						)
-						.map((mapitem) => ({
-							name: mapitem.name,
-							link: mapitem.link,
-						})),
+					...item,
+					children: nav.filter(
+						(subitem) => subitem.parent.includes(item.self) && item.self !== ""
+					),
 				});
 			});
-
 	return { ...settings, navigation: settings.flatNavigation ? nav : newNav };
 };
 
@@ -333,15 +366,15 @@ start(settings())
 	.then(getFiles)
 	.then(fileData)
 	.then(getPackageInformation)
-	.then(toHtml)
-	.then(filterFiles)
-	.then(setMeta)
+	.then(convertDataToHtml)
+	.then(filterHiddenPages)
+	.then(setMetadata)
 	.then(getLayout)
 	.then(getStyles)
 	.then(getScripts)
 	.then(buildNavigation)
 	.then(async (s) => {
-		await createFolder(s);
+		await cleanFolder(s);
 		await createFiles(s);
 		await copyFolders(s);
 		return s;

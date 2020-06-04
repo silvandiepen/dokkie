@@ -39,6 +39,9 @@ const rimraf_1 = __importDefault(require("rimraf"));
 const log = __importStar(require("cli-block"));
 const ncp = require("ncp").ncp;
 const prettier_1 = __importDefault(require("prettier"));
+const consoleJson = (json) => {
+    console.log(JSON.stringify(json, null, 4));
+};
 // Functionality
 const settings_1 = require("./settings");
 const utils_1 = require("./utils");
@@ -130,7 +133,7 @@ const setLocalConfig = (settings) => {
     return settings;
 };
 // Convert filedata to html.
-const toHtml = (settings) => __awaiter(void 0, void 0, void 0, function* () {
+const convertDataToHtml = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     yield utils_1.asyncForEach(settings.files, (file) => __awaiter(void 0, void 0, void 0, function* () {
         switch (file.ext) {
             case ".md":
@@ -147,7 +150,7 @@ const toHtml = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     return Object.assign(Object.assign({}, settings), { files: settings.files });
 });
 // Filter files
-const filterFiles = (settings) => __awaiter(void 0, void 0, void 0, function* () {
+const filterHiddenPages = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     const files = settings.files.filter((file) => file.meta.remove ? null : file);
     return Object.assign(Object.assign({}, settings), { files: files });
 });
@@ -161,7 +164,7 @@ const getLayout = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     }
     return Object.assign(Object.assign({}, settings), { layout: layoutFile });
 });
-const setMeta = (settings) => __awaiter(void 0, void 0, void 0, function* () {
+const setMetadata = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     const files = yield Promise.all(settings.files.map((file) => __awaiter(void 0, void 0, void 0, function* () {
         return (file = Object.assign(Object.assign({}, file), { title: yield utils_1.getPageTitle(file), route: utils_1.makeRoute(file, settings), destpath: utils_1.makePath(file, settings), filename: utils_1.makeFileName(file) }));
     }))).then((res) => res);
@@ -199,10 +202,33 @@ const getScripts = (settings) => {
         .join("");
     return Object.assign(Object.assign({}, settings), { scripts: scriptScripts });
 };
-const createFolder = (settings) => __awaiter(void 0, void 0, void 0, function* () {
+const cleanFolder = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     if (settings.cleanBefore)
         rimraf_1.default.sync(settings.output);
 });
+const filterNavigation = (nav, parent) => {
+    // consoleJson(nav);
+    const filteredNav = nav.map((item) => {
+        var _a;
+        // consoleJson({
+        // 	name: item.name,
+        // 	parent: parent,
+        // 	hasMetaMenu: !item.meta?.menu,
+        // });
+        if (!((_a = item.meta) === null || _a === void 0 ? void 0 : _a.menu) ||
+            (item.meta.menu && item.meta.menu.includes(parent))) {
+            if (item.children)
+                return Object.assign(Object.assign({}, item), { children: filterNavigation(item.children, parent).filter(Boolean) });
+            else {
+                return Object.assign({}, item);
+            }
+        }
+    });
+    return filteredNav;
+};
+const getNavigation = (settings, filter) => settings.showNavigation.includes(filter)
+    ? filterNavigation(Array.from(settings.navigation), filter).filter(Boolean)
+    : [];
 const createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     const template = utils_1.Handlebars.compile(settings.layout);
     log.BLOCK_MID("Creating pages");
@@ -219,11 +245,11 @@ const createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* ()
                 currentId: currentLink.replace(/\//g, " ").trim().replace(/\s+/g, "-"),
                 styles: settings.styles ? settings.styles : null,
                 scripts: settings.scripts ? settings.scripts : null,
-                navigation: settings.navigation,
                 package: settings.package ? settings.package : null,
-                headerNavigation: settings.showNavigation.includes("header"),
-                footerNavigation: settings.showNavigation.includes("footer"),
-                sidebarNavigation: settings.showNavigation.includes("sidebar"),
+                navigation: settings.navigation,
+                headerNavigation: getNavigation(settings, "header"),
+                sidebarNavigation: getNavigation(settings, "sidebar"),
+                footerNavigation: getNavigation(settings, "footer"),
             });
             yield utils_1.writeThatFile(file, prettier_1.default.format(contents, { parser: "html" }));
         }
@@ -260,7 +286,10 @@ const buildNavigation = (settings) => __awaiter(void 0, void 0, void 0, function
                 link: link,
                 path: linkPath,
                 self: linkPath[linkPath.length - 1],
-                parent: file.meta.parent ? file.meta.parent : parent,
+                parent: file.meta.parent
+                    ? file.meta.parent.split(",").map((i) => i.trim())
+                    : parent,
+                meta: file.meta,
             });
     });
     let newNav = [];
@@ -268,16 +297,7 @@ const buildNavigation = (settings) => __awaiter(void 0, void 0, void 0, function
         nav
             .filter((item) => item.parent == "")
             .forEach((item) => {
-            newNav.push({
-                name: item.name,
-                link: item.link,
-                children: nav
-                    .filter((subitem) => subitem.parent === item.self && item.self !== "")
-                    .map((mapitem) => ({
-                    name: mapitem.name,
-                    link: mapitem.link,
-                })),
-            });
+            newNav.push(Object.assign(Object.assign({}, item), { children: nav.filter((subitem) => subitem.parent.includes(item.self) && item.self !== "") }));
         });
     return Object.assign(Object.assign({}, settings), { navigation: settings.flatNavigation ? nav : newNav });
 });
@@ -297,15 +317,15 @@ start(settings_1.settings())
     .then(getFiles)
     .then(fileData)
     .then(getPackageInformation)
-    .then(toHtml)
-    .then(filterFiles)
-    .then(setMeta)
+    .then(convertDataToHtml)
+    .then(filterHiddenPages)
+    .then(setMetadata)
     .then(getLayout)
     .then(getStyles)
     .then(getScripts)
     .then(buildNavigation)
     .then((s) => __awaiter(void 0, void 0, void 0, function* () {
-    yield createFolder(s);
+    yield cleanFolder(s);
     yield createFiles(s);
     yield copyFolders(s);
     return s;

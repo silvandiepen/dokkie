@@ -17,8 +17,7 @@
 
 <body id="{{currentId}}">
 
-	{{#if headerNavigation }}
-	{{#if navigation.[2] }}
+	{{#if headerNavigation.[1] }}
 	<!--- Page Header -->
 	<header id="header">
 		{{#if projectTitle }}<h1><a href="/">{{ projectTitle }}</a></h1>{{/if}}
@@ -26,13 +25,18 @@
 		<label class="nav-trigger__label" for="header-nav-trigger"><span></span></label>
 		<nav>
 			<ul>
-				{{#each navigation}}
-				<li>
+				{{#each headerNavigation}}
+				{{#if (eq link ../currentLink) }}<li class="active">{{/if}}
+					{{#if (ne link ../currentLink) }}
+				<li>{{/if}}
+
 					<a href="{{ link }}">{{ name }}</a>
-					{{#if children.[1] }}
+					{{#if children.[0] }}
 					<ul>
 						{{#each children}}
-						<li><a href="{{ link }}">{{ name }}</a></li>
+						{{#if (eq link ../../currentLink) }}<li class="active">{{/if}}
+							{{#if (ne link ../../currentLink) }}
+						<li>{{/if}}<a href="{{ link }}">{{ name }}</a></li>
 						{{/each}}
 					</ul>
 					{{/if}} {{/each}}
@@ -41,31 +45,38 @@
 		</nav>
 	</header>
 	{{/if}}
-	{{/if}}
 
-	{{#if sidebarNavigation }}
-	{{#if navigation.[2] }}
+	{{#if sidebarNavigation.[1] }}
 	<!--- Page Header -->
 	<sidebar id="sidebar">
 		<input type="checkbox" class="nav-trigger__input" id="sidebar-nav-trigger">
 		<label class="nav-trigger__label" for="sidebar-nav-trigger"><span></span></label>
 		<nav>
 			<ul>
-				{{#each navigation}}
-				<li>
+				{{#each sidebarNavigation}}
+				{{#if (eq link ../currentLink) }}<li class="active">{{/if}}
+
+					{{#if (ne link ../currentLink) }}
+				<li>{{/if}}
+
 					<a href="{{ link }}">{{ name }}</a>
-					{{#if children.[1] }}
+					{{#if children.[0] }}
 					<ul>
-						{{#each children}}
-						<li><a href="{{ link }}">{{ name }}</a></li>
+						{{#each children }}
+						{{#if (eq link ../../currentLink) }}<li class="active">{{/if}}
+
+							{{#if (ne link ../../currentLink) }}
+						<li>{{/if}}
+							<a href="{{ link }}">{{ name }}</a>
+						</li>
 						{{/each}}
 					</ul>
-					{{/if}} {{/each}}
+					{{/if}}
 				</li>
+				{{/each}}
 			</ul>
 		</nav>
 	</sidebar>
-	{{/if}}
 	{{/if}}
 
 
@@ -78,19 +89,19 @@
 
 	<!--- Page Footer Content -->
 	<footer id="footer">
-		{{#if footerNavigation }}
+		{{#if footerNavigation.[1] }}
 		<nav>
 			<ul>
-				{{#each navigation}}
+				{{#each footerNavigation}}
 				{{#if (eq link ../currentLink) }}<li class="active">{{/if}}
 
 					{{#if (ne link ../currentLink) }}
 				<li>{{/if}}
 
 					<a href="{{ link }}">{{ name }}</a>
-					{{#if children.[1] }}
+					{{#if children.[0] }}
 					<ul>
-						{{#each children}}
+						{{#each children }}
 						{{#if (eq link ../../currentLink) }}<li class="active">{{/if}}
 
 							{{#if (ne link ../../currentLink) }}
@@ -113,6 +124,7 @@
 		</footnote>
 		{{/if}}
 	</footer>
+
 </body>
 
 </html>

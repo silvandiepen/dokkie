@@ -66,4 +66,6 @@ export interface INavigation {
     self?: string;
     path?: string[];
     parent?: string;
+    meta?: IMeta;
+    children?: INavigation[];
 }
