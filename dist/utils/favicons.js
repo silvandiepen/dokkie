@@ -42,11 +42,9 @@ const createFaviconImage = (settings) => {
     const canvas = createCanvas(1024, 1024);
     const ctx = canvas.getContext("2d");
     // Draw line under text
-    ctx.font = "800px Georgia";
-    let firstLetter = ("" ? settings.package.name : settings.projectTitle)
-        .substr(0, 1)
-        .toLowerCase();
-    ctx.fillStyle = "#cccccc";
+    ctx.font = "800px Helvetica";
+    let firstLetter = ("" ? settings.package.name : settings.projectTitle).substr(0, 1);
+    ctx.fillStyle = "#7f7f7f"; // Most mid-color, so it will always be visible.
     ctx.fillText(firstLetter, 200, 768);
     const frame = new canvas_to_buffer_1.default(canvas);
     return frame.toBuffer();

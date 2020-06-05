@@ -24,6 +24,11 @@ export interface IPackageJson {
 	[key: string]: unknown;
 }
 
+interface showNavigation {
+	name: string;
+	desktop: boolean;
+	mobile: boolean;
+}
 export interface IArgumentSettings {
 	input: string;
 	output: string;
@@ -35,7 +40,7 @@ export interface IArgumentSettings {
 	copy: string[];
 	strip: string[];
 	flatNavigation: boolean;
-	showNavigation: string[];
+	showNavigation: showNavigation[];
 	codeHighlight: boolean;
 	projectTitle: string;
 	favicon: string;
@@ -66,6 +71,11 @@ interface ILocalConfig extends IArgumentSettings {
 export interface IMarkdown {
 	document: string;
 	meta: any;
+}
+
+export interface IMenu extends showNavigation {
+	menu: INavigation[];
+	showClass: string;
 }
 export interface INavigation {
 	name: string;

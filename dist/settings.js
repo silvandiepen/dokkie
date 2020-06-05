@@ -85,7 +85,10 @@ exports.settings = () => {
         showNavigation: {
             required: false,
             type: "array",
-            default: ["header", "footer"],
+            default: [
+                { name: "header", mobile: true, desktop: true },
+                { name: "footer", mobile: true, desktop: true },
+            ],
         },
         codeHighlight: {
             required: false,

@@ -18,15 +18,15 @@
 
 <body id="{{currentId}}">
 
-	{{#if headerNavigation.[1] }}
+	{{#if headerNavigation.menu.[1] }}
 	<!--- Page Header -->
 	<header id="header">
 		{{#if projectTitle }}<h1><a href="/">{{ projectTitle }}</a></h1>{{/if}}
 		<input type="checkbox" class="nav-trigger__input" id="header-nav-trigger">
 		<label class="nav-trigger__label" for="header-nav-trigger"><span></span></label>
-		<nav>
+		<nav class="{{headerNavigation.showClass}}">
 			<ul>
-				{{#each headerNavigation}}
+				{{#each headerNavigation.menu}}
 				{{#if (eq link ../currentLink) }}<li class="active">{{/if}}
 					{{#if (ne link ../currentLink) }}
 				<li>{{/if}}
@@ -47,14 +47,14 @@
 	</header>
 	{{/if}}
 
-	{{#if sidebarNavigation.[1] }}
+	{{#if sidebarNavigation.menu.[1] }}
 	<!--- Page Header -->
 	<sidebar id="sidebar">
 		<input type="checkbox" class="nav-trigger__input" id="sidebar-nav-trigger">
 		<label class="nav-trigger__label" for="sidebar-nav-trigger"><span></span></label>
-		<nav>
+		<nav class="{{sidebarNavigation.showClass}}">
 			<ul>
-				{{#each sidebarNavigation}}
+				{{#each sidebarNavigation.menu}}
 				{{#if (eq link ../currentLink) }}<li class="active">{{/if}}
 
 					{{#if (ne link ../currentLink) }}
@@ -90,10 +90,10 @@
 
 	<!--- Page Footer Content -->
 	<footer id="footer">
-		{{#if footerNavigation.[1] }}
-		<nav>
+		{{#if footerNavigation.menu.[1] }}
+		<nav class="{{footerNavigation.showClass}}">
 			<ul>
-				{{#each footerNavigation}}
+				{{#each footerNavigation.menu}}
 				{{#if (eq link ../currentLink) }}<li class="active">{{/if}}
 
 					{{#if (ne link ../currentLink) }}

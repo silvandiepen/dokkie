@@ -55,7 +55,17 @@ export const setLocalConfig = (settings: ISettings): ISettings => {
 		if (settings.localConfig.flatNavigation)
 			settings.flatNavigation = settings.localConfig.flatNavigation;
 		if (settings.localConfig.showNavigation)
-			settings.showNavigation = settings.localConfig.showNavigation;
+			settings.showNavigation = settings.localConfig.showNavigation.map(
+				(option) => {
+					if (typeof option == "string") {
+						return {
+							name: option,
+							mobile: true,
+							desktop: true,
+						};
+					} else return option;
+				}
+			);
 		if (settings.localConfig.projectTitle)
 			settings.projectTitle = settings.localConfig.projectTitle;
 	}

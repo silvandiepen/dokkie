@@ -1,4 +1,4 @@
-import { ISettings, INavigation, IFile } from "../types";
+import { ISettings, INavigation, IFile, IMenu } from "../types";
 import rimraf from "rimraf";
 export const buildNavigation = async (
 	settings: ISettings
@@ -67,10 +67,18 @@ const filterNavigation = (
 	return filteredNav;
 };
 
-export const getNavigation = (
-	settings: ISettings,
-	filter: string
-): INavigation[] =>
-	settings.showNavigation.includes(filter)
-		? filterNavigation(Array.from(settings.navigation), filter).filter(Boolean)
-		: [];
+export const getNavigation = (settings: ISettings, filter: string): IMenu => {
+	const current = settings.showNavigation.find((nav) => nav.name == filter);
+	if (current)
+		return {
+			...current,
+			menu: filterNavigation(Array.from(settings.navigation), filter).filter(
+				Boolean
+			),
+			showClass: `${current.mobile ? "" : "hide-mobile"} ${
+				current.desktop ? "show-desktop" : "hide-desktop"
+			}`,
+		};
+
+	return null;
+};

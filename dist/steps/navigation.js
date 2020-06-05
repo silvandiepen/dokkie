@@ -62,7 +62,10 @@ const filterNavigation = (nav, parent) => {
     });
     return filteredNav;
 };
-exports.getNavigation = (settings, filter) => settings.showNavigation.includes(filter)
-    ? filterNavigation(Array.from(settings.navigation), filter).filter(Boolean)
-    : [];
+exports.getNavigation = (settings, filter) => {
+    const current = settings.showNavigation.find((nav) => nav.name == filter);
+    if (current)
+        return Object.assign(Object.assign({}, current), { menu: filterNavigation(Array.from(settings.navigation), filter).filter(Boolean), showClass: `${current.mobile ? "" : "hide-mobile"} ${current.desktop ? "show-desktop" : "hide-desktop"}` });
+    return null;
+};
 //# sourceMappingURL=navigation.js.map
