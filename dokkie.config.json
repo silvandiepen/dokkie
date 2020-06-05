@@ -1,4 +1,8 @@
 {
 	"projectTitle": "Dokkie",
-	"showNavigation": ["header", "footer", "sidebar"]
+	"showNavigation": [
+		"header",
+		"footer",
+		{ "name": "sidebar", "desktop": true, "mobile": false }
+	]
 }

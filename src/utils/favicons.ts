@@ -1,22 +1,39 @@
 import favicons from "favicons";
-import { ISettings } from "../types";
+import { ISettings, IFile, IFaviconImg, IFaviconResult } from "../types";
 import * as log from "cli-block";
 import { join, basename, extname } from "path";
 import { asyncForEach, writeThatFile } from "../utils";
+const { createCanvas } = require("canvas");
+import Frame from "canvas-to-buffer";
 
+const createFaviconImage = (settings: ISettings): string => {
+	const canvas = createCanvas(1024, 1024);
+	const ctx = canvas.getContext("2d");
+	// Draw line under text
+	ctx.font = "800px Helvetica";
+	let firstLetter = ("" ? settings.package.name : settings.projectTitle)
+		.substr(0, 1)
+		.toLowerCase();
+	ctx.fillStyle = "#cccccc";
+	ctx.fillText(firstLetter, 200, 768);
+	const frame = new Frame(canvas);
+	return frame.toBuffer();
+};
 // import * as log from "cli-block";
-export const createFavicons = async (settings: ISettings): Promise<void> => {
-	const source = settings.favicon ? settings.favicon : "test.jpg";
-
-	console.log(source);
+export const createFavicons = async (
+	settings: ISettings
+): Promise<ISettings> => {
+	const source = settings.favicon
+		? settings.favicon
+		: createFaviconImage(settings);
 
 	const config = {
-		path: "/", // Path for overriding default icons path. `string`
+		path: "/img/favicons/", // Path for overriding default icons path. `string`
 		appName: settings.package?.name, // Your application's name. `string`
 		appDescription: settings.package?.description, // Your application's description. `string`
 		developerName: settings.package?.author, // Your (or your developer's) name. `string`
-		developerURL: null, // Your (or your developer's) URL. `string`
-		dir: "auto", // Primary text direction for name, short_name, and description
+		developerURL: null, // Your (or your developer's) URL. `string`.-
+		dir: "auto", // Primary text direction for name, short_name, and description.-
 		lang: "en-US", // Primary language for name and short_name
 		background: "#fff", // Background colour for flattened icons. `string`
 		theme_color: "#fff", // Theme color user for example in Android's task switcher. `string`
@@ -35,55 +52,42 @@ export const createFavicons = async (settings: ISettings): Promise<void> => {
 			appleStartup: false, // Create Apple startup images. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
 			coast: false, // Create Opera Coast icon. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
 			favicons: true, // Create regular favicons. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
-			firefox: true, // Create Firefox OS icons. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
+			firefox: false, // Create Firefox OS icons. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
 			windows: true, // Create Windows 8 tile icons. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
 			yandex: true, // Create Yandex browser icon. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
 		},
 	};
 	log.BLOCK_MID("Create Favicon");
 
-	await favicons(source, config as any, async (error, response) => {
-		if (error) {
-			console.log(error.message); // Error description e.g. "An unknown error has occurred"
-			return;
-		}
+	const faviconData = await new Promise((resolve, reject) => {
+		favicons(source, config as any, async (error, response) => {
+			if (error) reject(error);
+			resolve(response);
+		});
+	}).then(async (response: IFaviconResult) => {
 		const faviconDest = "img/favicons";
-		const fileDest = "img/favicons";
-		const htmlDest = "img/html";
-
-		await asyncForEach(response.images, async (img) => {
-			await writeThatFile(
-				{
-					name: img.name,
-					path: join(settings.output, "img/favicons", img.name),
-					destpath: join(settings.output, "/img/favicons/"),
-					filename: img.name,
-					title: basename(img.name),
-					ext: extname(img.name),
-					route: join("img/favicons/", img.name),
-				},
-				img.contents,
-				true
-			);
+		const writeConfig = (img: IFaviconImg): IFile => ({
+			name: img.name,
+			path: join(settings.output, faviconDest, img.name),
+			destpath: join(settings.output, faviconDest),
+			filename: img.name,
+			title: basename(img.name),
+			ext: extname(img.name),
+			route: join(faviconDest, img.name),
 		});
-		await asyncForEach(response.files, async (img) => {
-			await writeThatFile(
-				{
-					name: img.name,
-					path: join(settings.output, "img/favicons", img.name),
-					destpath: join(settings.output, "/img/favicons/"),
-					filename: img.name,
-					title: basename(img.name),
-					ext: extname(img.name),
-					route: join("img/favicons/", img.name),
-				},
-				img.contents,
-				true
-			);
-		});
-
-		// console.log(response.images); // Array of { name: string, contents: <buffer> }
-		// console.log(response.files); // Array of { name: string, contents: <string> }
-		// console.log(response.html); // Array of strings (html elements)
+		await asyncForEach(
+			response.images,
+			async (img: IFaviconImg): Promise<void> => {
+				await writeThatFile(writeConfig(img), img.contents, true);
+			}
+		);
+		await asyncForEach(
+			response.files,
+			async (img: IFaviconImg): Promise<void> => {
+				await writeThatFile(writeConfig(img), img.contents, true);
+			}
+		);
+		return response;
 	});
+	return { ...settings, faviconData: faviconData };
 };

@@ -88,6 +88,7 @@ exports.createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* 
                 currentId: currentLink.replace(/\//g, " ").trim().replace(/\s+/g, "-"),
                 styles: settings.styles ? settings.styles : null,
                 scripts: settings.scripts ? settings.scripts : null,
+                favicon: settings.faviconData.html.join(""),
                 package: settings.package ? settings.package : null,
                 navigation: settings.navigation,
                 headerNavigation: _1.getNavigation(settings, "header"),

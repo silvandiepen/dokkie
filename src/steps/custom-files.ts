@@ -8,12 +8,12 @@ export const getStyles = (settings: ISettings): ISettings => {
 	}
 
 	// If there are addable stylesheets available
-	if (settings.localConfig?.add?.stylesheets)
-		styles = styles.concat(settings.localConfig.add.stylesheets);
+	if (settings.localConfig?.add?.css)
+		styles = styles.concat(settings.localConfig.add.css);
 
 	// If there are overruling stylesheets
-	if (settings.localConfig?.overrule?.stylesheets)
-		styles = settings.localConfig?.overrule?.stylesheets;
+	if (settings.localConfig?.overrule?.css)
+		styles = settings.localConfig?.overrule?.css;
 
 	// To Embeddable link scripts
 	const stylesScripts = styles
@@ -29,12 +29,12 @@ export const getStyles = (settings: ISettings): ISettings => {
 export const getScripts = (settings: ISettings): ISettings => {
 	let scripts = [];
 	// If there are addable stylesheets available
-	if (settings.localConfig?.add?.scripts)
-		scripts = scripts.concat(settings.localConfig.add.scripts);
+	if (settings.localConfig?.add?.js)
+		scripts = scripts.concat(settings.localConfig.add.js);
 
 	// If there are overruling stylesheets
-	if (settings.localConfig?.overrule?.scripts)
-		scripts = settings.localConfig.overrule.scripts;
+	if (settings.localConfig?.overrule?.js)
+		scripts = settings.localConfig.overrule.js;
 
 	const scriptScripts = scripts
 		.map((s) => (s = `<script type="text/javascript" src="${s}"></script>`))

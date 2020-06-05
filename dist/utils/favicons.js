@@ -36,13 +36,29 @@ const favicons_1 = __importDefault(require("favicons"));
 const log = __importStar(require("cli-block"));
 const path_1 = require("path");
 const utils_1 = require("../utils");
+const { createCanvas } = require("canvas");
+const canvas_to_buffer_1 = __importDefault(require("canvas-to-buffer"));
+const createFaviconImage = (settings) => {
+    const canvas = createCanvas(1024, 1024);
+    const ctx = canvas.getContext("2d");
+    // Draw line under text
+    ctx.font = "800px Georgia";
+    let firstLetter = ("" ? settings.package.name : settings.projectTitle)
+        .substr(0, 1)
+        .toLowerCase();
+    ctx.fillStyle = "#cccccc";
+    ctx.fillText(firstLetter, 200, 768);
+    const frame = new canvas_to_buffer_1.default(canvas);
+    return frame.toBuffer();
+};
 // import * as log from "cli-block";
 exports.createFavicons = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c, _d;
-    const source = settings.favicon ? settings.favicon : "test.jpg";
-    console.log(source);
+    const source = settings.favicon
+        ? settings.favicon
+        : createFaviconImage(settings);
     const config = {
-        path: "/",
+        path: "/img/favicons/",
         appName: (_a = settings.package) === null || _a === void 0 ? void 0 : _a.name,
         appDescription: (_b = settings.package) === null || _b === void 0 ? void 0 : _b.description,
         developerName: (_c = settings.package) === null || _c === void 0 ? void 0 : _c.author,
@@ -66,45 +82,37 @@ exports.createFavicons = (settings) => __awaiter(void 0, void 0, void 0, functio
             appleStartup: false,
             coast: false,
             favicons: true,
-            firefox: true,
+            firefox: false,
             windows: true,
             yandex: true,
         },
     };
     log.BLOCK_MID("Create Favicon");
-    yield favicons_1.default(source, config, (error, response) => __awaiter(void 0, void 0, void 0, function* () {
-        if (error) {
-            console.log(error.message); // Error description e.g. "An unknown error has occurred"
-            return;
-        }
+    const faviconData = yield new Promise((resolve, reject) => {
+        favicons_1.default(source, config, (error, response) => __awaiter(void 0, void 0, void 0, function* () {
+            if (error)
+                reject(error);
+            resolve(response);
+        }));
+    }).then((response) => __awaiter(void 0, void 0, void 0, function* () {
         const faviconDest = "img/favicons";
-        const fileDest = "img/favicons";
-        const htmlDest = "img/html";
+        const writeConfig = (img) => ({
+            name: img.name,
+            path: path_1.join(settings.output, faviconDest, img.name),
+            destpath: path_1.join(settings.output, faviconDest),
+            filename: img.name,
+            title: path_1.basename(img.name),
+            ext: path_1.extname(img.name),
+            route: path_1.join(faviconDest, img.name),
+        });
         yield utils_1.asyncForEach(response.images, (img) => __awaiter(void 0, void 0, void 0, function* () {
-            yield utils_1.writeThatFile({
-                name: img.name,
-                path: path_1.join(settings.output, "img/favicons", img.name),
-                destpath: path_1.join(settings.output, "/img/favicons/"),
-                filename: img.name,
-                title: path_1.basename(img.name),
-                ext: path_1.extname(img.name),
-                route: path_1.join("img/favicons/", img.name),
-            }, img.contents, true);
+            yield utils_1.writeThatFile(writeConfig(img), img.contents, true);
         }));
         yield utils_1.asyncForEach(response.files, (img) => __awaiter(void 0, void 0, void 0, function* () {
-            yield utils_1.writeThatFile({
-                name: img.name,
-                path: path_1.join(settings.output, "img/favicons", img.name),
-                destpath: path_1.join(settings.output, "/img/favicons/"),
-                filename: img.name,
-                title: path_1.basename(img.name),
-                ext: path_1.extname(img.name),
-                route: path_1.join("img/favicons/", img.name),
-            }, img.contents, true);
+            yield utils_1.writeThatFile(writeConfig(img), img.contents, true);
         }));
-        // console.log(response.images); // Array of { name: string, contents: <buffer> }
-        // console.log(response.files); // Array of { name: string, contents: <string> }
-        // console.log(response.html); // Array of strings (html elements)
+        return response;
     }));
+    return Object.assign(Object.assign({}, settings), { faviconData: faviconData });
 });
 //# sourceMappingURL=favicons.js.map

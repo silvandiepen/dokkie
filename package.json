@@ -6,7 +6,7 @@
 	"bin": "dist/index.js",
 	"scripts": {
 		"build": "tsc",
-		"dokkie": "npm run build && node dist/index.js --strip=pages",
+		"dokkie": "npm run build && node dist/index.js",
 		"dev": "tsc -w",
 		"pre": "npm run build && npm run dokkie",
 		"precommit": "npm run pre",
@@ -31,6 +31,8 @@
 		"typescript": "^3.9.3"
 	},
 	"dependencies": {
+		"canvas": "^2.6.1",
+		"canvas-to-buffer": "^1.1.0",
 		"cli-block": "^1.1.6",
 		"handlebars": "^4.7.6",
 		"markdown-it": "^11.0.0",

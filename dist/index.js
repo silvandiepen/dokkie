@@ -63,8 +63,11 @@ buildDokkie(settings_1.settings())
     .then(steps_1.buildNavigation)
     .then((s) => __awaiter(void 0, void 0, void 0, function* () {
     yield steps_1.cleanFolder(s);
+    return s;
+}))
+    .then(utils_1.createFavicons)
+    .then((s) => __awaiter(void 0, void 0, void 0, function* () {
     yield steps_1.createFiles(s);
-    yield utils_1.createFavicons(s);
     yield steps_1.copyFolders(s);
     return s;
 }))

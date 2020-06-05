@@ -25,7 +25,7 @@ export interface IPackageJson {
 }
 
 export interface IArgumentSettings {
-	input?: string;
+	input: string;
 	output: string;
 	layout: string;
 	cleanBefore: boolean;
@@ -47,15 +47,16 @@ export interface ISettings extends IArgumentSettings {
 	scripts?: string;
 	styles?: string;
 	localConfig?: ILocalConfig;
+	faviconData?: any;
 }
 
 interface ILocalConfigOverrule {
-	stylesheets: string[];
-	scripts: string[];
+	css: string[];
+	js: string[];
 }
 interface ILocalConfigAdd {
-	stylesheets: string[];
-	scripts: string[];
+	css: string[];
+	js: string[];
 }
 interface ILocalConfig extends IArgumentSettings {
 	overrule?: ILocalConfigOverrule;
@@ -74,4 +75,12 @@ export interface INavigation {
 	parent?: string;
 	meta?: IMeta;
 	children?: INavigation[];
+}
+export interface IFaviconResult {
+	images: any;
+	files: any;
+}
+export interface IFaviconImg {
+	name: string;
+	contents: string;
 }

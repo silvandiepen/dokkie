@@ -55,8 +55,11 @@ buildDokkie(settings())
 	.then(buildNavigation)
 	.then(async (s) => {
 		await cleanFolder(s);
+		return s;
+	})
+	.then(createFavicons)
+	.then(async (s) => {
 		await createFiles(s);
-		await createFavicons(s);
 		await copyFolders(s);
 		return s;
 	})
