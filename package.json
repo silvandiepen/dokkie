@@ -1,6 +1,6 @@
 {
 	"name": "dokkie",
-	"version": "0.0.29",
+	"version": "0.0.30",
 	"description": "Create good looking documentation from your Readme",
 	"main": "dist/index.js",
 	"bin": "dist/index.js",
@@ -24,7 +24,6 @@
 		"@types/jest": "^25.2.3",
 		"@types/markdown-it": "^10.0.1",
 		"@types/rimraf": "^3.0.0",
-		"favicons": "^6.1.0",
 		"git-pre-commit": "^2.1.4",
 		"jest": "^26.0.1",
 		"ts-jest": "^26.0.0",
@@ -42,6 +41,7 @@
 		"markdown-it-meta": "0.0.1",
 		"markdown-it-prism": "^2.0.5",
 		"markdown-it-task-lists": "^2.1.1",
+		"favicons": "^6.1.0",
 		"ncp": "^2.0.0",
 		"prettier": "^2.0.5",
 		"rimraf": "^3.0.2",
