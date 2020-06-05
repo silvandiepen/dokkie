@@ -21,7 +21,7 @@ npx dokkie --favicon=your/image/file.jpg
 
 ### Skip favicons
 
-If you don't want favicons. You can skip them.
+If you don't want favicons. For instance in a development environment or you will use your own through a custom template and copy. You can skip them.
 
 **cli**
 

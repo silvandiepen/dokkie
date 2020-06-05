@@ -65,8 +65,8 @@ Adding can be done, this will just ad the extra stylesheets or scripts besides t
 ```json
 {
 	"add": {
-		"stylesheets": ["/mystylesheet.css"],
-		"scripts": ["/my-app.js"]
+		"css": ["/mystylesheet.css"],
+		"js": ["/my-app.js"]
 	}
 }
 ```
@@ -80,8 +80,8 @@ Overrule means the current stylesheets won't be added, but instead the given sty
 ```json
 {
 	"overrule": {
-		"stylesheets": ["/mystylesheet.css"],
-		"scripts": ["/my-app.js"]
+		"css": ["/mystylesheet.css"],
+		"js": ["/my-app.js"]
 	}
 }
 ```
