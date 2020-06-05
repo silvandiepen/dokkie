@@ -73,7 +73,9 @@ export const createFiles = async (settings: ISettings): Promise<void> => {
 				currentId: currentLink.replace(/\//g, " ").trim().replace(/\s+/g, "-"),
 				styles: settings.styles ? settings.styles : null,
 				scripts: settings.scripts ? settings.scripts : null,
-				favicon: settings.faviconData.html.join(""),
+				favicon: settings.faviconData
+					? settings.faviconData.html.join("")
+					: null,
 				package: settings.package ? settings.package : null,
 				navigation: settings.navigation,
 				headerNavigation: getNavigation(settings, "header"),

@@ -52,6 +52,8 @@ const createFaviconImage = (settings) => {
 // import * as log from "cli-block";
 exports.createFavicons = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c, _d;
+    if (settings.skip.includes("favicons"))
+        return settings;
     const source = settings.favicon
         ? settings.favicon
         : createFaviconImage(settings);

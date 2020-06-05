@@ -18,3 +18,21 @@ npx dokkie --favicon=your/image/file.jpg
 ```
 
 > **_NOTE:_** Make sure the file is quite big in size; recommeded: (1024x1024)
+
+### Skip favicons
+
+If you don't want favicons. You can skip them.
+
+**cli**
+
+```bash
+npx dokkie --skip=favicons
+```
+
+**dokkie.config.json**
+
+```json
+{
+	"skip": ["favicons"]
+}
+```

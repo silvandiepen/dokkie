@@ -105,6 +105,11 @@ exports.settings = () => {
             type: "string",
             default: "",
         },
+        skip: {
+            require: false,
+            type: "array",
+            default: [],
+        },
     }).argv;
     return {
         input: cs.in,
@@ -121,6 +126,7 @@ exports.settings = () => {
         codeHighlight: cs.codeHighlight,
         projectTitle: cs.projectTitle,
         favicon: cs.favicon,
+        skip: cs.skip,
     };
 };
 exports.logSettings = (settings) => {

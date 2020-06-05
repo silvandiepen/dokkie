@@ -4,5 +4,6 @@
 		"header",
 		"footer",
 		{ "name": "sidebar", "desktop": true, "mobile": false }
-	]
+	],
+	"skip": ["favicons"]
 }

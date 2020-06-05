@@ -77,6 +77,8 @@ exports.setLocalConfig = (settings) => {
             settings.strip = settings.localConfig.strip;
         if (settings.localConfig.flatNavigation)
             settings.flatNavigation = settings.localConfig.flatNavigation;
+        if (settings.localConfig.skip)
+            settings.skip = settings.localConfig.skip;
         if (settings.localConfig.showNavigation)
             settings.showNavigation = settings.localConfig.showNavigation.map((option) => {
                 if (typeof option == "string") {

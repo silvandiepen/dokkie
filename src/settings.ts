@@ -83,6 +83,11 @@ export const settings = (): ISettings => {
 			type: "string",
 			default: "",
 		},
+		skip: {
+			require: false,
+			type: "array",
+			default: [],
+		},
 	}).argv;
 
 	return {
@@ -100,6 +105,7 @@ export const settings = (): ISettings => {
 		codeHighlight: cs.codeHighlight,
 		projectTitle: cs.projectTitle,
 		favicon: cs.favicon,
+		skip: cs.skip,
 	};
 };
 export const logSettings = (settings: ISettings): void => {
