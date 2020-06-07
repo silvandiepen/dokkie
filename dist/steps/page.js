@@ -76,12 +76,12 @@ exports.createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* 
     const template = utils_1.Handlebars.compile(settings.layout);
     log.BLOCK_MID("Creating pages");
     yield utils_1.asyncForEach(settings.files, (file) => __awaiter(void 0, void 0, void 0, function* () {
+        var _a;
         try {
             const currentLink = file.route.replace("index.html", "");
             const contents = template({
                 projectTitle: settings.projectTitle == ""
-                    ? settings.package.name
-                        ? settings.package.name
+                    ? ((_a = settings.package) === null || _a === void 0 ? void 0 : _a.name) ? settings.package.name
                         : file.title
                     : settings.projectTitle,
                 title: file.title,

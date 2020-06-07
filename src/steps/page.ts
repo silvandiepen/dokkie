@@ -65,7 +65,7 @@ export const createFiles = async (settings: ISettings): Promise<void> => {
 			const contents = template({
 				projectTitle:
 					settings.projectTitle == ""
-						? settings.package.name
+						? settings.package?.name
 							? settings.package.name
 							: file.title
 						: settings.projectTitle,
