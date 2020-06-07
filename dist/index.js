@@ -45,6 +45,7 @@ buildDokkie(settings_1.settings())
     log.BLOCK_LINE("Dokkie is now building your documentation");
     return s;
 })
+    .then(settings_1.setAlternativeDefaults)
     .then(steps_1.loadLocalConfig)
     .then(steps_1.setLocalConfig)
     .then((s) => {
@@ -60,6 +61,8 @@ buildDokkie(settings_1.settings())
     .then(steps_1.getLayout)
     .then(steps_1.getStyles)
     .then(steps_1.getScripts)
+    .then(steps_1.setFileDate)
+    .then(steps_1.setHomePage)
     .then(steps_1.buildNavigation)
     .then((s) => __awaiter(void 0, void 0, void 0, function* () {
     yield steps_1.cleanFolder(s);

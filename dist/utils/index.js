@@ -14,4 +14,5 @@ __exportStar(require("./files"), exports);
 __exportStar(require("./markdown"), exports);
 __exportStar(require("./handlebars"), exports);
 __exportStar(require("./favicons"), exports);
+__exportStar(require("./date"), exports);
 //# sourceMappingURL=index.js.map

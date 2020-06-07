@@ -17,21 +17,22 @@ const rimraf_1 = __importDefault(require("rimraf"));
 exports.buildNavigation = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     let nav = [];
     settings.files.forEach((file) => {
+        var _a, _b;
         const link = file.route.replace("index.html", "");
         const linkPath = link.substr(1, link.length - 2).split("/");
         const parent = linkPath[linkPath.length - 2]
             ? linkPath[linkPath.length - 2]
             : "";
-        if (!file.meta.hide)
+        if (!((_a = file.meta) === null || _a === void 0 ? void 0 : _a.hide))
             nav.push({
                 name: file.title,
                 link: link,
                 path: linkPath,
                 self: linkPath[linkPath.length - 1],
-                parent: file.meta.parent
-                    ? file.meta.parent.split(",").map((i) => i.trim())
+                parent: ((_b = file.meta) === null || _b === void 0 ? void 0 : _b.parent) ? file.meta.parent.split(",").map((i) => i.trim())
                     : parent,
                 meta: file.meta,
+                date: file.date,
             });
     });
     let newNav = [];

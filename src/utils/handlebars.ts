@@ -1,8 +1,7 @@
 import H from "handlebars";
-interface IHBHelperIfCondOpts {
-	inverse: any;
-	fn: any;
-}
+import format from "date-fns/format";
+import { parseISO } from "date-fns";
+
 export const helpers = {
 	eq: (v1: any, v2: any): any => v1 === v2,
 	ne: (v1: any, v2: any): any => v1 !== v2,
@@ -18,6 +17,13 @@ export const helpers = {
 	},
 	ternary: function (cond: any, v1: any, v2: any) {
 		return cond ? v1 : v2;
+	},
+	//  usage: {{dateFormat date format="MMMM YYYY"}}
+	dateFormat: function (context: string, block: any): string {
+		// const f = block.hash.format || "MMM Do, YYYY";
+		console.log(context);
+		const f = "MMM Do, yyyy";
+		return format(new Date(context), f);
 	},
 };
 

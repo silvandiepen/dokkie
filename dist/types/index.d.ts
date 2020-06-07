@@ -11,6 +11,7 @@ export interface IFile {
     meta?: IMeta;
     filename?: string;
     route?: string;
+    date?: Date;
 }
 export interface IPackageJson {
     author: string;
@@ -82,6 +83,7 @@ export interface INavigation {
     parent?: string;
     meta?: IMeta;
     children?: INavigation[];
+    date?: Date;
 }
 export interface IFaviconResult {
     images: any;

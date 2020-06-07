@@ -4,3 +4,4 @@ export declare const filterHiddenPages: (settings: ISettings) => Promise<ISettin
 export declare const getLayout: (settings: ISettings) => Promise<ISettings>;
 export declare const createFiles: (settings: ISettings) => Promise<void>;
 export declare const copyFolders: (settings: ISettings) => Promise<void>;
+export declare const setHomePage: (settings: ISettings) => ISettings;

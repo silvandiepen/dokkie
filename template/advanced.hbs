@@ -10,6 +10,7 @@
 	{{/if}} {{#if package.author}}
 	<meta name="author" content="{{ package.author }}" />
 	{{/if}}
+	{{{favicon}}}
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>{{ title }}</title>
 	{{{ styles }}} {{{ scripts }}}
@@ -17,15 +18,17 @@
 
 <body id="{{currentId}}">
 
-	{{#if headerNavigation.[1] }}
 	<!--- Page Header -->
 	<header id="header">
 		{{#if projectTitle }}<h1><a href="/">{{ projectTitle }}</a></h1>{{/if}}
-		<input type="checkbox" class="nav-trigger__input" id="header-nav-trigger">
+		{{#if headerNavigation.mobile }}
+
+		{{#if headerNavigation.menu.[1] }} <input type="checkbox" class="nav-trigger__input" id="header-nav-trigger">
 		<label class="nav-trigger__label" for="header-nav-trigger"><span></span></label>
-		<nav>
+		{{/if}}
+		<nav class="{{headerNavigation.showClass}}">
 			<ul>
-				{{#each headerNavigation}}
+				{{#each headerNavigation.menu}}
 				{{#if (eq link ../currentLink) }}<li class="active">{{/if}}
 					{{#if (ne link ../currentLink) }}
 				<li>{{/if}}
@@ -43,17 +46,19 @@
 				</li>
 			</ul>
 		</nav>
+		{{/if}}
 	</header>
-	{{/if}}
 
-	{{#if sidebarNavigation.[1] }}
+	{{#if sidebarNavigation.menu.[1] }}
 	<!--- Page Header -->
 	<sidebar id="sidebar">
+		{{#if sidebarNavigation.mobile }}
 		<input type="checkbox" class="nav-trigger__input" id="sidebar-nav-trigger">
 		<label class="nav-trigger__label" for="sidebar-nav-trigger"><span></span></label>
-		<nav>
+		{{/if}}
+		<nav class="{{sidebarNavigation.showClass}}">
 			<ul>
-				{{#each sidebarNavigation}}
+				{{#each sidebarNavigation.menu}}
 				{{#if (eq link ../currentLink) }}<li class="active">{{/if}}
 
 					{{#if (ne link ../currentLink) }}
@@ -81,18 +86,12 @@
 
 
 
-	<!--- Main Content -->
-	<main id="main" class="content">
-		{{{ content }}}
-	</main>
-
-
 	<!--- Page Footer Content -->
 	<footer id="footer">
-		{{#if footerNavigation.[1] }}
-		<nav>
+		{{#if footerNavigation.menu.[1] }}
+		<nav class="{{footerNavigation.showClass}}">
 			<ul>
-				{{#each footerNavigation}}
+				{{#each footerNavigation.menu}}
 				{{#if (eq link ../currentLink) }}<li class="active">{{/if}}
 
 					{{#if (ne link ../currentLink) }}

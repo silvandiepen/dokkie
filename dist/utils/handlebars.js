@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Handlebars = exports.helpers = void 0;
 const handlebars_1 = __importDefault(require("handlebars"));
+const format_1 = __importDefault(require("date-fns/format"));
 exports.helpers = {
     eq: (v1, v2) => v1 === v2,
     ne: (v1, v2) => v1 !== v2,
@@ -20,6 +21,13 @@ exports.helpers = {
     },
     ternary: function (cond, v1, v2) {
         return cond ? v1 : v2;
+    },
+    //  usage: {{dateFormat date format="MMMM YYYY"}}
+    dateFormat: function (context, block) {
+        // const f = block.hash.format || "MMM Do, YYYY";
+        console.log(context);
+        const f = "MMM Do, yyyy";
+        return format_1.default(new Date(context), f);
     },
 };
 Object.keys(exports.helpers).forEach((helper) => {

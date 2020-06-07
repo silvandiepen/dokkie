@@ -9,5 +9,6 @@ export declare const helpers: {
     and(): boolean;
     or(): boolean;
     ternary: (cond: any, v1: any, v2: any) => any;
+    dateFormat: (context: string, block: any) => string;
 };
 export declare const Handlebars: typeof H;
