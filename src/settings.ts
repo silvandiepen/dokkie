@@ -88,6 +88,11 @@ export const settings = (): ISettings => {
 			type: "array",
 			default: [],
 		},
+		type: {
+			require: false,
+			type: "string",
+			default: "docs",
+		},
 	}).argv;
 
 	return {
@@ -106,6 +111,7 @@ export const settings = (): ISettings => {
 		projectTitle: cs.projectTitle,
 		favicon: cs.favicon,
 		skip: cs.skip,
+		type: cs.type,
 	};
 };
 export const logSettings = (settings: ISettings): void => {

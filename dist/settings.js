@@ -110,6 +110,11 @@ exports.settings = () => {
             type: "array",
             default: [],
         },
+        type: {
+            require: false,
+            type: "string",
+            default: "docs",
+        },
     }).argv;
     return {
         input: cs.in,
@@ -127,6 +132,7 @@ exports.settings = () => {
         projectTitle: cs.projectTitle,
         favicon: cs.favicon,
         skip: cs.skip,
+        type: cs.type,
     };
 };
 exports.logSettings = (settings) => {

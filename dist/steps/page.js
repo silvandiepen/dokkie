@@ -68,7 +68,10 @@ exports.getLayout = (settings) => __awaiter(void 0, void 0, void 0, function* ()
         layoutFile = yield readFile(path_1.join(process.cwd(), settings.layout)).then((res) => res.toString());
     }
     else {
-        layoutFile = yield readFile(path_1.join(__dirname, "../../", `template/${settings.layout}.hbs`)).then((res) => res.toString());
+        const layout = settings.layout == "default" && settings.type == "blog"
+            ? "blog"
+            : settings.layout;
+        layoutFile = yield readFile(path_1.join(__dirname, "../../", `template/${layout}.hbs`)).then((res) => res.toString());
     }
     return Object.assign(Object.assign({}, settings), { layout: layoutFile });
 });

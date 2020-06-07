@@ -48,8 +48,13 @@ export const getLayout = async (settings: ISettings): Promise<ISettings> => {
 			join(process.cwd(), settings.layout)
 		).then((res) => res.toString());
 	} else {
+		const layout =
+			settings.layout == "default" && settings.type == "blog"
+				? "blog"
+				: settings.layout;
+
 		layoutFile = await readFile(
-			join(__dirname, "../../", `template/${settings.layout}.hbs`)
+			join(__dirname, "../../", `template/${layout}.hbs`)
 		).then((res) => res.toString());
 	}
 	return { ...settings, layout: layoutFile };
