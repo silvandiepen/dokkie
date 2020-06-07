@@ -37,7 +37,7 @@ exports.getPackageInformation = (settings) => __awaiter(void 0, void 0, void 0, 
         return Object.assign(Object.assign({}, settings), { package: JSON.parse(PackageData) });
     }
     catch (err) {
-        console.log(err);
+        // console.log(err);
     }
     return settings;
 });

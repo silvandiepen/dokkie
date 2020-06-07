@@ -81,6 +81,8 @@ exports.createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* 
             const contents = template({
                 projectTitle: settings.projectTitle == ""
                     ? settings.package.name
+                        ? settings.package.name
+                        : file.title
                     : settings.projectTitle,
                 title: file.title,
                 content: file.html,
