@@ -23,7 +23,7 @@ Dokkie comes with a few html templates. You can use these, or create your own te
 		<meta name="author" content="{{ package.author }}" />
 		{{/if}}
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>{{ title }}</title>
+		<title>{{ ProjectTitle }} - {{ title }}</title>
 		{{{ styles }}} {{{ scripts }}}
 	</head>
 

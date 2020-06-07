@@ -11,7 +11,7 @@ export const getPackageInformation = async (
 		);
 		return { ...settings, package: JSON.parse(PackageData) };
 	} catch (err) {
-		console.log(err);
+		// console.log(err);
 	}
 	return settings;
 };
