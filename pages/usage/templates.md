@@ -10,136 +10,43 @@ Dokkie comes with a few html templates. You can use these, or create your own te
 
 ### Simple Template
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		{{#if package.description}}
-		<meta name="description" content="{{ package.description }}" />
-		{{/if}} {{#if package.keywords}}
-		<meta name="keywords" content="{{ package.keywords }}" />
-		{{/if}} {{#if package.author}}
-		<meta name="author" content="{{ package.author }}" />
-		{{/if}}
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>{{ ProjectTitle }} - {{ title }}</title>
-		{{{ styles }}} {{{ scripts }}}
-	</head>
-
-	<body id="{{currentId}}">
-		<!--- Main Content -->
-		<main id="main" class="content">
-			{{{ content }}}
-		</main>
-	</body>
-</html>
-```
+<script src="https://gist-it.appspot.com/github/silvandiepen/dokkie/blob/master/template/simple.hbs"></script>
 
 ### Default Template
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		{{#if package.description}}
-		<meta name="description" content="{{ package.description }}" />
-		{{/if}} {{#if package.keywords}}
-		<meta name="keywords" content="{{ package.keywords }}" />
-		{{/if}} {{#if package.author}}
-		<meta name="author" content="{{ package.author }}" />
-		{{/if}}
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>{{ title }}</title>
-		{{{ styles }}} {{{ scripts }}}
-	</head>
+<script src="https://gist-it.appspot.com/github/silvandiepen/dokkie/blob/master/template/default.hbs"></script>
 
-	<body id="{{currentId}}">
-		{{#if headerNavigation }} {{#if navigation.[2] }}
-		<!--- Page Header -->
-		<header id="header">
-			<nav>
-				<ul>
-					{{#each navigation}}
-					<li>
-						<a href="{{ link }}">{{ name }}</a>
-						{{#if children.[1] }}
-						<ul>
-							{{#each children}}
-							<li><a href="{{ link }}">{{ name }}</a></li>
-							{{/each}}
-						</ul>
-						{{/if}} {{/each}}
-					</li>
-				</ul>
-			</nav>
-		</header>
-		{{/if}} {{/if}} {{#if sidebarNavigation }} {{#if navigation.[2] }}
-		<!--- Page Header -->
-		<sidebar id="sidebar">
-			<nav>
-				<ul>
-					{{#each navigation}}
-					<li>
-						<a href="{{ link }}">{{ name }}</a>
-						{{#if children.[1] }}
-						<ul>
-							{{#each children}}
-							<li><a href="{{ link }}">{{ name }}</a></li>
-							{{/each}}
-						</ul>
-						{{/if}} {{/each}}
-					</li>
-				</ul>
-			</nav>
-		</sidebar>
-		{{/if}} {{/if}}
+### Blog Template
 
-		<!--- Main Content -->
-		<main id="main" class="content">
-			{{{ content }}}
-		</main>
+<script src="https://gist-it.appspot.com/github/silvandiepen/dokkie/blob/master/template/blog.hbs"></script>
 
-		<!--- Page Footer Content -->
-		<footer id="footer">
-			{{#if footerNavigation }}
-			<nav>
-				<ul>
-					{{#each navigation}} {{#if (eq link ../currentLink) }}
-					<li class="active">{{/if}} {{#if (ne link ../currentLink) }}</li>
+## Inject Html
 
-					<li>
-						{{/if}}
+It's also possible to inject html into the templates.
 
-						<a href="{{ link }}">{{ name }}</a>
-						{{#if children.[1] }}
-						<ul>
-							{{#each children}} {{#if (eq link ../../currentLink) }}
-							<li class="active">
-								{{/if}} {{#if (ne link ../../currentLink) }}
-							</li>
+**dokkie.config.json**
 
-							<li>
-								{{/if}}
-								<a href="{{ link }}">{{ name }}</a>
-							</li>
-							{{/each}}
-						</ul>
-						{{/if}}
-					</li>
-					{{/each}}
-				</ul>
-			</nav>
-			{{/if}} {{#if package}}
-			<footnote>
-				{{#if package.name}}<span>{{package.name}}@{{ package.version }}</span
-				>{{/if}} {{#if package.license}}<span>{{ package.license }}</span
-				>{{/if}} {{#if package.author}}<span>&copy; {{ package.author }}</span
-				>{{/if}}
-			</footnote>
-			{{/if}}
-		</footer>
-	</body>
-</html>
+```json
+{
+	"injectHtml": {
+		"mainBefore": "<my-html>string</my-html>"
+	}
+}
 ```
+
+**options**
+
+| option         | description                    | availabe in layout |
+| -------------- | ------------------------------ | ------------------ |
+| headerBefore   | Add html in top of header      | default, blog      |
+| headerAfter    | Add html in bottom of header   | default, blog      |
+| sidebarBefore  | Add html in top of sidebar     | default            |
+| sidebarAfter   | Add html in bottom of sidebar  | default            |
+| mainBefore     | Add html in top of main        | default            |
+| mainAfter      | Add html in bottom of main     | default            |
+| footerBefore   | Add html in top of footer      | default            |
+| footerAfter    | Add html in bottom of footer   | default            |
+| overviewBefore | Add html in top of overview    | blog               |
+| overviewAfter  | Add html in bottom of overview | blog               |
+| articleBefore  | Add html in top of article     | blog               |
+| articleAfter   | Add html in bottom of article  | blog               |

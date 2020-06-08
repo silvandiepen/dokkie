@@ -20,17 +20,22 @@
 
 	<!--- Page Header -->
 	<header id="header">
+		{{{injectHtml.headerBefore }}}
 		{{#if projectTitle }}<h1><a href="/">{{ projectTitle }}</a></h1>{{/if}}
+		{{{injectHtml.headerAfter }}}
 	</header>
 
 	<!--- Main Content -->
 	<article id="article" class="article content">
+		{{{injectHtml.articleBefore }}}
 		{{{ content }}}
+		{{{injectHtml.articleAfter }}}
 	</article>
 
 
 	<!--- Page Footer Content -->
 	<footer id="blog-footer">
+		{{{injectHtml.overviewBefore }}}
 		{{#if overviewNavigation.menu.[1] }}
 		<nav>
 			<ul>
@@ -48,6 +53,7 @@
 			</ul>
 		</nav>
 		{{/if}}
+		{{{injectHtml.overviewAfter }}}
 	</footer>
 
 </body>
