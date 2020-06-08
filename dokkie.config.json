@@ -5,7 +5,6 @@
 		"footer",
 		{ "name": "sidebar", "desktop": true, "mobile": false }
 	],
-	"skip": ["favicons"],
 	"injectHtml": {
 		"mainBefore": "test.html"
 	}

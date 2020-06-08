@@ -10,6 +10,15 @@ your package as a little documentation website.
 
 Just keep your README up to date, and Dokkie does the rest.
 
+### Features
+
+- Build a documentation website or blog without any code in your repository
+- Automatic code highlighting for code examples
+- Create automatic menu's
+- Fully responsive
+- Static and fast, just flat html
+- 100\*4 Lighthouse score
+
 ### Usage
 
 Add this to your scripts
