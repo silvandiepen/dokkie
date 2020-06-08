@@ -1,5 +1,6 @@
 /node_modules
 /docs
 /blog
+/dist
 .vscode
 .DS_Store

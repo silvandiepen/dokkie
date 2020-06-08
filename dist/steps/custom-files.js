@@ -5,7 +5,7 @@ exports.getStyles = (settings) => {
     var _a, _b, _c, _d, _e, _f;
     let styles = [];
     if (settings.theme && !settings.theme.includes("http")) {
-        styles.push(`https://coat.guyn.nl/theme/${settings.theme}.css`);
+        styles.push(`https://coat.guyn.nl/css/theme/${settings.theme}.css`);
     }
     // If there are addable stylesheets available
     if ((_b = (_a = settings.localConfig) === null || _a === void 0 ? void 0 : _a.add) === null || _b === void 0 ? void 0 : _b.css)
