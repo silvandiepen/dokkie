@@ -153,7 +153,7 @@ exports.setHomePage = (settings) => {
         name: "home",
         path: "",
         ext: ".md",
-        date: "test",
+        date: new Date(),
         data: "",
         meta: { title: "home" },
         html: "",

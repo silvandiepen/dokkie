@@ -24,9 +24,7 @@ exports.helpers = {
     },
     //  usage: {{dateFormat date format="MMMM YYYY"}}
     dateFormat: function (context, block) {
-        // const f = block.hash.format || "MMM Do, YYYY";
-        console.log(context);
-        const f = "MMM Do, yyyy";
+        const f = block.hash.format || "MMM Do, YYYY";
         return format_1.default(new Date(context), f);
     },
 };

@@ -1,4 +1,4 @@
-import { ISettings, IFile, ILocalConfigInject } from "../types";
+import { ISettings, IFile } from "../types";
 import { mdToHtml, asyncForEach, writeThatFile, Handlebars } from "../utils";
 import * as log from "cli-block";
 import prettier from "prettier";
@@ -142,7 +142,7 @@ export const setHomePage = (settings: ISettings): ISettings => {
 		name: "home",
 		path: "",
 		ext: ".md",
-		date: "test",
+		date: new Date(),
 		data: "",
 		meta: { title: "home" },
 		html: "",

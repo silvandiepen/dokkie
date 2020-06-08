@@ -44,8 +44,7 @@
 
 					{{#if (ne link ../currentLink) }}
 				<li>{{/if}}
-					<time datetime="{{date}}">{{ date }}</time>
-					{{!-- <time datetime="{{date}}">{{dateFormat date format="yyyy.mm.dd"}}</time> --}}
+					<time datetime="{{date}}">{{dateFormat date format="yyyy.mm.dd"}}</time>
 
 					<a href="{{ link }}">{{ name }}</a>
 				</li>
