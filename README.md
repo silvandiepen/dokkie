@@ -12,12 +12,14 @@ Just keep your README up to date, and Dokkie does the rest.
 
 ### Features
 
-- Build a documentation website or blog without any code in your repository
-- Automatic code highlighting for code examples
-- Create automatic menu's
-- Fully responsive
-- Static and fast, just flat html
-- 100\*4 Lighthouse score
+- **No code** Build a documentation website or blog without any code in your repository
+- **Code highlighting** Automatic code highlighting for code examples
+- **Automatic menu's** Create automatic menu's
+- **Fully responsive**, obviously, it's 2020.
+- **Static and fast**, just flat html
+- **100\*4 Lighthouse score**, Google thinks it's fast :)
+- **Multiple themes** All themes from [coat](https://coat.guyn.nl) can be used, or your own custom css.
+- **Fully customizable**, because you want to give it your own look.
 
 ### Usage
 
