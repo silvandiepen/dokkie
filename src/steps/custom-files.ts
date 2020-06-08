@@ -4,7 +4,7 @@ export const getStyles = (settings: ISettings): ISettings => {
 	let styles = [];
 
 	if (settings.theme && !settings.theme.includes("http")) {
-		styles.push(`https://coat.guyn.nl/theme/${settings.theme}.css`);
+		styles.push(`https://coat.guyn.nl/css/theme/${settings.theme}.css`);
 	}
 
 	// If there are addable stylesheets available
