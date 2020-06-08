@@ -16,6 +16,7 @@ exports.setAlternativeDefaults = exports.getDokkiePackage = exports.settings = v
 const yargs_1 = __importDefault(require("yargs"));
 const { readFile } = require("fs").promises;
 const path_1 = require("path");
+const steps_1 = require("./steps");
 exports.settings = () => {
     const cs = yargs_1.default.options({
         type: {
@@ -128,7 +129,7 @@ exports.getDokkiePackage = (settings) => __awaiter(void 0, void 0, void 0, funct
     const dokkiePackage = yield readFile(path_1.join(__dirname, "../package.json"));
     return Object.assign(Object.assign({}, settings), { dokkie: JSON.parse(dokkiePackage) });
 });
-exports.setAlternativeDefaults = (settings) => {
+exports.setAlternativeDefaults = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     var args = process.argv
         .slice(2)
         .map((arg) => (arg = arg.split("=")[0].replace("--", "")));
@@ -145,7 +146,14 @@ exports.setAlternativeDefaults = (settings) => {
                     { name: "overview", desktop: true, mobile: true },
                 ];
             break;
+        case "docs":
+            if (!args.includes("input")) {
+                const files = yield steps_1.getFileTree(settings.input, settings);
+                if (files.length == 1) {
+                    settings.layout = "simple";
+                }
+            }
     }
     return settings;
-};
+});
 //# sourceMappingURL=settings.js.map

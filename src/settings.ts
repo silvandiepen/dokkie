@@ -3,6 +3,8 @@ import * as log from "cli-block";
 const { readFile } = require("fs").promises;
 import { join } from "path";
 
+import { getFileTree } from "./steps";
+
 import { ISettings } from "./types";
 
 export const settings = (): ISettings => {
@@ -122,7 +124,9 @@ export const getDokkiePackage = async (
 	return { ...settings, dokkie: JSON.parse(dokkiePackage) };
 };
 
-export const setAlternativeDefaults = (settings: ISettings): ISettings => {
+export const setAlternativeDefaults = async (
+	settings: ISettings
+): Promise<ISettings> => {
 	var args = process.argv
 		.slice(2)
 		.map((arg) => (arg = arg.split("=")[0].replace("--", "")));
@@ -137,6 +141,13 @@ export const setAlternativeDefaults = (settings: ISettings): ISettings => {
 					{ name: "overview", desktop: true, mobile: true },
 				];
 			break;
+		case "docs":
+			if (!args.includes("input")) {
+				const files = await getFileTree(settings.input, settings);
+				if (files.length == 1) {
+					settings.layout = "simple";
+				}
+			}
 	}
 
 	return settings;
