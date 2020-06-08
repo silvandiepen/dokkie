@@ -105,6 +105,11 @@ exports.settings = () => {
             type: "array",
             default: [],
         },
+        config: {
+            require: false,
+            type: "string",
+            default: "dokkie.config.json",
+        },
     }).argv;
     return {
         type: cs.type,
@@ -123,6 +128,7 @@ exports.settings = () => {
         projectTitle: cs.projectTitle,
         favicon: cs.favicon,
         skip: cs.skip,
+        config: cs.config,
     };
 };
 exports.getDokkiePackage = (settings) => __awaiter(void 0, void 0, void 0, function* () {

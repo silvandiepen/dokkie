@@ -22,7 +22,7 @@ export const loadLocalConfig = async (
 	settings: ISettings
 ): Promise<ISettings> => {
 	try {
-		let configData = await readFile("dokkie.config.json").then((res) =>
+		let configData = await readFile(settings.config).then((res) =>
 			JSON.parse(res.toString())
 		);
 		log.BLOCK_MID("Local configuration");

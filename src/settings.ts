@@ -95,6 +95,11 @@ export const settings = (): ISettings => {
 			type: "array",
 			default: [],
 		},
+		config: {
+			require: false,
+			type: "string",
+			default: "dokkie.config.json",
+		},
 	}).argv;
 
 	return {
@@ -114,6 +119,7 @@ export const settings = (): ISettings => {
 		projectTitle: cs.projectTitle,
 		favicon: cs.favicon,
 		skip: cs.skip,
+		config: cs.config,
 	};
 };
 

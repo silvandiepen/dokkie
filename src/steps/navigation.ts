@@ -49,7 +49,6 @@ const filterNavigation = (
 	nav: INavigation[],
 	parent: string
 ): INavigation[] => {
-	// consoleJson(nav);
 	const filteredNav = nav.map((item) => {
 		if (
 			!item.meta?.menu ||
@@ -70,6 +69,7 @@ const filterNavigation = (
 
 export const getNavigation = (settings: ISettings, filter: string): IMenu => {
 	const current = settings.showNavigation.find((nav) => nav.name == filter);
+
 	if (current)
 		return {
 			...current,

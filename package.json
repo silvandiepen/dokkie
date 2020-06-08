@@ -6,7 +6,8 @@
 	"bin": "dist/index.js",
 	"scripts": {
 		"build": "tsc",
-		"dokkie": "npm run build && node dist/index.js --layout=advanced ",
+		"dokkie": "npm run build && node dist/index.js --config=docs.config.json",
+		"dokkie:blog": "npm run build && node dist/index.js --config=blog.config.json --type=blog --skip=favicons",
 		"dev": "tsc src -w",
 		"pre": "npm run build && npm run dokkie",
 		"precommit": "npm run pre",

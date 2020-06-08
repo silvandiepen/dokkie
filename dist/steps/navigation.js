@@ -49,7 +49,6 @@ exports.cleanFolder = (settings) => __awaiter(void 0, void 0, void 0, function* 
         rimraf_1.default.sync(settings.output);
 });
 const filterNavigation = (nav, parent) => {
-    // consoleJson(nav);
     const filteredNav = nav.map((item) => {
         var _a;
         if (!((_a = item.meta) === null || _a === void 0 ? void 0 : _a.menu) ||

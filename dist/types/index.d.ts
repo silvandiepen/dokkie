@@ -45,6 +45,7 @@ export interface IArgumentSettings {
     favicon: string;
     skip: string[];
     type: string | buildTypes;
+    config: string;
 }
 export interface ISettings extends IArgumentSettings {
     files?: IFile[] | any;
