@@ -50,7 +50,8 @@ buildDokkie(settings_1.settings())
     .then(steps_1.loadLocalConfig)
     .then(steps_1.setLocalConfig)
     .then((s) => {
-    settings_1.logSettings(s);
+    log.BLOCK_MID("Settings");
+    log.BLOCK_SETTINGS(s, { exclude: ["dokkie"] });
     return s;
 })
     .then(steps_1.getFiles)

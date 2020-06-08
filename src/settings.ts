@@ -114,10 +114,6 @@ export const settings = (): ISettings => {
 		skip: cs.skip,
 	};
 };
-export const logSettings = (settings: ISettings): void => {
-	log.BLOCK_MID("Settings");
-	log.BLOCK_SETTINGS(settings);
-};
 
 export const getDokkiePackage = async (
 	settings: ISettings

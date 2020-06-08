@@ -33,7 +33,7 @@
 		"@types/markdown-it-anchor": "^4.0.4",
 		"canvas": "^2.6.1",
 		"canvas-to-buffer": "^1.1.0",
-		"cli-block": "^1.1.6",
+		"cli-block": "^1.1.7",
 		"date-fns": "^2.14.0",
 		"favicons": "^6.1.0",
 		"handlebars": "^4.7.6",

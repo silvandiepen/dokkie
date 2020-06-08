@@ -4,12 +4,7 @@
 import * as log from "cli-block";
 
 // Functionality
-import {
-	settings,
-	logSettings,
-	setAlternativeDefaults,
-	getDokkiePackage,
-} from "./settings";
+import { settings, setAlternativeDefaults, getDokkiePackage } from "./settings";
 import { ISettings } from "./types";
 import { createFavicons } from "./utils";
 
@@ -51,7 +46,8 @@ buildDokkie(settings())
 	.then(loadLocalConfig)
 	.then(setLocalConfig)
 	.then((s) => {
-		logSettings(s);
+		log.BLOCK_MID("Settings");
+		log.BLOCK_SETTINGS(s, { exclude: ["dokkie"] });
 		return s;
 	})
 	.then(getFiles)
