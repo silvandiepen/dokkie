@@ -7,7 +7,7 @@
 	"scripts": {
 		"build": "tsc",
 		"dokkie": "npm run build && node dist/index.js",
-		"dev": "tsc -w",
+		"dev": "tsc src -w",
 		"pre": "npm run build && npm run dokkie",
 		"precommit": "npm run pre",
 		"prepublishOnly": "npm run pre"
@@ -30,6 +30,7 @@
 		"typescript": "^3.9.3"
 	},
 	"dependencies": {
+		"@types/markdown-it-anchor": "^4.0.4",
 		"canvas": "^2.6.1",
 		"canvas-to-buffer": "^1.1.0",
 		"cli-block": "^1.1.6",

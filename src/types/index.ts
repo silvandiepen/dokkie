@@ -58,6 +58,7 @@ export interface ISettings extends IArgumentSettings {
 	styles?: string;
 	localConfig?: ILocalConfig;
 	faviconData?: any;
+	dokkie?: any;
 }
 
 interface ILocalConfigOverrule {

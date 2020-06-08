@@ -39,10 +39,11 @@ const buildDokkie = (settings) => __awaiter(void 0, void 0, void 0, function* ()
     return settings;
 });
 buildDokkie(settings_1.settings())
+    .then(settings_1.getDokkiePackage)
     .then((s) => {
     log.START("Creating Your documentation");
     log.BLOCK_START();
-    log.BLOCK_LINE("Dokkie is now building your documentation");
+    log.BLOCK_LINE(`Dokkie (${s.dokkie.version}) is now building your documentation`);
     return s;
 })
     .then(settings_1.setAlternativeDefaults)

@@ -1,5 +1,7 @@
 import yargs from "yargs";
 import * as log from "cli-block";
+const { readFile } = require("fs").promises;
+import { join } from "path";
 
 import { ISettings } from "./types";
 
@@ -115,6 +117,13 @@ export const settings = (): ISettings => {
 export const logSettings = (settings: ISettings): void => {
 	log.BLOCK_MID("Settings");
 	log.BLOCK_SETTINGS(settings);
+};
+
+export const getDokkiePackage = async (
+	settings: ISettings
+): Promise<ISettings> => {
+	const dokkiePackage = await readFile(join(__dirname, "../package.json"));
+	return { ...settings, dokkie: JSON.parse(dokkiePackage) };
 };
 
 export const setAlternativeDefaults = (settings: ISettings): ISettings => {
