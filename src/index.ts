@@ -4,12 +4,13 @@
 import * as log from "cli-block";
 
 // Functionality
-import { settings, logSettings } from "./settings";
+import { settings, logSettings, setAlternativeDefaults } from "./settings";
 import { ISettings } from "./types";
 import { createFavicons } from "./utils";
 
 import {
 	getFiles,
+	setFileDate,
 	fileData,
 	getPackageInformation,
 	loadLocalConfig,
@@ -24,6 +25,7 @@ import {
 	createFiles,
 	copyFolders,
 	getLayout,
+	setHomePage,
 } from "./steps";
 
 const buildDokkie = async (settings: ISettings): Promise<ISettings> => {
@@ -37,6 +39,7 @@ buildDokkie(settings())
 		log.BLOCK_LINE("Dokkie is now building your documentation");
 		return s;
 	})
+	.then(setAlternativeDefaults)
 	.then(loadLocalConfig)
 	.then(setLocalConfig)
 	.then((s) => {
@@ -52,6 +55,8 @@ buildDokkie(settings())
 	.then(getLayout)
 	.then(getStyles)
 	.then(getScripts)
+	.then(setFileDate)
+	.then(setHomePage)
 	.then(buildNavigation)
 	.then(async (s) => {
 		await cleanFolder(s);

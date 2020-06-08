@@ -48,8 +48,13 @@ export const getLayout = async (settings: ISettings): Promise<ISettings> => {
 			join(process.cwd(), settings.layout)
 		).then((res) => res.toString());
 	} else {
+		const layout =
+			settings.layout == "default" && settings.type == "blog"
+				? "blog"
+				: settings.layout;
+
 		layoutFile = await readFile(
-			join(__dirname, "../../", `template/${settings.layout}.hbs`)
+			join(__dirname, "../../", `template/${layout}.hbs`)
 		).then((res) => res.toString());
 	}
 	return { ...settings, layout: layoutFile };
@@ -83,6 +88,7 @@ export const createFiles = async (settings: ISettings): Promise<void> => {
 				headerNavigation: getNavigation(settings, "header"),
 				sidebarNavigation: getNavigation(settings, "sidebar"),
 				footerNavigation: getNavigation(settings, "footer"),
+				overviewNavigation: getNavigation(settings, "overview"),
 			});
 			await writeThatFile(file, prettier.format(contents, { parser: "html" }));
 		} catch (err) {
@@ -104,4 +110,27 @@ export const copyFolders = async (settings: ISettings): Promise<void> => {
 			);
 		});
 	}
+};
+
+export const setHomePage = (settings: ISettings): ISettings => {
+	const hasHomePage = settings.files.find(
+		(file) => file.route === "/index.html"
+	);
+	if (hasHomePage) return settings;
+
+	settings.files.push({
+		name: "home",
+		path: "",
+		ext: ".md",
+		date: "test",
+		data: "",
+		meta: { title: "home" },
+		html: "",
+		title: "Home",
+		route: "/index.html",
+		destpath: settings.output,
+		filename: "index.html",
+	});
+
+	return settings;
 };

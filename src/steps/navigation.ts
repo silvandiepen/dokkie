@@ -11,16 +11,17 @@ export const buildNavigation = async (
 		const parent = linkPath[linkPath.length - 2]
 			? linkPath[linkPath.length - 2]
 			: "";
-		if (!file.meta.hide)
+		if (!file.meta?.hide)
 			nav.push({
 				name: file.title,
 				link: link,
 				path: linkPath,
 				self: linkPath[linkPath.length - 1],
-				parent: file.meta.parent
+				parent: file.meta?.parent
 					? file.meta.parent.split(",").map((i: string) => i.trim())
 					: parent,
 				meta: file.meta,
+				date: file.date,
 			});
 	});
 

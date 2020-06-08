@@ -12,6 +12,7 @@ export interface IFile {
 	meta?: IMeta;
 	filename?: string;
 	route?: string;
+	date?: Date;
 }
 
 export interface IPackageJson {
@@ -29,6 +30,8 @@ interface showNavigation {
 	desktop: boolean;
 	mobile: boolean;
 }
+
+export type buildTypes = "docs" | "blog";
 export interface IArgumentSettings {
 	input: string;
 	output: string;
@@ -45,6 +48,7 @@ export interface IArgumentSettings {
 	projectTitle: string;
 	favicon: string;
 	skip: string[];
+	type: string | buildTypes;
 }
 export interface ISettings extends IArgumentSettings {
 	files?: IFile[] | any;
@@ -86,6 +90,7 @@ export interface INavigation {
 	parent?: string;
 	meta?: IMeta;
 	children?: INavigation[];
+	date?: Date;
 }
 export interface IFaviconResult {
 	images: any;

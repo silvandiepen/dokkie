@@ -31,7 +31,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.copyFolders = exports.createFiles = exports.getLayout = exports.filterHiddenPages = exports.convertDataToHtml = void 0;
+exports.setHomePage = exports.copyFolders = exports.createFiles = exports.getLayout = exports.filterHiddenPages = exports.convertDataToHtml = void 0;
 const utils_1 = require("../utils");
 const log = __importStar(require("cli-block"));
 const prettier_1 = __importDefault(require("prettier"));
@@ -68,7 +68,10 @@ exports.getLayout = (settings) => __awaiter(void 0, void 0, void 0, function* ()
         layoutFile = yield readFile(path_1.join(process.cwd(), settings.layout)).then((res) => res.toString());
     }
     else {
-        layoutFile = yield readFile(path_1.join(__dirname, "../../", `template/${settings.layout}.hbs`)).then((res) => res.toString());
+        const layout = settings.layout == "default" && settings.type == "blog"
+            ? "blog"
+            : settings.layout;
+        layoutFile = yield readFile(path_1.join(__dirname, "../../", `template/${layout}.hbs`)).then((res) => res.toString());
     }
     return Object.assign(Object.assign({}, settings), { layout: layoutFile });
 });
@@ -98,6 +101,7 @@ exports.createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* 
                 headerNavigation: _1.getNavigation(settings, "header"),
                 sidebarNavigation: _1.getNavigation(settings, "sidebar"),
                 footerNavigation: _1.getNavigation(settings, "footer"),
+                overviewNavigation: _1.getNavigation(settings, "overview"),
             });
             yield utils_1.writeThatFile(file, prettier_1.default.format(contents, { parser: "html" }));
         }
@@ -119,4 +123,23 @@ exports.copyFolders = (settings) => __awaiter(void 0, void 0, void 0, function* 
         }));
     }
 });
+exports.setHomePage = (settings) => {
+    const hasHomePage = settings.files.find((file) => file.route === "/index.html");
+    if (hasHomePage)
+        return settings;
+    settings.files.push({
+        name: "home",
+        path: "",
+        ext: ".md",
+        date: "test",
+        data: "",
+        meta: { title: "home" },
+        html: "",
+        title: "Home",
+        route: "/index.html",
+        destpath: settings.output,
+        filename: "index.html",
+    });
+    return settings;
+};
 //# sourceMappingURL=page.js.map

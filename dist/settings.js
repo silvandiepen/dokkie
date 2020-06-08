@@ -22,22 +22,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.logSettings = exports.settings = void 0;
+exports.setAlternativeDefaults = exports.logSettings = exports.settings = void 0;
 const yargs_1 = __importDefault(require("yargs"));
 const log = __importStar(require("cli-block"));
 exports.settings = () => {
     const cs = yargs_1.default.options({
-        in: {
+        type: {
+            require: false,
+            type: "string",
+            default: "docs",
+        },
+        input: {
             required: false,
             type: "string",
             default: ".",
-            alias: "input",
         },
-        out: {
+        output: {
             required: false,
             type: "string",
             default: "docs",
-            alias: "output",
         },
         layout: {
             required: false,
@@ -112,8 +115,9 @@ exports.settings = () => {
         },
     }).argv;
     return {
-        input: cs.in,
-        output: cs.out,
+        type: cs.type,
+        input: cs.input,
+        output: cs.output,
         layout: cs.layout,
         excludeFolders: cs.exclude,
         extensions: cs.ext,
@@ -132,5 +136,25 @@ exports.settings = () => {
 exports.logSettings = (settings) => {
     log.BLOCK_MID("Settings");
     log.BLOCK_SETTINGS(settings);
+};
+exports.setAlternativeDefaults = (settings) => {
+    var args = process.argv
+        .slice(2)
+        .map((arg) => (arg = arg.split("=")[0].replace("--", "")));
+    switch (settings.type) {
+        case "blog":
+            if (!args.includes("layout"))
+                settings.layout = "blog";
+            if (!args.includes("output"))
+                settings.output = "blog";
+            if (!args.includes("flatNavigation"))
+                settings.flatNavigation = true;
+            if (!args.includes("showNavigation"))
+                settings.showNavigation = [
+                    { name: "overview", desktop: true, mobile: true },
+                ];
+            break;
+    }
+    return settings;
 };
 //# sourceMappingURL=settings.js.map

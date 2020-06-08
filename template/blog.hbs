@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	{{#if package.description}}
+	<meta name="description" content="{{ package.description }}" />
+	{{/if}} {{#if package.keywords}}
+	<meta name="keywords" content="{{ package.keywords }}" />
+	{{/if}} {{#if package.author}}
+	<meta name="author" content="{{ package.author }}" />
+	{{/if}}
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>{{ title }}</title>
+	{{{ styles }}} {{{ scripts }}}
+</head>
+
+<body id="{{currentId}}">
+
+	<!--- Page Header -->
+	<header id="header">
+		{{#if projectTitle }}<h1><a href="/">{{ projectTitle }}</a></h1>{{/if}}
+	</header>
+
+	<!--- Main Content -->
+	<article id="article" class="article content">
+		{{{ content }}}
+	</article>
+
+
+	<!--- Page Footer Content -->
+	<footer id="blog-footer">
+		{{#if overviewNavigation.menu.[1] }}
+		<nav>
+			<ul>
+				{{#each overviewNavigation.menu}}
+				{{#if (eq link ../currentLink) }}<li class="active">{{/if}}
+
+					{{#if (ne link ../currentLink) }}
+				<li>{{/if}}
+					<time datetime="{{date}}">{{ date }}</time>
+					{{!-- <time datetime="{{date}}">{{dateFormat date format="yyyy.mm.dd"}}</time> --}}
+
+					<a href="{{ link }}">{{ name }}</a>
+				</li>
+				{{/each}}
+			</ul>
+		</nav>
+		{{/if}}
+	</footer>
+
+</body>
+
+</html>

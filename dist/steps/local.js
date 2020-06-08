@@ -93,6 +93,8 @@ exports.setLocalConfig = (settings) => {
             });
         if (settings.localConfig.projectTitle)
             settings.projectTitle = settings.localConfig.projectTitle;
+        if (settings.localConfig.type)
+            settings.type = settings.localConfig.type;
     }
     return settings;
 };
