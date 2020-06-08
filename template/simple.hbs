@@ -20,6 +20,17 @@
 	<main id="main" class="content">
 		{{{ content }}}
 	</main>
+	<!--- Page Footer Content -->
+	{{#if package}}
+	<footer id="footer">
+		<footnote>
+			{{#if package.name}}<span>{{package.name}}@{{ package.version }}</span>{{/if}}
+			{{#if package.license}}<span>{{ package.license }}</span>{{/if}}
+			{{#if package.author}}<span>&copy; {{ package.author }}</span>{{/if}}
+		</footnote>
+
+	</footer>
+	{{/if}}
 </body>
 
 </html>
