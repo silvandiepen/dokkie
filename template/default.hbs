@@ -21,9 +21,10 @@
 	<!--- Page Header -->
 	<header id="header">
 		{{#if projectTitle }}<h1><a href="/">{{ projectTitle }}</a></h1>{{/if}}
-		{{#if headerNavigation.mobile }}
 
-		{{#if headerNavigation.menu.[1] }} <input type="checkbox" class="nav-trigger__input" id="header-nav-trigger">
+
+		{{#if headerNavigation.menu.[1] }}
+		{{#if headerNavigation.mobile }}<input type="checkbox" class="nav-trigger__input" id="header-nav-trigger">
 		<label class="nav-trigger__label" for="header-nav-trigger"><span></span></label>
 		{{/if}}
 		<nav class="{{headerNavigation.showClass}}">
@@ -83,6 +84,10 @@
 		</nav>
 	</sidebar>
 	{{/if}}
+
+	<main id="main" class="content">
+		{{{ content }}}
+	</main>
 
 
 
