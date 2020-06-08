@@ -6,7 +6,7 @@
 	"bin": "dist/index.js",
 	"scripts": {
 		"build": "tsc",
-		"dokkie": "npm run build && node dist/index.js",
+		"dokkie": "npm run build && node dist/index.js --layout=advanced ",
 		"dev": "tsc src -w",
 		"pre": "npm run build && npm run dokkie",
 		"precommit": "npm run pre",

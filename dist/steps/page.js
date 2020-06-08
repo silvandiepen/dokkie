@@ -31,7 +31,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.setHomePage = exports.copyFolders = exports.createFiles = exports.getLayout = exports.filterHiddenPages = exports.convertDataToHtml = void 0;
+exports.setHomePage = exports.copyFolders = exports.createFiles = exports.reformInjectHtml = exports.getLayout = exports.filterHiddenPages = exports.convertDataToHtml = void 0;
 const utils_1 = require("../utils");
 const log = __importStar(require("cli-block"));
 const prettier_1 = __importDefault(require("prettier"));
@@ -72,6 +72,30 @@ exports.getLayout = (settings) => __awaiter(void 0, void 0, void 0, function* ()
     }
     return Object.assign(Object.assign({}, settings), { layout: layoutFile });
 });
+exports.reformInjectHtml = (settings) => __awaiter(void 0, void 0, void 0, function* () {
+    let Inject = {};
+    function isLink(str) {
+        if (str.indexOf(".html") > -1)
+            return true;
+        return false;
+    }
+    if (settings.injectHtml) {
+        yield utils_1.asyncForEach(Object.keys(settings.injectHtml), (option) => __awaiter(void 0, void 0, void 0, function* () {
+            if (isLink(settings.injectHtml[option])) {
+                try {
+                    Inject[option] = yield readFile(settings.injectHtml[option]);
+                }
+                catch (err) {
+                    console.error(err);
+                }
+            }
+            else {
+                Inject[option] = settings.injectHtml[option];
+            }
+        }));
+    }
+    return Object.assign(Object.assign({}, settings), { injectHtml: Inject });
+});
 exports.createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     const template = utils_1.Handlebars.compile(settings.layout);
     log.BLOCK_MID("Creating pages");
@@ -99,6 +123,7 @@ exports.createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* 
                 sidebarNavigation: _1.getNavigation(settings, "sidebar"),
                 footerNavigation: _1.getNavigation(settings, "footer"),
                 overviewNavigation: _1.getNavigation(settings, "overview"),
+                injectHtml: settings.injectHtml,
             });
             yield utils_1.writeThatFile(file, prettier_1.default.format(contents, { parser: "html" }));
         }

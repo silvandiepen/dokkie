@@ -65,6 +65,7 @@ buildDokkie(settings_1.settings())
     .then(steps_1.getScripts)
     .then(steps_1.setFileDate)
     .then(steps_1.setHomePage)
+    .then(steps_1.reformInjectHtml)
     .then(steps_1.buildNavigation)
     .then((s) => __awaiter(void 0, void 0, void 0, function* () {
     yield steps_1.cleanFolder(s);

@@ -91,6 +91,8 @@ exports.setLocalConfig = (settings) => {
                 else
                     return option;
             });
+        if (settings.localConfig.injectHtml)
+            settings.injectHtml = settings.localConfig.injectHtml;
         if (settings.localConfig.projectTitle)
             settings.projectTitle = settings.localConfig.projectTitle;
         if (settings.localConfig.type)

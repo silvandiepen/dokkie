@@ -20,6 +20,7 @@
 
 	<!--- Page Header -->
 	<header id="header">
+		{{{injectHtml.headerBefore }}}
 		{{#if projectTitle }}<h1><a href="/">{{ projectTitle }}</a></h1>{{/if}}
 		{{#if headerNavigation.mobile }}
 
@@ -47,11 +48,13 @@
 			</ul>
 		</nav>
 		{{/if}}
+		{{{injectHtml.headerAfter }}}
 	</header>
 
 	{{#if sidebarNavigation.menu.[1] }}
 	<!--- Page Header -->
 	<sidebar id="sidebar">
+		{{{injectHtml.sidebarBefore }}}
 		{{#if sidebarNavigation.mobile }}
 		<input type="checkbox" class="nav-trigger__input" id="sidebar-nav-trigger">
 		<label class="nav-trigger__label" for="sidebar-nav-trigger"><span></span></label>
@@ -81,17 +84,21 @@
 				{{/each}}
 			</ul>
 		</nav>
+		{{{injectHtml.sidebarAfter }}}
 	</sidebar>
 	{{/if}}
 
 	<main id="main" class="content">
+		{{{ injectHtml.mainBefore }}}
 		{{{ content }}}
+		{{{ injectHtml.mainAfter }}}
 	</main>
 
 
 
 	<!--- Page Footer Content -->
 	<footer id="footer">
+		{{{ injectHtml.footerBefore }}}
 		{{#if footerNavigation.menu.[1] }}
 		<nav class="{{footerNavigation.showClass}}">
 			<ul>
@@ -126,6 +133,7 @@
 			{{#if package.author}}<span>&copy; {{ package.author }}</span>{{/if}}
 		</footnote>
 		{{/if}}
+		{{{ injectHtml.footerAfter }}}
 	</footer>
 
 </body>

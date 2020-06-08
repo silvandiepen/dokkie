@@ -1,4 +1,4 @@
-import { ISettings, IFile } from "../types";
+import { ISettings, IFile, ILocalConfigInject } from "../types";
 import { mdToHtml, asyncForEach, writeThatFile, Handlebars } from "../utils";
 import * as log from "cli-block";
 import prettier from "prettier";
@@ -55,6 +55,30 @@ export const getLayout = async (settings: ISettings): Promise<ISettings> => {
 	return { ...settings, layout: layoutFile };
 };
 
+export const reformInjectHtml = async (
+	settings: ISettings
+): Promise<ISettings> => {
+	let Inject = {};
+	function isLink(str: string): Boolean {
+		if (str.indexOf(".html") > -1) return true;
+		return false;
+	}
+	if (settings.injectHtml) {
+		await asyncForEach(Object.keys(settings.injectHtml), async (option) => {
+			if (isLink(settings.injectHtml[option])) {
+				try {
+					Inject[option] = await readFile(settings.injectHtml[option]);
+				} catch (err) {
+					console.error(err);
+				}
+			} else {
+				Inject[option] = settings.injectHtml[option];
+			}
+		});
+	}
+	return { ...settings, injectHtml: Inject };
+};
+
 export const createFiles = async (settings: ISettings): Promise<void> => {
 	const template = Handlebars.compile(settings.layout);
 
@@ -84,6 +108,7 @@ export const createFiles = async (settings: ISettings): Promise<void> => {
 				sidebarNavigation: getNavigation(settings, "sidebar"),
 				footerNavigation: getNavigation(settings, "footer"),
 				overviewNavigation: getNavigation(settings, "overview"),
+				injectHtml: settings.injectHtml,
 			});
 			await writeThatFile(file, prettier.format(contents, { parser: "html" }));
 		} catch (err) {

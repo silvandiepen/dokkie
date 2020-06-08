@@ -26,6 +26,7 @@ import {
 	copyFolders,
 	getLayout,
 	setHomePage,
+	reformInjectHtml,
 } from "./steps";
 
 const buildDokkie = async (settings: ISettings): Promise<ISettings> => {
@@ -61,6 +62,7 @@ buildDokkie(settings())
 	.then(getScripts)
 	.then(setFileDate)
 	.then(setHomePage)
+	.then(reformInjectHtml)
 	.then(buildNavigation)
 	.then(async (s) => {
 		await cleanFolder(s);
