@@ -21,6 +21,9 @@ Configuration can be done multiple ways, the easiest way is doing this through t
 | `flatNavigation` | `false`                    | `true` / `false`                                        | Make the navigation flat.                                                                                  |
 | `codeHighlight`  | `true`                     | `true` / `false`                                        | Use Prism to create highlighted code                                                                       |
 | `projectTitle`   | `""`                       |                                                         | Title of the documentation                                                                                 |
+| `favicon`        | Custom generated           | path to image                                           | Create favicons and other meta tags automatically                                                          |
+| `skip`           | `null`                     | `favicons`                                              | Skip parts of the build process to speed it up. For now this can only be done with Favicons                |
+| `config`         | `dokkie.config.json`       | path to json config file                                | Give an alternative path to the config for dokkie                                                          |
 
 ### API
 

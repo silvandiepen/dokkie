@@ -9,6 +9,7 @@ import { html5Media } from "markdown-it-html5-media";
 import emoji from "markdown-it-emoji";
 import MarkdownIt from "markdown-it";
 import taskLists from "markdown-it-task-lists";
+import alert from "markdown-it-alert";
 
 const md: MarkdownItExtended = new MarkdownIt({
 	html: true,
@@ -22,6 +23,7 @@ md.use(prism);
 md.use(anchors);
 md.use(html5Media);
 md.use(emoji);
+md.use(alert);
 md.use(taskLists, { enabled: true });
 
 /*
