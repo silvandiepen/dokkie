@@ -1,6 +1,6 @@
 {
 	"name": "dokkie",
-	"version": "0.0.46",
+	"version": "0.0.47",
 	"description": "Create good looking documentation from your Readme",
 	"main": "dist/index.js",
 	"bin": "dist/index.js",
