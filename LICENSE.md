@@ -1,5 +1,5 @@
 ---
-parent: about, usage
+parent: about
 menu: footer
 ---
 

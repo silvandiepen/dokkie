@@ -50,3 +50,11 @@ It's also possible to inject html into the templates.
 | overviewAfter  | Add html in bottom of overview | blog               |
 | articleBefore  | Add html in top of article     | blog               |
 | articleAfter   | Add html in bottom of article  | blog               |
+
+### Custom
+
+A custom layout can be used by giving a layout argument;
+
+```bash
+    npx dokkie --layout=src/my-own/layout.html
+```
