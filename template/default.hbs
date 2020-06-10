@@ -26,7 +26,8 @@
 
 		{{#if headerNavigation.menu.[1] }}
 		{{#if headerNavigation.mobile }}<input type="checkbox" class="nav-trigger__input" id="header-nav-trigger">
-		<label class="nav-trigger__label" for="header-nav-trigger"><span></span></label>
+		<label aria-label="Trigger Header navigation" class="nav-trigger__label"
+			for="header-nav-trigger"><span></span></label>
 		{{/if}}
 		<nav class="{{headerNavigation.showClass}}">
 			<ul>
@@ -58,7 +59,8 @@
 		{{{injectHtml.sidebarBefore }}}
 		{{#if sidebarNavigation.mobile }}
 		<input type="checkbox" class="nav-trigger__input" id="sidebar-nav-trigger">
-		<label class="nav-trigger__label" for="sidebar-nav-trigger"><span></span></label>
+		<label aria-label="Trigger Sidebar navigation" class="nav-trigger__label"
+			for="sidebar-nav-trigger"><span></span></label>
 		{{/if}}
 		<nav class="{{sidebarNavigation.showClass}}">
 			<ul>
