@@ -29,7 +29,7 @@ exports.getScripts = (settings) => {
     if ((_d = (_c = settings.localConfig) === null || _c === void 0 ? void 0 : _c.overrule) === null || _d === void 0 ? void 0 : _d.js)
         scripts = settings.localConfig.overrule.js;
     const scriptScripts = scripts
-        .map((s) => (s = `<script type="text/javascript" src="${s}"></script>`))
+        .map((s) => (s = `<script type="text/javascript" src="${s}" async></script>`))
         .join("");
     return Object.assign(Object.assign({}, settings), { scripts: scriptScripts });
 };
