@@ -14,6 +14,9 @@ export const makeRoute = (file: IFile, settings: ISettings): string => {
 	const post = dirname(file.path).replace(pre, "");
 	let route = join(post, makeFileName(file));
 
+	if (settings.input !== ".") {
+		settings.strip.push(settings.input);
+	}
 	if (settings.strip)
 		settings.strip.forEach((ignoredPath) => {
 			route = route.replace("/" + ignoredPath, "");

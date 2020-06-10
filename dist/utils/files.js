@@ -42,6 +42,9 @@ exports.makeRoute = (file, settings) => {
     const pre = path_1.join(process.cwd()).replace(/\/$/, "");
     const post = path_1.dirname(file.path).replace(pre, "");
     let route = path_1.join(post, exports.makeFileName(file));
+    if (settings.input !== ".") {
+        settings.strip.push(settings.input);
+    }
     if (settings.strip)
         settings.strip.forEach((ignoredPath) => {
             route = route.replace("/" + ignoredPath, "");
