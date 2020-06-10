@@ -42,6 +42,9 @@ exports.buildNavigation = (settings) => __awaiter(void 0, void 0, void 0, functi
             .forEach((item) => {
             newNav.push(Object.assign(Object.assign({}, item), { children: nav.filter((subitem) => subitem.parent.includes(item.self) && item.self !== "") }));
         });
+    if (settings.type == "blog") {
+        nav.sort((a, b) => (a.date < b.date ? 1 : -1));
+    }
     return Object.assign(Object.assign({}, settings), { navigation: settings.flatNavigation ? nav : newNav });
 });
 exports.cleanFolder = (settings) => __awaiter(void 0, void 0, void 0, function* () {

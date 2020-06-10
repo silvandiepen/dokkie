@@ -38,6 +38,9 @@ export const buildNavigation = async (
 					),
 				});
 			});
+	if (settings.type == "blog") {
+		nav.sort((a, b) => (a.date < b.date ? 1 : -1));
+	}
 	return { ...settings, navigation: settings.flatNavigation ? nav : newNav };
 };
 

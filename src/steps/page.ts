@@ -144,7 +144,7 @@ export const setHomePage = (settings: ISettings): ISettings => {
 		ext: ".md",
 		date: new Date(),
 		data: "",
-		meta: { title: "home" },
+		meta: { title: "home", hide: true },
 		html: "",
 		title: "Home",
 		route: "/index.html",
