@@ -37,7 +37,9 @@ export const getScripts = (settings: ISettings): ISettings => {
 		scripts = settings.localConfig.overrule.js;
 
 	const scriptScripts = scripts
-		.map((s) => (s = `<script type="text/javascript" src="${s}"></script>`))
+		.map(
+			(s) => (s = `<script type="text/javascript" src="${s}" async></script>`)
+		)
 		.join("");
 	return {
 		...settings,
