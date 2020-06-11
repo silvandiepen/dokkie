@@ -97,6 +97,8 @@ exports.setLocalConfig = (settings) => {
             settings.projectTitle = settings.localConfig.projectTitle;
         if (settings.localConfig.type)
             settings.type = settings.localConfig.type;
+        if (settings.localConfig.extendNavigation)
+            settings.extendNavigation = settings.localConfig.extendNavigation;
     }
     return settings;
 };

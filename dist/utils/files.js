@@ -88,7 +88,7 @@ exports.writeThatFile = (file, contents, simple = false) => __awaiter(void 0, vo
         console.log(err);
     }
 });
-exports.getPageTitle = (file) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getPageTitle = (file) => {
     if (file.meta && file.meta.title) {
         return file.meta.title;
     }
@@ -98,5 +98,5 @@ exports.getPageTitle = (file) => __awaiter(void 0, void 0, void 0, function* () 
     else {
         return file.name;
     }
-});
+};
 //# sourceMappingURL=files.js.map

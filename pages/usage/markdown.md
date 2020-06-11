@@ -28,13 +28,17 @@ If you are fond of using emoji's in your code. Go ahead! :)
 
 Create styled tasklists in your documentation!
 
+```markdown
+- [x] Add tasklists
+```
+
 - [x] Add tasklists
 
 ### Alerts
 
 available options: `success`, `warning`, `tip`, `error` or nothing.
 
-```
+```markdown
 ::: success
 You've done a great job!
 :::

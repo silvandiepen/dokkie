@@ -35,6 +35,14 @@ exports.buildNavigation = (settings) => __awaiter(void 0, void 0, void 0, functi
                 date: file.date,
             });
     });
+    if (settings.extendNavigation) {
+        settings.extendNavigation.forEach((item) => {
+            if (!item.parent)
+                item.parent = "";
+            nav.push(item);
+        });
+        console.log(nav);
+    }
     let newNav = [];
     if (!settings.flatNavigation)
         nav

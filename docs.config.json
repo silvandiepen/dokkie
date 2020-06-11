@@ -4,5 +4,12 @@
 		"header",
 		"footer",
 		{ "name": "sidebar", "desktop": true, "mobile": false }
+	],
+	"extendNavigation": [
+		{
+			"name": "Blog",
+			"link": "https://blog.silvandiepen.nl",
+			"meta": { "menu": ["header", "footer"] }
+		}
 	]
 }

@@ -1,1 +1,1 @@
-export declare const convertToDate: (date: number) => Date;
+export declare const convertToDate: (date: number | string) => Date;

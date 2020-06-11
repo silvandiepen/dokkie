@@ -1,3 +1,7 @@
+---
+hide: true
+---
+
 # Dokkie
 
 #### A Static site generator for documentation and blogs. Without the necessity of having any extra code in your repository

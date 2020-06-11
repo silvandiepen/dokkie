@@ -41,7 +41,7 @@ md.use(markdown_it_task_lists_1.default, { enabled: true });
 exports.mdToHtml = (file) => __awaiter(void 0, void 0, void 0, function* () {
     const renderedDocument = md.render(file.data);
     const meta = md.meta;
-    md.meta = [];
+    md.meta = {};
     return {
         document: renderedDocument,
         meta: meta,
@@ -60,8 +60,18 @@ const findAfter = (str, needle, afterIndex) => {
     Get the title from a Markdown String
 */
 exports.getTitleFromMD = (str, clean = true) => {
-    const startTitle = str.indexOf("# ");
-    const endTitle = findAfter(str, "\n", startTitle);
+    let startTitle = str.indexOf("# ");
+    // console.log("index -1:  ", str.charAt(startTitle - 1));
+    while (str.charAt(startTitle - 1) == "#") {
+        startTitle = findAfter(str, "# ", startTitle);
+        console.log("doing the while", startTitle);
+    }
+    // console.log(startTitle);
+    let endTitle = findAfter(str, "\n", startTitle);
+    if (startTitle < 0)
+        return null;
+    if (startTitle > -1 && endTitle == 0)
+        endTitle = str.length;
     if (clean)
         return str.substr(startTitle + 2, endTitle).split("\n")[0];
     return str.substr(startTitle, endTitle).split("\n")[0];

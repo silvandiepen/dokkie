@@ -1,6 +1,5 @@
 import H from "handlebars";
 import format from "date-fns/format";
-import { parseISO } from "date-fns";
 
 export const helpers = {
 	eq: (v1: any, v2: any): any => v1 === v2,

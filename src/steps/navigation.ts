@@ -25,6 +25,14 @@ export const buildNavigation = async (
 			});
 	});
 
+	if (settings.extendNavigation) {
+		settings.extendNavigation.forEach((item: INavigation) => {
+			if (!item.parent) item.parent = "";
+			nav.push(item);
+		});
+		console.log(nav);
+	}
+
 	let newNav = [];
 
 	if (!settings.flatNavigation)

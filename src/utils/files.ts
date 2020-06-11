@@ -3,6 +3,7 @@ import { join, dirname } from "path";
 import { getTitleFromMD } from "./markdown";
 import { IFile, ISettings } from "../types";
 import * as log from "cli-block";
+
 export const asyncForEach = async (array: any, callback: any) => {
 	for (let index = 0; index < array.length; index++) {
 		await callback(array[index], index, array);
@@ -68,7 +69,7 @@ export const writeThatFile = async (
 	}
 };
 
-export const getPageTitle = async (file: IFile): Promise<string> => {
+export const getPageTitle = (file: IFile): string => {
 	if (file.meta && file.meta.title) {
 		return file.meta.title;
 	} else if (file.ext === ".md" && getTitleFromMD(file.data)) {

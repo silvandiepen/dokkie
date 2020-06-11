@@ -72,6 +72,8 @@ export const setLocalConfig = (settings: ISettings): ISettings => {
 		if (settings.localConfig.projectTitle)
 			settings.projectTitle = settings.localConfig.projectTitle;
 		if (settings.localConfig.type) settings.type = settings.localConfig.type;
+		if (settings.localConfig.extendNavigation)
+			settings.extendNavigation = settings.localConfig.extendNavigation;
 	}
 
 	return settings;
