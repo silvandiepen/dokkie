@@ -16,4 +16,5 @@ __exportStar(require("./custom-files"), exports);
 __exportStar(require("./navigation"), exports);
 __exportStar(require("./page"), exports);
 __exportStar(require("./meta"), exports);
+__exportStar(require("./assets"), exports);
 //# sourceMappingURL=index.js.map

@@ -1,0 +1,7 @@
+{{#if logo}}
+{{#if projectTitle }}<h1><a href="/"><img src="{{logo}}" alt="{{projectTitle}}" /></a></h1>{{/if}}
+{{#unless projectTitle }}<h1><a href="/"><img src="{{logo}}" alt="logo" /></a></h1>{{/unless}}
+{{/if}}
+{{#unless logo}}
+{{#if projectTitle }}<h1><a href="/">{{ projectTitle }}</a></h1>{{/if}}
+{{/unless}}

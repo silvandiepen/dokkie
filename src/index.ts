@@ -27,6 +27,7 @@ import {
 	getLayout,
 	setHomePage,
 	reformInjectHtml,
+	downloadAssets,
 } from "./steps";
 
 const buildDokkie = async (settings: ISettings): Promise<ISettings> => {
@@ -68,6 +69,7 @@ buildDokkie(settings())
 		await cleanFolder(s);
 		return s;
 	})
+	.then(downloadAssets)
 	.then(createFavicons)
 	.then(async (s) => {
 		await createFiles(s);

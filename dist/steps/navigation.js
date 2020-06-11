@@ -42,6 +42,8 @@ exports.buildNavigation = (settings) => __awaiter(void 0, void 0, void 0, functi
             nav.push(item);
         });
     if (settings.overruleNavigation) {
+        // When it's a blog. None of the menu's should be shown by default. So, first all items found
+        // are put into the menu 'overview'. Then the overruled menus will be added to their respective menus.
         if (settings.type == "blog") {
             nav.forEach((item) => (item.meta.menu = ["overview"]));
             settings.overruleNavigation.forEach((item) => {
@@ -50,10 +52,35 @@ exports.buildNavigation = (settings) => __awaiter(void 0, void 0, void 0, functi
                 nav.push(item);
             });
         }
+        // 1. Otherwise, for docs all items will first be given menus in case they don't have them defined yet (which usually)
+        // results in appearing in all menus.
+        // 2. Then a list will be made of the menu's which will be overruled.
+        // 3. These menus will be emptied.
         else {
+            // 1.
+            const menus = settings.overruleNavigation.map((item) => {
+                var _a;
+                if ((_a = item.meta) === null || _a === void 0 ? void 0 : _a.menu)
+                    return item;
+                else
+                    return Object.assign(Object.assign({}, item), { meta: Object.assign(Object.assign({}, item.meta), { menu: ["header", "footer", "sidebar"] }) });
+            });
+            // 2.
+            const overruleMenus = [];
+            menus.forEach((item) => overruleMenus.push(item.meta.menu));
+            // 3.
+            overruleMenus.forEach((menu) => {
+                nav = nav
+                    .map((item) => {
+                    var _a;
+                    return ((_a = item.meta) === null || _a === void 0 ? void 0 : _a.menu.find(menu, menu.name == menu)) ? Object.assign(Object.assign({}, item), { meta: Object.assign(Object.assign({}, item.meta), { menu: item.meta.menu.filter((item) => item.name !== menu) }) }) : item;
+                })
+                    .filter((item) => item.meta.menu !== []);
+            });
             nav = settings.overruleNavigation.map((item) => (item = Object.assign(Object.assign({}, item), { parent: item.parent || "" })));
         }
     }
+    // Flat navigation can be an option.
     let newNav = [];
     if (!settings.flatNavigation)
         nav
@@ -61,6 +88,7 @@ exports.buildNavigation = (settings) => __awaiter(void 0, void 0, void 0, functi
             .forEach((item) => {
             newNav.push(Object.assign(Object.assign({}, item), { children: nav.filter((subitem) => subitem.parent.includes(item.self) && item.self !== "") }));
         });
+    // If the project is a blog. The menu's are sorted by date.
     if (settings.type == "blog") {
         nav.sort((a, b) => (a.date < b.date ? 1 : -1));
     }
@@ -73,14 +101,11 @@ exports.cleanFolder = (settings) => __awaiter(void 0, void 0, void 0, function* 
 const filterNavigation = (nav, parent) => {
     const filteredNav = nav.map((item) => {
         var _a;
-        if (!((_a = item.meta) === null || _a === void 0 ? void 0 : _a.menu) ||
-            (item.meta.menu && item.meta.menu.includes(parent))) {
+        if (!((_a = item.meta) === null || _a === void 0 ? void 0 : _a.menu) || (item.meta.menu && item.meta.menu.includes(parent)))
             if (item.children)
                 return Object.assign(Object.assign({}, item), { children: filterNavigation(item.children, parent).filter(Boolean) });
-            else {
+            else
                 return Object.assign({}, item);
-            }
-        }
     });
     return filteredNav;
 };

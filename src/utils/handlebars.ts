@@ -31,6 +31,7 @@ const partials = [
 	"footerNavigation",
 	"sidebarNavigation",
 	"overviewNavigation",
+	"projectTitle",
 ];
 
 asyncForEach(partials, async (partial: string) => {

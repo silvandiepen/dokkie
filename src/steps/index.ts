@@ -4,3 +4,4 @@ export * from "./custom-files";
 export * from "./navigation";
 export * from "./page";
 export * from "./meta";
+export * from "./assets";

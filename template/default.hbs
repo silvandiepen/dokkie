@@ -20,7 +20,7 @@
 	<!--- Page Header -->
 	<header id="header">
 		{{{injectHtml.headerBefore }}}
-		{{#if projectTitle }}<h1><a href="/">{{ projectTitle }}</a></h1>{{/if}}
+		{{>projectTitle}}
 		{{>headerNavigation }}
 		{{{injectHtml.headerAfter }}}
 	</header>

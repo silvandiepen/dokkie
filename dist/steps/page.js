@@ -100,7 +100,7 @@ exports.createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* 
     const template = utils_1.Handlebars.compile(settings.layout);
     log.BLOCK_MID("Creating pages");
     yield utils_1.asyncForEach(settings.files, (file) => __awaiter(void 0, void 0, void 0, function* () {
-        var _a;
+        var _a, _b;
         try {
             const currentLink = file.route.replace("index.html", "");
             const contents = template({
@@ -117,6 +117,7 @@ exports.createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* 
                 favicon: settings.faviconData
                     ? settings.faviconData.html.join("")
                     : null,
+                logo: ((_b = settings.assets) === null || _b === void 0 ? void 0 : _b.logo) ? settings.assets.logo : null,
                 package: settings.package ? settings.package : null,
                 navigation: settings.navigation,
                 headerNavigation: _1.getNavigation(settings, "header"),

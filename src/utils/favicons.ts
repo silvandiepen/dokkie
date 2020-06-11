@@ -26,8 +26,8 @@ export const createFavicons = async (
 ): Promise<ISettings> => {
 	if (settings.skip.includes("favicons")) return settings;
 
-	const source = settings.favicon
-		? settings.favicon
+	const source = settings.assets?.favicon
+		? settings.assets.favicon
 		: createFaviconImage(settings);
 
 	const config = {

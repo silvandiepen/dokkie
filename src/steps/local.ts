@@ -76,6 +76,8 @@ export const setLocalConfig = (settings: ISettings): ISettings => {
 			settings.extendNavigation = settings.localConfig.extendNavigation;
 		if (settings.localConfig.overruleNavigation)
 			settings.overruleNavigation = settings.localConfig.overruleNavigation;
+		if (settings.localConfig.assets)
+			settings.assets = settings.localConfig.assets;
 	}
 
 	return settings;

@@ -51,6 +51,10 @@ export interface IArgumentSettings {
 	type: string | buildTypes;
 	config: string;
 }
+interface ILocalConfigAssets {
+	favicon?: string;
+	logo?: string;
+}
 export interface ISettings extends IArgumentSettings {
 	files?: IFile[] | any;
 	navigation?: INavigation[];
@@ -59,6 +63,7 @@ export interface ISettings extends IArgumentSettings {
 	styles?: string;
 	localConfig?: ILocalConfig;
 	faviconData?: any;
+	assets?: ILocalConfigAssets;
 	dokkie?: any;
 	injectHtml?: ILocalConfigInject;
 	extendNavigation?: INavigation[];
@@ -91,6 +96,8 @@ interface ILocalConfig extends IArgumentSettings {
 	injectHtml?: ILocalConfigInject;
 	extendNavigation?: INavigation[];
 	overruleNavigation?: INavigation[];
+	localConfig?: ILocalConfig;
+	assets?: ILocalConfigAssets;
 }
 
 export interface IMarkdown {

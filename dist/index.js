@@ -71,6 +71,7 @@ buildDokkie(settings_1.settings())
     yield steps_1.cleanFolder(s);
     return s;
 }))
+    .then(steps_1.downloadAssets)
     .then(utils_1.createFavicons)
     .then((s) => __awaiter(void 0, void 0, void 0, function* () {
     yield steps_1.createFiles(s);

@@ -44,6 +44,7 @@ const partials = [
     "footerNavigation",
     "sidebarNavigation",
     "overviewNavigation",
+    "projectTitle",
 ];
 cli_block_1.asyncForEach(partials, (partial) => __awaiter(void 0, void 0, void 0, function* () {
     const file = yield readFile(`template/partials/${partial}.hbs`).then((r) => r.toString());

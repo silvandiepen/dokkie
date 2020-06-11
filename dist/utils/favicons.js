@@ -51,17 +51,16 @@ const createFaviconImage = (settings) => {
 };
 // import * as log from "cli-block";
 exports.createFavicons = (settings) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b, _c, _d;
+    var _a, _b, _c, _d, _e;
     if (settings.skip.includes("favicons"))
         return settings;
-    const source = settings.favicon
-        ? settings.favicon
+    const source = ((_a = settings.assets) === null || _a === void 0 ? void 0 : _a.favicon) ? settings.assets.favicon
         : createFaviconImage(settings);
     const config = {
         path: "/img/favicons/",
-        appName: (_a = settings.package) === null || _a === void 0 ? void 0 : _a.name,
-        appDescription: (_b = settings.package) === null || _b === void 0 ? void 0 : _b.description,
-        developerName: (_c = settings.package) === null || _c === void 0 ? void 0 : _c.author,
+        appName: (_b = settings.package) === null || _b === void 0 ? void 0 : _b.name,
+        appDescription: (_c = settings.package) === null || _c === void 0 ? void 0 : _c.description,
+        developerName: (_d = settings.package) === null || _d === void 0 ? void 0 : _d.author,
         developerURL: null,
         dir: "auto",
         lang: "en-US",
@@ -72,7 +71,7 @@ exports.createFavicons = (settings) => __awaiter(void 0, void 0, void 0, functio
         orientation: "any",
         scope: "/",
         start_url: "/?homescreen=1",
-        version: (_d = settings.package) === null || _d === void 0 ? void 0 : _d.version,
+        version: (_e = settings.package) === null || _e === void 0 ? void 0 : _e.version,
         logging: false,
         pixel_art: false,
         loadManifestWithCredentials: false,

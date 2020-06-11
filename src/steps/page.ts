@@ -102,6 +102,7 @@ export const createFiles = async (settings: ISettings): Promise<void> => {
 				favicon: settings.faviconData
 					? settings.faviconData.html.join("")
 					: null,
+				logo: settings.assets?.logo ? settings.assets.logo : null,
 				package: settings.package ? settings.package : null,
 				navigation: settings.navigation,
 				headerNavigation: getNavigation(settings, "header"),
