@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -6,6 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Handlebars = exports.helpers = void 0;
 const handlebars_1 = __importDefault(require("handlebars"));
 const format_1 = __importDefault(require("date-fns/format"));
+const cli_block_1 = require("cli-block");
+const { readFile } = require("fs").promises;
 exports.helpers = {
     eq: (v1, v2) => v1 === v2,
     ne: (v1, v2) => v1 !== v2,
@@ -28,6 +39,16 @@ exports.helpers = {
         return format_1.default(new Date(context), f);
     },
 };
+const partials = [
+    "headerNavigation",
+    "footerNavigation",
+    "sidebarNavigation",
+    "overviewNavigation",
+];
+cli_block_1.asyncForEach(partials, (partial) => __awaiter(void 0, void 0, void 0, function* () {
+    const file = yield readFile(`template/partials/${partial}.hbs`).then((r) => r.toString());
+    handlebars_1.default.registerPartial(partial, file);
+}));
 Object.keys(exports.helpers).forEach((helper) => {
     handlebars_1.default.registerHelper(helper, exports.helpers[helper]);
 });

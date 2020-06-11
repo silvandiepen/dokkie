@@ -74,6 +74,8 @@ export const setLocalConfig = (settings: ISettings): ISettings => {
 		if (settings.localConfig.type) settings.type = settings.localConfig.type;
 		if (settings.localConfig.extendNavigation)
 			settings.extendNavigation = settings.localConfig.extendNavigation;
+		if (settings.localConfig.overruleNavigation)
+			settings.overruleNavigation = settings.localConfig.overruleNavigation;
 	}
 
 	return settings;

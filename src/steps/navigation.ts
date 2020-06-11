@@ -25,13 +25,25 @@ export const buildNavigation = async (
 			});
 	});
 
-	if (settings.extendNavigation) {
+	if (settings.extendNavigation)
 		settings.extendNavigation.forEach((item: INavigation) => {
 			if (!item.parent) item.parent = "";
 			nav.push(item);
 		});
-	}
 
+	if (settings.overruleNavigation) {
+		if (settings.type == "blog") {
+			nav.forEach((item) => (item.meta.menu = ["overview"]));
+			settings.overruleNavigation.forEach((item: INavigation) => {
+				if (!item.parent) item.parent = "";
+				nav.push(item);
+			});
+		} else {
+			nav = settings.overruleNavigation.map(
+				(item) => (item = { ...item, parent: item.parent || "" })
+			);
+		}
+	}
 	let newNav = [];
 
 	if (!settings.flatNavigation)

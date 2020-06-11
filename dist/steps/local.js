@@ -99,6 +99,8 @@ exports.setLocalConfig = (settings) => {
             settings.type = settings.localConfig.type;
         if (settings.localConfig.extendNavigation)
             settings.extendNavigation = settings.localConfig.extendNavigation;
+        if (settings.localConfig.overruleNavigation)
+            settings.overruleNavigation = settings.localConfig.overruleNavigation;
     }
     return settings;
 };

@@ -22,72 +22,16 @@
 	<header id="header">
 		{{{injectHtml.headerBefore }}}
 		{{#if projectTitle }}<h1><a href="/">{{ projectTitle }}</a></h1>{{/if}}
-
-
-		{{#if headerNavigation.menu.[1] }}
-		{{#if headerNavigation.mobile }}<input type="checkbox" class="nav-trigger__input" id="header-nav-trigger">
-		<label aria-label="Trigger Header navigation" class="nav-trigger__label"
-			for="header-nav-trigger"><span></span></label>
-		{{/if}}
-		<nav class="{{headerNavigation.showClass}}">
-			<ul>
-				{{#each headerNavigation.menu}}
-				{{#if (eq link ../currentLink) }}<li class="active">{{/if}}
-					{{#if (ne link ../currentLink) }}
-				<li>{{/if}}
-
-					<a href="{{ link }}">{{ name }}</a>
-					{{#if children.[0] }}
-					<ul>
-						{{#each children}}
-						{{#if (eq link ../../currentLink) }}<li class="active">{{/if}}
-							{{#if (ne link ../../currentLink) }}
-						<li>{{/if}}<a href="{{ link }}">{{ name }}</a></li>
-						{{/each}}
-					</ul>
-					{{/if}} {{/each}}
-				</li>
-			</ul>
-		</nav>
-		{{/if}}
+		{{>headerNavigation }}
 		{{{injectHtml.headerAfter }}}
 	</header>
 
 	{{#if sidebarNavigation.menu.[1] }}
 	<!--- Page Header -->
 	<sidebar id="sidebar">
-		{{{injectHtml.sidebarBefore }}}
-		{{#if sidebarNavigation.mobile }}
-		<input type="checkbox" class="nav-trigger__input" id="sidebar-nav-trigger">
-		<label aria-label="Trigger Sidebar navigation" class="nav-trigger__label"
-			for="sidebar-nav-trigger"><span></span></label>
-		{{/if}}
-		<nav class="{{sidebarNavigation.showClass}}">
-			<ul>
-				{{#each sidebarNavigation.menu}}
-				{{#if (eq link ../currentLink) }}<li class="active">{{/if}}
-
-					{{#if (ne link ../currentLink) }}
-				<li>{{/if}}
-
-					<a href="{{ link }}">{{ name }}</a>
-					{{#if children.[0] }}
-					<ul>
-						{{#each children }}
-						{{#if (eq link ../../currentLink) }}<li class="active">{{/if}}
-
-							{{#if (ne link ../../currentLink) }}
-						<li>{{/if}}
-							<a href="{{ link }}">{{ name }}</a>
-						</li>
-						{{/each}}
-					</ul>
-					{{/if}}
-				</li>
-				{{/each}}
-			</ul>
-		</nav>
-		{{{injectHtml.sidebarAfter }}}
+		{{{ injectHtml.sidebarBefore }}}
+		{{> sidebarNavigation }}
+		{{{ injectHtml.sidebarAfter }}}
 	</sidebar>
 	{{/if}}
 
@@ -102,33 +46,7 @@
 	<!--- Page Footer Content -->
 	<footer id="footer">
 		{{{ injectHtml.footerBefore }}}
-		{{#if footerNavigation.menu.[1] }}
-		<nav class="{{footerNavigation.showClass}}">
-			<ul>
-				{{#each footerNavigation.menu}}
-				{{#if (eq link ../currentLink) }}<li class="active">{{/if}}
-
-					{{#if (ne link ../currentLink) }}
-				<li>{{/if}}
-
-					<a href="{{ link }}">{{ name }}</a>
-					{{#if children.[0] }}
-					<ul>
-						{{#each children }}
-						{{#if (eq link ../../currentLink) }}<li class="active">{{/if}}
-
-							{{#if (ne link ../../currentLink) }}
-						<li>{{/if}}
-							<a href="{{ link }}">{{ name }}</a>
-						</li>
-						{{/each}}
-					</ul>
-					{{/if}}
-				</li>
-				{{/each}}
-			</ul>
-		</nav>
-		{{/if}}
+		{{> footerNavigation }}
 		{{#if package}}
 		<footnote>
 			{{#if package.name}}<span>{{package.name}}@{{ package.version }}</span>{{/if}}

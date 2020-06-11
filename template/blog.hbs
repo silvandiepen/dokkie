@@ -22,6 +22,7 @@
 	<header id="header">
 		{{{injectHtml.headerBefore }}}
 		{{#if projectTitle }}<h1><a href="/">{{ projectTitle }}</a></h1>{{/if}}
+		{{>headerNavigation }}
 		{{{injectHtml.headerAfter }}}
 	</header>
 
@@ -36,27 +37,16 @@
 	<!--- Page Footer Content -->
 	<footer id="blog-footer">
 		{{{injectHtml.overviewBefore }}}
-		{{#if overviewNavigation.menu.[1] }}
-		<nav>
-			<ul>
-				{{#each overviewNavigation.menu}}
-				{{#if (eq link ../currentLink) }}<li class="active">{{/if}}
-
-					{{#if (ne link ../currentLink) }}
-				<li>{{/if}}
-					<time datetime="{{date}}">
-						<span class="day">{{dateFormat date format="dd"}}</span>
-						<span class="month">{{dateFormat date format="MM"}}</span>
-						<span class="year">{{dateFormat date format="yyyy"}}</span></time>
-
-					<a href="{{ link }}">{{ name }}</a>
-				</li>
-				{{/each}}
-			</ul>
-		</nav>
-		{{/if}}
+		{{> overviewNavigation }}
 		{{{injectHtml.overviewAfter }}}
 	</footer>
+
+	{{#if footerNavigation.menu.[1]}}
+	<!--- Page Footer Content -->
+	<footer id="footer">
+		{{> footerNavigation }}
+	</footer>
+	{{/if}}
 
 </body>
 

@@ -62,6 +62,7 @@ export interface ISettings extends IArgumentSettings {
 	dokkie?: any;
 	injectHtml?: ILocalConfigInject;
 	extendNavigation?: INavigation[];
+	overruleNavigation?: INavigation[];
 }
 
 interface ILocalConfigOverrule {
@@ -89,6 +90,7 @@ interface ILocalConfig extends IArgumentSettings {
 	add?: ILocalConfigAdd;
 	injectHtml?: ILocalConfigInject;
 	extendNavigation?: INavigation[];
+	overruleNavigation?: INavigation[];
 }
 
 export interface IMarkdown {

@@ -1,5 +1,7 @@
 import H from "handlebars";
 import format from "date-fns/format";
+import { asyncForEach } from "cli-block";
+const { readFile } = require("fs").promises;
 
 export const helpers = {
 	eq: (v1: any, v2: any): any => v1 === v2,
@@ -23,6 +25,21 @@ export const helpers = {
 		return format(new Date(context), f);
 	},
 };
+
+const partials = [
+	"headerNavigation",
+	"footerNavigation",
+	"sidebarNavigation",
+	"overviewNavigation",
+];
+
+asyncForEach(partials, async (partial: string) => {
+	const file = await readFile(
+		`template/partials/${partial}.hbs`
+	).then((r: any): string => r.toString());
+
+	H.registerPartial(partial, file);
+});
 
 Object.keys(helpers).forEach((helper) => {
 	H.registerHelper(helper, helpers[helper]);

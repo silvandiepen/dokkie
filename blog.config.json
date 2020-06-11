@@ -1,3 +1,16 @@
 {
-	"projectTitle": "Blokkie"
+	"projectTitle": "Dokkie Blog",
+	"showNavigation": ["header", "footer", "overview"],
+	"overruleNavigation": [
+		{
+			"name": "Docs",
+			"link": "https://dokkie.dev",
+			"meta": { "menu": ["header"] }
+		},
+		{
+			"name": "About",
+			"link": "https://www.dokkie.dev/about",
+			"meta": { "menu": ["header"] }
+		}
+	]
 }

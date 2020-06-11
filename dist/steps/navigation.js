@@ -35,12 +35,24 @@ exports.buildNavigation = (settings) => __awaiter(void 0, void 0, void 0, functi
                 date: file.date,
             });
     });
-    if (settings.extendNavigation) {
+    if (settings.extendNavigation)
         settings.extendNavigation.forEach((item) => {
             if (!item.parent)
                 item.parent = "";
             nav.push(item);
         });
+    if (settings.overruleNavigation) {
+        if (settings.type == "blog") {
+            nav.forEach((item) => (item.meta.menu = ["overview"]));
+            settings.overruleNavigation.forEach((item) => {
+                if (!item.parent)
+                    item.parent = "";
+                nav.push(item);
+            });
+        }
+        else {
+            nav = settings.overruleNavigation.map((item) => (item = Object.assign(Object.assign({}, item), { parent: item.parent || "" })));
+        }
     }
     let newNav = [];
     if (!settings.flatNavigation)
