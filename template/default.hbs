@@ -16,8 +16,7 @@
 	{{{ styles }}} {{{ scripts }}}
 </head>
 
-<body id="{{currentId}}">
-
+<body id="page-{{currentId}}">
 	<!--- Page Header -->
 	<header id="header">
 		{{{injectHtml.headerBefore }}}
@@ -26,8 +25,8 @@
 		{{{injectHtml.headerAfter }}}
 	</header>
 
+	<!--- Page Sidebar -->
 	{{#if sidebarNavigation.menu.[1] }}
-	<!--- Page Header -->
 	<sidebar id="sidebar">
 		{{{ injectHtml.sidebarBefore }}}
 		{{> sidebarNavigation }}
@@ -35,13 +34,12 @@
 	</sidebar>
 	{{/if}}
 
+	<!--- Page Main section-->
 	<main id="main" class="content">
 		{{{ injectHtml.mainBefore }}}
 		{{{ content }}}
 		{{{ injectHtml.mainAfter }}}
 	</main>
-
-
 
 	<!--- Page Footer Content -->
 	<footer id="footer">
