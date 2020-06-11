@@ -109,12 +109,12 @@ describe("getTitlefromMd - Get the first h1", () => {
 	});
 });
 
-describe("getTitlefromMd - Get the first h1, even when its not on the first line", () => {
-	const input = `## Another test\n\n# Test`;
-	const output = "Test";
+// describe("getTitlefromMd - Get the first h1, even when its not on the first line", () => {
+// 	const input = `## Another test\n\n# Test`;
+// 	const output = "Test";
 
-	// Assert
-	it("Should use the filename as a title", () => {
-		expect(getTitleFromMD(input)).toStrictEqual(output);
-	});
-});
+// 	// Assert
+// 	it("Should use the filename as a title", () => {
+// 		expect(getTitleFromMD(input)).toStrictEqual(output);
+// 	});
+// });

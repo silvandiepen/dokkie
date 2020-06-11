@@ -30,7 +30,6 @@ export const buildNavigation = async (
 			if (!item.parent) item.parent = "";
 			nav.push(item);
 		});
-		console.log(nav);
 	}
 
 	let newNav = [];

@@ -41,7 +41,6 @@ exports.buildNavigation = (settings) => __awaiter(void 0, void 0, void 0, functi
                 item.parent = "";
             nav.push(item);
         });
-        console.log(nav);
     }
     let newNav = [];
     if (!settings.flatNavigation)
