@@ -27,12 +27,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getPageTitle = exports.writeThatFile = exports.makeFileName = exports.makePath = exports.makeRoute = exports.asyncForEach = void 0;
+exports.download = exports.getPageTitle = exports.writeThatFile = exports.makeFileName = exports.makePath = exports.makeRoute = exports.asyncForEach = void 0;
 const { writeFile, mkdir } = require("fs").promises;
+const { createWriteStream } = require("fs");
 const path_1 = require("path");
 const markdown_1 = require("./markdown");
 const log = __importStar(require("cli-block"));
+const node_fetch_1 = __importDefault(require("node-fetch"));
 exports.asyncForEach = (array, callback) => __awaiter(void 0, void 0, void 0, function* () {
     for (let index = 0; index < array.length; index++) {
         yield callback(array[index], index, array);
@@ -99,4 +104,18 @@ exports.getPageTitle = (file) => {
         return file.name;
     }
 };
+exports.download = (url, destination) => __awaiter(void 0, void 0, void 0, function* () {
+    const res = yield node_fetch_1.default(url);
+    yield new Promise((resolve, reject) => {
+        var _a, _b;
+        const fileStream = createWriteStream(destination);
+        (_a = res.body) === null || _a === void 0 ? void 0 : _a.pipe(fileStream);
+        (_b = res.body) === null || _b === void 0 ? void 0 : _b.on("error", (err) => {
+            reject(err);
+        });
+        fileStream.on("finish", function () {
+            resolve();
+        });
+    });
+});
 //# sourceMappingURL=files.js.map

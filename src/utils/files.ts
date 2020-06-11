@@ -1,8 +1,10 @@
 const { writeFile, mkdir } = require("fs").promises;
+const { createWriteStream } = require("fs");
 import { join, dirname } from "path";
 import { getTitleFromMD } from "./markdown";
 import { IFile, ISettings } from "../types";
 import * as log from "cli-block";
+import fetch from "node-fetch";
 
 export const asyncForEach = async (array: any, callback: any) => {
 	for (let index = 0; index < array.length; index++) {
@@ -77,4 +79,18 @@ export const getPageTitle = (file: IFile): string => {
 	} else {
 		return file.name;
 	}
+};
+
+export const download = async (url, destination) => {
+	const res: any = await fetch(url);
+	await new Promise((resolve, reject) => {
+		const fileStream = createWriteStream(destination);
+		res.body?.pipe(fileStream);
+		res.body?.on("error", (err) => {
+			reject(err);
+		});
+		fileStream.on("finish", function () {
+			resolve();
+		});
+	});
 };
