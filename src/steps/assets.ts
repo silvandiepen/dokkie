@@ -28,7 +28,7 @@ export const downloadAssets = async (
 
 	if (settings.assets.logo)
 		await downloadImage(settings.assets.logo, settings).then(() => {
-			settings.assets.logo = "/img/" + basename(settings.assets.logo);
+			settings.assets.logo = "img/" + basename(settings.assets.logo);
 		});
 
 	return settings;
