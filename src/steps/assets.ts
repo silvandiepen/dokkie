@@ -13,7 +13,7 @@ const downloadImage = async (
 		let imageFile = "";
 
 		const filePath = join(
-			__dirname,
+			process.cwd(),
 			"../../",
 			settings.output,
 			"img",
