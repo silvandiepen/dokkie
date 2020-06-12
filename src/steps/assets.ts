@@ -64,7 +64,7 @@ export const downloadAssets = async (
 	// If there arent any image. Do nothing.
 	if (!settings.assets && contentImages.length < 1) return settings;
 	log.BLOCK_MID("Assets");
-	await createFolder(settings.output);
+	await createFolder(join(settings.output, "/img"));
 
 	// Process Assets
 	if (settings.assets.logo)
