@@ -31,7 +31,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.download = exports.getPageTitle = exports.writeThatFile = exports.makeFileName = exports.makePath = exports.makeRoute = exports.asyncForEach = void 0;
+exports.download = exports.getPageTitle = exports.writeThatFile = exports.createFolder = exports.makeFileName = exports.makePath = exports.makeRoute = exports.asyncForEach = void 0;
 const { writeFile, mkdir } = require("fs").promises;
 const { createWriteStream } = require("fs");
 const path_1 = require("path");
@@ -74,7 +74,7 @@ exports.makeFileName = (file) => {
         : file.name.toLowerCase() + "/index";
     return filename + ".html";
 };
-const createFolder = (folder) => __awaiter(void 0, void 0, void 0, function* () {
+exports.createFolder = (folder) => __awaiter(void 0, void 0, void 0, function* () {
     yield mkdir(folder, { recursive: true }, () => {
         return;
     });
@@ -82,7 +82,7 @@ const createFolder = (folder) => __awaiter(void 0, void 0, void 0, function* () 
 exports.writeThatFile = (file, contents, simple = false) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const filePath = path_1.join(file.destpath, file.filename);
-        yield createFolder(path_1.dirname(filePath));
+        yield exports.createFolder(path_1.dirname(filePath));
         yield writeFile(filePath, contents);
         log.BLOCK_LINE_SUCCESS(file.title);
         if (!simple) {
@@ -108,6 +108,7 @@ exports.getPageTitle = (file) => {
 };
 exports.download = (url, destination) => __awaiter(void 0, void 0, void 0, function* () {
     const res = yield node_fetch_1.default(url);
+    exports.createFolder(path_1.dirname(url));
     yield new Promise((resolve, reject) => {
         var _a, _b;
         const fileStream = createWriteStream(destination);

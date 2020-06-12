@@ -48,7 +48,7 @@ export const makeFileName = (file: IFile): string => {
 	return filename + ".html";
 };
 
-const createFolder = async (folder): Promise<void> => {
+export const createFolder = async (folder): Promise<void> => {
 	await mkdir(folder, { recursive: true }, () => {
 		return;
 	});
@@ -85,6 +85,7 @@ export const getPageTitle = (file: IFile): string => {
 
 export const download = async (url, destination) => {
 	const res: any = await fetch(url);
+	createFolder(dirname(url));
 	await new Promise((resolve, reject) => {
 		const fileStream = createWriteStream(destination);
 		res.body?.pipe(fileStream);

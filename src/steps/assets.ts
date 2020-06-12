@@ -1,7 +1,7 @@
 import { ISettings } from "../types";
 const { readFile, writeFile, mkdir, stat } = require("fs").promises;
 import { join, basename, dirname } from "path";
-import { download } from "../utils";
+import { download, createFolder } from "../utils";
 import { asyncForEach } from "cli-block";
 import * as log from "cli-block";
 
@@ -64,6 +64,7 @@ export const downloadAssets = async (
 	// If there arent any image. Do nothing.
 	if (!settings.assets && contentImages.length < 1) return settings;
 	log.BLOCK_MID("Assets");
+	await createFolder(settings.output);
 
 	// Process Assets
 	if (settings.assets.logo)
