@@ -20,7 +20,9 @@ exports.getFileTree = (dir, settings) => __awaiter(void 0, void 0, void 0, funct
         const res = path_1.resolve(dir, dirent.name);
         const ext = path_1.extname(res);
         const date = yield stat(res);
-        if ((settings.extensions.includes(ext) || dirent.isDirectory()) &&
+        if ((settings.extensions.includes(ext) ||
+            settings.extensions.includes("*") ||
+            dirent.isDirectory()) &&
             !settings.excludeFolders.includes(dirent.name))
             return dirent.isDirectory()
                 ? exports.getFileTree(res, settings)

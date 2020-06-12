@@ -7,7 +7,7 @@
 	"scripts": {
 		"test": "jest",
 		"build": "tsc",
-		"dokkie:help": "npm run build && node dist/index.js --help",
+		"dokkie:debug": "npm run build && node dist/index.js --debug=true",
 		"dokkie": "npm run build && node dist/index.js --config=docs.config.json",
 		"dokkie:blog": "npm run build && node dist/index.js --config=blog.config.json --type=blog --input=posts --skip=favicons",
 		"dev": "tsc src -w",

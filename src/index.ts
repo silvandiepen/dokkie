@@ -30,6 +30,8 @@ import {
 	downloadAssets,
 } from "./steps";
 
+import { showDist } from "./utils/dist";
+
 const buildDokkie = async (settings: ISettings): Promise<ISettings> => {
 	return settings;
 };
@@ -76,8 +78,9 @@ buildDokkie(settings())
 		await copyFolders(s);
 		return s;
 	})
-	.then(() => {
+	.then((s) => {
 		setTimeout(() => {
 			log.BLOCK_END("Done :)");
+			showDist(s);
 		}, 10);
 	});

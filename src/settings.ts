@@ -105,6 +105,11 @@ export const settings = (): ISettings => {
 			type: "string",
 			default: "dokkie.config.json",
 		},
+		debug: {
+			require: false,
+			type: "boolean",
+			default: false,
+		},
 	}).argv;
 
 	if (cs.help) {
@@ -130,6 +135,7 @@ export const settings = (): ISettings => {
 		favicon: cs.favicon,
 		skip: cs.skip,
 		config: cs.config,
+		debug: cs.debug,
 	};
 };
 

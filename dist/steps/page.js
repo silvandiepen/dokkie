@@ -134,8 +134,13 @@ exports.createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* 
     }));
 });
 exports.copyFolders = (settings) => __awaiter(void 0, void 0, void 0, function* () {
+    settings.copy = settings.copy.filter((folder) => {
+        if (typeof folder === "string")
+            return true;
+    });
     if (settings.copy.length > 0) {
         log.BLOCK_MID("Copy files/folders");
+        console.log(settings.copy);
         yield utils_1.asyncForEach(settings.copy, (folder) => __awaiter(void 0, void 0, void 0, function* () {
             yield ncp(folder, settings.output + "/" + folder.split("/")[folder.split("/").length - 1], (err) => {
                 if (!err)

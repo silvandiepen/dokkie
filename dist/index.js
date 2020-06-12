@@ -35,6 +35,7 @@ const log = __importStar(require("cli-block"));
 const settings_1 = require("./settings");
 const utils_1 = require("./utils");
 const steps_1 = require("./steps");
+const dist_1 = require("./utils/dist");
 const buildDokkie = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     return settings;
 });
@@ -78,9 +79,10 @@ buildDokkie(settings_1.settings())
     yield steps_1.copyFolders(s);
     return s;
 }))
-    .then(() => {
+    .then((s) => {
     setTimeout(() => {
         log.BLOCK_END("Done :)");
+        dist_1.showDist(s);
     }, 10);
 });
 //# sourceMappingURL=index.js.map

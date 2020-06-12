@@ -50,6 +50,7 @@ export interface IArgumentSettings {
 	skip: string[];
 	type: string | buildTypes;
 	config: string;
+	debug: boolean;
 }
 interface ILocalConfigAssets {
 	favicon?: string;

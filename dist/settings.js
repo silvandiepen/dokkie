@@ -99,7 +99,6 @@ exports.settings = () => {
             require: false,
             type: "string",
             default: "",
-            alias: "t",
         },
         favicon: {
             require: false,
@@ -115,6 +114,11 @@ exports.settings = () => {
             require: false,
             type: "string",
             default: "dokkie.config.json",
+        },
+        debug: {
+            require: false,
+            type: "boolean",
+            default: false,
         },
     }).argv;
     if (cs.help) {
@@ -139,6 +143,7 @@ exports.settings = () => {
         favicon: cs.favicon,
         skip: cs.skip,
         config: cs.config,
+        debug: cs.debug,
     };
 };
 exports.getDokkiePackage = (settings) => __awaiter(void 0, void 0, void 0, function* () {

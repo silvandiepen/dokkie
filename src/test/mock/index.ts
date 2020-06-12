@@ -21,4 +21,5 @@ export const baseSettings: ISettings = {
 	favicon: "",
 	skip: [],
 	config: "dokkie.config.json",
+	debug: false,
 };

@@ -118,8 +118,12 @@ export const createFiles = async (settings: ISettings): Promise<void> => {
 	});
 };
 export const copyFolders = async (settings: ISettings): Promise<void> => {
+	settings.copy = settings.copy.filter((folder) => {
+		if (typeof folder === "string") return true;
+	});
 	if (settings.copy.length > 0) {
 		log.BLOCK_MID("Copy files/folders");
+		console.log(settings.copy);
 		await asyncForEach(settings.copy, async (folder) => {
 			await ncp(
 				folder,
