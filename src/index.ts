@@ -71,8 +71,8 @@ buildDokkie(settings())
 		await cleanFolder(s);
 		return s;
 	})
-	.then(downloadAssets)
 	.then(createFavicons)
+	.then(downloadAssets)
 	.then(async (s) => {
 		await createFiles(s);
 		await copyFolders(s);
