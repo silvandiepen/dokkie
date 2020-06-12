@@ -20,6 +20,7 @@ const downloadImage = async (
 			basename(image)
 		);
 		await mkdir(dirname(filePath), { recursive: true });
+		await writeFile(join(dirname(filePath), "index.html"), "");
 
 		if (image.includes("http")) {
 			await download(image, filePath).then(async () => {
