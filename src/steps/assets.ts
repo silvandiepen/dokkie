@@ -19,6 +19,7 @@ const downloadImage = async (
 			"img",
 			basename(image)
 		);
+		console.log(filePath);
 		await mkdir(dirname(filePath), { recursive: true });
 		await writeFile(join(dirname(filePath), "index.html"), "");
 
