@@ -14,29 +14,29 @@ const downloadImage = async (
 
 		const filePath = join(
 			process.cwd(),
-			"../../",
 			settings.output,
 			"img",
 			basename(image)
 		);
 		console.log(filePath);
+
 		await mkdir(dirname(filePath), { recursive: true });
 		await writeFile(join(dirname(filePath), "index.html"), "");
 
 		if (image.includes("http")) {
 			await download(image, filePath).then(async () => {
-				if (settings.debug) {
-					const stats = await stat(filePath);
-					console.log(stats);
-				}
+				// if (settings.debug) {
+				// 	const stats = await stat(filePath);
+				// 	console.log(stats);
+				// }
 			});
 		} else {
 			imageFile = await readFile(image);
 			await writeFile(filePath, imageFile).then(async () => {
-				if (settings.debug) {
-					const stats = await stat(filePath);
-					console.log(stats);
-				}
+				// if (settings.debug) {
+				// 	const stats = await stat(filePath);
+				// 	console.log(stats);
+				// }
 			});
 		}
 	} catch (err) {
