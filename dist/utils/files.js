@@ -108,7 +108,7 @@ exports.getPageTitle = (file) => {
 };
 exports.download = (url, destination) => __awaiter(void 0, void 0, void 0, function* () {
     const res = yield node_fetch_1.default(url);
-    exports.createFolder(path_1.dirname(url));
+    exports.createFolder(path_1.dirname(destination));
     yield new Promise((resolve, reject) => {
         var _a, _b;
         const fileStream = createWriteStream(destination);

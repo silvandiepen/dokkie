@@ -85,7 +85,7 @@ export const getPageTitle = (file: IFile): string => {
 
 export const download = async (url, destination) => {
 	const res: any = await fetch(url);
-	createFolder(dirname(url));
+	createFolder(dirname(destination));
 	await new Promise((resolve, reject) => {
 		const fileStream = createWriteStream(destination);
 		res.body?.pipe(fileStream);
