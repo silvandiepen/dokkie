@@ -16,7 +16,7 @@ parent: about
 ---
 ```
 
-This markdown file will be placed under "about". (see this documentation).
+This markdown file will be placed under "about". (see this documentation). More about the menu property in the settings in [Navigation](/usage/navigation#Settings-from-within-the-page).
 
 There are a few other options you can add to the metadata which can be used;
 
