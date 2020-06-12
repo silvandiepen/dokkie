@@ -1,5 +1,5 @@
 import { ISettings } from "../types";
-const { readFile, writeFile, mkdir } = require("fs").promises;
+const { readFile, writeFile, mkdir, stat } = require("fs").promises;
 import { join, basename, dirname } from "path";
 import { download } from "../utils";
 import { asyncForEach } from "cli-block";
@@ -22,10 +22,20 @@ const downloadImage = async (
 		await mkdir(dirname(filePath), { recursive: true });
 
 		if (image.includes("http")) {
-			await download(image, filePath);
+			await download(image, filePath).then(async () => {
+				if (settings.debug) {
+					const stats = await stat(filePath);
+					console.log(stats);
+				}
+			});
 		} else {
 			imageFile = await readFile(image);
-			await writeFile(filePath, imageFile);
+			await writeFile(filePath, imageFile).then(async () => {
+				if (settings.debug) {
+					const stats = await stat(filePath);
+					console.log(stats);
+				}
+			});
 		}
 	} catch (err) {
 		console.error(err);
