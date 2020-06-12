@@ -5,6 +5,7 @@ import { getTitleFromMD } from "./markdown";
 import { IFile, ISettings } from "../types";
 import * as log from "cli-block";
 import fetch from "node-fetch";
+import { blue } from "kleur";
 
 export const asyncForEach = async (array: any, callback: any) => {
 	for (let index = 0; index < array.length; index++) {
@@ -63,7 +64,8 @@ export const writeThatFile = async (
 		await writeFile(filePath, contents);
 		log.BLOCK_LINE_SUCCESS(file.title);
 		if (!simple) {
-			log.BLOCK_ROW_LINE([`  ${file.name}${file.ext}`, `→ ${file.route}`]);
+			// log.BLOCK_LINE(`${file.name}${file.ext}`);
+			log.BLOCK_LINE(`→ ${blue(file.route)}`);
 			log.BLOCK_LINE();
 		}
 	} catch (err) {

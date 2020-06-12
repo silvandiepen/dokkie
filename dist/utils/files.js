@@ -38,6 +38,7 @@ const path_1 = require("path");
 const markdown_1 = require("./markdown");
 const log = __importStar(require("cli-block"));
 const node_fetch_1 = __importDefault(require("node-fetch"));
+const kleur_1 = require("kleur");
 exports.asyncForEach = (array, callback) => __awaiter(void 0, void 0, void 0, function* () {
     for (let index = 0; index < array.length; index++) {
         yield callback(array[index], index, array);
@@ -85,7 +86,8 @@ exports.writeThatFile = (file, contents, simple = false) => __awaiter(void 0, vo
         yield writeFile(filePath, contents);
         log.BLOCK_LINE_SUCCESS(file.title);
         if (!simple) {
-            log.BLOCK_ROW_LINE([`  ${file.name}${file.ext}`, `→ ${file.route}`]);
+            // log.BLOCK_LINE(`${file.name}${file.ext}`);
+            log.BLOCK_LINE(`→ ${kleur_1.blue(file.route)}`);
             log.BLOCK_LINE();
         }
     }

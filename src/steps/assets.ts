@@ -3,6 +3,7 @@ const { readFile, writeFile, mkdir } = require("fs").promises;
 import { join, basename, dirname } from "path";
 import { download } from "../utils";
 import { asyncForEach } from "cli-block";
+import * as log from "cli-block";
 
 const downloadImage = async (
 	image: string,
@@ -52,11 +53,14 @@ export const downloadAssets = async (
 
 	// If there arent any image. Do nothing.
 	if (!settings.assets && contentImages.length < 1) return settings;
+	log.BLOCK_MID("Assets");
 
 	// Process Assets
 	if (settings.assets.logo)
 		await downloadImage(settings.assets.logo, settings).then(() => {
-			settings.assets.logo = "img/" + basename(settings.assets.logo);
+			const filename = "img/" + basename(settings.assets.logo);
+			settings.assets.logo = filename;
+			log.BLOCK_LINE_SUCCESS(filename);
 		});
 
 	// Process Content images
@@ -67,9 +71,11 @@ export const downloadAssets = async (
 	if (contentImages && !settings.skip.includes("download"))
 		await asyncForEach(contentImages, async (img) => {
 			await downloadImage(img.image, settings).then(() => {
+				const filename = "img/" + filenameFromUrl(img.image);
 				settings.files[img.fileIdx].html = settings.files[
 					img.fileIdx
 				].html.replace(img.image, "img/" + filenameFromUrl(img.image));
+				log.BLOCK_LINE_SUCCESS(filename);
 			});
 		});
 

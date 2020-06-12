@@ -28,27 +28,31 @@ exports.settings = () => {
             required: false,
             type: "string",
             default: ".",
+            alias: "i",
         },
         output: {
             required: false,
             type: "string",
             default: "docs",
+            alias: "o",
         },
         layout: {
             required: false,
             type: "string",
             default: "default",
+            alias: "l",
         },
         clean: {
             required: false,
             type: "string",
             default: true,
-            alias: "cleanBefore",
+            alias: "c",
         },
         theme: {
             required: false,
             type: "string",
             default: "coat-ext",
+            alias: "t",
         },
         ext: {
             required: false,
@@ -66,6 +70,7 @@ exports.settings = () => {
             required: false,
             type: "array",
             default: [],
+            alias: "c",
         },
         strip: {
             required: false,
@@ -94,6 +99,7 @@ exports.settings = () => {
             require: false,
             type: "string",
             default: "",
+            alias: "t",
         },
         favicon: {
             require: false,
@@ -111,6 +117,10 @@ exports.settings = () => {
             default: "dokkie.config.json",
         },
     }).argv;
+    if (cs.help) {
+        console.log("help page");
+        return;
+    }
     return {
         type: cs.type,
         input: cs.input,
