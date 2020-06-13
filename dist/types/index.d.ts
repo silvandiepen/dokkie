@@ -47,6 +47,7 @@ export interface IArgumentSettings {
     type: string | buildTypes;
     config: string;
     debug: boolean;
+    enhance: string[];
 }
 interface ILocalConfigAssets {
     favicon?: string;

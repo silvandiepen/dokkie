@@ -110,6 +110,8 @@ export const createFiles = async (settings: ISettings): Promise<void> => {
 				footerNavigation: getNavigation(settings, "footer"),
 				overviewNavigation: getNavigation(settings, "overview"),
 				injectHtml: settings.injectHtml,
+				enhance: settings.enhance,
+				skip: settings.skip,
 			});
 			await writeThatFile(file, prettier.format(contents, { parser: "html" }));
 		} catch (err) {

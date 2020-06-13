@@ -24,6 +24,7 @@ exports.helpers = {
     gt: (v1, v2) => v1 > v2,
     lte: (v1, v2) => v1 <= v2,
     gte: (v1, v2) => v1 >= v2,
+    includes: (v1, v2) => v1.includes(v2),
     and() {
         return Array.prototype.every.call(arguments, Boolean);
     },
@@ -46,9 +47,14 @@ const partials = [
     "overviewNavigation",
     "projectTitle",
 ];
+const enhance = ["page-transition"];
 cli_block_1.asyncForEach(partials, (partial) => __awaiter(void 0, void 0, void 0, function* () {
     const file = yield readFile(`template/partials/${partial}.hbs`).then((r) => r.toString());
     handlebars_1.default.registerPartial(partial, file);
+}));
+cli_block_1.asyncForEach(enhance, (script) => __awaiter(void 0, void 0, void 0, function* () {
+    const file = yield readFile(`template/enhance/${script}.hbs`).then((r) => r.toString());
+    handlebars_1.default.registerPartial(script, file);
 }));
 Object.keys(exports.helpers).forEach((helper) => {
     handlebars_1.default.registerHelper(helper, exports.helpers[helper]);

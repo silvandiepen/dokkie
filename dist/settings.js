@@ -120,6 +120,11 @@ exports.settings = () => {
             type: "boolean",
             default: false,
         },
+        enhance: {
+            require: false,
+            type: "array",
+            default: ["page-transition"],
+        },
     }).argv;
     if (cs.help) {
         console.log("help page");
@@ -144,6 +149,7 @@ exports.settings = () => {
         skip: cs.skip,
         config: cs.config,
         debug: cs.debug,
+        enhance: cs.enhance,
     };
 };
 exports.getDokkiePackage = (settings) => __awaiter(void 0, void 0, void 0, function* () {

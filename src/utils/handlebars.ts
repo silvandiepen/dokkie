@@ -4,12 +4,13 @@ import { asyncForEach } from "cli-block";
 const { readFile } = require("fs").promises;
 
 export const helpers = {
-	eq: (v1: any, v2: any): any => v1 === v2,
-	ne: (v1: any, v2: any): any => v1 !== v2,
-	lt: (v1: any, v2: any): any => v1 < v2,
-	gt: (v1: any, v2: any): any => v1 > v2,
-	lte: (v1: any, v2: any): any => v1 <= v2,
-	gte: (v1: any, v2: any): any => v1 >= v2,
+	eq: (v1: any, v2: any): boolean => v1 === v2,
+	ne: (v1: any, v2: any): boolean => v1 !== v2,
+	lt: (v1: any, v2: any): boolean => v1 < v2,
+	gt: (v1: any, v2: any): boolean => v1 > v2,
+	lte: (v1: any, v2: any): boolean => v1 <= v2,
+	gte: (v1: any, v2: any): boolean => v1 >= v2,
+	includes: (v1: string[any], v2: string): boolean => v1.includes(v2),
 	and(): boolean {
 		return Array.prototype.every.call(arguments, Boolean);
 	},
@@ -34,12 +35,20 @@ const partials = [
 	"projectTitle",
 ];
 
+const enhance = ["page-transition"];
+
 asyncForEach(partials, async (partial: string) => {
 	const file = await readFile(
 		`template/partials/${partial}.hbs`
 	).then((r: any): string => r.toString());
 
 	H.registerPartial(partial, file);
+});
+asyncForEach(enhance, async (script: string) => {
+	const file = await readFile(
+		`template/enhance/${script}.hbs`
+	).then((r: any): string => r.toString());
+	H.registerPartial(script, file);
 });
 
 Object.keys(helpers).forEach((helper) => {

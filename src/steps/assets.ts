@@ -18,25 +18,22 @@ const downloadImage = async (
 			"img",
 			basename(image)
 		);
-		console.log(filePath);
-
 		await mkdir(dirname(filePath), { recursive: true });
-		await writeFile(join(dirname(filePath), "index.html"), "");
 
 		if (image.includes("http")) {
 			await download(image, filePath).then(async () => {
-				// if (settings.debug) {
-				// 	const stats = await stat(filePath);
-				// 	console.log(stats);
-				// }
+				if (settings.debug) {
+					const stats = await stat(filePath);
+					console.log(stats);
+				}
 			});
 		} else {
 			imageFile = await readFile(image);
 			await writeFile(filePath, imageFile).then(async () => {
-				// if (settings.debug) {
-				// 	const stats = await stat(filePath);
-				// 	console.log(stats);
-				// }
+				if (settings.debug) {
+					const stats = await stat(filePath);
+					console.log(stats);
+				}
 			});
 		}
 	} catch (err) {
@@ -71,7 +68,7 @@ export const downloadAssets = async (
 	// Process Assets
 	if (settings.assets.logo)
 		await downloadImage(settings.assets.logo, settings).then(() => {
-			const filename = "img/" + basename(settings.assets.logo);
+			const filename = "/img/" + basename(settings.assets.logo);
 			settings.assets.logo = filename;
 			log.BLOCK_LINE_SUCCESS(filename);
 		});
@@ -84,10 +81,10 @@ export const downloadAssets = async (
 	if (contentImages && !settings.skip.includes("download"))
 		await asyncForEach(contentImages, async (img) => {
 			await downloadImage(img.image, settings).then(() => {
-				const filename = "img/" + filenameFromUrl(img.image);
+				const filename = "/img/" + filenameFromUrl(img.image);
 				settings.files[img.fileIdx].html = settings.files[
 					img.fileIdx
-				].html.replace(img.image, "img/" + filenameFromUrl(img.image));
+				].html.replace(img.image, filename);
 				log.BLOCK_LINE_SUCCESS(filename);
 			});
 		});

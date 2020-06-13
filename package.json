@@ -7,6 +7,7 @@
 	"scripts": {
 		"test": "jest",
 		"build": "tsc",
+		"serve": "serve -l 5555 docs",
 		"dokkie:debug": "npm run build && node dist/index.js --debug=true --skip=favicons",
 		"dokkie": "npm run build && node dist/index.js --config=docs.config.json",
 		"dokkie:blog": "npm run build && node dist/index.js --config=blog.config.json --type=blog --input=posts --skip=favicons",
@@ -30,6 +31,7 @@
 		"@types/rimraf": "^3.0.0",
 		"git-pre-commit": "^2.1.4",
 		"jest": "^26.0.1",
+		"serve": "^11.3.2",
 		"ts-jest": "^26.1.0",
 		"typescript": "^3.9.3"
 	},

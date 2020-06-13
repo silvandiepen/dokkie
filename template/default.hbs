@@ -10,10 +10,17 @@
 	{{/if}} {{#if package.author}}
 	<meta name="author" content="{{ package.author }}" />
 	{{/if}}
-	{{{favicon}}}
+	{{#if (includes skip favicons)}}{{{favicon}}}{{/if}}
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>{{ title }}</title>
-	{{{ styles }}} {{{ scripts }}}
+	{{{ styles }}}
+	{{{ scripts }}}
+	{{!-- {{#if enhance}}
+	{{#each enhance}}
+	{{> (this)}}
+	{{/each}}
+	{{/if}} --}}
+	{{>page-transition}}
 </head>
 
 <body id="page-{{currentId}}">

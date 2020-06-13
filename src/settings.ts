@@ -110,6 +110,11 @@ export const settings = (): ISettings => {
 			type: "boolean",
 			default: false,
 		},
+		enhance: {
+			require: false,
+			type: "array",
+			default: ["page-transition"],
+		},
 	}).argv;
 
 	if (cs.help) {
@@ -136,6 +141,7 @@ export const settings = (): ISettings => {
 		skip: cs.skip,
 		config: cs.config,
 		debug: cs.debug,
+		enhance: cs.enhance,
 	};
 };
 

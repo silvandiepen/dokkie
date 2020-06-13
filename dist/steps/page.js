@@ -125,6 +125,8 @@ exports.createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* 
                 footerNavigation: _1.getNavigation(settings, "footer"),
                 overviewNavigation: _1.getNavigation(settings, "overview"),
                 injectHtml: settings.injectHtml,
+                enhance: settings.enhance,
+                skip: settings.skip,
             });
             yield utils_1.writeThatFile(file, prettier_1.default.format(contents, { parser: "html" }));
         }

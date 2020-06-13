@@ -22,4 +22,5 @@ export const baseSettings: ISettings = {
 	skip: [],
 	config: "dokkie.config.json",
 	debug: false,
+	enhance: [],
 };
