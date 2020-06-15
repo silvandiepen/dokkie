@@ -1,6 +1,7 @@
 import H from "handlebars";
 import format from "date-fns/format";
 import { asyncForEach } from "cli-block";
+import { join } from "path";
 const { readFile } = require("fs").promises;
 
 export const helpers = {
@@ -38,7 +39,7 @@ const partials = [
 // const enhance = ["page-transition"];
 
 const registerPartial = async (partial: string, dir: string): Promise<void> => {
-	const partialTemplate = `template/${dir}/${partial}.hbs`;
+	const partialTemplate = join(process.cwd(), `template/${dir}/${partial}.hbs`);
 
 	try {
 		const file = await readFile(partialTemplate).then((r: any): string =>

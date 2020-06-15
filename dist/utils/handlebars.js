@@ -16,6 +16,7 @@ exports.Handlebars = exports.helpers = void 0;
 const handlebars_1 = __importDefault(require("handlebars"));
 const format_1 = __importDefault(require("date-fns/format"));
 const cli_block_1 = require("cli-block");
+const path_1 = require("path");
 const { readFile } = require("fs").promises;
 exports.helpers = {
     eq: (v1, v2) => v1 === v2,
@@ -49,7 +50,7 @@ const partials = [
 ];
 // const enhance = ["page-transition"];
 const registerPartial = (partial, dir) => __awaiter(void 0, void 0, void 0, function* () {
-    const partialTemplate = `template/${dir}/${partial}.hbs`;
+    const partialTemplate = path_1.join(process.cwd(), `template/${dir}/${partial}.hbs`);
     try {
         const file = yield readFile(partialTemplate).then((r) => r.toString());
         handlebars_1.default.registerPartial(partial, file);
