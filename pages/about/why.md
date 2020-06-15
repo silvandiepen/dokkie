@@ -1,3 +1,7 @@
+---
+title: Dokkie
+---
+
 # Why?
 
 The why is a big question for everything, in the case of Dokkie, like many others Dokkie came to the existance because of a frustration. "I want to create good looking docs, but I don't want to write them multiple times. I have a pretty good readme, cant we use that for the docs?".
