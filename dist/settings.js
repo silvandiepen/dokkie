@@ -33,7 +33,7 @@ exports.settings = () => {
         output: {
             required: false,
             type: "string",
-            default: "docs",
+            default: "dokkie",
             alias: "o",
         },
         layout: {
@@ -164,8 +164,6 @@ exports.setAlternativeDefaults = (settings) => __awaiter(void 0, void 0, void 0,
         case "blog":
             if (!args.includes("layout"))
                 settings.layout = "blog";
-            if (!args.includes("output"))
-                settings.output = "blog";
             if (!args.includes("flatNavigation"))
                 settings.flatNavigation = true;
             if (!args.includes("showNavigation"))
