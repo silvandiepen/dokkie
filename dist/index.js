@@ -62,8 +62,6 @@ buildDokkie(settings_1.settings())
     .then(steps_1.filterHiddenPages)
     .then(steps_1.setMetadata)
     .then(steps_1.getLayout)
-    .then(steps_1.getStyles)
-    .then(steps_1.getScripts)
     .then(steps_1.setFileDate)
     .then(steps_1.setHomePage)
     .then(steps_1.reformInjectHtml)
@@ -72,6 +70,8 @@ buildDokkie(settings_1.settings())
     yield steps_1.cleanFolder(s);
     return s;
 }))
+    .then(steps_1.getStyles)
+    .then(steps_1.getScripts)
     .then(utils_1.createFavicons)
     .then(steps_1.downloadAssets)
     .then((s) => __awaiter(void 0, void 0, void 0, function* () {
