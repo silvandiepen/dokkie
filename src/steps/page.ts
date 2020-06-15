@@ -97,13 +97,13 @@ export const createFiles = async (settings: ISettings): Promise<void> => {
 				content: file.html,
 				currentLink: currentLink,
 				currentId: currentLink.replace(/\//g, " ").trim().replace(/\s+/g, "-"),
-				styles: settings.styles ? settings.styles : null,
-				scripts: settings.scripts ? settings.scripts : null,
+				styles: settings.styles ? settings.styles : false,
+				scripts: settings.scripts ? settings.scripts : false,
 				favicon: settings.faviconData
 					? settings.faviconData.html.join("")
-					: null,
-				logo: settings.assets?.logo ? settings.assets.logo : null,
-				package: settings.package ? settings.package : null,
+					: false,
+				logo: settings.assets?.logo ? settings.assets.logo : false,
+				package: settings.package ? settings.package : false,
 				navigation: settings.navigation,
 				headerNavigation: getNavigation(settings, "header"),
 				sidebarNavigation: getNavigation(settings, "sidebar"),

@@ -112,13 +112,13 @@ exports.createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* 
                 content: file.html,
                 currentLink: currentLink,
                 currentId: currentLink.replace(/\//g, " ").trim().replace(/\s+/g, "-"),
-                styles: settings.styles ? settings.styles : null,
-                scripts: settings.scripts ? settings.scripts : null,
+                styles: settings.styles ? settings.styles : false,
+                scripts: settings.scripts ? settings.scripts : false,
                 favicon: settings.faviconData
                     ? settings.faviconData.html.join("")
-                    : null,
-                logo: ((_b = settings.assets) === null || _b === void 0 ? void 0 : _b.logo) ? settings.assets.logo : null,
-                package: settings.package ? settings.package : null,
+                    : false,
+                logo: ((_b = settings.assets) === null || _b === void 0 ? void 0 : _b.logo) ? settings.assets.logo : false,
+                package: settings.package ? settings.package : false,
                 navigation: settings.navigation,
                 headerNavigation: _1.getNavigation(settings, "header"),
                 sidebarNavigation: _1.getNavigation(settings, "sidebar"),

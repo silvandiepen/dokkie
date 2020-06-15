@@ -66,7 +66,7 @@ export const downloadAssets = async (
 	await createFolder(join(settings.output, "/img"));
 
 	// Process Assets
-	if (settings.assets.logo)
+	if (settings.assets?.logo)
 		await downloadImage(settings.assets.logo, settings).then(() => {
 			const filename = "/img/" + basename(settings.assets.logo);
 			settings.assets.logo = filename;
