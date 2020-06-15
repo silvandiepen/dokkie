@@ -1,13 +1,22 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getScripts = exports.getStyles = void 0;
 const utils_1 = require("../utils");
 const path_1 = require("path");
-exports.getStyles = (settings) => {
+exports.getStyles = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c, _d, _e, _f;
     let styles = [];
     if (settings.theme && !settings.theme.includes("http")) {
-        utils_1.download(`https://coat.guyn.nl/css/theme/${settings.theme}.css`, path_1.join(settings.output, "css", "style.css"));
+        yield utils_1.download(`https://coat.guyn.nl/css/theme/${settings.theme}.css`, path_1.join(settings.output, "css", "style.css"));
         styles.push("/css/style.css");
     }
     // If there are addable stylesheets available
@@ -21,7 +30,7 @@ exports.getStyles = (settings) => {
         .map((s) => (s = `<link rel="stylesheet" type="text/css" media='screen and (min-width: 0px)' href="${s}"/>`))
         .join("");
     return Object.assign(Object.assign({}, settings), { styles: stylesScripts });
-};
+});
 exports.getScripts = (settings) => {
     var _a, _b, _c, _d;
     let scripts = [];

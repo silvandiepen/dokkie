@@ -2,11 +2,11 @@ import { download } from "../utils";
 import { ISettings } from "../types";
 import { join } from "path";
 
-export const getStyles = (settings: ISettings): ISettings => {
+export const getStyles = async (settings: ISettings): Promise<ISettings> => {
 	let styles = [];
 
 	if (settings.theme && !settings.theme.includes("http")) {
-		download(
+		await download(
 			`https://coat.guyn.nl/css/theme/${settings.theme}.css`,
 			join(settings.output, "css", "style.css")
 		);

@@ -112,7 +112,7 @@ export const createFiles = async (settings: ISettings): Promise<void> => {
 	log.BLOCK_MID("Creating pages");
 	await asyncForEach(settings.files, async (file: IFile) => {
 		// THe file is newer than today, so don't build it (yet).
-		if (file.date < new Date()) return;
+		if (file.date > new Date()) return;
 		try {
 			const currentLink = file.route.replace("index.html", "");
 			const contents = template({
