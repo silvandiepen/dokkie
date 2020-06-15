@@ -78,10 +78,10 @@ exports.createFavicons = (settings) => __awaiter(void 0, void 0, void 0, functio
         icons: {
             android: true,
             appleIcon: true,
-            appleStartup: false,
-            coast: false,
+            appleStartup: true,
+            coast: true,
             favicons: true,
-            firefox: false,
+            firefox: true,
             windows: true,
             yandex: true,
         },

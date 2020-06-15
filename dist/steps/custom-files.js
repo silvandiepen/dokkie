@@ -13,6 +13,27 @@ exports.getScripts = exports.getStyles = void 0;
 const utils_1 = require("../utils");
 const path_1 = require("path");
 const { readFile, writeFile } = require("fs").promises;
+const fixGoogleFonts = (settings) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const links = [];
+        let file = yield readFile(path_1.join(process.cwd(), settings.output, "css", "style.css")).then((r) => r.toString());
+        // If there is a google font, automatically add preconnect for gstattic
+        if (file.indexOf("https://fonts.googleapis.com/") > -1)
+            links.push('<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>');
+        // Replace Import for css for Link elements.
+        let importRegex = new RegExp(/@import.*?[\"\']([^\"\']+)[\"\'].*?;/gi);
+        let matches = file.match(importRegex);
+        matches.forEach((match) => {
+            file = file.replace(match, "");
+            links.push(`<link rel="stylesheet" type="text/css" href="${match.replace(/'/g, '"').match(/"([^']+)"/)[1]}" />`);
+        });
+        yield writeFile(path_1.join(process.cwd(), settings.output, "css", "style.css"), file);
+        return links;
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
 exports.getStyles = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c, _d, _e, _f;
     let styles = [];
@@ -32,23 +53,8 @@ exports.getStyles = (settings) => __awaiter(void 0, void 0, void 0, function* ()
     let stylesScripts = styles.map((s) => (s = `<link rel="stylesheet" type="text/css" media='screen and (min-width: 0px)' href="${s}"/>`));
     // Load preconnect for Google fonts
     if (localCss) {
-        try {
-            let file = yield readFile(path_1.join(process.cwd(), settings.output, "css", "style.css")).then((r) => r.toString());
-            // If there is a google font, automatically add preconnect for gstattic
-            if (file.indexOf("https://fonts.googleapis.com/") > -1)
-                stylesScripts.push('<link rel="preconnect" href="https://fonts.gstatic.com" />');
-            // Replace Import for css for Link elements.
-            let importRegex = new RegExp(/@import.*?[\"\']([^\"\']+)[\"\'].*?;/gi);
-            let matches = file.match(importRegex);
-            matches.forEach((match) => {
-                file = file.replace(match, "");
-                stylesScripts.push(`<link rel="stylesheet" type="text/css" href="${match.replace(/'/g, '"').match(/"([^']+)"/)[1]}" />`);
-            });
-            writeFile(path_1.join(process.cwd(), settings.output, "css", "style.css"), file);
-        }
-        catch (err) {
-            console.log(err);
-        }
+        const links = yield fixGoogleFonts(settings);
+        links.forEach((link) => stylesScripts.push(link));
     }
     return Object.assign(Object.assign({}, settings), { styles: stylesScripts.join("") });
 });

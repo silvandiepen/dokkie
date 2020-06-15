@@ -2,8 +2,45 @@ import { download, writeThatFile } from "../utils";
 import { ISettings } from "../types";
 import { join } from "path";
 import { fileData } from "./files";
+import parseLinkDestination from "markdown-it/lib/helpers/parse_link_destination";
 const { readFile, writeFile } = require("fs").promises;
 
+const fixGoogleFonts = async (settings: ISettings): Promise<string[]> => {
+	try {
+		const links = [];
+		let file = await readFile(
+			join(process.cwd(), settings.output, "css", "style.css")
+		).then((r) => r.toString());
+
+		// If there is a google font, automatically add preconnect for gstattic
+		if (file.indexOf("https://fonts.googleapis.com/") > -1)
+			links.push(
+				'<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>'
+			);
+
+		// Replace Import for css for Link elements.
+		let importRegex = new RegExp(/@import.*?[\"\']([^\"\']+)[\"\'].*?;/gi);
+		let matches = file.match(importRegex);
+
+		matches.forEach((match) => {
+			file = file.replace(match, "");
+			links.push(
+				`<link rel="stylesheet" type="text/css" href="${
+					match.replace(/'/g, '"').match(/"([^']+)"/)[1]
+				}" />`
+			);
+		});
+
+		await writeFile(
+			join(process.cwd(), settings.output, "css", "style.css"),
+			file
+		);
+
+		return links;
+	} catch (err) {
+		console.log(err);
+	}
+};
 export const getStyles = async (settings: ISettings): Promise<ISettings> => {
 	let styles = [];
 	let localCss = false;
@@ -32,34 +69,8 @@ export const getStyles = async (settings: ISettings): Promise<ISettings> => {
 	);
 	// Load preconnect for Google fonts
 	if (localCss) {
-		try {
-			let file = await readFile(
-				join(process.cwd(), settings.output, "css", "style.css")
-			).then((r) => r.toString());
-
-			// If there is a google font, automatically add preconnect for gstattic
-			if (file.indexOf("https://fonts.googleapis.com/") > -1)
-				stylesScripts.push(
-					'<link rel="preconnect" href="https://fonts.gstatic.com" />'
-				);
-
-			// Replace Import for css for Link elements.
-			let importRegex = new RegExp(/@import.*?[\"\']([^\"\']+)[\"\'].*?;/gi);
-			let matches = file.match(importRegex);
-
-			matches.forEach((match) => {
-				file = file.replace(match, "");
-				stylesScripts.push(
-					`<link rel="stylesheet" type="text/css" href="${
-						match.replace(/'/g, '"').match(/"([^']+)"/)[1]
-					}" />`
-				);
-			});
-
-			writeFile(join(process.cwd(), settings.output, "css", "style.css"), file);
-		} catch (err) {
-			console.log(err);
-		}
+		const links = await fixGoogleFonts(settings);
+		links.forEach((link) => stylesScripts.push(link));
 	}
 
 	return {

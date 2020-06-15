@@ -119,6 +119,7 @@ exports.createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* 
         styles: settings.styles ? settings.styles : null,
         scripts: settings.scripts ? settings.scripts : null,
     };
+    console.log(getOnce.favicon);
     log.BLOCK_MID("Creating pages");
     yield utils_1.asyncForEach(settings.files, (file) => __awaiter(void 0, void 0, void 0, function* () {
         var _b;

@@ -109,6 +109,8 @@ export const createFiles = async (settings: ISettings): Promise<void> => {
 		scripts: settings.scripts ? settings.scripts : null,
 	};
 
+	console.log(getOnce.favicon);
+
 	log.BLOCK_MID("Creating pages");
 	await asyncForEach(settings.files, async (file: IFile) => {
 		// THe file is newer than today, so don't build it (yet).
