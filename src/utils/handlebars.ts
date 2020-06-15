@@ -39,7 +39,13 @@ const partials = [
 // const enhance = ["page-transition"];
 
 const registerPartial = async (partial: string, dir: string): Promise<void> => {
-	const partialTemplate = join(process.cwd(), `template/${dir}/${partial}.hbs`);
+	const partialTemplate = join(
+		process.cwd(),
+		"template",
+		dir,
+		`${partial}.hbs`
+	);
+	console.log(partialTemplate);
 
 	try {
 		const file = await readFile(partialTemplate).then((r: any): string =>
