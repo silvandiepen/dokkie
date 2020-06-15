@@ -142,7 +142,6 @@ exports.copyFolders = (settings) => __awaiter(void 0, void 0, void 0, function* 
     });
     if (settings.copy.length > 0) {
         log.BLOCK_MID("Copy files/folders");
-        console.log(settings.copy);
         yield utils_1.asyncForEach(settings.copy, (folder) => __awaiter(void 0, void 0, void 0, function* () {
             yield ncp(folder, settings.output + "/" + folder.split("/")[folder.split("/").length - 1], (err) => {
                 if (!err)
