@@ -35,7 +35,7 @@ const partials = [
 	"projectTitle",
 ];
 
-const enhance = ["page-transition"];
+// const enhance = ["page-transition"];
 
 const registerPartial = async (partial: string, dir: string): Promise<void> => {
 	const partialTemplate = `template/${dir}/${partial}.hbs`;
@@ -53,9 +53,9 @@ const registerPartial = async (partial: string, dir: string): Promise<void> => {
 asyncForEach(partials, async (partial: string) => {
 	await registerPartial(partial, "partials");
 });
-asyncForEach(enhance, async (partial: string) => {
-	await registerPartial(partial, "enhance");
-});
+// asyncForEach(enhance, async (partial: string) => {
+// 	await registerPartial(partial, "enhance");
+// });
 
 Object.keys(helpers).forEach((helper) => {
 	H.registerHelper(helper, helpers[helper]);
