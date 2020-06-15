@@ -1,7 +1,8 @@
-import { download } from "../utils";
+import { download, writeThatFile } from "../utils";
 import { ISettings } from "../types";
 import { join } from "path";
-const { readFile } = require("fs").promises;
+import { fileData } from "./files";
+const { readFile, writeFile } = require("fs").promises;
 
 export const getStyles = async (settings: ISettings): Promise<ISettings> => {
 	let styles = [];
@@ -25,23 +26,37 @@ export const getStyles = async (settings: ISettings): Promise<ISettings> => {
 		styles = settings.localConfig?.overrule?.css;
 
 	// To Embeddable link scripts
-	let stylesScripts = styles
-		.map(
-			(s) =>
-				(s = `<link rel="stylesheet" type="text/css" media='screen and (min-width: 0px)' href="${s}"/>`)
-		)
-		.join("");
-
+	let stylesScripts = styles.map(
+		(s) =>
+			(s = `<link rel="stylesheet" type="text/css" media='screen and (min-width: 0px)' href="${s}"/>`)
+	);
 	// Load preconnect for Google fonts
 	if (localCss) {
 		try {
 			let file = await readFile(
 				join(process.cwd(), settings.output, "css", "style.css")
-			);
+			).then((r) => r.toString());
+
+			// If there is a google font, automatically add preconnect for gstattic
 			if (file.indexOf("https://fonts.googleapis.com/") > -1)
-				stylesScripts =
-					stylesScripts +
-					'<link rel="preconnect" href="https://fonts.gstatic.com" />';
+				stylesScripts.push(
+					'<link rel="preconnect" href="https://fonts.gstatic.com" />'
+				);
+
+			// Replace Import for css for Link elements.
+			let importRegex = new RegExp(/@import.*?[\"\']([^\"\']+)[\"\'].*?;/gi);
+			let matches = file.match(importRegex);
+
+			matches.forEach((match) => {
+				file = file.replace(match, "");
+				stylesScripts.push(
+					`<link rel="stylesheet" type="text/css" href="${
+						match.replace(/'/g, '"').match(/"([^']+)"/)[1]
+					}" />`
+				);
+			});
+
+			writeFile(join(process.cwd(), settings.output, "css", "style.css"), file);
 		} catch (err) {
 			console.log(err);
 		}
@@ -49,7 +64,7 @@ export const getStyles = async (settings: ISettings): Promise<ISettings> => {
 
 	return {
 		...settings,
-		styles: stylesScripts,
+		styles: stylesScripts.join(""),
 	};
 };
 

@@ -35,7 +35,7 @@ const log = __importStar(require("cli-block"));
 const settings_1 = require("./settings");
 const utils_1 = require("./utils");
 const steps_1 = require("./steps");
-const dist_1 = require("./utils/dist");
+const utils_2 = require("./utils");
 const buildDokkie = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     return settings;
 });
@@ -75,15 +75,16 @@ buildDokkie(settings_1.settings())
     .then(utils_1.createFavicons)
     .then(steps_1.downloadAssets)
     .then((s) => __awaiter(void 0, void 0, void 0, function* () {
-    yield dist_1.showDist(s);
+    yield utils_2.showDist(s);
     yield steps_1.createFiles(s);
     yield steps_1.copyFolders(s);
     return s;
 }))
-    .then((s) => {
+    .then((s) => __awaiter(void 0, void 0, void 0, function* () {
+    yield utils_2.PurgeCSSFiles(s);
     setTimeout(() => {
         log.BLOCK_END("Done :)");
-        dist_1.showDist(s);
+        utils_2.showDist(s);
     }, 10);
-});
+}));
 //# sourceMappingURL=index.js.map
