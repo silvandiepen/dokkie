@@ -88,7 +88,7 @@ export const download = async (
 	destination: string
 ): Promise<void> => {
 	const res: any = await fetch(url);
-	createFolder(dirname(destination));
+	await createFolder(dirname(destination));
 	await new Promise((resolve, reject) => {
 		const fileStream = createWriteStream(destination);
 		res.body?.pipe(fileStream);
