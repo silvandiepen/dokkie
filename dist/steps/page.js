@@ -97,37 +97,31 @@ exports.reformInjectHtml = (settings) => __awaiter(void 0, void 0, void 0, funct
     return Object.assign(Object.assign({}, settings), { injectHtml: Inject });
 });
 exports.createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* () {
+    const partials = yield utils_1.loadHandlebarsPartials();
+    // Register Partials
+    yield utils_1.asyncForEach(partials, (partial) => {
+        utils_1.Handlebars.registerPartial(partial.name, partial.file);
+    });
     const template = utils_1.Handlebars.compile(settings.layout);
+    const getOnce = {
+        logo: settings.assets.logo ? settings.assets.logo : false,
+        package: settings.package ? settings.package : false,
+        favicon: settings.faviconData ? settings.faviconData.html.join("") : null,
+        enhance: settings.enhance,
+        skip: settings.skip,
+        injectHtml: settings.injectHtml,
+        styles: settings.styles ? settings.styles : null,
+        scripts: settings.scripts ? settings.scripts : null,
+    };
     log.BLOCK_MID("Creating pages");
     yield utils_1.asyncForEach(settings.files, (file) => __awaiter(void 0, void 0, void 0, function* () {
-        var _a, _b;
+        var _a;
         try {
             const currentLink = file.route.replace("index.html", "");
-            const contents = template({
-                projectTitle: settings.projectTitle == ""
+            const contents = template(Object.assign(Object.assign({}, getOnce), { projectTitle: settings.projectTitle == ""
                     ? ((_a = settings.package) === null || _a === void 0 ? void 0 : _a.name) ? settings.package.name
                         : file.title
-                    : settings.projectTitle,
-                title: file.title,
-                content: file.html,
-                currentLink: currentLink,
-                currentId: currentLink.replace(/\//g, " ").trim().replace(/\s+/g, "-"),
-                styles: settings.styles ? settings.styles : false,
-                scripts: settings.scripts ? settings.scripts : false,
-                favicon: settings.faviconData
-                    ? settings.faviconData.html.join("")
-                    : false,
-                logo: ((_b = settings.assets) === null || _b === void 0 ? void 0 : _b.logo) ? settings.assets.logo : false,
-                package: settings.package ? settings.package : false,
-                navigation: settings.navigation,
-                headerNavigation: _1.getNavigation(settings, "header"),
-                sidebarNavigation: _1.getNavigation(settings, "sidebar"),
-                footerNavigation: _1.getNavigation(settings, "footer"),
-                overviewNavigation: _1.getNavigation(settings, "overview"),
-                injectHtml: settings.injectHtml,
-                enhance: settings.enhance,
-                skip: settings.skip,
-            });
+                    : settings.projectTitle, title: file.title, content: file.html, currentLink: currentLink, currentId: currentLink.replace(/\//g, " ").trim().replace(/\s+/g, "-"), headerNavigation: _1.getNavigation(settings, "header"), sidebarNavigation: _1.getNavigation(settings, "sidebar"), footerNavigation: _1.getNavigation(settings, "footer"), overviewNavigation: _1.getNavigation(settings, "overview") }));
             yield utils_1.writeThatFile(file, prettier_1.default.format(contents, { parser: "html" }));
         }
         catch (err) {

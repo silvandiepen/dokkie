@@ -12,13 +12,62 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Handlebars = exports.helpers = void 0;
+exports.Handlebars = exports.loadHandlebarsPartials = void 0;
 const handlebars_1 = __importDefault(require("handlebars"));
 const format_1 = __importDefault(require("date-fns/format"));
 const cli_block_1 = require("cli-block");
 const path_1 = require("path");
 const { readFile } = require("fs").promises;
-exports.helpers = {
+// asyncForEach(enhance, async (partial: string) => {
+// 	await registerPartial(partial, "enhance");
+// });
+const loadPartial = (partial, dir) => __awaiter(void 0, void 0, void 0, function* () {
+    const partialTemplate = path_1.join(__dirname, "../../", "template", dir, `${partial}.hbs`);
+    try {
+        const file = yield readFile(partialTemplate).then((r) => r.toString());
+        return file;
+    }
+    catch (err) {
+        throw new Error(`${partialTemplate} doesn't exist`);
+    }
+});
+// // Create Partials
+// const partials = [
+// 	"headerNavigation",
+// 	"footerNavigation",
+// 	"sidebarNavigation",
+// 	"overviewNavigation",
+// 	"projectTitle",
+// ];
+// // const enhance = ["page-transition"];
+// asyncForEach(partials, async (partial: string) => {
+// 	await registerHandlebarPartial(partial, "partials");
+// });
+exports.loadHandlebarsPartials = () => __awaiter(void 0, void 0, void 0, function* () {
+    // Create Partials
+    const partialNames = [
+        "headerNavigation",
+        "footerNavigation",
+        "sidebarNavigation",
+        "overviewNavigation",
+        "projectTitle",
+    ];
+    const partials = [];
+    yield cli_block_1.asyncForEach(partialNames, (partial) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            partials.push({
+                name: partial,
+                file: yield loadPartial(partial, "partials").then((r) => r),
+            });
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }));
+    return partials;
+});
+// Create Helpers
+const helpers = {
     eq: (v1, v2) => v1 === v2,
     ne: (v1, v2) => v1 !== v2,
     lt: (v1, v2) => v1 < v2,
@@ -41,33 +90,8 @@ exports.helpers = {
         return format_1.default(new Date(context), f);
     },
 };
-const partials = [
-    "headerNavigation",
-    "footerNavigation",
-    "sidebarNavigation",
-    "overviewNavigation",
-    "projectTitle",
-];
-// const enhance = ["page-transition"];
-const registerHandlebarPartial = (partial, dir) => __awaiter(void 0, void 0, void 0, function* () {
-    const partialTemplate = path_1.join(process.cwd(), "template", dir, `${partial}.hbs`);
-    try {
-        const file = yield readFile(partialTemplate).then((r) => r.toString());
-        handlebars_1.default.registerPartial(partial, file);
-    }
-    catch (err) {
-        throw new Error(`${partialTemplate} doesn't exist`);
-    }
-});
-cli_block_1.asyncForEach(partials, (partial) => __awaiter(void 0, void 0, void 0, function* () {
-    yield registerHandlebarPartial(partial, "partials");
-    console.log(handlebars_1.default.partials);
-}));
-// asyncForEach(enhance, async (partial: string) => {
-// 	await registerPartial(partial, "enhance");
-// });
-Object.keys(exports.helpers).forEach((helper) => {
-    handlebars_1.default.registerHelper(helper, exports.helpers[helper]);
+Object.keys(helpers).forEach((helper) => {
+    handlebars_1.default.registerHelper(helper, helpers[helper]);
 });
 exports.Handlebars = handlebars_1.default;
 //# sourceMappingURL=handlebars.js.map

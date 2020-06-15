@@ -3,8 +3,75 @@ import format from "date-fns/format";
 import { asyncForEach } from "cli-block";
 import { join } from "path";
 const { readFile } = require("fs").promises;
+import { IHandlebarsPartials, ISettings } from "../types";
 
-export const helpers = {
+// asyncForEach(enhance, async (partial: string) => {
+// 	await registerPartial(partial, "enhance");
+// });
+
+const loadPartial = async (partial: string, dir: string): Promise<void> => {
+	const partialTemplate = join(
+		__dirname,
+		"../../",
+		"template",
+		dir,
+		`${partial}.hbs`
+	);
+
+	try {
+		const file = await readFile(partialTemplate).then((r: any): string =>
+			r.toString()
+		);
+		return file;
+	} catch (err) {
+		throw new Error(`${partialTemplate} doesn't exist`);
+	}
+};
+
+// // Create Partials
+// const partials = [
+// 	"headerNavigation",
+// 	"footerNavigation",
+// 	"sidebarNavigation",
+// 	"overviewNavigation",
+// 	"projectTitle",
+// ];
+
+// // const enhance = ["page-transition"];
+
+// asyncForEach(partials, async (partial: string) => {
+// 	await registerHandlebarPartial(partial, "partials");
+// });
+
+export const loadHandlebarsPartials = async (): Promise<
+	IHandlebarsPartials[]
+> => {
+	// Create Partials
+	const partialNames = [
+		"headerNavigation",
+		"footerNavigation",
+		"sidebarNavigation",
+		"overviewNavigation",
+		"projectTitle",
+	];
+
+	const partials = [];
+	await asyncForEach(partialNames, async (partial: string) => {
+		try {
+			partials.push({
+				name: partial,
+				file: await loadPartial(partial, "partials").then((r) => r),
+			});
+		} catch (err) {
+			console.log(err);
+		}
+	});
+
+	return partials;
+};
+
+// Create Helpers
+const helpers = {
 	eq: (v1: any, v2: any): boolean => v1 === v2,
 	ne: (v1: any, v2: any): boolean => v1 !== v2,
 	lt: (v1: any, v2: any): boolean => v1 < v2,
@@ -27,45 +94,6 @@ export const helpers = {
 		return format(new Date(context), f);
 	},
 };
-
-const partials = [
-	"headerNavigation",
-	"footerNavigation",
-	"sidebarNavigation",
-	"overviewNavigation",
-	"projectTitle",
-];
-
-// const enhance = ["page-transition"];
-
-const registerHandlebarPartial = async (
-	partial: string,
-	dir: string
-): Promise<void> => {
-	const partialTemplate = join(
-		process.cwd(),
-		"template",
-		dir,
-		`${partial}.hbs`
-	);
-
-	try {
-		const file = await readFile(partialTemplate).then((r: any): string =>
-			r.toString()
-		);
-		H.registerPartial(partial, file);
-	} catch (err) {
-		throw new Error(`${partialTemplate} doesn't exist`);
-	}
-};
-
-asyncForEach(partials, async (partial: string) => {
-	await registerHandlebarPartial(partial, "partials");
-	console.log(H.partials);
-});
-// asyncForEach(enhance, async (partial: string) => {
-// 	await registerPartial(partial, "enhance");
-// });
 
 Object.keys(helpers).forEach((helper) => {
 	H.registerHelper(helper, helpers[helper]);

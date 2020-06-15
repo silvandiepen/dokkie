@@ -1,5 +1,11 @@
 import { ISettings, IFile } from "../types";
-import { mdToHtml, asyncForEach, writeThatFile, Handlebars } from "../utils";
+import {
+	mdToHtml,
+	asyncForEach,
+	writeThatFile,
+	Handlebars,
+	loadHandlebarsPartials,
+} from "../utils";
 import * as log from "cli-block";
 import prettier from "prettier";
 const ncp = require("ncp").ncp;
@@ -80,13 +86,31 @@ export const reformInjectHtml = async (
 };
 
 export const createFiles = async (settings: ISettings): Promise<void> => {
+	const partials = await loadHandlebarsPartials();
+
+	// Register Partials
+	await asyncForEach(partials, (partial) => {
+		Handlebars.registerPartial(partial.name, partial.file);
+	});
 	const template = Handlebars.compile(settings.layout);
+
+	const getOnce = {
+		logo: settings.assets.logo ? settings.assets.logo : false,
+		package: settings.package ? settings.package : false,
+		favicon: settings.faviconData ? settings.faviconData.html.join("") : null,
+		enhance: settings.enhance,
+		skip: settings.skip,
+		injectHtml: settings.injectHtml,
+		styles: settings.styles ? settings.styles : null,
+		scripts: settings.scripts ? settings.scripts : null,
+	};
 
 	log.BLOCK_MID("Creating pages");
 	await asyncForEach(settings.files, async (file: IFile) => {
 		try {
 			const currentLink = file.route.replace("index.html", "");
 			const contents = template({
+				...getOnce,
 				projectTitle:
 					settings.projectTitle == ""
 						? settings.package?.name
@@ -97,21 +121,10 @@ export const createFiles = async (settings: ISettings): Promise<void> => {
 				content: file.html,
 				currentLink: currentLink,
 				currentId: currentLink.replace(/\//g, " ").trim().replace(/\s+/g, "-"),
-				styles: settings.styles ? settings.styles : false,
-				scripts: settings.scripts ? settings.scripts : false,
-				favicon: settings.faviconData
-					? settings.faviconData.html.join("")
-					: false,
-				logo: settings.assets?.logo ? settings.assets.logo : false,
-				package: settings.package ? settings.package : false,
-				navigation: settings.navigation,
 				headerNavigation: getNavigation(settings, "header"),
 				sidebarNavigation: getNavigation(settings, "sidebar"),
 				footerNavigation: getNavigation(settings, "footer"),
 				overviewNavigation: getNavigation(settings, "overview"),
-				injectHtml: settings.injectHtml,
-				enhance: settings.enhance,
-				skip: settings.skip,
 			});
 			await writeThatFile(file, prettier.format(contents, { parser: "html" }));
 		} catch (err) {
@@ -141,7 +154,7 @@ export const copyFolders = async (settings: ISettings): Promise<void> => {
 
 export const setHomePage = (settings: ISettings): ISettings => {
 	const hasHomePage = settings.files.find(
-		(file) => file.route === "/index.html"
+		(file: IFile) => file.route === "/index.html"
 	);
 	if (hasHomePage) return settings;
 

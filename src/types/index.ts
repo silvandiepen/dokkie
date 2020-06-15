@@ -57,6 +57,10 @@ interface ILocalConfigAssets {
 	favicon?: string;
 	logo?: string;
 }
+export interface IHandlebarsPartials {
+	name: string;
+	file: string;
+}
 export interface ISettings extends IArgumentSettings {
 	files?: IFile[] | any;
 	navigation?: INavigation[];
@@ -70,6 +74,7 @@ export interface ISettings extends IArgumentSettings {
 	injectHtml?: ILocalConfigInject;
 	extendNavigation?: INavigation[];
 	overruleNavigation?: INavigation[];
+	partials?: IHandlebarsPartials[];
 }
 
 interface ILocalConfigOverrule {
