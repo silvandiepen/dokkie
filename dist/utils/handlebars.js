@@ -47,7 +47,7 @@ const partials = [
     "overviewNavigation",
     "projectTitle",
 ];
-const enhance = ["page-transition"];
+// const enhance = ["page-transition"];
 const registerPartial = (partial, dir) => __awaiter(void 0, void 0, void 0, function* () {
     const partialTemplate = `template/${dir}/${partial}.hbs`;
     try {
@@ -61,9 +61,9 @@ const registerPartial = (partial, dir) => __awaiter(void 0, void 0, void 0, func
 cli_block_1.asyncForEach(partials, (partial) => __awaiter(void 0, void 0, void 0, function* () {
     yield registerPartial(partial, "partials");
 }));
-cli_block_1.asyncForEach(enhance, (partial) => __awaiter(void 0, void 0, void 0, function* () {
-    yield registerPartial(partial, "enhance");
-}));
+// asyncForEach(enhance, async (partial: string) => {
+// 	await registerPartial(partial, "enhance");
+// });
 Object.keys(exports.helpers).forEach((helper) => {
     handlebars_1.default.registerHelper(helper, exports.helpers[helper]);
 });
