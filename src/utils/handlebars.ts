@@ -38,17 +38,24 @@ const partials = [
 const enhance = ["page-transition"];
 
 asyncForEach(partials, async (partial: string) => {
-	const file = await readFile(
-		`template/partials/${partial}.hbs`
-	).then((r: any): string => r.toString());
-
-	H.registerPartial(partial, file);
+	try {
+		const file = await readFile(
+			`template/partials/${partial}.hbs`
+		).then((r: any): string => r.toString());
+		H.registerPartial(partial, file);
+	} catch (err) {
+		throw new Error(err);
+	}
 });
 asyncForEach(enhance, async (script: string) => {
-	const file = await readFile(
-		`template/enhance/${script}.hbs`
-	).then((r: any): string => r.toString());
-	H.registerPartial(script, file);
+	try {
+		const file = await readFile(
+			`template/enhance/${script}.hbs`
+		).then((r: any): string => r.toString());
+		H.registerPartial(script, file);
+	} catch (err) {
+		throw new Error(err);
+	}
 });
 
 Object.keys(helpers).forEach((helper) => {

@@ -15,5 +15,9 @@
 			"link": "https://blog.dokkie.dev",
 			"meta": { "menu": ["header", "footer"] }
 		}
+	],
+	"enhance": [
+		{ "name": "page-transitions" },
+		{ "name": "google-analytics", "value": "UA-169353077-1" }
 	]
 }
