@@ -148,8 +148,12 @@ export const settings = (): ISettings => {
 export const getDokkiePackage = async (
 	settings: ISettings
 ): Promise<ISettings> => {
-	const dokkiePackage = await readFile(join(__dirname, "../package.json"));
-	return { ...settings, dokkie: JSON.parse(dokkiePackage) };
+	try {
+		const dokkiePackage = await readFile(join(__dirname, "../package.json"));
+		return { ...settings, dokkie: JSON.parse(dokkiePackage) };
+	} catch (err) {
+		throw new Error(err);
+	}
 };
 
 export const setAlternativeDefaults = async (

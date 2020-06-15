@@ -59,7 +59,7 @@ exports.makeRoute = (file, settings) => {
     return route;
 };
 exports.makePath = (file, settings) => {
-    const pre = path_1.join(process.cwd()).replace(/\/$/, "");
+    const pre = process.cwd().replace(/\/$/, "");
     const post = path_1.dirname(file.path).replace(pre, "");
     let route = path_1.join(pre, settings.output, post);
     if (settings.strip)

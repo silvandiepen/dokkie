@@ -63,14 +63,19 @@ exports.filterHiddenPages = (settings) => __awaiter(void 0, void 0, void 0, func
 });
 // Get the layouts
 exports.getLayout = (settings) => __awaiter(void 0, void 0, void 0, function* () {
-    let layoutFile = "";
-    if (settings.layout.includes(".hbs") || settings.layout.includes(".html")) {
-        layoutFile = yield readFile(path_1.join(process.cwd(), settings.layout)).then((res) => res.toString());
+    try {
+        let layoutFile = "";
+        if (settings.layout.includes(".hbs") || settings.layout.includes(".html")) {
+            layoutFile = yield readFile(path_1.join(process.cwd(), settings.layout)).then((res) => res.toString());
+        }
+        else {
+            layoutFile = yield readFile(path_1.join(__dirname, "../../", `template/${settings.layout}.hbs`)).then((res) => res.toString());
+        }
+        return Object.assign(Object.assign({}, settings), { layout: layoutFile });
     }
-    else {
-        layoutFile = yield readFile(path_1.join(__dirname, "../../", `template/${settings.layout}.hbs`)).then((res) => res.toString());
+    catch (err) {
+        throw new Error(err);
     }
-    return Object.assign(Object.assign({}, settings), { layout: layoutFile });
 });
 exports.reformInjectHtml = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     let Inject = {};
@@ -97,6 +102,7 @@ exports.reformInjectHtml = (settings) => __awaiter(void 0, void 0, void 0, funct
     return Object.assign(Object.assign({}, settings), { injectHtml: Inject });
 });
 exports.createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     const partials = yield utils_1.loadHandlebarsPartials();
     // Register Partials
     yield utils_1.asyncForEach(partials, (partial) => {
@@ -104,7 +110,7 @@ exports.createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* 
     });
     const template = utils_1.Handlebars.compile(settings.layout);
     const getOnce = {
-        logo: settings.assets.logo ? settings.assets.logo : false,
+        logo: ((_a = settings.assets) === null || _a === void 0 ? void 0 : _a.logo) ? settings.assets.logo : false,
         package: settings.package ? settings.package : false,
         favicon: settings.faviconData ? settings.faviconData.html.join("") : null,
         enhance: settings.enhance,
@@ -115,11 +121,11 @@ exports.createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* 
     };
     log.BLOCK_MID("Creating pages");
     yield utils_1.asyncForEach(settings.files, (file) => __awaiter(void 0, void 0, void 0, function* () {
-        var _a;
+        var _b;
         try {
             const currentLink = file.route.replace("index.html", "");
             const contents = template(Object.assign(Object.assign({}, getOnce), { projectTitle: settings.projectTitle == ""
-                    ? ((_a = settings.package) === null || _a === void 0 ? void 0 : _a.name) ? settings.package.name
+                    ? ((_b = settings.package) === null || _b === void 0 ? void 0 : _b.name) ? settings.package.name
                         : file.title
                     : settings.projectTitle, title: file.title, content: file.html, currentLink: currentLink, currentId: currentLink.replace(/\//g, " ").trim().replace(/\s+/g, "-"), headerNavigation: _1.getNavigation(settings, "header"), sidebarNavigation: _1.getNavigation(settings, "sidebar"), footerNavigation: _1.getNavigation(settings, "footer"), overviewNavigation: _1.getNavigation(settings, "overview") }));
             yield utils_1.writeThatFile(file, prettier_1.default.format(contents, { parser: "html" }));

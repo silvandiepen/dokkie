@@ -48,17 +48,21 @@ export const filterHiddenPages = async (
 // Get the layouts
 
 export const getLayout = async (settings: ISettings): Promise<ISettings> => {
-	let layoutFile = "";
-	if (settings.layout.includes(".hbs") || settings.layout.includes(".html")) {
-		layoutFile = await readFile(
-			join(process.cwd(), settings.layout)
-		).then((res) => res.toString());
-	} else {
-		layoutFile = await readFile(
-			join(__dirname, "../../", `template/${settings.layout}.hbs`)
-		).then((res) => res.toString());
+	try {
+		let layoutFile = "";
+		if (settings.layout.includes(".hbs") || settings.layout.includes(".html")) {
+			layoutFile = await readFile(
+				join(process.cwd(), settings.layout)
+			).then((res) => res.toString());
+		} else {
+			layoutFile = await readFile(
+				join(__dirname, "../../", `template/${settings.layout}.hbs`)
+			).then((res) => res.toString());
+		}
+		return { ...settings, layout: layoutFile };
+	} catch (err) {
+		throw new Error(err);
 	}
-	return { ...settings, layout: layoutFile };
 };
 
 export const reformInjectHtml = async (
@@ -95,7 +99,7 @@ export const createFiles = async (settings: ISettings): Promise<void> => {
 	const template = Handlebars.compile(settings.layout);
 
 	const getOnce = {
-		logo: settings.assets.logo ? settings.assets.logo : false,
+		logo: settings.assets?.logo ? settings.assets.logo : false,
 		package: settings.package ? settings.package : false,
 		favicon: settings.faviconData ? settings.faviconData.html.join("") : null,
 		enhance: settings.enhance,

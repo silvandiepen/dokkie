@@ -31,7 +31,7 @@ export const makeRoute = (file: IFile, settings: ISettings): string => {
 	return route;
 };
 export const makePath = (file: IFile, settings: ISettings): string => {
-	const pre = join(process.cwd()).replace(/\/$/, "");
+	const pre = process.cwd().replace(/\/$/, "");
 	const post = dirname(file.path).replace(pre, "");
 	let route = join(pre, settings.output, post);
 	if (settings.strip)
@@ -83,7 +83,10 @@ export const getPageTitle = (file: IFile): string => {
 	}
 };
 
-export const download = async (url, destination) => {
+export const download = async (
+	url: string,
+	destination: string
+): Promise<void> => {
 	const res: any = await fetch(url);
 	createFolder(dirname(destination));
 	await new Promise((resolve, reject) => {

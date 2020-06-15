@@ -153,8 +153,13 @@ exports.settings = () => {
     };
 };
 exports.getDokkiePackage = (settings) => __awaiter(void 0, void 0, void 0, function* () {
-    const dokkiePackage = yield readFile(path_1.join(__dirname, "../package.json"));
-    return Object.assign(Object.assign({}, settings), { dokkie: JSON.parse(dokkiePackage) });
+    try {
+        const dokkiePackage = yield readFile(path_1.join(__dirname, "../package.json"));
+        return Object.assign(Object.assign({}, settings), { dokkie: JSON.parse(dokkiePackage) });
+    }
+    catch (err) {
+        throw new Error(err);
+    }
 });
 exports.setAlternativeDefaults = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     var args = process.argv
