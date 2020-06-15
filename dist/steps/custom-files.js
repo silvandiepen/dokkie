@@ -16,7 +16,7 @@ exports.getStyles = (settings) => __awaiter(void 0, void 0, void 0, function* ()
     var _a, _b, _c, _d, _e, _f;
     let styles = [];
     if (settings.theme && !settings.theme.includes("http")) {
-        yield utils_1.download(`https://coat.guyn.nl/css/theme/${settings.theme}.css`, path_1.join(settings.output, "css", "style.css"));
+        yield utils_1.download(`https://coat.guyn.nl/css/theme/${settings.theme}.css`, path_1.join(process.cwd(), settings.output, "css", "style.css"));
         styles.push("/css/style.css");
     }
     // If there are addable stylesheets available
