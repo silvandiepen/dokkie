@@ -48,13 +48,21 @@ const partials = [
     "projectTitle",
 ];
 const enhance = ["page-transition"];
+const registerPartial = (partial, dir) => __awaiter(void 0, void 0, void 0, function* () {
+    const partialTemplate = `template/${dir}/${partial}.hbs`;
+    try {
+        const file = yield readFile(partialTemplate).then((r) => r.toString());
+        handlebars_1.default.registerPartial(partial, file);
+    }
+    catch (err) {
+        throw new Error(`${partialTemplate} doesn't exist`);
+    }
+});
 cli_block_1.asyncForEach(partials, (partial) => __awaiter(void 0, void 0, void 0, function* () {
-    const file = yield readFile(`template/partials/${partial}.hbs`).then((r) => r.toString());
-    handlebars_1.default.registerPartial(partial, file);
+    yield registerPartial(partial, "partials");
 }));
-cli_block_1.asyncForEach(enhance, (script) => __awaiter(void 0, void 0, void 0, function* () {
-    const file = yield readFile(`template/enhance/${script}.hbs`).then((r) => r.toString());
-    handlebars_1.default.registerPartial(script, file);
+cli_block_1.asyncForEach(enhance, (partial) => __awaiter(void 0, void 0, void 0, function* () {
+    yield registerPartial(partial, "enhance");
 }));
 Object.keys(exports.helpers).forEach((helper) => {
     handlebars_1.default.registerHelper(helper, exports.helpers[helper]);

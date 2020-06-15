@@ -37,25 +37,24 @@ const partials = [
 
 const enhance = ["page-transition"];
 
-asyncForEach(partials, async (partial: string) => {
+const registerPartial = async (partial: string, dir: string): Promise<void> => {
+	const partialTemplate = `template/${dir}/${partial}.hbs`;
+
 	try {
-		const file = await readFile(
-			`template/partials/${partial}.hbs`
-		).then((r: any): string => r.toString());
+		const file = await readFile(partialTemplate).then((r: any): string =>
+			r.toString()
+		);
 		H.registerPartial(partial, file);
 	} catch (err) {
-		throw new Error(err);
+		throw new Error(`${partialTemplate} doesn't exist`);
 	}
+};
+
+asyncForEach(partials, async (partial: string) => {
+	await registerPartial(partial, "partials");
 });
-asyncForEach(enhance, async (script: string) => {
-	try {
-		const file = await readFile(
-			`template/enhance/${script}.hbs`
-		).then((r: any): string => r.toString());
-		H.registerPartial(script, file);
-	} catch (err) {
-		throw new Error(err);
-	}
+asyncForEach(enhance, async (partial: string) => {
+	await registerPartial(partial, "enhance");
 });
 
 Object.keys(helpers).forEach((helper) => {
