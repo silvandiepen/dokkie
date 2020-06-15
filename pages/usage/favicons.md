@@ -17,7 +17,11 @@ npx dokkie --favicon=your/image/file.jpg
 }
 ```
 
-> **_NOTE:_** Make sure the file is quite big in size; recommeded: (1024x1024)
+> **_NOTE:_** Make sure the file is quite big in size; recommended: (1024x1024)
+
+### Meta data
+
+The favicon generator comes with a lot other meta data which is auto included in your head. Turning favicons off, also affects this.
 
 ### Skip favicons
 

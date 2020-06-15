@@ -78,3 +78,8 @@ parent: usage
 ```
 
 ---
+
+::: warning
+**Navigation depth**
+For now the navigation won't go deeper than 2 levels. This means that levels deeper than 2, will simply not be shown in the menu. This does not mean they don't exist.
+:::

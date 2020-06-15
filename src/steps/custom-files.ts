@@ -1,9 +1,11 @@
 import { download } from "../utils";
 import { ISettings } from "../types";
 import { join } from "path";
+const { readFile } = require("fs").promises;
 
 export const getStyles = async (settings: ISettings): Promise<ISettings> => {
 	let styles = [];
+	let localCss = false;
 
 	if (settings.theme && !settings.theme.includes("http")) {
 		await download(
@@ -11,6 +13,7 @@ export const getStyles = async (settings: ISettings): Promise<ISettings> => {
 			join(process.cwd(), settings.output, "css", "style.css")
 		);
 		styles.push("/css/style.css");
+		localCss = true;
 	}
 
 	// If there are addable stylesheets available
@@ -22,12 +25,27 @@ export const getStyles = async (settings: ISettings): Promise<ISettings> => {
 		styles = settings.localConfig?.overrule?.css;
 
 	// To Embeddable link scripts
-	const stylesScripts = styles
+	let stylesScripts = styles
 		.map(
 			(s) =>
 				(s = `<link rel="stylesheet" type="text/css" media='screen and (min-width: 0px)' href="${s}"/>`)
 		)
 		.join("");
+
+	// Load preconnect for Google fonts
+	if (localCss) {
+		try {
+			let file = await readFile(
+				join(process.cwd(), settings.output, "css", "style.css")
+			);
+			if (file.indexOf("https://fonts.googleapis.com/") > -1)
+				stylesScripts =
+					stylesScripts +
+					'<link rel="preconnect" href="https://fonts.gstatic.com" />';
+		} catch (err) {
+			console.log(err);
+		}
+	}
 
 	return {
 		...settings,
