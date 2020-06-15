@@ -38,14 +38,16 @@ const partials = [
 
 // const enhance = ["page-transition"];
 
-const registerPartial = async (partial: string, dir: string): Promise<void> => {
+const registerHandlebarPartial = async (
+	partial: string,
+	dir: string
+): Promise<void> => {
 	const partialTemplate = join(
 		process.cwd(),
 		"template",
 		dir,
 		`${partial}.hbs`
 	);
-	console.log(partialTemplate);
 
 	try {
 		const file = await readFile(partialTemplate).then((r: any): string =>
@@ -58,7 +60,8 @@ const registerPartial = async (partial: string, dir: string): Promise<void> => {
 };
 
 asyncForEach(partials, async (partial: string) => {
-	await registerPartial(partial, "partials");
+	await registerHandlebarPartial(partial, "partials");
+	console.log(H.partials);
 });
 // asyncForEach(enhance, async (partial: string) => {
 // 	await registerPartial(partial, "enhance");

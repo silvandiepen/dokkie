@@ -49,9 +49,8 @@ const partials = [
     "projectTitle",
 ];
 // const enhance = ["page-transition"];
-const registerPartial = (partial, dir) => __awaiter(void 0, void 0, void 0, function* () {
+const registerHandlebarPartial = (partial, dir) => __awaiter(void 0, void 0, void 0, function* () {
     const partialTemplate = path_1.join(process.cwd(), "template", dir, `${partial}.hbs`);
-    console.log(partialTemplate);
     try {
         const file = yield readFile(partialTemplate).then((r) => r.toString());
         handlebars_1.default.registerPartial(partial, file);
@@ -61,7 +60,8 @@ const registerPartial = (partial, dir) => __awaiter(void 0, void 0, void 0, func
     }
 });
 cli_block_1.asyncForEach(partials, (partial) => __awaiter(void 0, void 0, void 0, function* () {
-    yield registerPartial(partial, "partials");
+    yield registerHandlebarPartial(partial, "partials");
+    console.log(handlebars_1.default.partials);
 }));
 // asyncForEach(enhance, async (partial: string) => {
 // 	await registerPartial(partial, "enhance");
