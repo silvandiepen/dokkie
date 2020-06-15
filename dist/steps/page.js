@@ -122,6 +122,9 @@ exports.createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* 
     log.BLOCK_MID("Creating pages");
     yield utils_1.asyncForEach(settings.files, (file) => __awaiter(void 0, void 0, void 0, function* () {
         var _b;
+        // THe file is newer than today, so don't build it (yet).
+        if (file.date < new Date())
+            return;
         try {
             const currentLink = file.route.replace("index.html", "");
             const contents = template(Object.assign(Object.assign({}, getOnce), { projectTitle: settings.projectTitle == ""

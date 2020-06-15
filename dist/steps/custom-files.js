@@ -1,11 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getScripts = exports.getStyles = void 0;
+const utils_1 = require("../utils");
+const path_1 = require("path");
 exports.getStyles = (settings) => {
     var _a, _b, _c, _d, _e, _f;
     let styles = [];
     if (settings.theme && !settings.theme.includes("http")) {
-        styles.push(`https://coat.guyn.nl/css/theme/${settings.theme}.css`);
+        utils_1.download(`https://coat.guyn.nl/css/theme/${settings.theme}.css`, path_1.join(settings.output, "css", "style.css"));
+        styles.push("/css/style.css");
     }
     // If there are addable stylesheets available
     if ((_b = (_a = settings.localConfig) === null || _a === void 0 ? void 0 : _a.add) === null || _b === void 0 ? void 0 : _b.css)
@@ -15,7 +18,7 @@ exports.getStyles = (settings) => {
         styles = (_f = (_e = settings.localConfig) === null || _e === void 0 ? void 0 : _e.overrule) === null || _f === void 0 ? void 0 : _f.css;
     // To Embeddable link scripts
     const stylesScripts = styles
-        .map((s) => (s = `<link rel="stylesheet" type="text/css" href="${s}"/>`))
+        .map((s) => (s = `<link rel="stylesheet" type="text/css" media='screen and (min-width: 0px)' href="${s}"/>`))
         .join("");
     return Object.assign(Object.assign({}, settings), { styles: stylesScripts });
 };

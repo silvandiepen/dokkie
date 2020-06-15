@@ -1,10 +1,16 @@
+import { download } from "../utils";
 import { ISettings } from "../types";
+import { join } from "path";
 
 export const getStyles = (settings: ISettings): ISettings => {
 	let styles = [];
 
 	if (settings.theme && !settings.theme.includes("http")) {
-		styles.push(`https://coat.guyn.nl/css/theme/${settings.theme}.css`);
+		download(
+			`https://coat.guyn.nl/css/theme/${settings.theme}.css`,
+			join(settings.output, "css", "style.css")
+		);
+		styles.push("/css/style.css");
 	}
 
 	// If there are addable stylesheets available
@@ -17,7 +23,10 @@ export const getStyles = (settings: ISettings): ISettings => {
 
 	// To Embeddable link scripts
 	const stylesScripts = styles
-		.map((s) => (s = `<link rel="stylesheet" type="text/css" href="${s}"/>`))
+		.map(
+			(s) =>
+				(s = `<link rel="stylesheet" type="text/css" media='screen and (min-width: 0px)' href="${s}"/>`)
+		)
 		.join("");
 
 	return {
