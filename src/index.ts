@@ -4,7 +4,12 @@
 import * as log from "cli-block";
 
 // Functionality
-import { settings, setAlternativeDefaults, getDokkiePackage } from "./settings";
+import {
+	settings,
+	setAlternativeDefaults,
+	getDokkiePackage,
+	defaultSettings,
+} from "./settings";
 import { ISettings } from "./types";
 import { createFavicons } from "./utils";
 
@@ -51,7 +56,13 @@ buildDokkie(settings())
 	.then(setLocalConfig)
 	.then((s) => {
 		log.BLOCK_MID("Settings");
-		log.BLOCK_SETTINGS(s, { exclude: ["dokkie"] });
+
+		const filteredSettings = {};
+		Object.keys(s).forEach((key) =>
+			s[key] !== defaultSettings[key] ? (filteredSettings[key] = s[key]) : false
+		);
+
+		log.BLOCK_SETTINGS(s.debug ? s : filteredSettings, { exclude: ["dokkie"] });
 		return s;
 	})
 	.then(getFiles)

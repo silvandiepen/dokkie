@@ -12,118 +12,139 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.setAlternativeDefaults = exports.getDokkiePackage = exports.settings = void 0;
+exports.setAlternativeDefaults = exports.getDokkiePackage = exports.settings = exports.defaultSettings = void 0;
 const yargs_1 = __importDefault(require("yargs"));
 const { readFile } = require("fs").promises;
 const path_1 = require("path");
 const steps_1 = require("./steps");
+exports.defaultSettings = {
+    type: "docs",
+    input: ".",
+    output: "dokkie",
+    layout: "default",
+    clean: true,
+    theme: "feather-ext",
+    ext: [".md"],
+    exclude: ["node_modules", "dist", "public"],
+    copy: [],
+    strip: ["pages"],
+    codeHighlight: true,
+    projectTitle: "",
+    favicon: "",
+    flatNavigation: false,
+    skip: [],
+    showNavigation: [
+        { name: "header", mobile: true, desktop: true },
+        { name: "footer", mobile: true, desktop: true },
+    ],
+    config: "dokkie.config.json",
+    debug: false,
+    enhance: ["page-transition"],
+};
 exports.settings = () => {
     const cs = yargs_1.default.options({
         type: {
             require: false,
             type: "string",
-            default: "docs",
+            default: exports.defaultSettings.type,
         },
         input: {
             required: false,
             type: "string",
-            default: ".",
+            default: exports.defaultSettings.input,
             alias: "i",
         },
         output: {
             required: false,
             type: "string",
-            default: "dokkie",
+            default: exports.defaultSettings.output,
             alias: "o",
         },
         layout: {
             required: false,
             type: "string",
-            default: "default",
+            default: exports.defaultSettings.layout,
             alias: "l",
         },
         clean: {
             required: false,
             type: "string",
-            default: true,
+            default: exports.defaultSettings.clean,
             alias: "c",
         },
         theme: {
             required: false,
             type: "string",
-            default: "feather-ext",
+            default: exports.defaultSettings.theme,
             alias: "t",
         },
         ext: {
             required: false,
             type: "array",
-            default: [".md"],
+            default: exports.defaultSettings.ext,
             alias: "extensions",
         },
         exclude: {
             required: false,
             type: "array",
-            default: ["node_modules", "dist", "docs"],
+            default: exports.defaultSettings.exclude,
             alias: "excludeFolders",
         },
         copy: {
             required: false,
             type: "array",
-            default: [],
+            default: exports.defaultSettings.copy,
             alias: "c",
         },
         strip: {
             required: false,
             type: "array",
-            default: ["pages"],
+            default: exports.defaultSettings.strip,
         },
         flatNavigation: {
             required: false,
             type: "boolean",
-            default: false,
+            default: exports.defaultSettings.flatNavigation,
         },
         showNavigation: {
             required: false,
             type: "array",
-            default: [
-                { name: "header", mobile: true, desktop: true },
-                { name: "footer", mobile: true, desktop: true },
-            ],
+            default: exports.defaultSettings.showNavigation,
         },
         codeHighlight: {
             required: false,
             type: "boolean",
-            default: true,
+            default: exports.defaultSettings.codeHighlight,
         },
         projectTitle: {
             require: false,
             type: "string",
-            default: "",
+            default: exports.defaultSettings.projectTitle,
         },
         favicon: {
             require: false,
             type: "string",
-            default: "",
+            default: exports.defaultSettings.favicon,
         },
         skip: {
             require: false,
             type: "array",
-            default: [],
+            default: exports.defaultSettings.skip,
         },
         config: {
             require: false,
             type: "string",
-            default: "dokkie.config.json",
+            default: exports.defaultSettings.config,
         },
         debug: {
             require: false,
             type: "boolean",
-            default: false,
+            default: exports.defaultSettings.debug,
         },
         enhance: {
             require: false,
             type: "array",
-            default: ["page-transition"],
+            default: exports.defaultSettings.enhance,
         },
     }).argv;
     if (cs.help) {
