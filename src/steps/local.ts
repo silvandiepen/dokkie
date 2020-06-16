@@ -78,6 +78,8 @@ export const setLocalConfig = (settings: ISettings): ISettings => {
 			settings.overruleNavigation = settings.localConfig.overruleNavigation;
 		if (settings.localConfig.assets)
 			settings.assets = settings.localConfig.assets;
+		if (settings.localConfig.add?.excludeFolders)
+			settings.excludeFolders.concat(settings.localConfig.add.excludeFolders);
 	}
 
 	return settings;

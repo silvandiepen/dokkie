@@ -84,6 +84,7 @@ interface ILocalConfigOverrule {
 interface ILocalConfigAdd {
 	css: string[];
 	js: string[];
+	excludeFolders: string[];
 }
 
 export interface ILocalConfigInject {

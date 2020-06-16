@@ -56,6 +56,7 @@ exports.loadLocalConfig = (settings) => __awaiter(void 0, void 0, void 0, functi
 });
 // Set the local config to the settings
 exports.setLocalConfig = (settings) => {
+    var _a;
     if (settings.localConfig) {
         if (settings.localConfig.input)
             settings.input = settings.localConfig.input;
@@ -103,6 +104,8 @@ exports.setLocalConfig = (settings) => {
             settings.overruleNavigation = settings.localConfig.overruleNavigation;
         if (settings.localConfig.assets)
             settings.assets = settings.localConfig.assets;
+        if ((_a = settings.localConfig.add) === null || _a === void 0 ? void 0 : _a.excludeFolders)
+            settings.excludeFolders.concat(settings.localConfig.add.excludeFolders);
     }
     return settings;
 };
