@@ -7,7 +7,7 @@ export const setMetadata = async (settings: ISettings): Promise<ISettings> => {
 			async (file: IFile) =>
 				(file = {
 					...file,
-					title: await getPageTitle(file),
+					title: getPageTitle(file),
 					route: makeRoute(file, settings),
 					destpath: makePath(file, settings),
 					filename: makeFileName(file),

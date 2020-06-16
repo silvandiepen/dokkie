@@ -42,6 +42,8 @@ exports.mdToHtml = (file) => __awaiter(void 0, void 0, void 0, function* () {
     const renderedDocument = md.render(file.data);
     const meta = md.meta;
     md.meta = {};
+    if (meta.tags)
+        meta.tags = meta.tags.split(",").map((x) => (x = x.trim()));
     return {
         document: renderedDocument,
         meta: meta,

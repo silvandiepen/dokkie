@@ -13,7 +13,7 @@ exports.setMetadata = void 0;
 const utils_1 = require("../utils");
 exports.setMetadata = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     const files = yield Promise.all(settings.files.map((file) => __awaiter(void 0, void 0, void 0, function* () {
-        return (file = Object.assign(Object.assign({}, file), { title: yield utils_1.getPageTitle(file), route: utils_1.makeRoute(file, settings), destpath: utils_1.makePath(file, settings), filename: utils_1.makeFileName(file) }));
+        return (file = Object.assign(Object.assign({}, file), { title: utils_1.getPageTitle(file), route: utils_1.makeRoute(file, settings), destpath: utils_1.makePath(file, settings), filename: utils_1.makeFileName(file) }));
     }))).then((res) => res);
     return Object.assign(Object.assign({}, settings), { files: files });
 });
