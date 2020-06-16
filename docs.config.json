@@ -5,7 +5,9 @@
 		"footer",
 		{ "name": "sidebar", "desktop": true, "mobile": false }
 	],
-	"exclude": ["node_modules", "dist", "docs", "blog", "posts"],
+	"add": {
+		"excludeFolders": ["posts"]
+	},
 	"extendNavigation": [
 		{
 			"name": "Blog",

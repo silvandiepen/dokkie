@@ -105,7 +105,7 @@ exports.setLocalConfig = (settings) => {
         if (settings.localConfig.assets)
             settings.assets = settings.localConfig.assets;
         if ((_a = settings.localConfig.add) === null || _a === void 0 ? void 0 : _a.excludeFolders)
-            settings.excludeFolders.concat(settings.localConfig.add.excludeFolders);
+            settings.excludeFolders = settings.excludeFolders.concat(settings.localConfig.add.excludeFolders);
     }
     return settings;
 };

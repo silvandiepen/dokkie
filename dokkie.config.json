@@ -5,7 +5,9 @@
 		"footer",
 		{ "name": "sidebar", "desktop": true, "mobile": false }
 	],
-	"exclude": ["node_modules", "dist", "docs", "blog", "posts"],
+	"add": {
+		"excludeFolders": ["posts"]
+	},
 	"assets": {
 		"logo": "src/assets/logo_dokkie-color.svg",
 		"favicon": "src/assets/logo_dokkie-icon-color.png"

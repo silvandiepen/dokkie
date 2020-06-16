@@ -79,7 +79,9 @@ export const setLocalConfig = (settings: ISettings): ISettings => {
 		if (settings.localConfig.assets)
 			settings.assets = settings.localConfig.assets;
 		if (settings.localConfig.add?.excludeFolders)
-			settings.excludeFolders.concat(settings.localConfig.add.excludeFolders);
+			settings.excludeFolders = settings.excludeFolders.concat(
+				settings.localConfig.add.excludeFolders
+			);
 	}
 
 	return settings;

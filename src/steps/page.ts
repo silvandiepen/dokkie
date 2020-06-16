@@ -158,24 +158,29 @@ export const copyFolders = async (settings: ISettings): Promise<void> => {
 };
 
 export const setHomePage = (settings: ISettings): ISettings => {
+	const customHomePage = settings.files.find((file: IFile) => file.meta?.home);
 	const hasHomePage = settings.files.find(
 		(file: IFile) => file.route === "/index.html"
 	);
-	if (hasHomePage) return settings;
-
-	settings.files.push({
-		name: "home",
-		path: "",
-		ext: ".md",
-		date: new Date(),
-		data: "",
-		meta: { title: "home", hide: true },
-		html: "",
-		title: "Home",
-		route: "/index.html",
-		destpath: settings.output,
-		filename: "index.html",
-	});
-
-	return settings;
+	if (customHomePage) {
+		settings.files.push({ ...customHomePage, route: "/index.html" });
+		return settings;
+	} else if (hasHomePage) {
+		return settings;
+	} else {
+		settings.files.push({
+			name: "home",
+			path: "",
+			ext: ".md",
+			date: new Date(),
+			data: "",
+			meta: { title: "home", hide: true },
+			html: "",
+			title: "Home",
+			route: "/index.html",
+			destpath: settings.output,
+			filename: "index.html",
+		});
+		return settings;
+	}
 };

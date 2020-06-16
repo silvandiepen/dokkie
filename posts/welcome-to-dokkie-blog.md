@@ -1,5 +1,6 @@
 ---
 date: 2020-06-01
+home: true
 ---
 
 # Welcome to Dokkie Blog.

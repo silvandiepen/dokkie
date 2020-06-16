@@ -156,22 +156,30 @@ exports.copyFolders = (settings) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.setHomePage = (settings) => {
+    const customHomePage = settings.files.find((file) => { var _a; return (_a = file.meta) === null || _a === void 0 ? void 0 : _a.home; });
     const hasHomePage = settings.files.find((file) => file.route === "/index.html");
-    if (hasHomePage)
+    if (customHomePage) {
+        settings.files.push(Object.assign(Object.assign({}, customHomePage), { route: "/index.html" }));
         return settings;
-    settings.files.push({
-        name: "home",
-        path: "",
-        ext: ".md",
-        date: new Date(),
-        data: "",
-        meta: { title: "home", hide: true },
-        html: "",
-        title: "Home",
-        route: "/index.html",
-        destpath: settings.output,
-        filename: "index.html",
-    });
-    return settings;
+    }
+    else if (hasHomePage) {
+        return settings;
+    }
+    else {
+        settings.files.push({
+            name: "home",
+            path: "",
+            ext: ".md",
+            date: new Date(),
+            data: "",
+            meta: { title: "home", hide: true },
+            html: "",
+            title: "Home",
+            route: "/index.html",
+            destpath: settings.output,
+            filename: "index.html",
+        });
+        return settings;
+    }
 };
 //# sourceMappingURL=page.js.map

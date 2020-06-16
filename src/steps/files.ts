@@ -15,6 +15,8 @@ export const getFileTree = async (
 			const ext = extname(res);
 			const date = await stat(res);
 
+			// console.log(settings.excludeFolders);
+
 			if (
 				(settings.extensions.includes(ext) ||
 					settings.extensions.includes("*") ||
