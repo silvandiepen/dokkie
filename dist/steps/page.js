@@ -159,7 +159,7 @@ exports.setHomePage = (settings) => {
     const customHomePage = settings.files.find((file) => { var _a; return (_a = file.meta) === null || _a === void 0 ? void 0 : _a.home; });
     const hasHomePage = settings.files.find((file) => file.route === "/index.html");
     if (customHomePage) {
-        settings.files.push(Object.assign(Object.assign({}, customHomePage), { route: "/index.html" }));
+        settings.files.push(Object.assign(Object.assign({}, customHomePage), { route: "/index.html", filename: "index.html" }));
         return settings;
     }
     else if (hasHomePage) {

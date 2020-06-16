@@ -163,7 +163,11 @@ export const setHomePage = (settings: ISettings): ISettings => {
 		(file: IFile) => file.route === "/index.html"
 	);
 	if (customHomePage) {
-		settings.files.push({ ...customHomePage, route: "/index.html" });
+		settings.files.push({
+			...customHomePage,
+			route: "/index.html",
+			filename: "index.html",
+		});
 		return settings;
 	} else if (hasHomePage) {
 		return settings;
