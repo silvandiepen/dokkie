@@ -5,10 +5,6 @@ import { join } from "path";
 const { readFile } = require("fs").promises;
 import { IHandlebarsPartials, ISettings } from "../types";
 
-// asyncForEach(enhance, async (partial: string) => {
-// 	await registerPartial(partial, "enhance");
-// });
-
 const loadPartial = async (partial: string, dir: string): Promise<void> => {
 	const partialTemplate = join(
 		__dirname,
@@ -28,21 +24,7 @@ const loadPartial = async (partial: string, dir: string): Promise<void> => {
 	}
 };
 
-// // Create Partials
-// const partials = [
-// 	"headerNavigation",
-// 	"footerNavigation",
-// 	"sidebarNavigation",
-// 	"overviewNavigation",
-// 	"projectTitle",
-// ];
-
-// // const enhance = ["page-transition"];
-
-// asyncForEach(partials, async (partial: string) => {
-// 	await registerHandlebarPartial(partial, "partials");
-// });
-
+// Create Partials
 export const loadHandlebarsPartials = async (): Promise<
 	IHandlebarsPartials[]
 > => {
@@ -53,6 +35,7 @@ export const loadHandlebarsPartials = async (): Promise<
 		"sidebarNavigation",
 		"overviewNavigation",
 		"projectTitle",
+		"blogMeta",
 	];
 
 	const partials = [];

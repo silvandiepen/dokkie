@@ -131,6 +131,8 @@ export const createFiles = async (settings: ISettings): Promise<void> => {
 				sidebarNavigation: getNavigation(settings, "sidebar"),
 				footerNavigation: getNavigation(settings, "footer"),
 				overviewNavigation: getNavigation(settings, "overview"),
+				meta: file.meta,
+				hasMeta: file.meta?.author || file.meta?.tags ? true : false,
 			});
 			await writeThatFile(file, prettier.format(contents, { parser: "html" }));
 		} catch (err) {

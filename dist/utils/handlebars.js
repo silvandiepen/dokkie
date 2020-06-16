@@ -18,9 +18,6 @@ const format_1 = __importDefault(require("date-fns/format"));
 const cli_block_1 = require("cli-block");
 const path_1 = require("path");
 const { readFile } = require("fs").promises;
-// asyncForEach(enhance, async (partial: string) => {
-// 	await registerPartial(partial, "enhance");
-// });
 const loadPartial = (partial, dir) => __awaiter(void 0, void 0, void 0, function* () {
     const partialTemplate = path_1.join(__dirname, "../../", "template", dir, `${partial}.hbs`);
     try {
@@ -31,18 +28,7 @@ const loadPartial = (partial, dir) => __awaiter(void 0, void 0, void 0, function
         throw new Error(`${partialTemplate} doesn't exist`);
     }
 });
-// // Create Partials
-// const partials = [
-// 	"headerNavigation",
-// 	"footerNavigation",
-// 	"sidebarNavigation",
-// 	"overviewNavigation",
-// 	"projectTitle",
-// ];
-// // const enhance = ["page-transition"];
-// asyncForEach(partials, async (partial: string) => {
-// 	await registerHandlebarPartial(partial, "partials");
-// });
+// Create Partials
 exports.loadHandlebarsPartials = () => __awaiter(void 0, void 0, void 0, function* () {
     // Create Partials
     const partialNames = [
@@ -51,6 +37,7 @@ exports.loadHandlebarsPartials = () => __awaiter(void 0, void 0, void 0, functio
         "sidebarNavigation",
         "overviewNavigation",
         "projectTitle",
+        "blogMeta",
     ];
     const partials = [];
     yield cli_block_1.asyncForEach(partialNames, (partial) => __awaiter(void 0, void 0, void 0, function* () {

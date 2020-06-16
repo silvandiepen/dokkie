@@ -121,7 +121,7 @@ exports.createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* 
     };
     log.BLOCK_MID("Creating pages");
     yield utils_1.asyncForEach(settings.files, (file) => __awaiter(void 0, void 0, void 0, function* () {
-        var _b;
+        var _b, _c, _d;
         // THe file is newer than today, so don't build it (yet).
         if (file.date > new Date())
             return;
@@ -130,7 +130,7 @@ exports.createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* 
             const contents = template(Object.assign(Object.assign({}, getOnce), { projectTitle: settings.projectTitle == ""
                     ? ((_b = settings.package) === null || _b === void 0 ? void 0 : _b.name) ? settings.package.name
                         : file.title
-                    : settings.projectTitle, title: file.title, content: file.html, currentLink: currentLink, currentId: currentLink.replace(/\//g, " ").trim().replace(/\s+/g, "-"), headerNavigation: _1.getNavigation(settings, "header"), sidebarNavigation: _1.getNavigation(settings, "sidebar"), footerNavigation: _1.getNavigation(settings, "footer"), overviewNavigation: _1.getNavigation(settings, "overview") }));
+                    : settings.projectTitle, title: file.title, content: file.html, currentLink: currentLink, currentId: currentLink.replace(/\//g, " ").trim().replace(/\s+/g, "-"), headerNavigation: _1.getNavigation(settings, "header"), sidebarNavigation: _1.getNavigation(settings, "sidebar"), footerNavigation: _1.getNavigation(settings, "footer"), overviewNavigation: _1.getNavigation(settings, "overview"), meta: file.meta, hasMeta: ((_c = file.meta) === null || _c === void 0 ? void 0 : _c.author) || ((_d = file.meta) === null || _d === void 0 ? void 0 : _d.tags) ? true : false }));
             yield utils_1.writeThatFile(file, prettier_1.default.format(contents, { parser: "html" }));
         }
         catch (err) {
