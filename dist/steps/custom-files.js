@@ -23,10 +23,11 @@ const fixGoogleFonts = (settings) => __awaiter(void 0, void 0, void 0, function*
         // Replace Import for css for Link elements.
         let importRegex = new RegExp(/@import.*?[\"\']([^\"\']+)[\"\'].*?;/gi);
         let matches = file.match(importRegex);
-        matches.forEach((match) => {
-            file = file.replace(match, "");
-            links.push(`<link rel="stylesheet" type="text/css" href="${match.replace(/'/g, '"').match(/"([^']+)"/)[1]}" />`);
-        });
+        if (matches)
+            matches.forEach((match) => {
+                file = file.replace(match, "");
+                links.push(`<link rel="stylesheet" type="text/css" href="${match.replace(/'/g, '"').match(/"([^']+)"/)[1]}" />`);
+            });
         yield writeFile(path_1.join(process.cwd(), settings.output, "css", "style.css"), file);
         return links;
     }
@@ -54,7 +55,8 @@ exports.getStyles = (settings) => __awaiter(void 0, void 0, void 0, function* ()
     // Load preconnect for Google fonts
     if (localCss) {
         const links = yield fixGoogleFonts(settings);
-        links.forEach((link) => stylesScripts.push(link));
+        if (links.length)
+            links.forEach((link) => stylesScripts.push(link));
     }
     return Object.assign(Object.assign({}, settings), { styles: stylesScripts.join("") });
 });

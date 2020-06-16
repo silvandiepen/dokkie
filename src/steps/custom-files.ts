@@ -22,14 +22,15 @@ const fixGoogleFonts = async (settings: ISettings): Promise<string[]> => {
 		let importRegex = new RegExp(/@import.*?[\"\']([^\"\']+)[\"\'].*?;/gi);
 		let matches = file.match(importRegex);
 
-		matches.forEach((match) => {
-			file = file.replace(match, "");
-			links.push(
-				`<link rel="stylesheet" type="text/css" href="${
-					match.replace(/'/g, '"').match(/"([^']+)"/)[1]
-				}" />`
-			);
-		});
+		if (matches)
+			matches.forEach((match: string) => {
+				file = file.replace(match, "");
+				links.push(
+					`<link rel="stylesheet" type="text/css" href="${
+						match.replace(/'/g, '"').match(/"([^']+)"/)[1]
+					}" />`
+				);
+			});
 
 		await writeFile(
 			join(process.cwd(), settings.output, "css", "style.css"),
@@ -70,7 +71,7 @@ export const getStyles = async (settings: ISettings): Promise<ISettings> => {
 	// Load preconnect for Google fonts
 	if (localCss) {
 		const links = await fixGoogleFonts(settings);
-		links.forEach((link) => stylesScripts.push(link));
+		if (links.length) links.forEach((link) => stylesScripts.push(link));
 	}
 
 	return {

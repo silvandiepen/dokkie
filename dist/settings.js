@@ -51,7 +51,7 @@ exports.settings = () => {
         theme: {
             required: false,
             type: "string",
-            default: "coat-ext",
+            default: "feather-ext",
             alias: "t",
         },
         ext: {
