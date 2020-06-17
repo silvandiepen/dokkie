@@ -1,0 +1,22 @@
+{{#if hasMeta}}
+<div class="blog-meta">{{#if meta.author}}
+    {{#if meta.authorLink}}
+    <a class="author" href="{{meta.authorLink}}">{{meta.author}}</a>
+    {{/if}}
+    {{#unless meta.authorLink}}
+    <span class="author">{{meta.author}}</span>
+    {{/unless}}
+    {{/if}}
+
+    {{#if meta.tags}}
+    <ul class="blog-tags">
+        {{#each meta.tags}}
+        <li class="blog-tag">
+            <span>{{this}}</span>
+        </li>
+        {{/each}}
+    </ul>
+    {{/if}}
+
+</div>
+{{/if}}
