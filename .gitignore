@@ -1,6 +1,7 @@
 /node_modules
 /docs
 /blog
+/dokkie
 /dist
 .vscode
 .DS_Store
