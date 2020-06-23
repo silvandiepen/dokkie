@@ -40,6 +40,7 @@ exports.defaultSettings = {
     config: "dokkie.config.json",
     debug: false,
     enhance: ["page-transition"],
+    language: "en",
 };
 exports.settings = () => {
     const cs = yargs_1.default.options({
@@ -146,11 +147,12 @@ exports.settings = () => {
             type: "array",
             default: exports.defaultSettings.enhance,
         },
+        language: {
+            require: false,
+            type: "string",
+            default: exports.defaultSettings.language,
+        },
     }).argv;
-    if (cs.help) {
-        console.log("help page");
-        return;
-    }
     return {
         type: cs.type,
         input: cs.input,
@@ -171,6 +173,7 @@ exports.settings = () => {
         config: cs.config,
         debug: cs.debug,
         enhance: cs.enhance,
+        language: cs.language,
     };
 };
 exports.getDokkiePackage = (settings) => __awaiter(void 0, void 0, void 0, function* () {

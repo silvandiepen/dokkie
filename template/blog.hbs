@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{language}}">
 
 <head>
 	{{> headMeta }}
-	<title>{{ title }}</title>
-	{{{favicon}}}
+	{{{ favicon }}}
+	{{#if eq (title projectTitle)}}
+	<title>{{ projectTitle }}</title>
+	{{else}}
+	<title>{{ title }} | {{ projectTitle }}</title>
+	{{/if}}
 	{{{ styles }}}
 	{{{ scripts }}}
 </head>
@@ -12,10 +16,10 @@
 <body id="post-{{currentId}}">
 	<!--- Page Header -->
 	<header id="header">
-		{{{injectHtml.headerBefore }}}
-		{{>projectTitle}}
-		{{>headerNavigation }}
-		{{{injectHtml.headerAfter }}}
+		{{{ injectHtml.headerBefore }}}
+		{{> projectTitle }}
+		{{> headerNavigation }}
+		{{{ injectHtml.headerAfter }}}
 	</header>
 
 	<!--- Main Content -->

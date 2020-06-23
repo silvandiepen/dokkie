@@ -23,6 +23,7 @@ export declare const defaultSettings: {
     config: string;
     debug: boolean;
     enhance: string[];
+    language: string;
 };
 export declare const settings: () => ISettings;
 export declare const getDokkiePackage: (settings: ISettings) => Promise<ISettings>;

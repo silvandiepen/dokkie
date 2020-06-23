@@ -30,6 +30,7 @@ export const defaultSettings = {
 	config: "dokkie.config.json",
 	debug: false,
 	enhance: ["page-transition"],
+	language: "en",
 };
 
 export const settings = (): ISettings => {
@@ -137,12 +138,12 @@ export const settings = (): ISettings => {
 			type: "array",
 			default: defaultSettings.enhance,
 		},
+		language: {
+			require: false,
+			type: "string",
+			default: defaultSettings.language,
+		},
 	}).argv;
-
-	if (cs.help) {
-		console.log("help page");
-		return;
-	}
 
 	return {
 		type: cs.type,
@@ -164,6 +165,7 @@ export const settings = (): ISettings => {
 		config: cs.config,
 		debug: cs.debug,
 		enhance: cs.enhance,
+		language: cs.language,
 	};
 };
 

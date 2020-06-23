@@ -23,4 +23,5 @@ export const baseSettings: ISettings = {
 	config: "dokkie.config.json",
 	debug: false,
 	enhance: [],
+	language: "en",
 };

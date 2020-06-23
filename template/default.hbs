@@ -1,23 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{language}}">
 
 <head>
 	{{> headMeta }}
-	{{{favicon}}}
-	<title>{{ title }}</title>
+	{{{ favicon }}}
+	{{#if eq (title projectTitle)}}
+	<title>{{ projectTitle }}</title>
+	{{else}}
+	<title>{{ title }} | {{ projectTitle }}</title>
+	{{/if}}
 	{{{ styles }}}
 	{{{ scripts }}}
-	{{!-- {{>enhance.page-transition}}
-	{{>enhance.google-analytics}} --}}
 </head>
 
 <body id="page-{{currentId}}">
 	<!--- Page Header -->
 	<header id="header">
-		{{{injectHtml.headerBefore }}}
-		{{>projectTitle}}
-		{{>headerNavigation }}
-		{{{injectHtml.headerAfter }}}
+		{{{ injectHtml.headerBefore }}}
+		{{> projectTitle }}
+		{{> headerNavigation }}
+		{{{ injectHtml.headerAfter }}}
 	</header>
 
 	<!--- Page Sidebar -->

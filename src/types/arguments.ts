@@ -27,6 +27,7 @@ export interface IArgumentSettings {
 	config: string;
 	debug: boolean;
 	enhance: string[];
+	language: string;
 }
 
 export interface ISettings extends IArgumentSettings {

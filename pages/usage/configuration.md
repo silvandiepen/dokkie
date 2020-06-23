@@ -24,6 +24,8 @@ Configuration can be done multiple ways, the easiest way is doing this through t
 | `favicon`        | Custom generated           | path to image                                           | Create favicons and other meta tags automatically                                                          |
 | `skip`           | `null`                     | `favicons`                                              | Skip parts of the build process to speed it up. For now this can only be done with Favicons                |
 | `config`         | `dokkie.config.json`       | path to json config file                                | Give an alternative path to the config for dokkie                                                          |
+| `debug`          | `false`                    | `true` / `false`                                        | Running Dokkie with Debug on, will give you more details about the build process                           |
+| `language`       | `en`                       | Any language shortname, ex; `en`, `nl` or `es`          | Language of the page, this is set in the templates                                                         |
 
 ### API
 

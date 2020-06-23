@@ -37,6 +37,7 @@ export const loadHandlebarsPartials = async (): Promise<
 		"projectTitle",
 		"blogMeta",
 		"headMeta",
+		"searchBlock",
 	];
 
 	const partials = [];

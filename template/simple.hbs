@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{language}}">
 
 <head>
 	{{> headMeta }}
 	{{{favicon}}}
-	<title>{{ title }}</title>
-	{{{ styles }}} {{{ scripts }}}
+	{{#if eq (title projectTitle)}}
+	<title>{{ projectTitle }}</title>
+	{{else}}
+	<title>{{ title }} | {{ projectTitle }}</title>
+	{{/if}}
+	{{{ styles }}}
+	{{{ scripts }}}
 </head>
 
 <body id="page-{{currentId}}">
