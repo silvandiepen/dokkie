@@ -2,17 +2,9 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8" />
-	{{#if package.description}}
-	<meta name="description" content="{{ package.description }}" />
-	{{/if}} {{#if package.keywords}}
-	<meta name="keywords" content="{{ package.keywords }}" />
-	{{/if}} {{#if package.author}}
-	<meta name="author" content="{{ package.author }}" />
-	{{/if}}
-	{{{favicon}}}
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	{{> headMeta }}
 	<title>{{ title }}</title>
+	{{{favicon}}}
 	{{{ styles }}}
 	{{{ scripts }}}
 </head>

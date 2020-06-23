@@ -1,0 +1,23 @@
+<meta charset="UTF-8" />
+
+{{#if meta.description}}
+<meta name="description" content="{{ meta.description }}" />
+{{else if package.description}}
+<meta name="description" content="{{ package.description }}" />
+{{else}}
+<meta name="description" content="{{ title }} Blog" />
+{{/if}}
+
+{{#if meta.keywords}}
+<meta name="keywords" content="{{ meta.keywords }}" />
+{{else if package.keywords}}
+<meta name="keywords" content="{{ package.keywords }}" />
+{{/if}}
+
+{{#if meta.author}}
+<meta name="author" content="{{ meta.author }}" />
+{{else package.author}}
+<meta name="author" content="{{ package.author }}" />
+{{/if}}
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />

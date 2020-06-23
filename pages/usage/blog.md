@@ -19,3 +19,25 @@ Blogs are automatically ordered by their file creation date. If you don't want t
 date: 2020-02-22
 ---
 ```
+
+### Meta
+
+A blog post by default has just a title and text, but if you want to give extra info like the tags. You can also just add them to your post;
+
+**Tags**
+
+```md
+---
+tags: test, tag, for, post
+---
+```
+
+**Author + Link**
+The author also supports a authorLink, which will automatically be the link for the author when clicked on.
+
+```md
+---
+author: Sil
+authorLink: https://silvandiepen.nl
+---
+```
