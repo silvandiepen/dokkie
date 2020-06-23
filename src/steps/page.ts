@@ -133,7 +133,8 @@ export const createPages = async (settings: ISettings): Promise<void> => {
 				overviewNavigation: getNavigation(settings, "overview"),
 				meta: file.meta,
 				hasMeta: file.meta?.author || file.meta?.tags ? true : false,
-				search: settings.files.length > 1 ? false : settings.search,
+				language: settings.language,
+				search: settings.files.length > 1 ? settings.search : false,
 			});
 			await writeThatFile(file, prettier.format(contents, { parser: "html" }));
 		} catch (err) {
