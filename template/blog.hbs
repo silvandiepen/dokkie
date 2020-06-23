@@ -10,6 +10,7 @@
 </head>
 
 <body id="post-{{currentId}}">
+
 	<!--- Page Header -->
 	<header id="header">
 		{{{ injectHtml.headerBefore }}}
@@ -35,8 +36,8 @@
 		{{{injectHtml.overviewAfter }}}
 	</footer>
 
-	{{#if footerNavigation.menu.[1]}}
 	<!--- Page Footer Content -->
+	{{#if footerNavigation.menu.[1]}}
 	<footer id="footer">
 		{{> footerNavigation }}
 	</footer>
