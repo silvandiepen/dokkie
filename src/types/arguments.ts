@@ -28,6 +28,7 @@ export interface IArgumentSettings {
 	debug: boolean;
 	enhance: string[];
 	language: string;
+	search: boolean;
 }
 
 export interface ISettings extends IArgumentSettings {

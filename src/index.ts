@@ -27,7 +27,8 @@ import {
 	convertDataToHtml,
 	filterHiddenPages,
 	setMetadata,
-	createFiles,
+	createPages,
+	createPageData,
 	copyFolders,
 	getLayout,
 	setHomePage,
@@ -86,8 +87,9 @@ buildDokkie(settings())
 	.then(downloadAssets)
 	.then(async (s) => {
 		await showDist(s);
-		await createFiles(s);
+		await createPages(s);
 		await copyFolders(s);
+		createPageData(s);
 		return s;
 	})
 	.then(async (s) => {

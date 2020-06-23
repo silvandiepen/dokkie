@@ -31,7 +31,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.setHomePage = exports.copyFolders = exports.createFiles = exports.reformInjectHtml = exports.getLayout = exports.filterHiddenPages = exports.convertDataToHtml = void 0;
+exports.setHomePage = exports.createPageData = exports.copyFolders = exports.createPages = exports.reformInjectHtml = exports.getLayout = exports.filterHiddenPages = exports.convertDataToHtml = void 0;
 const utils_1 = require("../utils");
 const log = __importStar(require("cli-block"));
 const prettier_1 = __importDefault(require("prettier"));
@@ -101,7 +101,7 @@ exports.reformInjectHtml = (settings) => __awaiter(void 0, void 0, void 0, funct
     }
     return Object.assign(Object.assign({}, settings), { injectHtml: Inject });
 });
-exports.createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* () {
+exports.createPages = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const partials = yield utils_1.loadHandlebarsPartials();
     // Register Partials
@@ -130,7 +130,7 @@ exports.createFiles = (settings) => __awaiter(void 0, void 0, void 0, function* 
             const contents = template(Object.assign(Object.assign({}, getOnce), { projectTitle: settings.projectTitle == ""
                     ? ((_b = settings.package) === null || _b === void 0 ? void 0 : _b.name) ? settings.package.name
                         : file.title
-                    : settings.projectTitle, title: file.title, content: file.html, currentLink: currentLink, currentId: currentLink.replace(/\//g, " ").trim().replace(/\s+/g, "-"), headerNavigation: _1.getNavigation(settings, "header"), sidebarNavigation: _1.getNavigation(settings, "sidebar"), footerNavigation: _1.getNavigation(settings, "footer"), overviewNavigation: _1.getNavigation(settings, "overview"), meta: file.meta, hasMeta: ((_c = file.meta) === null || _c === void 0 ? void 0 : _c.author) || ((_d = file.meta) === null || _d === void 0 ? void 0 : _d.tags) ? true : false }));
+                    : settings.projectTitle, title: file.title, content: file.html, currentLink: currentLink, currentId: currentLink.replace(/\//g, " ").trim().replace(/\s+/g, "-"), headerNavigation: _1.getNavigation(settings, "header"), sidebarNavigation: _1.getNavigation(settings, "sidebar"), footerNavigation: _1.getNavigation(settings, "footer"), overviewNavigation: _1.getNavigation(settings, "overview"), meta: file.meta, hasMeta: ((_c = file.meta) === null || _c === void 0 ? void 0 : _c.author) || ((_d = file.meta) === null || _d === void 0 ? void 0 : _d.tags) ? true : false, search: settings.files.length > 1 ? false : settings.search }));
             yield utils_1.writeThatFile(file, prettier_1.default.format(contents, { parser: "html" }));
         }
         catch (err) {
@@ -155,6 +155,25 @@ exports.copyFolders = (settings) => __awaiter(void 0, void 0, void 0, function* 
         }));
     }
 });
+exports.createPageData = (settings) => {
+    const file = {
+        name: "",
+        title: "",
+        ext: ".json",
+        path: "",
+        destpath: path_1.join(settings.output),
+        filename: "data.json",
+    };
+    const fileData = [...settings.files].map((item) => {
+        delete item.path;
+        delete item.ext;
+        delete item.html;
+        delete item.destpath;
+        delete item.filename;
+        return item;
+    });
+    utils_1.writeThatFile(file, JSON.stringify(fileData), true);
+};
 exports.setHomePage = (settings) => {
     const customHomePage = settings.files.find((file) => { var _a; return (_a = file.meta) === null || _a === void 0 ? void 0 : _a.home; });
     const hasHomePage = settings.files.find((file) => file.route === "/index.html");

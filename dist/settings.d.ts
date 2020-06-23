@@ -4,10 +4,10 @@ export declare const defaultSettings: {
     input: string;
     output: string;
     layout: string;
-    clean: boolean;
+    cleanBefore: boolean;
     theme: string;
-    ext: string[];
-    exclude: string[];
+    extensions: string[];
+    excludeFolders: string[];
     copy: any[];
     strip: string[];
     codeHighlight: boolean;
@@ -24,6 +24,7 @@ export declare const defaultSettings: {
     debug: boolean;
     enhance: string[];
     language: string;
+    search: boolean;
 };
 export declare const settings: () => ISettings;
 export declare const getDokkiePackage: (settings: ISettings) => Promise<ISettings>;

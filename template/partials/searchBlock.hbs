@@ -1,29 +1,13 @@
+{{#if search}}
 <div class="search" id="search">
-    <label><input type="search" v-model="searchTerm" /></label>
-    <ul class="search__results">
-        <li v-for="post in filteredPosts"></li>
+    <input type="search" v-model="searchTerm" @focus="initSearch" @blur="show = false" id="search-field" /><label
+        for="search-field">Search</label>
+    <ul class="search__results" class="{'has-value' : filterPosts.length, 'search__results--visible' : show}">
+        <li class="search__result" v-for="post in filteredPosts">
+            <h4><a :href="post.route">\{{ post.title }}</a></h4>
+        </li>
     </ul>
 </div>
 
-<script>
 
-    new Vue({
-        el: '#search',
-        data: {
-            searchTerm: '',
-            posts: [{
-                name: 'test',
-                value: 'Cras maximus mi neque, sit amet semper risus eleifend non. Praesent quis dictum urna. Sed non tortor rhoncus, semper eros eget, mollis sem. Nulla malesuada nulla risus, in pellentesque neque lacinia et. Curabitur suscipit tortor volutpat turpis vehicula, sit amet ultrices sapien tempus. Nulla at gravida tellus. Vivamus sed enim orci. Sed lacinia, felis et finibus consequat, enim dui laoreet turpis, et iaculis elit lacus id nisi. Aenean ut pulvinar ante, vitae malesuada tellus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam tempor id tellus sit amet rutrum. Proin diam velit, consequat feugiat auctor ac, sagittis sit amet purus.'
-            }, {
-                name: 'test2',
-                value: 'Integer finibus elementum purus a tempus. Nullam consectetur felis sed massa condimentum tempor. Mauris rutrum convallis purus, vel dignissim felis efficitur quis. Phasellus fringilla mauris urna, vitae rhoncus nibh varius in. In interdum vulputate maximus. Maecenas tristique nisl nec orci facilisis, at placerat mi convallis. Suspendisse at sem eros. Donec dignissim, ipsum ac posuere accumsan, eros enim consectetur tellus, eu faucibus est mi eget metus. Cras aliquet consequat enim nec laoreet. Vestibulum ac nulla vel tellus blandit dictum laoreet non purus. Curabitur suscipit ex non luctus accumsan. Nam bibendum sodales lectus et laoreet. Vivamus urna est, placerat a molestie in, laoreet eu magna.'
-            }]
-        },
-        computed: {
-            filteredPosts() {
-                if (this.searchTerm == '') return this.posts;
-                return this.posts.filter((item) => item.value.toLowerCase().includes(this.searchTerm.toLowerCase()))
-            }
-        }
-    })
-</script>
+{{/if}}

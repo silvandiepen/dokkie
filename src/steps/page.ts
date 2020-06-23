@@ -89,7 +89,7 @@ export const reformInjectHtml = async (
 	return { ...settings, injectHtml: Inject };
 };
 
-export const createFiles = async (settings: ISettings): Promise<void> => {
+export const createPages = async (settings: ISettings): Promise<void> => {
 	const partials = await loadHandlebarsPartials();
 
 	// Register Partials
@@ -133,6 +133,7 @@ export const createFiles = async (settings: ISettings): Promise<void> => {
 				overviewNavigation: getNavigation(settings, "overview"),
 				meta: file.meta,
 				hasMeta: file.meta?.author || file.meta?.tags ? true : false,
+				search: settings.files.length > 1 ? false : settings.search,
 			});
 			await writeThatFile(file, prettier.format(contents, { parser: "html" }));
 		} catch (err) {
@@ -157,6 +158,26 @@ export const copyFolders = async (settings: ISettings): Promise<void> => {
 			);
 		});
 	}
+};
+
+export const createPageData = (settings: ISettings): void => {
+	const file = {
+		name: "",
+		title: "",
+		ext: ".json",
+		path: "",
+		destpath: join(settings.output),
+		filename: "data.json",
+	};
+	const fileData = [...settings.files].map((item) => {
+		delete item.path;
+		delete item.ext;
+		delete item.html;
+		delete item.destpath;
+		delete item.filename;
+		return item;
+	});
+	writeThatFile(file, JSON.stringify(fileData), true);
 };
 
 export const setHomePage = (settings: ISettings): ISettings => {

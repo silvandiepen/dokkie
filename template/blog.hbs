@@ -4,13 +4,10 @@
 <head>
 	{{> headMeta }}
 	{{{ favicon }}}
-	{{#if eq (title projectTitle)}}
-	<title>{{ projectTitle }}</title>
-	{{else}}
-	<title>{{ title }} | {{ projectTitle }}</title>
-	{{/if}}
+	<title>{{ title }}</title>
 	{{{ styles }}}
 	{{{ scripts }}}
+	{{ searchHead }}
 </head>
 
 <body id="post-{{currentId}}">
@@ -19,6 +16,7 @@
 		{{{ injectHtml.headerBefore }}}
 		{{> projectTitle }}
 		{{> headerNavigation }}
+		{{> searchBlock }}
 		{{{ injectHtml.headerAfter }}}
 	</header>
 

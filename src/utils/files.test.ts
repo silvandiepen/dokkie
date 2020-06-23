@@ -60,7 +60,7 @@ test("makeRoute - alternative input dir - with alternative input", () => {
 });
 
 test("makePath", () => {
-	const output = process.cwd() + "/docs";
+	const output = process.cwd() + "/dokkie";
 	// Assert
 	expect(expect(makePath(input, baseSettings)).toEqual(output));
 });

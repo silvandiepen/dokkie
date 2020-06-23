@@ -22,10 +22,10 @@ exports.defaultSettings = {
     input: ".",
     output: "dokkie",
     layout: "default",
-    clean: true,
+    cleanBefore: true,
     theme: "feather-ext",
-    ext: [".md"],
-    exclude: ["node_modules", "dist", "public"],
+    extensions: [".md"],
+    excludeFolders: ["node_modules", "dist", "public"],
     copy: [],
     strip: ["pages"],
     codeHighlight: true,
@@ -41,6 +41,7 @@ exports.defaultSettings = {
     debug: false,
     enhance: ["page-transition"],
     language: "en",
+    search: true,
 };
 exports.settings = () => {
     const cs = yargs_1.default.options({
@@ -67,10 +68,10 @@ exports.settings = () => {
             default: exports.defaultSettings.layout,
             alias: "l",
         },
-        clean: {
+        cleanBefore: {
             required: false,
             type: "string",
-            default: exports.defaultSettings.clean,
+            default: exports.defaultSettings.cleanBefore,
             alias: "c",
         },
         theme: {
@@ -79,17 +80,17 @@ exports.settings = () => {
             default: exports.defaultSettings.theme,
             alias: "t",
         },
-        ext: {
+        extensions: {
             required: false,
             type: "array",
-            default: exports.defaultSettings.ext,
-            alias: "extensions",
+            default: exports.defaultSettings.extensions,
+            alias: "ext",
         },
-        exclude: {
+        excludeFolders: {
             required: false,
             type: "array",
-            default: exports.defaultSettings.exclude,
-            alias: "excludeFolders",
+            default: exports.defaultSettings.excludeFolders,
+            alias: "exclude",
         },
         copy: {
             required: false,
@@ -152,15 +153,20 @@ exports.settings = () => {
             type: "string",
             default: exports.defaultSettings.language,
         },
+        search: {
+            require: false,
+            type: "boolean",
+            default: exports.defaultSettings.search,
+        },
     }).argv;
     return {
         type: cs.type,
         input: cs.input,
         output: cs.output,
         layout: cs.layout,
-        excludeFolders: cs.exclude,
-        extensions: cs.ext,
-        cleanBefore: cs.clean,
+        excludeFolders: cs.excludeFolders,
+        extensions: cs.extensions,
+        cleanBefore: cs.cleanBefore,
         theme: cs.theme,
         copy: cs.copy,
         strip: cs.strip,
@@ -174,6 +180,7 @@ exports.settings = () => {
         debug: cs.debug,
         enhance: cs.enhance,
         language: cs.language,
+        search: cs.search,
     };
 };
 exports.getDokkiePackage = (settings) => __awaiter(void 0, void 0, void 0, function* () {

@@ -4,11 +4,7 @@
 <head>
 	{{> headMeta }}
 	{{{favicon}}}
-	{{#if eq (title projectTitle)}}
-	<title>{{ projectTitle }}</title>
-	{{else}}
-	<title>{{ title }} | {{ projectTitle }}</title>
-	{{/if}}
+	<title>{{ title }}</title>
 	{{{ styles }}}
 	{{{ scripts }}}
 </head>

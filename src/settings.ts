@@ -1,5 +1,4 @@
 import yargs from "yargs";
-import * as log from "cli-block";
 const { readFile } = require("fs").promises;
 import { join } from "path";
 
@@ -12,10 +11,10 @@ export const defaultSettings = {
 	input: ".",
 	output: "dokkie",
 	layout: "default",
-	clean: true,
+	cleanBefore: true,
 	theme: "feather-ext",
-	ext: [".md"],
-	exclude: ["node_modules", "dist", "public"],
+	extensions: [".md"],
+	excludeFolders: ["node_modules", "dist", "public"],
 	copy: [],
 	strip: ["pages"],
 	codeHighlight: true,
@@ -31,6 +30,7 @@ export const defaultSettings = {
 	debug: false,
 	enhance: ["page-transition"],
 	language: "en",
+	search: true,
 };
 
 export const settings = (): ISettings => {
@@ -58,10 +58,10 @@ export const settings = (): ISettings => {
 			default: defaultSettings.layout,
 			alias: "l",
 		},
-		clean: {
+		cleanBefore: {
 			required: false,
 			type: "string",
-			default: defaultSettings.clean,
+			default: defaultSettings.cleanBefore,
 			alias: "c",
 		},
 		theme: {
@@ -70,17 +70,17 @@ export const settings = (): ISettings => {
 			default: defaultSettings.theme,
 			alias: "t",
 		},
-		ext: {
+		extensions: {
 			required: false,
 			type: "array",
-			default: defaultSettings.ext,
-			alias: "extensions",
+			default: defaultSettings.extensions,
+			alias: "ext",
 		},
-		exclude: {
+		excludeFolders: {
 			required: false,
 			type: "array",
-			default: defaultSettings.exclude,
-			alias: "excludeFolders",
+			default: defaultSettings.excludeFolders,
+			alias: "exclude",
 		},
 		copy: {
 			required: false,
@@ -143,6 +143,11 @@ export const settings = (): ISettings => {
 			type: "string",
 			default: defaultSettings.language,
 		},
+		search: {
+			require: false,
+			type: "boolean",
+			default: defaultSettings.search,
+		},
 	}).argv;
 
 	return {
@@ -150,9 +155,9 @@ export const settings = (): ISettings => {
 		input: cs.input,
 		output: cs.output,
 		layout: cs.layout,
-		excludeFolders: cs.exclude,
-		extensions: cs.ext,
-		cleanBefore: cs.clean,
+		excludeFolders: cs.excludeFolders,
+		extensions: cs.extensions,
+		cleanBefore: cs.cleanBefore,
 		theme: cs.theme,
 		copy: cs.copy,
 		strip: cs.strip,
@@ -166,6 +171,7 @@ export const settings = (): ISettings => {
 		debug: cs.debug,
 		enhance: cs.enhance,
 		language: cs.language,
+		search: cs.search,
 	};
 };
 

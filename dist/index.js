@@ -78,8 +78,9 @@ buildDokkie(settings_1.settings())
     .then(steps_1.downloadAssets)
     .then((s) => __awaiter(void 0, void 0, void 0, function* () {
     yield utils_2.showDist(s);
-    yield steps_1.createFiles(s);
+    yield steps_1.createPages(s);
     yield steps_1.copyFolders(s);
+    steps_1.createPageData(s);
     return s;
 }))
     .then((s) => __awaiter(void 0, void 0, void 0, function* () {

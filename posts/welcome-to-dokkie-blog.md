@@ -1,9 +1,6 @@
 ---
 date: 2020-06-01
 home: true
-tags: node, help, blog
-author: Sil van Diepen
-authorLink: https://www.silvandiepen.nl
 ---
 
 # Welcome to Dokkie Blog.
