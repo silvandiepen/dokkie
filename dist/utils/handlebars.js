@@ -77,6 +77,9 @@ const helpers = {
         const f = block.hash.format || "MMM Do, YYYY";
         return format_1.default(new Date(context), f);
     },
+    join: function (context, block) {
+        return context.join(block.hash.delimiter ? block.hash.delimited : ", ");
+    },
 };
 Object.keys(helpers).forEach((helper) => {
     handlebars_1.default.registerHelper(helper, helpers[helper]);

@@ -3,7 +3,7 @@ import format from "date-fns/format";
 import { asyncForEach } from "cli-block";
 import { join } from "path";
 const { readFile } = require("fs").promises;
-import { IHandlebarsPartials, ISettings } from "../types";
+import { IHandlebarsPartials, IHandlebarsBlock } from "../types";
 
 const loadPartial = async (partial: string, dir: string): Promise<void> => {
 	const partialTemplate = join(
@@ -73,9 +73,12 @@ const helpers = {
 		return cond ? v1 : v2;
 	},
 	//  usage: {{dateFormat date format="MMMM YYYY"}}
-	dateFormat: function (context: string, block: any): string {
+	dateFormat: function (context: string, block: IHandlebarsBlock): string {
 		const f = block.hash.format || "MMM Do, YYYY";
 		return format(new Date(context), f);
+	},
+	join: function (context: string[], block: IHandlebarsBlock) {
+		return context.join(block.hash.delimiter ? block.hash.delimited : ", ");
 	},
 };
 

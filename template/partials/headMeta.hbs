@@ -5,11 +5,13 @@
 {{else if package.description}}
 <meta name="description" content="{{ package.description }}" />
 {{else}}
-<meta name="description" content="{{ title }} Blog" />
+<meta name="description" content="{{ title }}" />
 {{/if}}
 
 {{#if meta.keywords}}
 <meta name="keywords" content="{{ meta.keywords }}" />
+{{else if meta.tags}}
+<meta name="keywords" content="{{join meta.tags}}" />
 {{else if package.keywords}}
 <meta name="keywords" content="{{ package.keywords }}" />
 {{/if}}

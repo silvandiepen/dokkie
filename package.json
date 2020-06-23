@@ -11,7 +11,7 @@
 		"serve": "serve -l 5555 dokkie",
 		"dev:debug": "npm run build && node dist/index.js --debug=true --skip=favicons",
 		"dev:docs": "npm run build && node dist/index.js --config=docs.config.json",
-		"dev:blog": "npm run build && node dist/index.js --config=blog.config.json --type=blog --input=posts --skip=favicons",
+		"dev:blog": "npm run build && node dist/index.js --config=blog.config.json --type=blog --input=posts",
 		"pre": "npm run build && npm run test && npm run dev:docs",
 		"precommit": "npm run pre",
 		"prepublishOnly": "npm run pre"
