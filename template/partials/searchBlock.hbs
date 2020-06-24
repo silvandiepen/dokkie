@@ -1,7 +1,9 @@
 {{#if search}}
 <div class="search" id="search">
-    <input type="search" v-model="searchTerm" @focus="initSearch" @blur="show = false" id="search-field" />
-    <label for="search-field">Search</label>
+    <label for="search-field">
+        <input type="search" v-model="searchTerm" @focus="initSearch" @blur="show = false" id="search-field"
+            name="search-field" />
+    </label>
     <ul v-if="posts" class="search__results"
         :class="{'search__results--has-values' : filteredPosts.length, 'search__results--visible' : show}">
         <li class="search__result" v-for="post in filteredPosts">
