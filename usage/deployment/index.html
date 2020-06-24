@@ -352,7 +352,7 @@
     <!--- Page Main section-->
     <main id="main" class="content">
       <h1 id="deployment">Deployment</h1>
-      <h3 id="using-netlify">Using Netlify</h3>
+      <h2 id="using-netlify">Using Netlify</h2>
       <ol>
         <li>Make sure you have an account at Netlify.</li>
         <li>Login and click on “Net site from git”</li>
@@ -367,6 +367,41 @@
             <li>Build command: <code>npx dokkie</code></li>
             <li>Publish directory: <code>dokkie</code></li>
           </ul>
+        </li>
+      </ol>
+      <h2 id="github-pages">Github pages</h2>
+      <ol>
+        <li>Create a Github Action</li>
+        <li>Copy the following workflow</li>
+      </ol>
+      <pre
+        class="language-yaml"
+      ><code class="language-yaml"><span class="token key atrule">name</span><span class="token punctuation">:</span> Deploy Dokkie to GH Pages
+
+<span class="token key atrule">on</span><span class="token punctuation">:</span>
+  <span class="token key atrule">push</span><span class="token punctuation">:</span>
+    <span class="token key atrule">branches</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> master
+
+<span class="token key atrule">jobs</span><span class="token punctuation">:</span>
+  <span class="token key atrule">deploy</span><span class="token punctuation">:</span>
+    <span class="token key atrule">runs-on</span><span class="token punctuation">:</span> ubuntu<span class="token punctuation">-</span><span class="token number">18.04</span>
+    <span class="token key atrule">steps</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/checkout@v2
+
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Dokkie
+        <span class="token key atrule">run</span><span class="token punctuation">:</span> npx dokkie
+
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Deploy
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> peaceiris/actions<span class="token punctuation">-</span>gh<span class="token punctuation">-</span>pages@v3
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+          <span class="token key atrule">github_token</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span><span class="token punctuation">{</span> secrets.GITHUB_TOKEN <span class="token punctuation">}</span><span class="token punctuation">}</span>
+          <span class="token key atrule">publish_dir</span><span class="token punctuation">:</span> ./dokkie
+</code></pre>
+      <ol start="3">
+        <li>Push a change on your masterbranch and you are set!</li>
+        <li>
+          Your docs now live at; ```https://[username].github.io/[reponame]
         </li>
       </ol>
     </main>
@@ -446,7 +481,7 @@
         </ul>
       </nav>
       <footnote>
-        <span>dokkie@0.0.95</span>
+        <span>dokkie@0.0.99</span>
         <span>MIT</span>
         <span>&copy; Sil van Diepen</span>
       </footnote>
