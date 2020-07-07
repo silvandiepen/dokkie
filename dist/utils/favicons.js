@@ -60,7 +60,6 @@ exports.createFavicons = (settings) => __awaiter(void 0, void 0, void 0, functio
     const faviconData = yield iconator_1.default({
         input: source,
         output: path_1.join(settings.output, faviconDest),
-        destination: faviconDest,
         appName: (_b = settings.package) === null || _b === void 0 ? void 0 : _b.name,
         appDescription: (_c = settings.package) === null || _c === void 0 ? void 0 : _c.description,
         appDeveloper: (_d = settings.package) === null || _d === void 0 ? void 0 : _d.author,
@@ -68,6 +67,7 @@ exports.createFavicons = (settings) => __awaiter(void 0, void 0, void 0, functio
         debug: false,
         color: "white",
         themeColor: "black",
+        destination: faviconDest,
         appleStatusBarStyle: "default",
     }).then((r) => __awaiter(void 0, void 0, void 0, function* () { return r; }));
     return Object.assign(Object.assign({}, settings), { faviconData: faviconData });
