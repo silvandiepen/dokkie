@@ -1,6 +1,7 @@
 /node_modules
 /docs
 /blog
+/img
 /dokkie
 /dist
 .vscode

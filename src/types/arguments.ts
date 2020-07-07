@@ -6,6 +6,7 @@ import {
 } from "./localConfig";
 import { IHandlebarsPartials } from "./handleBars";
 import { buildTypes, IFile, IPackageJson } from "./files";
+import { IOutput as IFaviconData } from "iconator/src/types";
 
 export interface IArgumentSettings {
 	input: string;
@@ -38,7 +39,7 @@ export interface ISettings extends IArgumentSettings {
 	scripts?: string;
 	styles?: string;
 	localConfig?: ILocalConfig;
-	faviconData?: any;
+	faviconData?: IFaviconData;
 	assets?: ILocalConfigAssets;
 	dokkie?: any;
 	injectHtml?: ILocalConfigInject;

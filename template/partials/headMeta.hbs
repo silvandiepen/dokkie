@@ -1,11 +1,25 @@
 <meta charset="UTF-8" />
 
+<!-- Google / Search Engine Tags -->
+{{#if title}}
+<title>{{ title }}</title>
+<meta itemprop="name" content="{{title}}" />
+<meta property="og:title" content="{{title}}">
+<meta name="twitter:title" content="{{title}}">
+{{/if}}
+
 {{#if meta.description}}
 <meta name="description" content="{{ meta.description }}" />
+<meta name="twitter:description" content="{{ meta.description }}" />
+<meta itemprop="description" content="{{ meta.description }}" />
 {{else if package.description}}
 <meta name="description" content="{{ package.description }}" />
+<meta name="twitter:description" content="{{ package.description }}" />
+<meta itemprop="description" content="{{ package.description }}" />
 {{else}}
 <meta name="description" content="{{ title }}" />
+<meta name="twitter:description" content="{{ title }}" />
+<meta itemprop="description" content="{{ title }}" />
 {{/if}}
 
 {{#if meta.keywords}}
@@ -20,6 +34,13 @@
 <meta name="author" content="{{ meta.author }}" />
 {{else package.author}}
 <meta name="author" content="{{ package.author }}" />
+{{/if}}
+
+{{#if favicons}}
+<meta itemprop="image" content="/img/favicons/google.png" />
+<meta property="og:image" content="/img/favicon/facebook.png" />
+<meta property="twitter:image" content="/img/favicon/twitter.png" />
+<meta property="twitter:card" content="/img/favicon/twitter.png" />
 {{/if}}
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />

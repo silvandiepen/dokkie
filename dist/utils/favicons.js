@@ -32,12 +32,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createFavicons = void 0;
-const favicons_1 = __importDefault(require("favicons"));
+// import favicons from "favicons";
+const iconator_1 = __importDefault(require("iconator"));
 const log = __importStar(require("cli-block"));
-const path_1 = require("path");
-const utils_1 = require("../utils");
 const { createCanvas } = require("canvas");
 const canvas_to_buffer_1 = __importDefault(require("canvas-to-buffer"));
+const path_1 = require("path");
 const createFaviconImage = (settings) => {
     const canvas = createCanvas(1024, 1024);
     const ctx = canvas.getContext("2d");
@@ -49,69 +49,27 @@ const createFaviconImage = (settings) => {
     const frame = new canvas_to_buffer_1.default(canvas);
     return frame.toBuffer();
 };
-// import * as log from "cli-block";
 exports.createFavicons = (settings) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b, _c, _d, _e;
+    var _a, _b, _c, _d;
     if (settings.skip.includes("favicons"))
         return settings;
     const source = ((_a = settings.assets) === null || _a === void 0 ? void 0 : _a.favicon) ? settings.assets.favicon
         : createFaviconImage(settings);
-    const config = {
-        path: "/img/favicons/",
+    log.BLOCK_MID("Create Favicon");
+    const faviconDest = "img/favicons";
+    const faviconData = yield iconator_1.default({
+        input: source,
+        output: path_1.join(settings.output, faviconDest),
+        destination: faviconDest,
         appName: (_b = settings.package) === null || _b === void 0 ? void 0 : _b.name,
         appDescription: (_c = settings.package) === null || _c === void 0 ? void 0 : _c.description,
-        developerName: (_d = settings.package) === null || _d === void 0 ? void 0 : _d.author,
-        developerURL: null,
-        dir: "auto",
-        lang: "en-US",
-        background: "#fff",
-        theme_color: "#fff",
-        appleStatusBarStyle: "black-translucent",
-        display: "standalone",
-        orientation: "any",
-        scope: "/",
-        start_url: "/?homescreen=1",
-        version: (_e = settings.package) === null || _e === void 0 ? void 0 : _e.version,
-        logging: false,
-        pixel_art: false,
-        loadManifestWithCredentials: false,
-        icons: {
-            android: true,
-            appleIcon: true,
-            appleStartup: true,
-            coast: true,
-            favicons: true,
-            firefox: true,
-            windows: true,
-            yandex: true,
-        },
-    };
-    log.BLOCK_MID("Create Favicon");
-    const faviconData = yield new Promise((resolve, reject) => {
-        favicons_1.default(source, config, (error, response) => __awaiter(void 0, void 0, void 0, function* () {
-            if (error)
-                reject(error);
-            resolve(response);
-        }));
-    }).then((response) => __awaiter(void 0, void 0, void 0, function* () {
-        const faviconDest = "img/favicons";
-        const writeConfig = (img) => ({
-            name: img.name,
-            path: path_1.join(settings.output, faviconDest, img.name),
-            destpath: path_1.join(settings.output, faviconDest),
-            filename: img.name,
-            title: path_1.basename(img.name),
-            ext: path_1.extname(img.name),
-            route: path_1.join(faviconDest, img.name),
-        });
-        yield utils_1.asyncForEach(response.images, (img) => __awaiter(void 0, void 0, void 0, function* () {
-            yield utils_1.writeThatFile(writeConfig(img), img.contents, true);
-        }));
-        yield utils_1.asyncForEach(response.files, (img) => __awaiter(void 0, void 0, void 0, function* () {
-            yield utils_1.writeThatFile(writeConfig(img), img.contents, true);
-        }));
-        return response;
-    }));
+        appDeveloper: (_d = settings.package) === null || _d === void 0 ? void 0 : _d.author,
+        appDeveloperUrl: null,
+        debug: false,
+        color: "white",
+        themeColor: "black",
+        appleStatusBarStyle: "default",
+    }).then((r) => __awaiter(void 0, void 0, void 0, function* () { return r; }));
     return Object.assign(Object.assign({}, settings), { faviconData: faviconData });
 });
 //# sourceMappingURL=favicons.js.map
