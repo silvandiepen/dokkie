@@ -61,11 +61,10 @@ export const buildNavigation = async (
 			menus.forEach((item) => overruleMenus.push(item.meta.menu));
 
 			// 3.
-
 			overruleMenus.forEach((menu) => {
 				nav = nav
 					.map((item) =>
-						item.meta?.menu.find(menu, menu.name == menu)
+						item.meta?.menu?.find(menu, menu.name == menu)
 							? {
 									...item,
 									meta: {

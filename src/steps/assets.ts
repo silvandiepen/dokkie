@@ -32,7 +32,6 @@ const downloadImage = async (
 			await writeFile(filePath, imageFile).then(async () => {
 				if (settings.debug) {
 					const stats = await stat(filePath);
-					console.log(stats);
 				}
 			});
 		}

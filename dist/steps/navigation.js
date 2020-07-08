@@ -72,8 +72,8 @@ exports.buildNavigation = (settings) => __awaiter(void 0, void 0, void 0, functi
             overruleMenus.forEach((menu) => {
                 nav = nav
                     .map((item) => {
-                    var _a;
-                    return ((_a = item.meta) === null || _a === void 0 ? void 0 : _a.menu.find(menu, menu.name == menu)) ? Object.assign(Object.assign({}, item), { meta: Object.assign(Object.assign({}, item.meta), { menu: item.meta.menu.filter((item) => item.name !== menu) }) }) : item;
+                    var _a, _b;
+                    return ((_b = (_a = item.meta) === null || _a === void 0 ? void 0 : _a.menu) === null || _b === void 0 ? void 0 : _b.find(menu, menu.name == menu)) ? Object.assign(Object.assign({}, item), { meta: Object.assign(Object.assign({}, item.meta), { menu: item.meta.menu.filter((item) => item.name !== menu) }) }) : item;
                 })
                     .filter((item) => item.meta.menu !== []);
             });
