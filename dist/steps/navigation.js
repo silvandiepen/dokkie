@@ -36,6 +36,7 @@ exports.buildNavigation = (settings) => __awaiter(void 0, void 0, void 0, functi
             });
     });
     if (settings.extendNavigation)
+        // Extend navigation from the settings
         settings.extendNavigation.forEach((item) => {
             if (!item.parent)
                 item.parent = "";

@@ -26,6 +26,7 @@ export const buildNavigation = async (
 	});
 
 	if (settings.extendNavigation)
+		// Extend navigation from the settings
 		settings.extendNavigation.forEach((item: INavigation) => {
 			if (!item.parent) item.parent = "";
 			nav.push(item);
@@ -34,7 +35,6 @@ export const buildNavigation = async (
 	if (settings.overruleNavigation) {
 		// When it's a blog. None of the menu's should be shown by default. So, first all items found
 		// are put into the menu 'overview'. Then the overruled menus will be added to their respective menus.
-
 		if (settings.type == "blog") {
 			nav.forEach((item) => (item.meta.menu = ["overview"]));
 			settings.overruleNavigation.forEach((item: INavigation) => {
