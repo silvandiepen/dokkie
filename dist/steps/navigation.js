@@ -110,7 +110,8 @@ const filterNavigation = (nav, parent) => {
     return filteredNav;
 };
 exports.getNavigation = (settings, filter) => {
-    const current = settings.showNavigation.find((nav) => nav.name == filter);
+    var _a;
+    const current = (_a = settings.showNavigation) === null || _a === void 0 ? void 0 : _a.find((nav) => nav.name == filter);
     if (current)
         return Object.assign(Object.assign({}, current), { menu: filterNavigation(Array.from(settings.navigation), filter).filter(Boolean), showClass: `${current.mobile ? "" : "hide-mobile"} ${current.desktop ? "show-desktop" : "hide-desktop"}` });
     return null;

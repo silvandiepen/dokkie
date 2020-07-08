@@ -127,7 +127,7 @@ const filterNavigation = (
 };
 
 export const getNavigation = (settings: ISettings, filter: string): IMenu => {
-	const current = settings.showNavigation.find((nav) => nav.name == filter);
+	const current = settings.showNavigation?.find((nav) => nav.name == filter);
 
 	if (current)
 		return {
