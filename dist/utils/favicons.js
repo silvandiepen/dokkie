@@ -69,6 +69,7 @@ exports.createFavicons = (settings) => __awaiter(void 0, void 0, void 0, functio
         themeColor: "black",
         destination: faviconDest,
         appleStatusBarStyle: "default",
+        logging: ["inline", "minimal"],
     }).then((r) => __awaiter(void 0, void 0, void 0, function* () { return r; }));
     return Object.assign(Object.assign({}, settings), { faviconData: faviconData });
 });
