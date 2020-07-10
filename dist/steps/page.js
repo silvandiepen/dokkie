@@ -58,7 +58,7 @@ exports.convertDataToHtml = (settings) => __awaiter(void 0, void 0, void 0, func
 });
 // Filter files
 exports.filterHiddenPages = (settings) => __awaiter(void 0, void 0, void 0, function* () {
-    const files = settings.files.filter((file) => file.meta.remove ? null : file);
+    const files = settings.files.filter((file) => { var _a; return ((_a = file.meta) === null || _a === void 0 ? void 0 : _a.remove) ? null : file; });
     return Object.assign(Object.assign({}, settings), { files: files });
 });
 // Get the layouts

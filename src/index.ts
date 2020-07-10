@@ -17,6 +17,8 @@ import {
 	getFiles,
 	setFileDate,
 	fileData,
+	concatPartials,
+	cleanupFilePathAfterOrder,
 	getPackageInformation,
 	loadLocalConfig,
 	setLocalConfig,
@@ -68,6 +70,8 @@ buildDokkie(settings())
 	})
 	.then(getFiles)
 	.then(fileData)
+	.then(concatPartials)
+	.then(cleanupFilePathAfterOrder)
 	.then(getPackageInformation)
 	.then(convertDataToHtml)
 	.then(filterHiddenPages)

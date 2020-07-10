@@ -40,7 +40,7 @@ export const filterHiddenPages = async (
 	settings: ISettings
 ): Promise<ISettings> => {
 	const files = settings.files.filter((file: IFile) =>
-		file.meta.remove ? null : file
+		file.meta?.remove ? null : file
 	);
 	return { ...settings, files: files };
 };
