@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
 
     <!-- Google / Search Engine Tags -->
-    <title>Templates</title>
-    <meta itemprop="name" content="Templates" />
-    <meta property="og:title" content="Templates" />
-    <meta name="twitter:title" content="Templates" />
+    <title>Deployment</title>
+    <meta itemprop="name" content="Deployment" />
+    <meta property="og:title" content="Deployment" />
+    <meta name="twitter:title" content="Deployment" />
 
     <meta
       name="description"
@@ -237,7 +237,7 @@
       rel="yandex-tableau-widget"
       href="img/favicons/yandex-browser-manifest.json"
     />
-    <title>Templates</title>
+    <title>Deployment</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -246,7 +246,7 @@
     />
   </head>
 
-  <body id="page-usage-templates">
+  <body id="page-usage-2:deployment">
     <!--- Page Header -->
     <header id="header">
       <h1>
@@ -278,22 +278,22 @@
           <li>
             <a href="/usage/">Usage</a>
             <ul>
-              <li><a href="/usage/blog/">Blog</a></li>
-
-              <li><a href="/usage/configuration/">Configuration</a></li>
-
-              <li><a href="/usage/deployment/">Deployment</a></li>
-
-              <li><a href="/usage/favicons/">Favicons</a></li>
-
-              <li><a href="/usage/markdown/">Markdown</a></li>
-
-              <li><a href="/usage/navigation/">Navigation</a></li>
-
-              <li><a href="/usage/pages/">Pages</a></li>
+              <li><a href="/usage/1:configuration/">Configuration</a></li>
               <li class="active">
-                <a href="/usage/templates/">Templates</a>
+                <a href="/usage/2:deployment/">Deployment</a>
               </li>
+
+              <li><a href="/usage/3:pages/">Pages</a></li>
+
+              <li><a href="/usage/4:navigation/">Navigation</a></li>
+
+              <li><a href="/usage/5:templates/">Templates</a></li>
+
+              <li><a href="/usage/6:markdown/">Markdown</a></li>
+
+              <li><a href="/usage/7:favicons/">Favicons</a></li>
+
+              <li><a href="/usage/8:blog/">Blog</a></li>
             </ul>
           </li>
 
@@ -346,34 +346,34 @@
             <a href="/usage/">Usage</a>
             <ul>
               <li>
-                <a href="/usage/blog/">Blog</a>
-              </li>
-
-              <li>
-                <a href="/usage/configuration/">Configuration</a>
-              </li>
-
-              <li>
-                <a href="/usage/deployment/">Deployment</a>
-              </li>
-
-              <li>
-                <a href="/usage/favicons/">Favicons</a>
-              </li>
-
-              <li>
-                <a href="/usage/markdown/">Markdown</a>
-              </li>
-
-              <li>
-                <a href="/usage/navigation/">Navigation</a>
-              </li>
-
-              <li>
-                <a href="/usage/pages/">Pages</a>
+                <a href="/usage/1:configuration/">Configuration</a>
               </li>
               <li class="active">
-                <a href="/usage/templates/">Templates</a>
+                <a href="/usage/2:deployment/">Deployment</a>
+              </li>
+
+              <li>
+                <a href="/usage/3:pages/">Pages</a>
+              </li>
+
+              <li>
+                <a href="/usage/4:navigation/">Navigation</a>
+              </li>
+
+              <li>
+                <a href="/usage/5:templates/">Templates</a>
+              </li>
+
+              <li>
+                <a href="/usage/6:markdown/">Markdown</a>
+              </li>
+
+              <li>
+                <a href="/usage/7:favicons/">Favicons</a>
+              </li>
+
+              <li>
+                <a href="/usage/8:blog/">Blog</a>
               </li>
             </ul>
           </li>
@@ -383,111 +383,7 @@
 
     <!--- Page Main section-->
     <main id="main" class="content">
-      <h1 id="templates">Templates</h1>
-      <p>
-        Dokkie comes with a few html templates. You can use these, or create
-        your own template based on Dokkie’s.
-      </p>
-      <h3 id="use-your-own">Use your own</h3>
-      <pre
-        class="language-bash"
-      ><code class="language-bash">    npx dokkie --template<span class="token operator">=</span>myown-template.html
-</code></pre>
-      <h3 id="simple-template">Simple Template</h3>
-      <script src="https://gist-it.appspot.com/github/silvandiepen/dokkie/blob/master/template/simple.hbs"></script>
-      <h3 id="default-template">Default Template</h3>
-      <script src="https://gist-it.appspot.com/github/silvandiepen/dokkie/blob/master/template/default.hbs"></script>
-      <h3 id="blog-template">Blog Template</h3>
-      <script src="https://gist-it.appspot.com/github/silvandiepen/dokkie/blob/master/template/blog.hbs"></script>
-      <h2 id="inject-html">Inject Html</h2>
-      <p>It’s also possible to inject html into the templates.</p>
-      <p><strong>dokkie.config.json</strong></p>
-      <pre
-        class="language-json"
-      ><code class="language-json"><span class="token punctuation">{</span>
-	<span class="token property">"injectHtml"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-		<span class="token property">"mainBefore"</span><span class="token operator">:</span> <span class="token string">"&lt;my-html>string&lt;/my-html>"</span>
-	<span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-      <p><strong>options</strong></p>
-      <table>
-        <thead>
-          <tr>
-            <th>option</th>
-            <th>description</th>
-            <th>availabe in layout</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>headerBefore</td>
-            <td>Add html in top of header</td>
-            <td>default, blog</td>
-          </tr>
-          <tr>
-            <td>headerAfter</td>
-            <td>Add html in bottom of header</td>
-            <td>default, blog</td>
-          </tr>
-          <tr>
-            <td>sidebarBefore</td>
-            <td>Add html in top of sidebar</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>sidebarAfter</td>
-            <td>Add html in bottom of sidebar</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>mainBefore</td>
-            <td>Add html in top of main</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>mainAfter</td>
-            <td>Add html in bottom of main</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>footerBefore</td>
-            <td>Add html in top of footer</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>footerAfter</td>
-            <td>Add html in bottom of footer</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>overviewBefore</td>
-            <td>Add html in top of overview</td>
-            <td>blog</td>
-          </tr>
-          <tr>
-            <td>overviewAfter</td>
-            <td>Add html in bottom of overview</td>
-            <td>blog</td>
-          </tr>
-          <tr>
-            <td>articleBefore</td>
-            <td>Add html in top of article</td>
-            <td>blog</td>
-          </tr>
-          <tr>
-            <td>articleAfter</td>
-            <td>Add html in bottom of article</td>
-            <td>blog</td>
-          </tr>
-        </tbody>
-      </table>
-      <h3 id="custom">Custom</h3>
-      <p>A custom layout can be used by giving a layout argument;</p>
-      <pre
-        class="language-bash"
-      ><code class="language-bash">    npx dokkie --layout<span class="token operator">=</span>src/my-own/layout.html
-</code></pre>
+      <h1 id="deployment">Deployment</h1>
     </main>
 
     <!--- Page Footer Content -->
@@ -527,34 +423,34 @@
             <a href="/usage/">Usage</a>
             <ul>
               <li>
-                <a href="/usage/blog/">Blog</a>
-              </li>
-
-              <li>
-                <a href="/usage/configuration/">Configuration</a>
-              </li>
-
-              <li>
-                <a href="/usage/deployment/">Deployment</a>
-              </li>
-
-              <li>
-                <a href="/usage/favicons/">Favicons</a>
-              </li>
-
-              <li>
-                <a href="/usage/markdown/">Markdown</a>
-              </li>
-
-              <li>
-                <a href="/usage/navigation/">Navigation</a>
-              </li>
-
-              <li>
-                <a href="/usage/pages/">Pages</a>
+                <a href="/usage/1:configuration/">Configuration</a>
               </li>
               <li class="active">
-                <a href="/usage/templates/">Templates</a>
+                <a href="/usage/2:deployment/">Deployment</a>
+              </li>
+
+              <li>
+                <a href="/usage/3:pages/">Pages</a>
+              </li>
+
+              <li>
+                <a href="/usage/4:navigation/">Navigation</a>
+              </li>
+
+              <li>
+                <a href="/usage/5:templates/">Templates</a>
+              </li>
+
+              <li>
+                <a href="/usage/6:markdown/">Markdown</a>
+              </li>
+
+              <li>
+                <a href="/usage/7:favicons/">Favicons</a>
+              </li>
+
+              <li>
+                <a href="/usage/8:blog/">Blog</a>
               </li>
             </ul>
           </li>

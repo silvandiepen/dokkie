@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
 
     <!-- Google / Search Engine Tags -->
-    <title>About</title>
-    <meta itemprop="name" content="About" />
-    <meta property="og:title" content="About" />
-    <meta name="twitter:title" content="About" />
+    <title>Blog</title>
+    <meta itemprop="name" content="Blog" />
+    <meta property="og:title" content="Blog" />
+    <meta name="twitter:title" content="Blog" />
 
     <meta
       name="description"
@@ -237,7 +237,7 @@
       rel="yandex-tableau-widget"
       href="img/favicons/yandex-browser-manifest.json"
     />
-    <title>About</title>
+    <title>Blog</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -246,7 +246,7 @@
     />
   </head>
 
-  <body id="page-about">
+  <body id="page-usage-8:blog">
     <!--- Page Header -->
     <header id="header">
       <h1>
@@ -266,7 +266,7 @@
       ></label>
       <nav class="show-desktop">
         <ul>
-          <li class="active">
+          <li>
             <a href="/about/">About</a>
             <ul>
               <li><a href="/about/in-use/">In use</a></li>
@@ -291,8 +291,9 @@
               <li><a href="/usage/6:markdown/">Markdown</a></li>
 
               <li><a href="/usage/7:favicons/">Favicons</a></li>
-
-              <li><a href="/usage/8:blog/">Blog</a></li>
+              <li class="active">
+                <a href="/usage/8:blog/">Blog</a>
+              </li>
             </ul>
           </li>
 
@@ -328,7 +329,7 @@
     <aside id="sidebar">
       <nav class="hide-mobile show-desktop">
         <ul>
-          <li class="active">
+          <li>
             <a href="/about/">About</a>
             <ul>
               <li>
@@ -371,8 +372,7 @@
               <li>
                 <a href="/usage/7:favicons/">Favicons</a>
               </li>
-
-              <li>
+              <li class="active">
                 <a href="/usage/8:blog/">Blog</a>
               </li>
             </ul>
@@ -383,18 +383,59 @@
 
     <!--- Page Main section-->
     <main id="main" class="content">
-      <h1 id="about-dokkie">About Dokkie</h1>
+      <h1 id="creating-a-blog">Creating a blog</h1>
       <p>
-        Dokkie came to existance as a really tiny tool, just to create your
-        docs. Don’t touch anything, don’t config anything, just deploy and go!
+        Besides easily creating documentation, you can also use Dokkie to build
+        your blog! The only thing you do is set up a repository with markdown
+        files and build it with one command;
       </p>
+      <pre
+        class="language-bash"
+      ><code class="language-bash">npx dokkie --type<span class="token operator">=</span>blog
+</code></pre>
+      <h3 id="sorted-on-date.">Sorted on date.</h3>
+      <p>
+        Blogs are automatically ordered by their file creation date. If you
+        don’t want that, you can set an alternate date in your files with the
+        following format;
+      </p>
+      <pre
+        class="language-md"
+      ><code class="language-md"><span class="token hr punctuation">---</span>
+<span class="token title important">date: 2020-02-22
+<span class="token punctuation">---</span></span>
+</code></pre>
+      <h3 id="meta">Meta</h3>
+      <p>
+        A blog post by default has just a title and text, but if you want to
+        give extra info like the tags. You can also just add them to your post;
+      </p>
+      <p><strong>Tags</strong></p>
+      <pre
+        class="language-md"
+      ><code class="language-md"><span class="token hr punctuation">---</span>
+<span class="token title important">tags: test, tag, for, post
+<span class="token punctuation">---</span></span>
+</code></pre>
+      <p>
+        <strong>Author + Link</strong><br />
+        The author also supports a authorLink, which will automatically be the
+        link for the author when clicked on.
+      </p>
+      <pre
+        class="language-md"
+      ><code class="language-md"><span class="token hr punctuation">---</span>
+author: Sil
+<span class="token title important">authorLink: https://silvandiepen.nl
+<span class="token punctuation">---</span></span>
+</code></pre>
     </main>
 
     <!--- Page Footer Content -->
     <footer id="footer">
       <nav class="show-desktop">
         <ul>
-          <li class="active">
+          <li>
             <a href="/about/">About</a>
             <ul>
               <li>
@@ -453,8 +494,7 @@
               <li>
                 <a href="/usage/7:favicons/">Favicons</a>
               </li>
-
-              <li>
+              <li class="active">
                 <a href="/usage/8:blog/">Blog</a>
               </li>
             </ul>

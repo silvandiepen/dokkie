@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
 
     <!-- Google / Search Engine Tags -->
-    <title>About</title>
-    <meta itemprop="name" content="About" />
-    <meta property="og:title" content="About" />
-    <meta name="twitter:title" content="About" />
+    <title># Settings files</title>
+    <meta itemprop="name" content="# Settings files" />
+    <meta property="og:title" content="# Settings files" />
+    <meta name="twitter:title" content="# Settings files" />
 
     <meta
       name="description"
@@ -237,7 +237,7 @@
       rel="yandex-tableau-widget"
       href="img/favicons/yandex-browser-manifest.json"
     />
-    <title>About</title>
+    <title># Settings files</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -246,7 +246,7 @@
     />
   </head>
 
-  <body id="page-about">
+  <body id="page-usage-1:configuration-_3:files">
     <!--- Page Header -->
     <header id="header">
       <h1>
@@ -266,7 +266,7 @@
       ></label>
       <nav class="show-desktop">
         <ul>
-          <li class="active">
+          <li>
             <a href="/about/">About</a>
             <ul>
               <li><a href="/about/in-use/">In use</a></li>
@@ -328,7 +328,7 @@
     <aside id="sidebar">
       <nav class="hide-mobile show-desktop">
         <ul>
-          <li class="active">
+          <li>
             <a href="/about/">About</a>
             <ul>
               <li>
@@ -383,18 +383,29 @@
 
     <!--- Page Main section-->
     <main id="main" class="content">
-      <h1 id="about-dokkie">About Dokkie</h1>
+      <h3 id="settings-files">Settings files</h3>
       <p>
-        Dokkie came to existance as a really tiny tool, just to create your
-        docs. Don’t touch anything, don’t config anything, just deploy and go!
+        Dokkie also accepts a settings file in the root of your project (or root
+        of where your input is).
       </p>
+      <p><strong>example</strong></p>
+      <pre
+        class="language-json"
+      ><code class="language-json"><span class="token punctuation">{</span>
+	<span class="token property">"input"</span><span class="token operator">:</span> <span class="token string">"docs"</span><span class="token punctuation">,</span>
+	<span class="token property">"output"</span><span class="token operator">:</span> <span class="token string">"dist"</span><span class="token punctuation">,</span>
+	<span class="token property">"cleanBefore"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+	<span class="token property">"copy"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"themes"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+	<span class="token property">"showNavigation"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"header"</span><span class="token punctuation">,</span> <span class="token string">"footer"</span><span class="token punctuation">,</span> <span class="token string">"sidebar"</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
     </main>
 
     <!--- Page Footer Content -->
     <footer id="footer">
       <nav class="show-desktop">
         <ul>
-          <li class="active">
+          <li>
             <a href="/about/">About</a>
             <ul>
               <li>

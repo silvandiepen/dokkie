@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
 
     <!-- Google / Search Engine Tags -->
-    <title>About</title>
-    <meta itemprop="name" content="About" />
-    <meta property="og:title" content="About" />
-    <meta name="twitter:title" content="About" />
+    <title>Favicons</title>
+    <meta itemprop="name" content="Favicons" />
+    <meta property="og:title" content="Favicons" />
+    <meta name="twitter:title" content="Favicons" />
 
     <meta
       name="description"
@@ -237,7 +237,7 @@
       rel="yandex-tableau-widget"
       href="img/favicons/yandex-browser-manifest.json"
     />
-    <title>About</title>
+    <title>Favicons</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -246,7 +246,7 @@
     />
   </head>
 
-  <body id="page-about">
+  <body id="page-usage-7:favicons">
     <!--- Page Header -->
     <header id="header">
       <h1>
@@ -266,7 +266,7 @@
       ></label>
       <nav class="show-desktop">
         <ul>
-          <li class="active">
+          <li>
             <a href="/about/">About</a>
             <ul>
               <li><a href="/about/in-use/">In use</a></li>
@@ -289,8 +289,9 @@
               <li><a href="/usage/5:templates/">Templates</a></li>
 
               <li><a href="/usage/6:markdown/">Markdown</a></li>
-
-              <li><a href="/usage/7:favicons/">Favicons</a></li>
+              <li class="active">
+                <a href="/usage/7:favicons/">Favicons</a>
+              </li>
 
               <li><a href="/usage/8:blog/">Blog</a></li>
             </ul>
@@ -328,7 +329,7 @@
     <aside id="sidebar">
       <nav class="hide-mobile show-desktop">
         <ul>
-          <li class="active">
+          <li>
             <a href="/about/">About</a>
             <ul>
               <li>
@@ -367,8 +368,7 @@
               <li>
                 <a href="/usage/6:markdown/">Markdown</a>
               </li>
-
-              <li>
+              <li class="active">
                 <a href="/usage/7:favicons/">Favicons</a>
               </li>
 
@@ -383,18 +383,60 @@
 
     <!--- Page Main section-->
     <main id="main" class="content">
-      <h1 id="about-dokkie">About Dokkie</h1>
+      <h1 id="favicons">Favicons</h1>
       <p>
-        Dokkie came to existance as a really tiny tool, just to create your
-        docs. Don’t touch anything, don’t config anything, just deploy and go!
+        Dokkie automatically creates a favicon for you. But if you don’t like
+        that one, you can ofcourse just<br />
+        change that into any image you want.
       </p>
+      <p><strong>cli</strong></p>
+      <pre
+        class="language-bash"
+      ><code class="language-bash">npx dokkie --favicon<span class="token operator">=</span>your/image/file.jpg
+</code></pre>
+      <p><strong>dokkie.config.json</strong></p>
+      <pre
+        class="language-json"
+      ><code class="language-json"><span class="token punctuation">{</span>
+	<span class="token property">"favicon"</span><span class="token operator">:</span> <span class="token string">"your/image/file.jpg"</span>
+<span class="token punctuation">}</span>
+</code></pre>
+      <blockquote>
+        <p>
+          <strong><em>NOTE:</em></strong> Make sure the file is quite big in
+          size; recommended: (1024x1024)
+        </p>
+      </blockquote>
+      <h3 id="meta-data">Meta data</h3>
+      <p>
+        The favicon generator comes with a lot other meta data which is auto
+        included in your head. Turning favicons off, also affects this.
+      </p>
+      <h3 id="skip-favicons">Skip favicons</h3>
+      <p>
+        If you don’t want favicons. For instance in a development environment or
+        you will use your own through a custom template and copy. You can skip
+        them.
+      </p>
+      <p><strong>cli</strong></p>
+      <pre
+        class="language-bash"
+      ><code class="language-bash">npx dokkie --skip<span class="token operator">=</span>favicons
+</code></pre>
+      <p><strong>dokkie.config.json</strong></p>
+      <pre
+        class="language-json"
+      ><code class="language-json"><span class="token punctuation">{</span>
+	<span class="token property">"skip"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"favicons"</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
     </main>
 
     <!--- Page Footer Content -->
     <footer id="footer">
       <nav class="show-desktop">
         <ul>
-          <li class="active">
+          <li>
             <a href="/about/">About</a>
             <ul>
               <li>
@@ -449,8 +491,7 @@
               <li>
                 <a href="/usage/6:markdown/">Markdown</a>
               </li>
-
-              <li>
+              <li class="active">
                 <a href="/usage/7:favicons/">Favicons</a>
               </li>
 

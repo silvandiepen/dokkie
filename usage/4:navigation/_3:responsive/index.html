@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
 
     <!-- Google / Search Engine Tags -->
-    <title>Navigation</title>
-    <meta itemprop="name" content="Navigation" />
-    <meta property="og:title" content="Navigation" />
-    <meta name="twitter:title" content="Navigation" />
+    <title># Responsive</title>
+    <meta itemprop="name" content="# Responsive" />
+    <meta property="og:title" content="# Responsive" />
+    <meta name="twitter:title" content="# Responsive" />
 
     <meta
       name="description"
@@ -237,7 +237,7 @@
       rel="yandex-tableau-widget"
       href="img/favicons/yandex-browser-manifest.json"
     />
-    <title>Navigation</title>
+    <title># Responsive</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -246,7 +246,7 @@
     />
   </head>
 
-  <body id="page-usage-navigation">
+  <body id="page-usage-4:navigation-_3:responsive">
     <!--- Page Header -->
     <header id="header">
       <h1>
@@ -278,22 +278,21 @@
           <li>
             <a href="/usage/">Usage</a>
             <ul>
-              <li><a href="/usage/blog/">Blog</a></li>
+              <li><a href="/usage/1:configuration/">Configuration</a></li>
 
-              <li><a href="/usage/configuration/">Configuration</a></li>
+              <li><a href="/usage/2:deployment/">Deployment</a></li>
 
-              <li><a href="/usage/deployment/">Deployment</a></li>
+              <li><a href="/usage/3:pages/">Pages</a></li>
 
-              <li><a href="/usage/favicons/">Favicons</a></li>
+              <li><a href="/usage/4:navigation/">Navigation</a></li>
 
-              <li><a href="/usage/markdown/">Markdown</a></li>
-              <li class="active">
-                <a href="/usage/navigation/">Navigation</a>
-              </li>
+              <li><a href="/usage/5:templates/">Templates</a></li>
 
-              <li><a href="/usage/pages/">Pages</a></li>
+              <li><a href="/usage/6:markdown/">Markdown</a></li>
 
-              <li><a href="/usage/templates/">Templates</a></li>
+              <li><a href="/usage/7:favicons/">Favicons</a></li>
+
+              <li><a href="/usage/8:blog/">Blog</a></li>
             </ul>
           </li>
 
@@ -346,34 +345,35 @@
             <a href="/usage/">Usage</a>
             <ul>
               <li>
-                <a href="/usage/blog/">Blog</a>
+                <a href="/usage/1:configuration/">Configuration</a>
               </li>
 
               <li>
-                <a href="/usage/configuration/">Configuration</a>
+                <a href="/usage/2:deployment/">Deployment</a>
               </li>
 
               <li>
-                <a href="/usage/deployment/">Deployment</a>
+                <a href="/usage/3:pages/">Pages</a>
               </li>
 
               <li>
-                <a href="/usage/favicons/">Favicons</a>
+                <a href="/usage/4:navigation/">Navigation</a>
               </li>
 
               <li>
-                <a href="/usage/markdown/">Markdown</a>
-              </li>
-              <li class="active">
-                <a href="/usage/navigation/">Navigation</a>
+                <a href="/usage/5:templates/">Templates</a>
               </li>
 
               <li>
-                <a href="/usage/pages/">Pages</a>
+                <a href="/usage/6:markdown/">Markdown</a>
               </li>
 
               <li>
-                <a href="/usage/templates/">Templates</a>
+                <a href="/usage/7:favicons/">Favicons</a>
+              </li>
+
+              <li>
+                <a href="/usage/8:blog/">Blog</a>
               </li>
             </ul>
           </li>
@@ -383,35 +383,6 @@
 
     <!--- Page Main section-->
     <main id="main" class="content">
-      <h1 id="navigation">Navigation</h1>
-      <p>
-        There are multiple ways you can navigate through a website. Dokkie has
-        multiple build in navigation options.
-      </p>
-      <h3 id="navigation-types">Navigation types</h3>
-      <p>
-        By default you will get a footer navigation and a top navigation. But
-        you can also add a sidebar navigation just like you see on this page.
-      </p>
-      <p><strong>dokkie.config.json</strong></p>
-      <pre
-        class="language-json"
-      ><code class="language-json"><span class="token punctuation">{</span>
-	<span class="token property">"showNavigation"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"header"</span><span class="token punctuation">,</span> <span class="token string">"footer"</span><span class="token punctuation">,</span> <span class="token string">"sidebar"</span><span class="token punctuation">]</span>
-<span class="token punctuation">}</span>
-</code></pre>
-      <h3 id="flat-navigation">Flat navigation</h3>
-      <p>
-        Dokkie creates the navigation, like you structure your files. But if you
-        want, you can also make the navigation completely flat.
-      </p>
-      <p><strong>dokkie.config.json</strong></p>
-      <pre
-        class="language-json"
-      ><code class="language-json"><span class="token punctuation">{</span>
-	<span class="token property">"flatNavigation"</span><span class="token operator">:</span> <span class="token boolean">true</span>
-<span class="token punctuation">}</span>
-</code></pre>
       <h3 id="responsive">Responsive</h3>
       <p>
         Header and Sidebar menu’s will automatically be converted to their
@@ -448,50 +419,6 @@
 	<span class="token punctuation">]</span>
 <span class="token punctuation">}</span>
 </code></pre>
-      <h3 id="settings-from-within-the-page.">
-        Settings from within the page.
-      </h3>
-      <p>
-        <strong>Change menu in page</strong><br />
-        Every page will automatically be placed in the navigation based on where
-        the file is placed in the tree. This can be overruled by defining the
-        menu in a markdown file;
-      </p>
-      <p>
-        The following file is only shown in the <code>footer</code> menu, not
-        like by default in any other menu.
-      </p>
-      <pre
-        class="language-markdown"
-      ><code class="language-markdown"><span class="token hr punctuation">---</span>
-<span class="token title important">menu: footer
-<span class="token punctuation">---</span></span>
-</code></pre>
-      <p>
-        <strong>Change parent in menu</strong><br />
-        Every page will automatically be placed in the navigation based on where
-        the file is placed in the tree. This can be overruled by defining the
-        parent in a markdown file;
-      </p>
-      <p>
-        The following file is placed in the root of your repository but should
-        in the menu be placed under <code>usage</code> in the menu;
-      </p>
-      <pre
-        class="language-markdown"
-      ><code class="language-markdown"><span class="token hr punctuation">---</span>
-<span class="token title important">parent: usage
-<span class="token punctuation">---</span></span>
-</code></pre>
-      <hr />
-      <div class="alert alert-warning" role="alert">
-        <p>
-          <strong>Navigation depth</strong><br />
-          For now the navigation won’t go deeper than 2 levels. This means that
-          levels deeper than 2, will simply not be shown in the menu. This does
-          not mean they don’t exist.
-        </p>
-      </div>
     </main>
 
     <!--- Page Footer Content -->
@@ -531,34 +458,35 @@
             <a href="/usage/">Usage</a>
             <ul>
               <li>
-                <a href="/usage/blog/">Blog</a>
+                <a href="/usage/1:configuration/">Configuration</a>
               </li>
 
               <li>
-                <a href="/usage/configuration/">Configuration</a>
+                <a href="/usage/2:deployment/">Deployment</a>
               </li>
 
               <li>
-                <a href="/usage/deployment/">Deployment</a>
+                <a href="/usage/3:pages/">Pages</a>
               </li>
 
               <li>
-                <a href="/usage/favicons/">Favicons</a>
+                <a href="/usage/4:navigation/">Navigation</a>
               </li>
 
               <li>
-                <a href="/usage/markdown/">Markdown</a>
-              </li>
-              <li class="active">
-                <a href="/usage/navigation/">Navigation</a>
+                <a href="/usage/5:templates/">Templates</a>
               </li>
 
               <li>
-                <a href="/usage/pages/">Pages</a>
+                <a href="/usage/6:markdown/">Markdown</a>
               </li>
 
               <li>
-                <a href="/usage/templates/">Templates</a>
+                <a href="/usage/7:favicons/">Favicons</a>
+              </li>
+
+              <li>
+                <a href="/usage/8:blog/">Blog</a>
               </li>
             </ul>
           </li>

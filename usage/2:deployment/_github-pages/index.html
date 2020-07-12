@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
 
     <!-- Google / Search Engine Tags -->
-    <title>About</title>
-    <meta itemprop="name" content="About" />
-    <meta property="og:title" content="About" />
-    <meta name="twitter:title" content="About" />
+    <title>Github pages</title>
+    <meta itemprop="name" content=" Github pages" />
+    <meta property="og:title" content=" Github pages" />
+    <meta name="twitter:title" content=" Github pages" />
 
     <meta
       name="description"
@@ -237,7 +237,7 @@
       rel="yandex-tableau-widget"
       href="img/favicons/yandex-browser-manifest.json"
     />
-    <title>About</title>
+    <title>Github pages</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -246,7 +246,7 @@
     />
   </head>
 
-  <body id="page-about">
+  <body id="page-usage-2:deployment-_github-pages">
     <!--- Page Header -->
     <header id="header">
       <h1>
@@ -266,7 +266,7 @@
       ></label>
       <nav class="show-desktop">
         <ul>
-          <li class="active">
+          <li>
             <a href="/about/">About</a>
             <ul>
               <li><a href="/about/in-use/">In use</a></li>
@@ -328,7 +328,7 @@
     <aside id="sidebar">
       <nav class="hide-mobile show-desktop">
         <ul>
-          <li class="active">
+          <li>
             <a href="/about/">About</a>
             <ul>
               <li>
@@ -383,18 +383,48 @@
 
     <!--- Page Main section-->
     <main id="main" class="content">
-      <h1 id="about-dokkie">About Dokkie</h1>
-      <p>
-        Dokkie came to existance as a really tiny tool, just to create your
-        docs. Don’t touch anything, don’t config anything, just deploy and go!
-      </p>
+      <h2 id="github-pages">Github pages</h2>
+      <ol>
+        <li>Create a Github Action</li>
+        <li>Copy the following workflow</li>
+      </ol>
+      <pre
+        class="language-yaml"
+      ><code class="language-yaml"><span class="token key atrule">name</span><span class="token punctuation">:</span> Deploy Dokkie to GH Pages
+
+<span class="token key atrule">on</span><span class="token punctuation">:</span>
+  <span class="token key atrule">push</span><span class="token punctuation">:</span>
+    <span class="token key atrule">branches</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> master
+
+<span class="token key atrule">jobs</span><span class="token punctuation">:</span>
+  <span class="token key atrule">deploy</span><span class="token punctuation">:</span>
+    <span class="token key atrule">runs-on</span><span class="token punctuation">:</span> ubuntu<span class="token punctuation">-</span><span class="token number">18.04</span>
+    <span class="token key atrule">steps</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/checkout@v2
+
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Dokkie
+        <span class="token key atrule">run</span><span class="token punctuation">:</span> npx dokkie
+
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Deploy
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> peaceiris/actions<span class="token punctuation">-</span>gh<span class="token punctuation">-</span>pages@v3
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+          <span class="token key atrule">github_token</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span><span class="token punctuation">{</span> secrets.GITHUB_TOKEN <span class="token punctuation">}</span><span class="token punctuation">}</span>
+          <span class="token key atrule">publish_dir</span><span class="token punctuation">:</span> ./dokkie
+</code></pre>
+      <ol start="3">
+        <li>Push a change on your masterbranch and you are set!</li>
+        <li>
+          Your docs now live at; ```https://[username].github.io/[reponame]
+        </li>
+      </ol>
     </main>
 
     <!--- Page Footer Content -->
     <footer id="footer">
       <nav class="show-desktop">
         <ul>
-          <li class="active">
+          <li>
             <a href="/about/">About</a>
             <ul>
               <li>

@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
 
     <!-- Google / Search Engine Tags -->
-    <title>About</title>
-    <meta itemprop="name" content="About" />
-    <meta property="og:title" content="About" />
-    <meta name="twitter:title" content="About" />
+    <title>Partials</title>
+    <meta itemprop="name" content=" Partials" />
+    <meta property="og:title" content=" Partials" />
+    <meta name="twitter:title" content=" Partials" />
 
     <meta
       name="description"
@@ -237,7 +237,7 @@
       rel="yandex-tableau-widget"
       href="img/favicons/yandex-browser-manifest.json"
     />
-    <title>About</title>
+    <title>Partials</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -246,7 +246,7 @@
     />
   </head>
 
-  <body id="page-about">
+  <body id="page-usage-3:pages-_2:partials">
     <!--- Page Header -->
     <header id="header">
       <h1>
@@ -266,7 +266,7 @@
       ></label>
       <nav class="show-desktop">
         <ul>
-          <li class="active">
+          <li>
             <a href="/about/">About</a>
             <ul>
               <li><a href="/about/in-use/">In use</a></li>
@@ -328,7 +328,7 @@
     <aside id="sidebar">
       <nav class="hide-mobile show-desktop">
         <ul>
-          <li class="active">
+          <li>
             <a href="/about/">About</a>
             <ul>
               <li>
@@ -383,10 +383,26 @@
 
     <!--- Page Main section-->
     <main id="main" class="content">
-      <h1 id="about-dokkie">About Dokkie</h1>
+      <h2 id="partials">Partials</h2>
       <p>
-        Dokkie came to existance as a really tiny tool, just to create your
-        docs. Don’t touch anything, don’t config anything, just deploy and go!
+        A page can also be build out of partials. That means, that you can have
+        multiple markdown files, which will form one page instead of separate
+        pages.
+      </p>
+      <p>For instance this Pages page is build up out of partials.</p>
+      <p>
+        Partials can be made by giving a underscore <code>_</code> to your file
+        in the beginning. That will make the file not be rendered as a page, but
+        automatically added to the readme in the same same directory.
+      </p>
+      <pre><code>folder
+    - Readme.md
+    - _partial.md
+    - _second-partial.md
+</code></pre>
+      <p>
+        Will become; <code>[website]/folder/index.html</code> with all the
+        partials automatically added.
       </p>
     </main>
 
@@ -394,7 +410,7 @@
     <footer id="footer">
       <nav class="show-desktop">
         <ul>
-          <li class="active">
+          <li>
             <a href="/about/">About</a>
             <ul>
               <li>

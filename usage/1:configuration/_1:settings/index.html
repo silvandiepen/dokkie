@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
 
     <!-- Google / Search Engine Tags -->
-    <title>Deployment</title>
-    <meta itemprop="name" content="Deployment" />
-    <meta property="og:title" content="Deployment" />
-    <meta name="twitter:title" content="Deployment" />
+    <title># Settings</title>
+    <meta itemprop="name" content="# Settings" />
+    <meta property="og:title" content="# Settings" />
+    <meta name="twitter:title" content="# Settings" />
 
     <meta
       name="description"
@@ -237,7 +237,7 @@
       rel="yandex-tableau-widget"
       href="img/favicons/yandex-browser-manifest.json"
     />
-    <title>Deployment</title>
+    <title># Settings</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -246,7 +246,7 @@
     />
   </head>
 
-  <body id="page-usage-deployment">
+  <body id="page-usage-1:configuration-_1:settings">
     <!--- Page Header -->
     <header id="header">
       <h1>
@@ -278,22 +278,21 @@
           <li>
             <a href="/usage/">Usage</a>
             <ul>
-              <li><a href="/usage/blog/">Blog</a></li>
+              <li><a href="/usage/1:configuration/">Configuration</a></li>
 
-              <li><a href="/usage/configuration/">Configuration</a></li>
-              <li class="active">
-                <a href="/usage/deployment/">Deployment</a>
-              </li>
+              <li><a href="/usage/2:deployment/">Deployment</a></li>
 
-              <li><a href="/usage/favicons/">Favicons</a></li>
+              <li><a href="/usage/3:pages/">Pages</a></li>
 
-              <li><a href="/usage/markdown/">Markdown</a></li>
+              <li><a href="/usage/4:navigation/">Navigation</a></li>
 
-              <li><a href="/usage/navigation/">Navigation</a></li>
+              <li><a href="/usage/5:templates/">Templates</a></li>
 
-              <li><a href="/usage/pages/">Pages</a></li>
+              <li><a href="/usage/6:markdown/">Markdown</a></li>
 
-              <li><a href="/usage/templates/">Templates</a></li>
+              <li><a href="/usage/7:favicons/">Favicons</a></li>
+
+              <li><a href="/usage/8:blog/">Blog</a></li>
             </ul>
           </li>
 
@@ -346,34 +345,35 @@
             <a href="/usage/">Usage</a>
             <ul>
               <li>
-                <a href="/usage/blog/">Blog</a>
+                <a href="/usage/1:configuration/">Configuration</a>
               </li>
 
               <li>
-                <a href="/usage/configuration/">Configuration</a>
-              </li>
-              <li class="active">
-                <a href="/usage/deployment/">Deployment</a>
+                <a href="/usage/2:deployment/">Deployment</a>
               </li>
 
               <li>
-                <a href="/usage/favicons/">Favicons</a>
+                <a href="/usage/3:pages/">Pages</a>
               </li>
 
               <li>
-                <a href="/usage/markdown/">Markdown</a>
+                <a href="/usage/4:navigation/">Navigation</a>
               </li>
 
               <li>
-                <a href="/usage/navigation/">Navigation</a>
+                <a href="/usage/5:templates/">Templates</a>
               </li>
 
               <li>
-                <a href="/usage/pages/">Pages</a>
+                <a href="/usage/6:markdown/">Markdown</a>
               </li>
 
               <li>
-                <a href="/usage/templates/">Templates</a>
+                <a href="/usage/7:favicons/">Favicons</a>
+              </li>
+
+              <li>
+                <a href="/usage/8:blog/">Blog</a>
               </li>
             </ul>
           </li>
@@ -383,59 +383,147 @@
 
     <!--- Page Main section-->
     <main id="main" class="content">
-      <h1 id="deployment">Deployment</h1>
-      <h2 id="using-netlify">Using Netlify</h2>
-      <ol>
-        <li>Make sure you have an account at Netlify.</li>
-        <li>Login and click on “Net site from git”</li>
-        <li>Connect to your provider and find your repository.</li>
-        <li>Build commands;</li>
-        <li>
-          <img
-            src="/img/Screenshot-2020-05-31-at-17-38-59.png"
-            alt="Build command"
-          />
-          <ul>
-            <li>Build command: <code>npx dokkie</code></li>
-            <li>Publish directory: <code>dokkie</code></li>
-          </ul>
-        </li>
-      </ol>
-      <h2 id="github-pages">Github pages</h2>
-      <ol>
-        <li>Create a Github Action</li>
-        <li>Copy the following workflow</li>
-      </ol>
-      <pre
-        class="language-yaml"
-      ><code class="language-yaml"><span class="token key atrule">name</span><span class="token punctuation">:</span> Deploy Dokkie to GH Pages
-
-<span class="token key atrule">on</span><span class="token punctuation">:</span>
-  <span class="token key atrule">push</span><span class="token punctuation">:</span>
-    <span class="token key atrule">branches</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> master
-
-<span class="token key atrule">jobs</span><span class="token punctuation">:</span>
-  <span class="token key atrule">deploy</span><span class="token punctuation">:</span>
-    <span class="token key atrule">runs-on</span><span class="token punctuation">:</span> ubuntu<span class="token punctuation">-</span><span class="token number">18.04</span>
-    <span class="token key atrule">steps</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/checkout@v2
-
-      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Dokkie
-        <span class="token key atrule">run</span><span class="token punctuation">:</span> npx dokkie
-
-      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Deploy
-        <span class="token key atrule">uses</span><span class="token punctuation">:</span> peaceiris/actions<span class="token punctuation">-</span>gh<span class="token punctuation">-</span>pages@v3
-        <span class="token key atrule">with</span><span class="token punctuation">:</span>
-          <span class="token key atrule">github_token</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span><span class="token punctuation">{</span> secrets.GITHUB_TOKEN <span class="token punctuation">}</span><span class="token punctuation">}</span>
-          <span class="token key atrule">publish_dir</span><span class="token punctuation">:</span> ./dokkie
-</code></pre>
-      <ol start="3">
-        <li>Push a change on your masterbranch and you are set!</li>
-        <li>
-          Your docs now live at; ```https://[username].github.io/[reponame]
-        </li>
-      </ol>
+      <h3 id="settings">Settings</h3>
+      <p><strong>Default configuration</strong></p>
+      <table>
+        <thead>
+          <tr>
+            <th>argument</th>
+            <th>default</th>
+            <th>options</th>
+            <th>description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>input</code></td>
+            <td><code>.</code></td>
+            <td>any folder</td>
+            <td>Input folder to search for files.</td>
+          </tr>
+          <tr>
+            <td><code>output</code></td>
+            <td><code>dokkie</code></td>
+            <td>any new folder</td>
+            <td>Output folder for pages</td>
+          </tr>
+          <tr>
+            <td><code>layout</code></td>
+            <td><code>default</code></td>
+            <td>
+              <code>default</code>,<code>simple</code>,<code>advanced</code> or
+              a custom hbs/html file
+            </td>
+            <td>Html layout used</td>
+          </tr>
+          <tr>
+            <td><code>theme</code></td>
+            <td><code>coat</code></td>
+            <td></td>
+            <td>
+              When a default layout is chosen, you can choose a theme from
+              (coat)[<a href="https://coat.guyn.nl">https://coat.guyn.nl</a>]
+            </td>
+          </tr>
+          <tr>
+            <td><code>cleanBefore</code></td>
+            <td><code>true</code></td>
+            <td><code>true</code> / <code>false</code></td>
+            <td>Remove the docs folder before creating a new one.</td>
+          </tr>
+          <tr>
+            <td><code>extensions</code></td>
+            <td><code>.md</code></td>
+            <td><code>.md</code>,<code>.html</code></td>
+            <td>
+              All file extensions which can be used (supported; .md, .html)
+            </td>
+          </tr>
+          <tr>
+            <td><code>exclude</code></td>
+            <td><code>node_modules, dist, docs</code></td>
+            <td>any folder</td>
+            <td>Exclude folders from searching for files.</td>
+          </tr>
+          <tr>
+            <td><code>copy</code></td>
+            <td><code>null</code></td>
+            <td>any folder</td>
+            <td>&quot;Copy a folder into your output.</td>
+          </tr>
+          <tr>
+            <td><code>strip</code></td>
+            <td><code>pages</code></td>
+            <td>any folder</td>
+            <td>
+              Remove parts of paths to get files directly in their root. All
+              files in <code>pages</code>, will be directly in docs.
+            </td>
+          </tr>
+          <tr>
+            <td><code>showNavigation</code></td>
+            <td><code>header, footer</code></td>
+            <td>
+              <code>header</code>, <code>footer</code>,<code>sidebar</code>
+            </td>
+            <td>Define which navigations should be shown</td>
+          </tr>
+          <tr>
+            <td><code>flatNavigation</code></td>
+            <td><code>false</code></td>
+            <td><code>true</code> / <code>false</code></td>
+            <td>Make the navigation flat.</td>
+          </tr>
+          <tr>
+            <td><code>codeHighlight</code></td>
+            <td><code>true</code></td>
+            <td><code>true</code> / <code>false</code></td>
+            <td>Use Prism to create highlighted code</td>
+          </tr>
+          <tr>
+            <td><code>projectTitle</code></td>
+            <td><code>&quot;&quot;</code></td>
+            <td></td>
+            <td>Title of the documentation</td>
+          </tr>
+          <tr>
+            <td><code>favicon</code></td>
+            <td>Custom generated</td>
+            <td>path to image</td>
+            <td>Create favicons and other meta tags automatically</td>
+          </tr>
+          <tr>
+            <td><code>skip</code></td>
+            <td><code>null</code></td>
+            <td><code>favicons</code></td>
+            <td>
+              Skip parts of the build process to speed it up. For now this can
+              only be done with Favicons
+            </td>
+          </tr>
+          <tr>
+            <td><code>config</code></td>
+            <td><code>dokkie.config.json</code></td>
+            <td>path to json config file</td>
+            <td>Give an alternative path to the config for dokkie</td>
+          </tr>
+          <tr>
+            <td><code>logging</code></td>
+            <td><code>[]</code></td>
+            <td><code>silent</code>, <code>debug</code></td>
+            <td>Run Dokkie with silent mode or debug.</td>
+          </tr>
+          <tr>
+            <td><code>language</code></td>
+            <td><code>en</code></td>
+            <td>
+              Any language shortname, ex; <code>en</code>, <code>nl</code> or
+              <code>es</code>
+            </td>
+            <td>Language of the page, this is set in the templates</td>
+          </tr>
+        </tbody>
+      </table>
     </main>
 
     <!--- Page Footer Content -->
@@ -475,34 +563,35 @@
             <a href="/usage/">Usage</a>
             <ul>
               <li>
-                <a href="/usage/blog/">Blog</a>
+                <a href="/usage/1:configuration/">Configuration</a>
               </li>
 
               <li>
-                <a href="/usage/configuration/">Configuration</a>
-              </li>
-              <li class="active">
-                <a href="/usage/deployment/">Deployment</a>
+                <a href="/usage/2:deployment/">Deployment</a>
               </li>
 
               <li>
-                <a href="/usage/favicons/">Favicons</a>
+                <a href="/usage/3:pages/">Pages</a>
               </li>
 
               <li>
-                <a href="/usage/markdown/">Markdown</a>
+                <a href="/usage/4:navigation/">Navigation</a>
               </li>
 
               <li>
-                <a href="/usage/navigation/">Navigation</a>
+                <a href="/usage/5:templates/">Templates</a>
               </li>
 
               <li>
-                <a href="/usage/pages/">Pages</a>
+                <a href="/usage/6:markdown/">Markdown</a>
               </li>
 
               <li>
-                <a href="/usage/templates/">Templates</a>
+                <a href="/usage/7:favicons/">Favicons</a>
+              </li>
+
+              <li>
+                <a href="/usage/8:blog/">Blog</a>
               </li>
             </ul>
           </li>

@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
 
     <!-- Google / Search Engine Tags -->
-    <title>Pages</title>
-    <meta itemprop="name" content="Pages" />
-    <meta property="og:title" content="Pages" />
-    <meta name="twitter:title" content="Pages" />
+    <title>Ordering</title>
+    <meta itemprop="name" content=" Ordering" />
+    <meta property="og:title" content=" Ordering" />
+    <meta name="twitter:title" content=" Ordering" />
 
     <meta
       name="description"
@@ -237,7 +237,7 @@
       rel="yandex-tableau-widget"
       href="img/favicons/yandex-browser-manifest.json"
     />
-    <title>Pages</title>
+    <title>Ordering</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -246,7 +246,7 @@
     />
   </head>
 
-  <body id="page-usage-pages">
+  <body id="page-usage-3:pages-_3:ordering">
     <!--- Page Header -->
     <header id="header">
       <h1>
@@ -278,22 +278,21 @@
           <li>
             <a href="/usage/">Usage</a>
             <ul>
-              <li><a href="/usage/blog/">Blog</a></li>
+              <li><a href="/usage/1:configuration/">Configuration</a></li>
 
-              <li><a href="/usage/configuration/">Configuration</a></li>
+              <li><a href="/usage/2:deployment/">Deployment</a></li>
 
-              <li><a href="/usage/deployment/">Deployment</a></li>
+              <li><a href="/usage/3:pages/">Pages</a></li>
 
-              <li><a href="/usage/favicons/">Favicons</a></li>
+              <li><a href="/usage/4:navigation/">Navigation</a></li>
 
-              <li><a href="/usage/markdown/">Markdown</a></li>
+              <li><a href="/usage/5:templates/">Templates</a></li>
 
-              <li><a href="/usage/navigation/">Navigation</a></li>
-              <li class="active">
-                <a href="/usage/pages/">Pages</a>
-              </li>
+              <li><a href="/usage/6:markdown/">Markdown</a></li>
 
-              <li><a href="/usage/templates/">Templates</a></li>
+              <li><a href="/usage/7:favicons/">Favicons</a></li>
+
+              <li><a href="/usage/8:blog/">Blog</a></li>
             </ul>
           </li>
 
@@ -346,34 +345,35 @@
             <a href="/usage/">Usage</a>
             <ul>
               <li>
-                <a href="/usage/blog/">Blog</a>
+                <a href="/usage/1:configuration/">Configuration</a>
               </li>
 
               <li>
-                <a href="/usage/configuration/">Configuration</a>
+                <a href="/usage/2:deployment/">Deployment</a>
               </li>
 
               <li>
-                <a href="/usage/deployment/">Deployment</a>
+                <a href="/usage/3:pages/">Pages</a>
               </li>
 
               <li>
-                <a href="/usage/favicons/">Favicons</a>
+                <a href="/usage/4:navigation/">Navigation</a>
               </li>
 
               <li>
-                <a href="/usage/markdown/">Markdown</a>
+                <a href="/usage/5:templates/">Templates</a>
               </li>
 
               <li>
-                <a href="/usage/navigation/">Navigation</a>
-              </li>
-              <li class="active">
-                <a href="/usage/pages/">Pages</a>
+                <a href="/usage/6:markdown/">Markdown</a>
               </li>
 
               <li>
-                <a href="/usage/templates/">Templates</a>
+                <a href="/usage/7:favicons/">Favicons</a>
+              </li>
+
+              <li>
+                <a href="/usage/8:blog/">Blog</a>
               </li>
             </ul>
           </li>
@@ -383,99 +383,35 @@
 
     <!--- Page Main section-->
     <main id="main" class="content">
-      <h1 id="pages">Pages</h1>
+      <h2 id="ordering">Ordering</h2>
       <p>
-        All <code>.md</code> files within the reach of <code>input</code> will
-        be found and made into pages. The pages will be made in the same
-        structure as the markdown files found.
+        By default the pages will in the menu will be ordered alphabetically.
+        But if you want a different order you can also achieve this.
       </p>
       <p>
-        You can create a folder called <code>pages</code> where you can store
-        markdown documentation files. These files won’t get the prefix ‘pages/’
-        in the url but will be put into the root of the docs.
-      </p>
-      <h3 id="settings">Settings</h3>
-      <p>
-        If you want to have a specific page under another root, but you don’t
-        want to change the position of the file in your folder structure. You
-        can add metadata to the markdown file.
+        You can create filesnames with a <code>:</code> in it. Everything before
+        the <code>:</code> will not be used in routes or names. Which means that
+        you could for instance a number <code>1:filename.md</code> and this file
+        will be added to the top in the menu.
       </p>
       <p>
-        For instance, the <a href="http://License.md">License.md</a> in this
-        project should be placed in the root in order to be picked up by certain
-        platforms as the License. But you don’t want to show the license
-        directly in your menu. In that case you can add meta data as following
-        to your file.
+        The same counts for the ordering of the partials in. They will also be
+        added to the main file based on alphabetical order. Which means you can
+        prefix the files with anything before the <code>:</code> to be ordering
+        your page.
       </p>
-      <pre
-        class="language-md"
-      ><code class="language-md"><span class="token hr punctuation">---</span>
-<span class="token title important">parent: about
-<span class="token punctuation">---</span></span>
+      <h3 id="example">Example</h3>
+      <p>An example of the documententation for this pages page;</p>
+      <pre><code>3:pages
+    - _1:settings.md
+    - _2:partials.md
+    - _3:ordering.md
 </code></pre>
       <p>
-        This markdown file will be placed under “about”. (see this
-        documentation). More about the menu property in the settings in
-        <a href="/usage/navigation#Settings-from-within-the-page">Navigation</a
-        >.
+        Which results in the <code>pages</code> being the third item in the menu
+        under usage and the sections of this page being in the order or the
+        order above.
       </p>
-      <p>
-        There are a few other options you can add to the metadata which can be
-        used;
-      </p>
-      <table>
-        <thead>
-          <tr>
-            <th>key</th>
-            <th>default</th>
-            <th>options</th>
-            <th>description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>title</td>
-            <td>first H1 from file</td>
-            <td></td>
-            <td>
-              The title will be used in the menu and route instead of the h1 in
-              the top of the page.
-            </td>
-          </tr>
-          <tr>
-            <td>parent</td>
-            <td>Current parent</td>
-            <td></td>
-            <td>Parent will be the folder where file is placed in the route</td>
-          </tr>
-          <tr>
-            <td>hide</td>
-            <td><code>false</code></td>
-            <td></td>
-            <td>
-              Add <code>hide: true</code> if you don’t want the page to show up
-              in the menu
-            </td>
-          </tr>
-          <tr>
-            <td>remove</td>
-            <td><code>false</code></td>
-            <td></td>
-            <td>
-              add <code>remove: true</code> if you don’t this file to be used at
-              all.
-            </td>
-          </tr>
-          <tr>
-            <td>menu</td>
-            <td>All menus</td>
-            <td>
-              <code>header</code>,<code>footer</code>,<code>sidebar</code>
-            </td>
-            <td>Add the page only to a specific menu only.</td>
-          </tr>
-        </tbody>
-      </table>
     </main>
 
     <!--- Page Footer Content -->
@@ -515,34 +451,35 @@
             <a href="/usage/">Usage</a>
             <ul>
               <li>
-                <a href="/usage/blog/">Blog</a>
+                <a href="/usage/1:configuration/">Configuration</a>
               </li>
 
               <li>
-                <a href="/usage/configuration/">Configuration</a>
+                <a href="/usage/2:deployment/">Deployment</a>
               </li>
 
               <li>
-                <a href="/usage/deployment/">Deployment</a>
+                <a href="/usage/3:pages/">Pages</a>
               </li>
 
               <li>
-                <a href="/usage/favicons/">Favicons</a>
+                <a href="/usage/4:navigation/">Navigation</a>
               </li>
 
               <li>
-                <a href="/usage/markdown/">Markdown</a>
+                <a href="/usage/5:templates/">Templates</a>
               </li>
 
               <li>
-                <a href="/usage/navigation/">Navigation</a>
-              </li>
-              <li class="active">
-                <a href="/usage/pages/">Pages</a>
+                <a href="/usage/6:markdown/">Markdown</a>
               </li>
 
               <li>
-                <a href="/usage/templates/">Templates</a>
+                <a href="/usage/7:favicons/">Favicons</a>
+              </li>
+
+              <li>
+                <a href="/usage/8:blog/">Blog</a>
               </li>
             </ul>
           </li>

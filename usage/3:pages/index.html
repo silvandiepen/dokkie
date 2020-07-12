@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
 
     <!-- Google / Search Engine Tags -->
-    <title>About</title>
-    <meta itemprop="name" content="About" />
-    <meta property="og:title" content="About" />
-    <meta name="twitter:title" content="About" />
+    <title>Pages</title>
+    <meta itemprop="name" content="Pages" />
+    <meta property="og:title" content="Pages" />
+    <meta name="twitter:title" content="Pages" />
 
     <meta
       name="description"
@@ -237,7 +237,7 @@
       rel="yandex-tableau-widget"
       href="img/favicons/yandex-browser-manifest.json"
     />
-    <title>About</title>
+    <title>Pages</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -246,7 +246,7 @@
     />
   </head>
 
-  <body id="page-about">
+  <body id="page-usage-3:pages">
     <!--- Page Header -->
     <header id="header">
       <h1>
@@ -266,7 +266,7 @@
       ></label>
       <nav class="show-desktop">
         <ul>
-          <li class="active">
+          <li>
             <a href="/about/">About</a>
             <ul>
               <li><a href="/about/in-use/">In use</a></li>
@@ -281,8 +281,9 @@
               <li><a href="/usage/1:configuration/">Configuration</a></li>
 
               <li><a href="/usage/2:deployment/">Deployment</a></li>
-
-              <li><a href="/usage/3:pages/">Pages</a></li>
+              <li class="active">
+                <a href="/usage/3:pages/">Pages</a>
+              </li>
 
               <li><a href="/usage/4:navigation/">Navigation</a></li>
 
@@ -328,7 +329,7 @@
     <aside id="sidebar">
       <nav class="hide-mobile show-desktop">
         <ul>
-          <li class="active">
+          <li>
             <a href="/about/">About</a>
             <ul>
               <li>
@@ -351,8 +352,7 @@
               <li>
                 <a href="/usage/2:deployment/">Deployment</a>
               </li>
-
-              <li>
+              <li class="active">
                 <a href="/usage/3:pages/">Pages</a>
               </li>
 
@@ -383,10 +383,16 @@
 
     <!--- Page Main section-->
     <main id="main" class="content">
-      <h1 id="about-dokkie">About Dokkie</h1>
+      <h1 id="pages">Pages</h1>
       <p>
-        Dokkie came to existance as a really tiny tool, just to create your
-        docs. Don’t touch anything, don’t config anything, just deploy and go!
+        All <code>.md</code> files within the reach of <code>input</code> will
+        be found and made into pages. The pages will be made in the same
+        structure as the markdown files found.
+      </p>
+      <p>
+        You can create a folder called <code>pages</code> where you can store
+        markdown documentation files. These files won’t get the prefix ‘pages/’
+        in the url but will be put into the root of the docs.
       </p>
     </main>
 
@@ -394,7 +400,7 @@
     <footer id="footer">
       <nav class="show-desktop">
         <ul>
-          <li class="active">
+          <li>
             <a href="/about/">About</a>
             <ul>
               <li>
@@ -433,8 +439,7 @@
               <li>
                 <a href="/usage/2:deployment/">Deployment</a>
               </li>
-
-              <li>
+              <li class="active">
                 <a href="/usage/3:pages/">Pages</a>
               </li>
 

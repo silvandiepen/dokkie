@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
 
     <!-- Google / Search Engine Tags -->
-    <title>Blog</title>
-    <meta itemprop="name" content="Blog" />
-    <meta property="og:title" content="Blog" />
-    <meta name="twitter:title" content="Blog" />
+    <title># Flat navigation</title>
+    <meta itemprop="name" content="# Flat navigation" />
+    <meta property="og:title" content="# Flat navigation" />
+    <meta name="twitter:title" content="# Flat navigation" />
 
     <meta
       name="description"
@@ -237,7 +237,7 @@
       rel="yandex-tableau-widget"
       href="img/favicons/yandex-browser-manifest.json"
     />
-    <title>Blog</title>
+    <title># Flat navigation</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -246,7 +246,7 @@
     />
   </head>
 
-  <body id="page-usage-blog">
+  <body id="page-usage-4:navigation-_2:flat">
     <!--- Page Header -->
     <header id="header">
       <h1>
@@ -278,23 +278,21 @@
           <li>
             <a href="/usage/">Usage</a>
             <ul>
-              <li class="active">
-                <a href="/usage/blog/">Blog</a>
-              </li>
+              <li><a href="/usage/1:configuration/">Configuration</a></li>
 
-              <li><a href="/usage/configuration/">Configuration</a></li>
+              <li><a href="/usage/2:deployment/">Deployment</a></li>
 
-              <li><a href="/usage/deployment/">Deployment</a></li>
+              <li><a href="/usage/3:pages/">Pages</a></li>
 
-              <li><a href="/usage/favicons/">Favicons</a></li>
+              <li><a href="/usage/4:navigation/">Navigation</a></li>
 
-              <li><a href="/usage/markdown/">Markdown</a></li>
+              <li><a href="/usage/5:templates/">Templates</a></li>
 
-              <li><a href="/usage/navigation/">Navigation</a></li>
+              <li><a href="/usage/6:markdown/">Markdown</a></li>
 
-              <li><a href="/usage/pages/">Pages</a></li>
+              <li><a href="/usage/7:favicons/">Favicons</a></li>
 
-              <li><a href="/usage/templates/">Templates</a></li>
+              <li><a href="/usage/8:blog/">Blog</a></li>
             </ul>
           </li>
 
@@ -346,36 +344,36 @@
           <li>
             <a href="/usage/">Usage</a>
             <ul>
-              <li class="active">
-                <a href="/usage/blog/">Blog</a>
+              <li>
+                <a href="/usage/1:configuration/">Configuration</a>
               </li>
 
               <li>
-                <a href="/usage/configuration/">Configuration</a>
+                <a href="/usage/2:deployment/">Deployment</a>
               </li>
 
               <li>
-                <a href="/usage/deployment/">Deployment</a>
+                <a href="/usage/3:pages/">Pages</a>
               </li>
 
               <li>
-                <a href="/usage/favicons/">Favicons</a>
+                <a href="/usage/4:navigation/">Navigation</a>
               </li>
 
               <li>
-                <a href="/usage/markdown/">Markdown</a>
+                <a href="/usage/5:templates/">Templates</a>
               </li>
 
               <li>
-                <a href="/usage/navigation/">Navigation</a>
+                <a href="/usage/6:markdown/">Markdown</a>
               </li>
 
               <li>
-                <a href="/usage/pages/">Pages</a>
+                <a href="/usage/7:favicons/">Favicons</a>
               </li>
 
               <li>
-                <a href="/usage/templates/">Templates</a>
+                <a href="/usage/8:blog/">Blog</a>
               </li>
             </ul>
           </li>
@@ -385,51 +383,17 @@
 
     <!--- Page Main section-->
     <main id="main" class="content">
-      <h1 id="creating-a-blog">Creating a blog</h1>
+      <h3 id="flat-navigation">Flat navigation</h3>
       <p>
-        Besides easily creating documentation, you can also use Dokkie to build
-        your blog! The only thing you do is set up a repository with markdown
-        files and build it with one command;
+        Dokkie creates the navigation, like you structure your files. But if you
+        want, you can also make the navigation completely flat.
       </p>
+      <p><strong>dokkie.config.json</strong></p>
       <pre
-        class="language-bash"
-      ><code class="language-bash">npx dokkie --type<span class="token operator">=</span>blog
-</code></pre>
-      <h3 id="sorted-on-date.">Sorted on date.</h3>
-      <p>
-        Blogs are automatically ordered by their file creation date. If you
-        don’t want that, you can set an alternate date in your files with the
-        following format;
-      </p>
-      <pre
-        class="language-md"
-      ><code class="language-md"><span class="token hr punctuation">---</span>
-<span class="token title important">date: 2020-02-22
-<span class="token punctuation">---</span></span>
-</code></pre>
-      <h3 id="meta">Meta</h3>
-      <p>
-        A blog post by default has just a title and text, but if you want to
-        give extra info like the tags. You can also just add them to your post;
-      </p>
-      <p><strong>Tags</strong></p>
-      <pre
-        class="language-md"
-      ><code class="language-md"><span class="token hr punctuation">---</span>
-<span class="token title important">tags: test, tag, for, post
-<span class="token punctuation">---</span></span>
-</code></pre>
-      <p>
-        <strong>Author + Link</strong><br />
-        The author also supports a authorLink, which will automatically be the
-        link for the author when clicked on.
-      </p>
-      <pre
-        class="language-md"
-      ><code class="language-md"><span class="token hr punctuation">---</span>
-author: Sil
-<span class="token title important">authorLink: https://silvandiepen.nl
-<span class="token punctuation">---</span></span>
+        class="language-json"
+      ><code class="language-json"><span class="token punctuation">{</span>
+	<span class="token property">"flatNavigation"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+<span class="token punctuation">}</span>
 </code></pre>
     </main>
 
@@ -469,36 +433,36 @@ author: Sil
           <li>
             <a href="/usage/">Usage</a>
             <ul>
-              <li class="active">
-                <a href="/usage/blog/">Blog</a>
+              <li>
+                <a href="/usage/1:configuration/">Configuration</a>
               </li>
 
               <li>
-                <a href="/usage/configuration/">Configuration</a>
+                <a href="/usage/2:deployment/">Deployment</a>
               </li>
 
               <li>
-                <a href="/usage/deployment/">Deployment</a>
+                <a href="/usage/3:pages/">Pages</a>
               </li>
 
               <li>
-                <a href="/usage/favicons/">Favicons</a>
+                <a href="/usage/4:navigation/">Navigation</a>
               </li>
 
               <li>
-                <a href="/usage/markdown/">Markdown</a>
+                <a href="/usage/5:templates/">Templates</a>
               </li>
 
               <li>
-                <a href="/usage/navigation/">Navigation</a>
+                <a href="/usage/6:markdown/">Markdown</a>
               </li>
 
               <li>
-                <a href="/usage/pages/">Pages</a>
+                <a href="/usage/7:favicons/">Favicons</a>
               </li>
 
               <li>
-                <a href="/usage/templates/">Templates</a>
+                <a href="/usage/8:blog/">Blog</a>
               </li>
             </ul>
           </li>

@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
 
     <!-- Google / Search Engine Tags -->
-    <title>About</title>
-    <meta itemprop="name" content="About" />
-    <meta property="og:title" content="About" />
-    <meta name="twitter:title" content="About" />
+    <title>## overrule</title>
+    <meta itemprop="name" content="## overrule" />
+    <meta property="og:title" content="## overrule" />
+    <meta name="twitter:title" content="## overrule" />
 
     <meta
       name="description"
@@ -237,7 +237,7 @@
       rel="yandex-tableau-widget"
       href="img/favicons/yandex-browser-manifest.json"
     />
-    <title>About</title>
+    <title>## overrule</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -246,7 +246,7 @@
     />
   </head>
 
-  <body id="page-about">
+  <body id="page-usage-1:configuration-_6:overrule">
     <!--- Page Header -->
     <header id="header">
       <h1>
@@ -266,7 +266,7 @@
       ></label>
       <nav class="show-desktop">
         <ul>
-          <li class="active">
+          <li>
             <a href="/about/">About</a>
             <ul>
               <li><a href="/about/in-use/">In use</a></li>
@@ -328,7 +328,7 @@
     <aside id="sidebar">
       <nav class="hide-mobile show-desktop">
         <ul>
-          <li class="active">
+          <li>
             <a href="/about/">About</a>
             <ul>
               <li>
@@ -383,18 +383,28 @@
 
     <!--- Page Main section-->
     <main id="main" class="content">
-      <h1 id="about-dokkie">About Dokkie</h1>
+      <h4 id="overrule">overrule</h4>
       <p>
-        Dokkie came to existance as a really tiny tool, just to create your
-        docs. Don’t touch anything, don’t config anything, just deploy and go!
+        Overrule means the current stylesheets won’t be added, but instead the
+        given stylesheets will be used.
       </p>
+      <p><strong>dokkie.config.json</strong></p>
+      <pre
+        class="language-json"
+      ><code class="language-json"><span class="token punctuation">{</span>
+	<span class="token property">"overrule"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+		<span class="token property">"css"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"/mystylesheet.css"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+		<span class="token property">"js"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"/my-app.js"</span><span class="token punctuation">]</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
     </main>
 
     <!--- Page Footer Content -->
     <footer id="footer">
       <nav class="show-desktop">
         <ul>
-          <li class="active">
+          <li>
             <a href="/about/">About</a>
             <ul>
               <li>

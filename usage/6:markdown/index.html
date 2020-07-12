@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
 
     <!-- Google / Search Engine Tags -->
-    <title>About</title>
-    <meta itemprop="name" content="About" />
-    <meta property="og:title" content="About" />
-    <meta name="twitter:title" content="About" />
+    <title>Markdown</title>
+    <meta itemprop="name" content="Markdown" />
+    <meta property="og:title" content="Markdown" />
+    <meta name="twitter:title" content="Markdown" />
 
     <meta
       name="description"
@@ -237,7 +237,7 @@
       rel="yandex-tableau-widget"
       href="img/favicons/yandex-browser-manifest.json"
     />
-    <title>About</title>
+    <title>Markdown</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -246,7 +246,7 @@
     />
   </head>
 
-  <body id="page-about">
+  <body id="page-usage-6:markdown">
     <!--- Page Header -->
     <header id="header">
       <h1>
@@ -266,7 +266,7 @@
       ></label>
       <nav class="show-desktop">
         <ul>
-          <li class="active">
+          <li>
             <a href="/about/">About</a>
             <ul>
               <li><a href="/about/in-use/">In use</a></li>
@@ -287,8 +287,9 @@
               <li><a href="/usage/4:navigation/">Navigation</a></li>
 
               <li><a href="/usage/5:templates/">Templates</a></li>
-
-              <li><a href="/usage/6:markdown/">Markdown</a></li>
+              <li class="active">
+                <a href="/usage/6:markdown/">Markdown</a>
+              </li>
 
               <li><a href="/usage/7:favicons/">Favicons</a></li>
 
@@ -328,7 +329,7 @@
     <aside id="sidebar">
       <nav class="hide-mobile show-desktop">
         <ul>
-          <li class="active">
+          <li>
             <a href="/about/">About</a>
             <ul>
               <li>
@@ -363,8 +364,7 @@
               <li>
                 <a href="/usage/5:templates/">Templates</a>
               </li>
-
-              <li>
+              <li class="active">
                 <a href="/usage/6:markdown/">Markdown</a>
               </li>
 
@@ -383,18 +383,58 @@
 
     <!--- Page Main section-->
     <main id="main" class="content">
-      <h1 id="about-dokkie">About Dokkie</h1>
+      <h1 id="markdown">Markdown</h1>
       <p>
-        Dokkie came to existance as a really tiny tool, just to create your
-        docs. Don’t touch anything, don’t config anything, just deploy and go!
+        Dokkie fully supports Markdown + some extra modules to fancy up your
+        documentation.
       </p>
+      <h3 id="prism">Prism</h3>
+      <p>
+        Prism is used to convert your code to be able to use code highlighting.
+      </p>
+      <pre
+        class="language-css"
+      ><code class="language-css"><span class="token selector">.myCode</span> <span class="token punctuation">{</span>
+	<span class="token property">looks</span><span class="token punctuation">:</span> nice<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+      <h3 id="anchors">Anchors</h3>
+      <p>Automatically add anchors to your headings.</p>
+      <h3 id="media">Media</h3>
+      <p>Media will automatically be converted to video includes.</p>
+      <h3 id="emoji">Emoji</h3>
+      <p>If you are fond of using emoji’s in your code. Go ahead! 😃</p>
+      <h3 id="tasklists">Tasklists</h3>
+      <p>Create styled tasklists in your documentation!</p>
+      <pre
+        class="language-markdown"
+      ><code class="language-markdown"><span class="token list punctuation">-</span> [x] Add tasklists
+</code></pre>
+      <ul class="contains-task-list">
+        <li class="task-list-item enabled">
+          <input class="task-list-item-checkbox" checked="" type="checkbox" />
+          Add tasklists
+        </li>
+      </ul>
+      <h3 id="alerts">Alerts</h3>
+      <p>
+        available options: <code>success</code>, <code>warning</code>,
+        <code>tip</code>, <code>error</code> or nothing.
+      </p>
+      <pre class="language-markdown"><code class="language-markdown">::: success
+You've done a great job!
+:::
+</code></pre>
+      <div class="alert alert-success" role="alert">
+        <p>You’ve done a great job!</p>
+      </div>
     </main>
 
     <!--- Page Footer Content -->
     <footer id="footer">
       <nav class="show-desktop">
         <ul>
-          <li class="active">
+          <li>
             <a href="/about/">About</a>
             <ul>
               <li>
@@ -445,8 +485,7 @@
               <li>
                 <a href="/usage/5:templates/">Templates</a>
               </li>
-
-              <li>
+              <li class="active">
                 <a href="/usage/6:markdown/">Markdown</a>
               </li>
 

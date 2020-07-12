@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
 
     <!-- Google / Search Engine Tags -->
-    <title>Favicons</title>
-    <meta itemprop="name" content="Favicons" />
-    <meta property="og:title" content="Favicons" />
-    <meta name="twitter:title" content="Favicons" />
+    <title># API</title>
+    <meta itemprop="name" content="# API" />
+    <meta property="og:title" content="# API" />
+    <meta name="twitter:title" content="# API" />
 
     <meta
       name="description"
@@ -237,7 +237,7 @@
       rel="yandex-tableau-widget"
       href="img/favicons/yandex-browser-manifest.json"
     />
-    <title>Favicons</title>
+    <title># API</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -246,7 +246,7 @@
     />
   </head>
 
-  <body id="page-usage-favicons">
+  <body id="page-usage-1:configuration-_2:api">
     <!--- Page Header -->
     <header id="header">
       <h1>
@@ -278,22 +278,21 @@
           <li>
             <a href="/usage/">Usage</a>
             <ul>
-              <li><a href="/usage/blog/">Blog</a></li>
+              <li><a href="/usage/1:configuration/">Configuration</a></li>
 
-              <li><a href="/usage/configuration/">Configuration</a></li>
+              <li><a href="/usage/2:deployment/">Deployment</a></li>
 
-              <li><a href="/usage/deployment/">Deployment</a></li>
-              <li class="active">
-                <a href="/usage/favicons/">Favicons</a>
-              </li>
+              <li><a href="/usage/3:pages/">Pages</a></li>
 
-              <li><a href="/usage/markdown/">Markdown</a></li>
+              <li><a href="/usage/4:navigation/">Navigation</a></li>
 
-              <li><a href="/usage/navigation/">Navigation</a></li>
+              <li><a href="/usage/5:templates/">Templates</a></li>
 
-              <li><a href="/usage/pages/">Pages</a></li>
+              <li><a href="/usage/6:markdown/">Markdown</a></li>
 
-              <li><a href="/usage/templates/">Templates</a></li>
+              <li><a href="/usage/7:favicons/">Favicons</a></li>
+
+              <li><a href="/usage/8:blog/">Blog</a></li>
             </ul>
           </li>
 
@@ -346,34 +345,35 @@
             <a href="/usage/">Usage</a>
             <ul>
               <li>
-                <a href="/usage/blog/">Blog</a>
+                <a href="/usage/1:configuration/">Configuration</a>
               </li>
 
               <li>
-                <a href="/usage/configuration/">Configuration</a>
+                <a href="/usage/2:deployment/">Deployment</a>
               </li>
 
               <li>
-                <a href="/usage/deployment/">Deployment</a>
-              </li>
-              <li class="active">
-                <a href="/usage/favicons/">Favicons</a>
+                <a href="/usage/3:pages/">Pages</a>
               </li>
 
               <li>
-                <a href="/usage/markdown/">Markdown</a>
+                <a href="/usage/4:navigation/">Navigation</a>
               </li>
 
               <li>
-                <a href="/usage/navigation/">Navigation</a>
+                <a href="/usage/5:templates/">Templates</a>
               </li>
 
               <li>
-                <a href="/usage/pages/">Pages</a>
+                <a href="/usage/6:markdown/">Markdown</a>
               </li>
 
               <li>
-                <a href="/usage/templates/">Templates</a>
+                <a href="/usage/7:favicons/">Favicons</a>
+              </li>
+
+              <li>
+                <a href="/usage/8:blog/">Blog</a>
               </li>
             </ul>
           </li>
@@ -383,52 +383,12 @@
 
     <!--- Page Main section-->
     <main id="main" class="content">
-      <h1 id="favicons">Favicons</h1>
-      <p>
-        Dokkie automatically creates a favicon for you. But if you don’t like
-        that one, you can ofcourse just<br />
-        change that into any image you want.
-      </p>
-      <p><strong>cli</strong></p>
+      <h3 id="api">API</h3>
+      <p>All above settings can be altered using the cli</p>
+      <p><strong>example</strong></p>
       <pre
         class="language-bash"
-      ><code class="language-bash">npx dokkie --favicon<span class="token operator">=</span>your/image/file.jpg
-</code></pre>
-      <p><strong>dokkie.config.json</strong></p>
-      <pre
-        class="language-json"
-      ><code class="language-json"><span class="token punctuation">{</span>
-	<span class="token property">"favicon"</span><span class="token operator">:</span> <span class="token string">"your/image/file.jpg"</span>
-<span class="token punctuation">}</span>
-</code></pre>
-      <blockquote>
-        <p>
-          <strong><em>NOTE:</em></strong> Make sure the file is quite big in
-          size; recommended: (1024x1024)
-        </p>
-      </blockquote>
-      <h3 id="meta-data">Meta data</h3>
-      <p>
-        The favicon generator comes with a lot other meta data which is auto
-        included in your head. Turning favicons off, also affects this.
-      </p>
-      <h3 id="skip-favicons">Skip favicons</h3>
-      <p>
-        If you don’t want favicons. For instance in a development environment or
-        you will use your own through a custom template and copy. You can skip
-        them.
-      </p>
-      <p><strong>cli</strong></p>
-      <pre
-        class="language-bash"
-      ><code class="language-bash">npx dokkie --skip<span class="token operator">=</span>favicons
-</code></pre>
-      <p><strong>dokkie.config.json</strong></p>
-      <pre
-        class="language-json"
-      ><code class="language-json"><span class="token punctuation">{</span>
-	<span class="token property">"skip"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"favicons"</span><span class="token punctuation">]</span>
-<span class="token punctuation">}</span>
+      ><code class="language-bash">npx dokkie --input<span class="token operator">=</span>docs --output<span class="token operator">=</span>dist --cleanbefore<span class="token operator">=</span>false --copy<span class="token operator">=</span>themes --showNavigation<span class="token operator">=</span>header,footer,sidebar
 </code></pre>
     </main>
 
@@ -469,34 +429,35 @@
             <a href="/usage/">Usage</a>
             <ul>
               <li>
-                <a href="/usage/blog/">Blog</a>
+                <a href="/usage/1:configuration/">Configuration</a>
               </li>
 
               <li>
-                <a href="/usage/configuration/">Configuration</a>
+                <a href="/usage/2:deployment/">Deployment</a>
               </li>
 
               <li>
-                <a href="/usage/deployment/">Deployment</a>
-              </li>
-              <li class="active">
-                <a href="/usage/favicons/">Favicons</a>
+                <a href="/usage/3:pages/">Pages</a>
               </li>
 
               <li>
-                <a href="/usage/markdown/">Markdown</a>
+                <a href="/usage/4:navigation/">Navigation</a>
               </li>
 
               <li>
-                <a href="/usage/navigation/">Navigation</a>
+                <a href="/usage/5:templates/">Templates</a>
               </li>
 
               <li>
-                <a href="/usage/pages/">Pages</a>
+                <a href="/usage/6:markdown/">Markdown</a>
               </li>
 
               <li>
-                <a href="/usage/templates/">Templates</a>
+                <a href="/usage/7:favicons/">Favicons</a>
+              </li>
+
+              <li>
+                <a href="/usage/8:blog/">Blog</a>
               </li>
             </ul>
           </li>

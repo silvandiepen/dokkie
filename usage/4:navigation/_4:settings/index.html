@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
 
     <!-- Google / Search Engine Tags -->
-    <title>About</title>
-    <meta itemprop="name" content="About" />
-    <meta property="og:title" content="About" />
-    <meta name="twitter:title" content="About" />
+    <title># Settings from within the page.</title>
+    <meta itemprop="name" content="# Settings from within the page." />
+    <meta property="og:title" content="# Settings from within the page." />
+    <meta name="twitter:title" content="# Settings from within the page." />
 
     <meta
       name="description"
@@ -237,7 +237,7 @@
       rel="yandex-tableau-widget"
       href="img/favicons/yandex-browser-manifest.json"
     />
-    <title>About</title>
+    <title># Settings from within the page.</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -246,7 +246,7 @@
     />
   </head>
 
-  <body id="page-about">
+  <body id="page-usage-4:navigation-_4:settings">
     <!--- Page Header -->
     <header id="header">
       <h1>
@@ -266,7 +266,7 @@
       ></label>
       <nav class="show-desktop">
         <ul>
-          <li class="active">
+          <li>
             <a href="/about/">About</a>
             <ul>
               <li><a href="/about/in-use/">In use</a></li>
@@ -328,7 +328,7 @@
     <aside id="sidebar">
       <nav class="hide-mobile show-desktop">
         <ul>
-          <li class="active">
+          <li>
             <a href="/about/">About</a>
             <ul>
               <li>
@@ -383,18 +383,57 @@
 
     <!--- Page Main section-->
     <main id="main" class="content">
-      <h1 id="about-dokkie">About Dokkie</h1>
+      <h3 id="settings-from-within-the-page.">
+        Settings from within the page.
+      </h3>
       <p>
-        Dokkie came to existance as a really tiny tool, just to create your
-        docs. Don’t touch anything, don’t config anything, just deploy and go!
+        <strong>Change menu in page</strong><br />
+        Every page will automatically be placed in the navigation based on where
+        the file is placed in the tree. This can be overruled by defining the
+        menu in a markdown file;
       </p>
+      <p>
+        The following file is only shown in the <code>footer</code> menu, not
+        like by default in any other menu.
+      </p>
+      <pre
+        class="language-markdown"
+      ><code class="language-markdown"><span class="token hr punctuation">---</span>
+<span class="token title important">menu: footer
+<span class="token punctuation">---</span></span>
+</code></pre>
+      <p>
+        <strong>Change parent in menu</strong><br />
+        Every page will automatically be placed in the navigation based on where
+        the file is placed in the tree. This can be overruled by defining the
+        parent in a markdown file;
+      </p>
+      <p>
+        The following file is placed in the root of your repository but should
+        in the menu be placed under <code>usage</code> in the menu;
+      </p>
+      <pre
+        class="language-markdown"
+      ><code class="language-markdown"><span class="token hr punctuation">---</span>
+<span class="token title important">parent: usage
+<span class="token punctuation">---</span></span>
+</code></pre>
+      <hr />
+      <div class="alert alert-warning" role="alert">
+        <p>
+          <strong>Navigation depth</strong><br />
+          For now the navigation won’t go deeper than 2 levels. This means that
+          levels deeper than 2, will simply not be shown in the menu. This does
+          not mean they don’t exist.
+        </p>
+      </div>
     </main>
 
     <!--- Page Footer Content -->
     <footer id="footer">
       <nav class="show-desktop">
         <ul>
-          <li class="active">
+          <li>
             <a href="/about/">About</a>
             <ul>
               <li>

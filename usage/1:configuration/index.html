@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
 
     <!-- Google / Search Engine Tags -->
-    <title>Markdown</title>
-    <meta itemprop="name" content="Markdown" />
-    <meta property="og:title" content="Markdown" />
-    <meta name="twitter:title" content="Markdown" />
+    <title>Configuration</title>
+    <meta itemprop="name" content="Configuration" />
+    <meta property="og:title" content="Configuration" />
+    <meta name="twitter:title" content="Configuration" />
 
     <meta
       name="description"
@@ -237,7 +237,7 @@
       rel="yandex-tableau-widget"
       href="img/favicons/yandex-browser-manifest.json"
     />
-    <title>Markdown</title>
+    <title>Configuration</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -246,7 +246,7 @@
     />
   </head>
 
-  <body id="page-usage-markdown">
+  <body id="page-usage-1:configuration">
     <!--- Page Header -->
     <header id="header">
       <h1>
@@ -278,22 +278,23 @@
           <li>
             <a href="/usage/">Usage</a>
             <ul>
-              <li><a href="/usage/blog/">Blog</a></li>
-
-              <li><a href="/usage/configuration/">Configuration</a></li>
-
-              <li><a href="/usage/deployment/">Deployment</a></li>
-
-              <li><a href="/usage/favicons/">Favicons</a></li>
               <li class="active">
-                <a href="/usage/markdown/">Markdown</a>
+                <a href="/usage/1:configuration/">Configuration</a>
               </li>
 
-              <li><a href="/usage/navigation/">Navigation</a></li>
+              <li><a href="/usage/2:deployment/">Deployment</a></li>
 
-              <li><a href="/usage/pages/">Pages</a></li>
+              <li><a href="/usage/3:pages/">Pages</a></li>
 
-              <li><a href="/usage/templates/">Templates</a></li>
+              <li><a href="/usage/4:navigation/">Navigation</a></li>
+
+              <li><a href="/usage/5:templates/">Templates</a></li>
+
+              <li><a href="/usage/6:markdown/">Markdown</a></li>
+
+              <li><a href="/usage/7:favicons/">Favicons</a></li>
+
+              <li><a href="/usage/8:blog/">Blog</a></li>
             </ul>
           </li>
 
@@ -345,35 +346,36 @@
           <li>
             <a href="/usage/">Usage</a>
             <ul>
-              <li>
-                <a href="/usage/blog/">Blog</a>
-              </li>
-
-              <li>
-                <a href="/usage/configuration/">Configuration</a>
-              </li>
-
-              <li>
-                <a href="/usage/deployment/">Deployment</a>
-              </li>
-
-              <li>
-                <a href="/usage/favicons/">Favicons</a>
-              </li>
               <li class="active">
-                <a href="/usage/markdown/">Markdown</a>
+                <a href="/usage/1:configuration/">Configuration</a>
               </li>
 
               <li>
-                <a href="/usage/navigation/">Navigation</a>
+                <a href="/usage/2:deployment/">Deployment</a>
               </li>
 
               <li>
-                <a href="/usage/pages/">Pages</a>
+                <a href="/usage/3:pages/">Pages</a>
               </li>
 
               <li>
-                <a href="/usage/templates/">Templates</a>
+                <a href="/usage/4:navigation/">Navigation</a>
+              </li>
+
+              <li>
+                <a href="/usage/5:templates/">Templates</a>
+              </li>
+
+              <li>
+                <a href="/usage/6:markdown/">Markdown</a>
+              </li>
+
+              <li>
+                <a href="/usage/7:favicons/">Favicons</a>
+              </li>
+
+              <li>
+                <a href="/usage/8:blog/">Blog</a>
               </li>
             </ul>
           </li>
@@ -383,51 +385,15 @@
 
     <!--- Page Main section-->
     <main id="main" class="content">
-      <h1 id="markdown">Markdown</h1>
+      <h1 id="configuration">Configuration</h1>
       <p>
-        Dokkie fully supports Markdown + some extra modules to fancy up your
-        documentation.
+        Configuration can be done multiple ways, the easiest way is doing this
+        through the API, you can set all navigation just in your build script
+        during deployment. But you could also add a
+        <code>dokkie.config.json</code> to your repository where you can set all
+        configuration, in that case you can just run <code>npx dokkie</code> and
+        it will set it all.
       </p>
-      <h3 id="prism">Prism</h3>
-      <p>
-        Prism is used to convert your code to be able to use code highlighting.
-      </p>
-      <pre
-        class="language-css"
-      ><code class="language-css"><span class="token selector">.myCode</span> <span class="token punctuation">{</span>
-	<span class="token property">looks</span><span class="token punctuation">:</span> nice<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-      <h3 id="anchors">Anchors</h3>
-      <p>Automatically add anchors to your headings.</p>
-      <h3 id="media">Media</h3>
-      <p>Media will automatically be converted to video includes.</p>
-      <h3 id="emoji">Emoji</h3>
-      <p>If you are fond of using emoji’s in your code. Go ahead! 😃</p>
-      <h3 id="tasklists">Tasklists</h3>
-      <p>Create styled tasklists in your documentation!</p>
-      <pre
-        class="language-markdown"
-      ><code class="language-markdown"><span class="token list punctuation">-</span> [x] Add tasklists
-</code></pre>
-      <ul class="contains-task-list">
-        <li class="task-list-item enabled">
-          <input class="task-list-item-checkbox" checked="" type="checkbox" />
-          Add tasklists
-        </li>
-      </ul>
-      <h3 id="alerts">Alerts</h3>
-      <p>
-        available options: <code>success</code>, <code>warning</code>,
-        <code>tip</code>, <code>error</code> or nothing.
-      </p>
-      <pre class="language-markdown"><code class="language-markdown">::: success
-You've done a great job!
-:::
-</code></pre>
-      <div class="alert alert-success" role="alert">
-        <p>You’ve done a great job!</p>
-      </div>
     </main>
 
     <!--- Page Footer Content -->
@@ -466,35 +432,36 @@ You've done a great job!
           <li>
             <a href="/usage/">Usage</a>
             <ul>
-              <li>
-                <a href="/usage/blog/">Blog</a>
-              </li>
-
-              <li>
-                <a href="/usage/configuration/">Configuration</a>
-              </li>
-
-              <li>
-                <a href="/usage/deployment/">Deployment</a>
-              </li>
-
-              <li>
-                <a href="/usage/favicons/">Favicons</a>
-              </li>
               <li class="active">
-                <a href="/usage/markdown/">Markdown</a>
+                <a href="/usage/1:configuration/">Configuration</a>
               </li>
 
               <li>
-                <a href="/usage/navigation/">Navigation</a>
+                <a href="/usage/2:deployment/">Deployment</a>
               </li>
 
               <li>
-                <a href="/usage/pages/">Pages</a>
+                <a href="/usage/3:pages/">Pages</a>
               </li>
 
               <li>
-                <a href="/usage/templates/">Templates</a>
+                <a href="/usage/4:navigation/">Navigation</a>
+              </li>
+
+              <li>
+                <a href="/usage/5:templates/">Templates</a>
+              </li>
+
+              <li>
+                <a href="/usage/6:markdown/">Markdown</a>
+              </li>
+
+              <li>
+                <a href="/usage/7:favicons/">Favicons</a>
+              </li>
+
+              <li>
+                <a href="/usage/8:blog/">Blog</a>
               </li>
             </ul>
           </li>
