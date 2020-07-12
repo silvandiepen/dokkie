@@ -25,6 +25,7 @@ export declare const defaultSettings: {
     enhance: string[];
     language: string;
     search: boolean;
+    logging: any[];
 };
 export declare const settings: () => ISettings;
 export declare const getDokkiePackage: (settings: ISettings) => Promise<ISettings>;

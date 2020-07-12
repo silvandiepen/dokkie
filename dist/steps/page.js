@@ -58,6 +58,7 @@ exports.convertDataToHtml = (settings) => __awaiter(void 0, void 0, void 0, func
 });
 // Filter files
 exports.filterHiddenPages = (settings) => __awaiter(void 0, void 0, void 0, function* () {
+    // If the file has a meta remove. Remove it.
     const files = settings.files.filter((file) => { var _a; return ((_a = file.meta) === null || _a === void 0 ? void 0 : _a.remove) ? null : file; });
     return Object.assign(Object.assign({}, settings), { files: files });
 });
@@ -119,7 +120,7 @@ exports.createPages = (settings) => __awaiter(void 0, void 0, void 0, function* 
         styles: settings.styles ? settings.styles : null,
         scripts: settings.scripts ? settings.scripts : null,
     };
-    log.BLOCK_MID("Creating pages");
+    !settings.logging.includes("silent") && log.BLOCK_MID("Creating pages");
     yield utils_1.asyncForEach(settings.files, (file) => __awaiter(void 0, void 0, void 0, function* () {
         var _b, _c, _d;
         // THe file is newer than today, so don't build it (yet).
@@ -131,7 +132,8 @@ exports.createPages = (settings) => __awaiter(void 0, void 0, void 0, function* 
                     ? ((_b = settings.package) === null || _b === void 0 ? void 0 : _b.name) ? settings.package.name
                         : file.title
                     : settings.projectTitle, title: file.title, content: file.html, currentLink: currentLink, currentId: currentLink.replace(/\//g, " ").trim().replace(/\s+/g, "-"), headerNavigation: _1.getNavigation(settings, "header"), sidebarNavigation: _1.getNavigation(settings, "sidebar"), footerNavigation: _1.getNavigation(settings, "footer"), overviewNavigation: _1.getNavigation(settings, "overview"), meta: file.meta, hasMeta: ((_c = file.meta) === null || _c === void 0 ? void 0 : _c.author) || ((_d = file.meta) === null || _d === void 0 ? void 0 : _d.tags) ? true : false, language: settings.language, search: settings.files.length > 1 ? settings.search : false }));
-            yield utils_1.writeThatFile(file, prettier_1.default.format(contents, { parser: "html" }));
+            console.log(file);
+            yield utils_1.writeThatFile(file, prettier_1.default.format(contents, { parser: "html" }), settings);
         }
         catch (err) {
             console.log(err);
@@ -144,18 +146,19 @@ exports.copyFolders = (settings) => __awaiter(void 0, void 0, void 0, function* 
             return true;
     });
     if (settings.copy.length > 0) {
-        log.BLOCK_MID("Copy files/folders");
+        !settings.logging.includes("silent") && log.BLOCK_MID("Copy files/folders");
         yield utils_1.asyncForEach(settings.copy, (folder) => __awaiter(void 0, void 0, void 0, function* () {
             yield ncp(folder, settings.output + "/" + folder.split("/")[folder.split("/").length - 1], (err) => {
                 if (!err)
-                    log.BLOCK_LINE_SUCCESS(folder);
+                    !settings.logging.includes("silent") &&
+                        log.BLOCK_LINE_SUCCESS(folder);
                 else
                     console.log(err);
             });
         }));
     }
 });
-exports.createPageData = (settings) => {
+exports.createPageData = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     const file = {
         name: "",
         title: "",
@@ -172,8 +175,8 @@ exports.createPageData = (settings) => {
         delete item.filename;
         return item;
     });
-    utils_1.writeThatFile(file, JSON.stringify(fileData), true);
-};
+    yield utils_1.writeThatFile(file, JSON.stringify(fileData), settings, true);
+});
 exports.setHomePage = (settings) => {
     const customHomePage = settings.files.find((file) => { var _a; return (_a = file.meta) === null || _a === void 0 ? void 0 : _a.home; });
     const hasHomePage = settings.files.find((file) => file.route === "/index.html");

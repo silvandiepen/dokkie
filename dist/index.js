@@ -36,25 +36,29 @@ const settings_1 = require("./settings");
 const utils_1 = require("./utils");
 const steps_1 = require("./steps");
 const utils_2 = require("./utils");
-const buildDokkie = (settings) => __awaiter(void 0, void 0, void 0, function* () {
-    return settings;
-});
+const buildDokkie = (s) => __awaiter(void 0, void 0, void 0, function* () { return s; });
 buildDokkie(settings_1.settings())
     .then(settings_1.getDokkiePackage)
     .then((s) => {
-    log.START("Creating Your documentation");
-    log.BLOCK_START();
-    log.BLOCK_LINE(`Dokkie (${s.dokkie.version}) is now building your documentation`);
+    if (!s.logging.includes("silent")) {
+        log.START("Creating Your documentation");
+        log.BLOCK_START();
+        log.BLOCK_LINE(`Dokkie (${s.dokkie.version}) is now building your documentation`);
+    }
     return s;
 })
     .then(settings_1.setAlternativeDefaults)
     .then(steps_1.loadLocalConfig)
     .then(steps_1.setLocalConfig)
     .then((s) => {
-    log.BLOCK_MID("Settings");
+    !s.logging.includes("silent") && log.BLOCK_MID("Settings");
     const filteredSettings = {};
     Object.keys(s).forEach((key) => s[key] !== settings_1.defaultSettings[key] ? (filteredSettings[key] = s[key]) : false);
-    log.BLOCK_SETTINGS(s.debug ? s : filteredSettings, { exclude: ["dokkie"] });
+    !s.logging.includes("silent") &&
+        s.logging.includes("debug") &&
+        log.BLOCK_SETTINGS(s.logging.includes("debug") ? s : filteredSettings, {
+            exclude: ["dokkie"],
+        });
     return s;
 })
     .then(steps_1.getFiles)
@@ -88,7 +92,7 @@ buildDokkie(settings_1.settings())
     .then((s) => __awaiter(void 0, void 0, void 0, function* () {
     yield utils_2.PurgeCSSFiles(s);
     setTimeout(() => {
-        log.BLOCK_END("Done :)");
+        !s.logging.includes("silent") && log.BLOCK_END("Done :)");
         utils_2.showDist(s);
     }, 10);
 }));

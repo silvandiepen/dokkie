@@ -22,7 +22,7 @@ const downloadImage = async (
 
 		if (image.includes("http")) {
 			await download(image, filePath).then(async () => {
-				if (settings.debug) {
+				if (settings.logging.includes("debug")) {
 					const stats = await stat(filePath);
 					console.log(stats);
 				}
@@ -30,8 +30,9 @@ const downloadImage = async (
 		} else {
 			imageFile = await readFile(image);
 			await writeFile(filePath, imageFile).then(async () => {
-				if (settings.debug) {
+				if (settings.logging.includes("debug")) {
 					const stats = await stat(filePath);
+					console.log(stats);
 				}
 			});
 		}
@@ -61,7 +62,8 @@ export const downloadAssets = async (
 
 	// If there arent any image. Do nothing.
 	if (!settings.assets && contentImages.length < 1) return settings;
-	log.BLOCK_MID("Assets");
+
+	!settings.logging.includes("silent") && log.BLOCK_MID("Assets");
 	await createFolder(join(settings.output, "/img"));
 
 	// Process Assets
@@ -69,7 +71,8 @@ export const downloadAssets = async (
 		await downloadImage(settings.assets.logo, settings).then(() => {
 			const filename = "/img/" + basename(settings.assets.logo);
 			settings.assets.logo = filename;
-			log.BLOCK_LINE_SUCCESS(filename);
+
+			!settings.logging.includes("silent") && log.BLOCK_LINE_SUCCESS(filename);
 		});
 
 	// Process Content images
@@ -84,7 +87,8 @@ export const downloadAssets = async (
 				settings.files[img.fileIdx].html = settings.files[
 					img.fileIdx
 				].html.replace(img.image, filename);
-				log.BLOCK_LINE_SUCCESS(filename);
+				!settings.logging.includes("silent") &&
+					log.BLOCK_LINE_SUCCESS(filename);
 			});
 		});
 

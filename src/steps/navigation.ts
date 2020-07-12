@@ -131,6 +131,7 @@ export const getNavigation = (settings: ISettings, filter: string): IMenu => {
 	if (current)
 		return {
 			...current,
+
 			menu: filterNavigation(Array.from(settings.navigation), filter).filter(
 				Boolean
 			),

@@ -10,12 +10,9 @@ export const getFileTree = async (
 	const dirents = await readdir(dir, { withFileTypes: true });
 	const files = await Promise.all(
 		dirents.map(async (dirent: any) => {
-			// console.log(dirent);
 			const res = resolve(dir, dirent.name);
 			const ext = extname(res);
 			const date = await stat(res);
-
-			// console.log(settings.excludeFolders);
 
 			if (
 				(settings.extensions.includes(ext) ||
@@ -55,7 +52,6 @@ export const fileData = async (settings: ISettings): Promise<ISettings> => {
 export const concatPartials = async (
 	settings: ISettings
 ): Promise<ISettings> => {
-	// console.log(settings.files);
 	const removeIndexes = [];
 	await asyncForEach(settings.files, (file: IFile, index: number) => {
 		if (file.name.indexOf("_") == 0) {

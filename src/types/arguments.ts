@@ -26,10 +26,10 @@ export interface IArgumentSettings {
 	skip: string[];
 	type: string | buildTypes;
 	config: string;
-	debug: boolean;
 	enhance: string[];
 	language: string;
 	search: boolean;
+	logging: string[];
 }
 
 export interface ISettings extends IArgumentSettings {
@@ -46,4 +46,5 @@ export interface ISettings extends IArgumentSettings {
 	extendNavigation?: INavigation[];
 	overruleNavigation?: INavigation[];
 	partials?: IHandlebarsPartials[];
+	layoutFile?: string;
 }
