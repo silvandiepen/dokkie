@@ -17,6 +17,8 @@ import {
 	getFiles,
 	setFileDate,
 	fileData,
+	concatPartials,
+	cleanupFilePathAfterOrder,
 	getPackageInformation,
 	loadLocalConfig,
 	setLocalConfig,
@@ -38,36 +40,42 @@ import {
 
 import { showDist, PurgeCSSFiles } from "./utils";
 
-const buildDokkie = async (settings: ISettings): Promise<ISettings> => {
-	return settings;
-};
+const buildDokkie = async (s: ISettings): Promise<ISettings> => s;
 
 buildDokkie(settings())
 	.then(getDokkiePackage)
 	.then((s) => {
-		log.START("Creating Your documentation");
-		log.BLOCK_START();
-		log.BLOCK_LINE(
-			`Dokkie (${s.dokkie.version}) is now building your documentation`
-		);
+		if (!s.logging.includes("silent")) {
+			log.START("Creating Your documentation");
+			log.BLOCK_START();
+			log.BLOCK_LINE(
+				`Dokkie (${s.dokkie.version}) is now building your documentation`
+			);
+		}
 		return s;
 	})
 	.then(setAlternativeDefaults)
 	.then(loadLocalConfig)
 	.then(setLocalConfig)
 	.then((s) => {
-		log.BLOCK_MID("Settings");
+		!s.logging.includes("silent") && log.BLOCK_MID("Settings");
 
 		const filteredSettings = {};
 		Object.keys(s).forEach((key) =>
 			s[key] !== defaultSettings[key] ? (filteredSettings[key] = s[key]) : false
 		);
 
-		log.BLOCK_SETTINGS(s.debug ? s : filteredSettings, { exclude: ["dokkie"] });
+		!s.logging.includes("silent") &&
+			s.logging.includes("debug") &&
+			log.BLOCK_SETTINGS(s.logging.includes("debug") ? s : filteredSettings, {
+				exclude: ["dokkie"],
+			});
 		return s;
 	})
 	.then(getFiles)
 	.then(fileData)
+	.then(concatPartials)
+	.then(cleanupFilePathAfterOrder)
 	.then(getPackageInformation)
 	.then(convertDataToHtml)
 	.then(filterHiddenPages)
@@ -95,7 +103,7 @@ buildDokkie(settings())
 	.then(async (s) => {
 		await PurgeCSSFiles(s);
 		setTimeout(() => {
-			log.BLOCK_END("Done :)");
+			!s.logging.includes("silent") && log.BLOCK_END("Done :)");
 			showDist(s);
 		}, 10);
 	});

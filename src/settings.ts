@@ -31,6 +31,7 @@ export const defaultSettings = {
 	enhance: ["page-transition"],
 	language: "en",
 	search: true,
+	logging: [],
 };
 
 export const settings = (): ISettings => {
@@ -128,11 +129,6 @@ export const settings = (): ISettings => {
 			type: "string",
 			default: defaultSettings.config,
 		},
-		debug: {
-			require: false,
-			type: "boolean",
-			default: defaultSettings.debug,
-		},
 		enhance: {
 			require: false,
 			type: "array",
@@ -147,6 +143,11 @@ export const settings = (): ISettings => {
 			require: false,
 			type: "boolean",
 			default: defaultSettings.search,
+		},
+		logging: {
+			require: false,
+			type: "array",
+			default: defaultSettings.logging,
 		},
 	}).argv;
 
@@ -168,10 +169,10 @@ export const settings = (): ISettings => {
 		favicon: cs.favicon,
 		skip: cs.skip,
 		config: cs.config,
-		debug: cs.debug,
 		enhance: cs.enhance,
 		language: cs.language,
 		search: cs.search,
+		logging: cs.logging,
 	};
 };
 

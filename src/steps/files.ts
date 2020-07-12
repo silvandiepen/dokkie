@@ -10,12 +10,9 @@ export const getFileTree = async (
 	const dirents = await readdir(dir, { withFileTypes: true });
 	const files = await Promise.all(
 		dirents.map(async (dirent: any) => {
-			// console.log(dirent);
 			const res = resolve(dir, dirent.name);
 			const ext = extname(res);
 			const date = await stat(res);
-
-			// console.log(settings.excludeFolders);
 
 			if (
 				(settings.extensions.includes(ext) ||
@@ -38,15 +35,70 @@ export const getFileTree = async (
 };
 
 export const getFiles = async (settings: ISettings): Promise<ISettings> => {
-	const files = await getFileTree(settings.input, settings);
+	// Get all pages and order them by Path.
+	const files = await (
+		await getFileTree(settings.input, settings)
+	).sort((a, b) => (a.path > b.path ? 1 : -1));
 	return { ...settings, files: files };
 };
 
 export const fileData = async (settings: ISettings): Promise<ISettings> => {
-	await asyncForEach(settings.files, async (file) => {
-		file.data = await getFileData(file);
+	await asyncForEach(settings.files, async (file: IFile, index: number) => {
+		settings.files[index].data = await getFileData(file);
 	});
-	return { ...settings };
+	return settings;
+};
+
+export const concatPartials = async (
+	settings: ISettings
+): Promise<ISettings> => {
+	const removeIndexes = [];
+	await asyncForEach(settings.files, (file: IFile, index: number) => {
+		if (file.name.indexOf("_") == 0) {
+			const parentIndex = settings.files.findIndex(
+				(parentFile: IFile) =>
+					parentFile.path == file.path.replace(file.name, "readme")
+			);
+			// Add the data to the parent
+			settings.files[parentIndex].data =
+				settings.files[parentIndex].data + file.data;
+			// Remove the file from the list.
+			removeIndexes.push(index);
+		}
+	});
+
+	// Remove them all, order the indexes from high to low to not remove the wrong pages.
+	await asyncForEach(
+		removeIndexes.sort((a, b) => b - a),
+		(index: number) => {
+			settings.files.splice(index, 1);
+		}
+	);
+
+	return settings;
+};
+
+export const cleanupFilePathAfterOrder = async (settings: ISettings) => {
+	await asyncForEach(settings.files, (file: IFile, index: number) => {
+		// Check prefix in filename
+		// Fix the name
+		if (settings.files[index].name.indexOf(":") > 0)
+			settings.files[index].name = settings.files[index].name.split(":")[1];
+
+		// Check prefix in routes
+		// Fix the route
+		if (settings.files[index].path.indexOf(":") > 0)
+			settings.files[index].path = settings.files[index].path
+				.split("/")
+				.map((partial: string) => {
+					if (partial.indexOf(":") > 0) {
+						return partial.split(":")[1];
+					} else return partial;
+				})
+				.join("/");
+	});
+
+	return settings;
 };
 
 export const getFileData = async (file: IFile): Promise<IFile> => {
@@ -58,7 +110,7 @@ export const getFileData = async (file: IFile): Promise<IFile> => {
 	}
 };
 export const setFileDate = async (settings: ISettings): Promise<ISettings> => {
-	const files = settings.files.map((file: IFile) => {
+	settings.files = settings.files.map((file: IFile) => {
 		return {
 			...file,
 			date:
@@ -69,5 +121,5 @@ export const setFileDate = async (settings: ISettings): Promise<ISettings> => {
 					: file.date,
 		};
 	});
-	return { ...settings, files: files };
+	return settings;
 };

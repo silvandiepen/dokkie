@@ -66,7 +66,6 @@ exports.getTitleFromMD = (str, clean = true) => {
     // console.log("index -1:  ", str.charAt(startTitle - 1));
     while (str.charAt(startTitle - 1) == "#") {
         startTitle = findAfter(str, "# ", startTitle);
-        console.log("doing the while", startTitle);
     }
     // console.log(startTitle);
     let endTitle = findAfter(str, "\n", startTitle);

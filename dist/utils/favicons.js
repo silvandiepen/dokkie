@@ -64,7 +64,6 @@ exports.createFavicons = (settings) => __awaiter(void 0, void 0, void 0, functio
         appDescription: (_c = settings.package) === null || _c === void 0 ? void 0 : _c.description,
         appDeveloper: (_d = settings.package) === null || _d === void 0 ? void 0 : _d.author,
         appDeveloperUrl: null,
-        debug: false,
         color: "white",
         themeColor: "black",
         destination: faviconDest,

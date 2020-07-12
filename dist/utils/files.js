@@ -79,16 +79,17 @@ exports.createFolder = (folder) => __awaiter(void 0, void 0, void 0, function* (
         return;
     });
 });
-exports.writeThatFile = (file, contents, simple = false) => __awaiter(void 0, void 0, void 0, function* () {
+exports.writeThatFile = (file, contents, settings, simple = false) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const filePath = path_1.join(file.destpath, file.filename);
         yield exports.createFolder(path_1.dirname(filePath));
         yield writeFile(filePath, contents);
-        log.BLOCK_LINE_SUCCESS(file.title);
+        !settings.logging.includes("silent") && log.BLOCK_LINE_SUCCESS(file.title);
         if (!simple) {
             // log.BLOCK_LINE(`${file.name}${file.ext}`);
-            log.BLOCK_LINE(`→ ${kleur_1.blue(file.route)}`);
-            log.BLOCK_LINE();
+            !settings.logging.includes("silent") &&
+                log.BLOCK_LINE(`→ ${kleur_1.blue(file.route)}`);
+            !settings.logging.includes("silent") && log.BLOCK_LINE();
         }
     }
     catch (err) {

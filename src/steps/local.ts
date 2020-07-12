@@ -25,8 +25,10 @@ export const loadLocalConfig = async (
 		let configData = await readFile(settings.config).then((res) =>
 			JSON.parse(res.toString())
 		);
-		log.BLOCK_MID("Local configuration");
-		log.BLOCK_SETTINGS(configData);
+		if (!settings.logging.includes("silent")) {
+			log.BLOCK_MID("Local configuration");
+			log.BLOCK_SETTINGS(configData);
+		}
 		return { ...settings, localConfig: configData };
 	} catch (err) {
 		// console.log(err);

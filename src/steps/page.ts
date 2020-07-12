@@ -39,8 +39,9 @@ export const convertDataToHtml = async (
 export const filterHiddenPages = async (
 	settings: ISettings
 ): Promise<ISettings> => {
+	// If the file has a meta remove. Remove it.
 	const files = settings.files.filter((file: IFile) =>
-		file.meta.remove ? null : file
+		file.meta?.remove ? null : file
 	);
 	return { ...settings, files: files };
 };
@@ -51,15 +52,23 @@ export const getLayout = async (settings: ISettings): Promise<ISettings> => {
 	try {
 		let layoutFile = "";
 		if (settings.layout.includes(".hbs") || settings.layout.includes(".html")) {
-			layoutFile = await readFile(
-				join(process.cwd(), settings.layout)
-			).then((res) => res.toString());
+			try {
+				layoutFile = await readFile(
+					join(process.cwd(), settings.layout)
+				).then((r: any): string => r.toString());
+			} catch (err) {
+				console.log(err);
+			}
 		} else {
-			layoutFile = await readFile(
-				join(__dirname, "../../", `template/${settings.layout}.hbs`)
-			).then((res) => res.toString());
+			try {
+				layoutFile = await readFile(
+					join(__dirname, "../../", `template/${settings.layout}.hbs`)
+				).then((r: any): string => r.toString());
+			} catch (err) {
+				console.log(err);
+			}
 		}
-		return { ...settings, layout: layoutFile };
+		return { ...settings, layoutFile: layoutFile };
 	} catch (err) {
 		throw new Error(err);
 	}
@@ -96,7 +105,7 @@ export const createPages = async (settings: ISettings): Promise<void> => {
 	await asyncForEach(partials, (partial) => {
 		Handlebars.registerPartial(partial.name, partial.file);
 	});
-	const template = Handlebars.compile(settings.layout);
+	const template = Handlebars.compile(settings.layoutFile);
 
 	const getOnce = {
 		logo: settings.assets?.logo ? settings.assets.logo : false,
@@ -109,7 +118,7 @@ export const createPages = async (settings: ISettings): Promise<void> => {
 		scripts: settings.scripts ? settings.scripts : null,
 	};
 
-	log.BLOCK_MID("Creating pages");
+	!settings.logging.includes("silent") && log.BLOCK_MID("Creating pages");
 	await asyncForEach(settings.files, async (file: IFile) => {
 		// THe file is newer than today, so don't build it (yet).
 		if (file.date > new Date()) return;
@@ -136,7 +145,11 @@ export const createPages = async (settings: ISettings): Promise<void> => {
 				language: settings.language,
 				search: settings.files.length > 1 ? settings.search : false,
 			});
-			await writeThatFile(file, prettier.format(contents, { parser: "html" }));
+			await writeThatFile(
+				file,
+				prettier.format(contents, { parser: "html" }),
+				settings
+			);
 		} catch (err) {
 			console.log(err);
 		}
@@ -147,13 +160,15 @@ export const copyFolders = async (settings: ISettings): Promise<void> => {
 		if (typeof folder === "string") return true;
 	});
 	if (settings.copy.length > 0) {
-		log.BLOCK_MID("Copy files/folders");
+		!settings.logging.includes("silent") && log.BLOCK_MID("Copy files/folders");
 		await asyncForEach(settings.copy, async (folder) => {
 			await ncp(
 				folder,
 				settings.output + "/" + folder.split("/")[folder.split("/").length - 1],
 				(err) => {
-					if (!err) log.BLOCK_LINE_SUCCESS(folder);
+					if (!err)
+						!settings.logging.includes("silent") &&
+							log.BLOCK_LINE_SUCCESS(folder);
 					else console.log(err);
 				}
 			);
@@ -161,7 +176,7 @@ export const copyFolders = async (settings: ISettings): Promise<void> => {
 	}
 };
 
-export const createPageData = (settings: ISettings): void => {
+export const createPageData = async (settings: ISettings): Promise<void> => {
 	const file = {
 		name: "",
 		title: "",
@@ -178,7 +193,7 @@ export const createPageData = (settings: ISettings): void => {
 		delete item.filename;
 		return item;
 	});
-	writeThatFile(file, JSON.stringify(fileData), true);
+	await writeThatFile(file, JSON.stringify(fileData), settings, true);
 };
 
 export const setHomePage = (settings: ISettings): ISettings => {

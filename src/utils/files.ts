@@ -56,17 +56,19 @@ export const createFolder = async (folder): Promise<void> => {
 export const writeThatFile = async (
 	file: IFile,
 	contents: string,
+	settings: ISettings,
 	simple: boolean = false
 ): Promise<void> => {
 	try {
 		const filePath = join(file.destpath, file.filename);
 		await createFolder(dirname(filePath));
 		await writeFile(filePath, contents);
-		log.BLOCK_LINE_SUCCESS(file.title);
+		!settings.logging.includes("silent") && log.BLOCK_LINE_SUCCESS(file.title);
 		if (!simple) {
 			// log.BLOCK_LINE(`${file.name}${file.ext}`);
-			log.BLOCK_LINE(`→ ${blue(file.route)}`);
-			log.BLOCK_LINE();
+			!settings.logging.includes("silent") &&
+				log.BLOCK_LINE(`→ ${blue(file.route)}`);
+			!settings.logging.includes("silent") && log.BLOCK_LINE();
 		}
 	} catch (err) {
 		console.log(err);

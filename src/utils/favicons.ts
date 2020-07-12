@@ -40,7 +40,6 @@ export const createFavicons = async (
 		appDescription: settings.package?.description,
 		appDeveloper: settings.package?.author,
 		appDeveloperUrl: null,
-		debug: false,
 		color: "white",
 		themeColor: "black",
 		destination: faviconDest,

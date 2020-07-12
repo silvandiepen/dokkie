@@ -45,8 +45,10 @@ exports.getPackageInformation = (settings) => __awaiter(void 0, void 0, void 0, 
 exports.loadLocalConfig = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let configData = yield readFile(settings.config).then((res) => JSON.parse(res.toString()));
-        log.BLOCK_MID("Local configuration");
-        log.BLOCK_SETTINGS(configData);
+        if (!settings.logging.includes("silent")) {
+            log.BLOCK_MID("Local configuration");
+            log.BLOCK_SETTINGS(configData);
+        }
         return Object.assign(Object.assign({}, settings), { localConfig: configData });
     }
     catch (err) {

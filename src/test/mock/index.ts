@@ -3,4 +3,5 @@ import { defaultSettings } from "../../settings";
 
 export const baseSettings: ISettings = {
 	...defaultSettings,
+	logging: ["silent"],
 };

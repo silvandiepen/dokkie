@@ -5,5 +5,5 @@ export declare const getLayout: (settings: ISettings) => Promise<ISettings>;
 export declare const reformInjectHtml: (settings: ISettings) => Promise<ISettings>;
 export declare const createPages: (settings: ISettings) => Promise<void>;
 export declare const copyFolders: (settings: ISettings) => Promise<void>;
-export declare const createPageData: (settings: ISettings) => void;
+export declare const createPageData: (settings: ISettings) => Promise<void>;
 export declare const setHomePage: (settings: ISettings) => ISettings;

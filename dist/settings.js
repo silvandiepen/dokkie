@@ -42,6 +42,7 @@ exports.defaultSettings = {
     enhance: ["page-transition"],
     language: "en",
     search: true,
+    logging: [],
 };
 exports.settings = () => {
     const cs = yargs_1.default.options({
@@ -138,11 +139,6 @@ exports.settings = () => {
             type: "string",
             default: exports.defaultSettings.config,
         },
-        debug: {
-            require: false,
-            type: "boolean",
-            default: exports.defaultSettings.debug,
-        },
         enhance: {
             require: false,
             type: "array",
@@ -157,6 +153,11 @@ exports.settings = () => {
             require: false,
             type: "boolean",
             default: exports.defaultSettings.search,
+        },
+        logging: {
+            require: false,
+            type: "array",
+            default: exports.defaultSettings.logging,
         },
     }).argv;
     return {
@@ -177,10 +178,10 @@ exports.settings = () => {
         favicon: cs.favicon,
         skip: cs.skip,
         config: cs.config,
-        debug: cs.debug,
         enhance: cs.enhance,
         language: cs.language,
         search: cs.search,
+        logging: cs.logging,
     };
 };
 exports.getDokkiePackage = (settings) => __awaiter(void 0, void 0, void 0, function* () {

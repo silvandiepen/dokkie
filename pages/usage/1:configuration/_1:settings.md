@@ -1,7 +1,3 @@
-# Configuration
-
-Configuration can be done multiple ways, the easiest way is doing this through the API, you can set all navigation just in your build script during deployment. But you could also add a `dokkie.config.json` to your repository where you can set all configuration, in that case you can just run `npx dokkie` and it will set it all.
-
 ### Settings
 
 **Default configuration**
@@ -24,77 +20,5 @@ Configuration can be done multiple ways, the easiest way is doing this through t
 | `favicon`        | Custom generated           | path to image                                           | Create favicons and other meta tags automatically                                                          |
 | `skip`           | `null`                     | `favicons`                                              | Skip parts of the build process to speed it up. For now this can only be done with Favicons                |
 | `config`         | `dokkie.config.json`       | path to json config file                                | Give an alternative path to the config for dokkie                                                          |
-| `debug`          | `false`                    | `true` / `false`                                        | Running Dokkie with Debug on, will give you more details about the build process                           |
+| `logging`        | `[]`                       | `silent`, `debug`                                       | Run Dokkie with silent mode or debug.                                                                      |
 | `language`       | `en`                       | Any language shortname, ex; `en`, `nl` or `es`          | Language of the page, this is set in the templates                                                         |
-
-### API
-
-All above settings can be altered using the cli
-
-**example**
-
-```bash
-npx dokkie --input=docs --output=dist --cleanbefore=false --copy=themes --showNavigation=header,footer,sidebar
-```
-
-### Settings files
-
-Dokkie also accepts a settings file in the root of your project (or root of where your input is).
-
-**example**
-
-```json
-{
-	"input": "docs",
-	"output": "dist",
-	"cleanBefore": false,
-	"copy": ["themes"],
-	"showNavigation": ["header", "footer", "sidebar"]
-}
-```
-
-### Alternative layouts
-
-Use the `layout` option to define which layout you want to use. More about (layouts)[/usage/templates].
-
-### Alternative styling and scripts
-
-Styles and scripts can be added or overruled in the default layouts.
-
-### add
-
-Adding can be done, this will just ad the extra stylesheets or scripts besides the current ones.
-
-**dokkie.config.json**
-
-```json
-{
-	"add": {
-		"css": ["/mystylesheet.css"],
-		"js": ["/my-app.js"]
-	}
-}
-```
-
-#### overrule
-
-Overrule means the current stylesheets won't be added, but instead the given stylesheets will be used.
-
-**dokkie.config.json**
-
-```json
-{
-	"overrule": {
-		"css": ["/mystylesheet.css"],
-		"js": ["/my-app.js"]
-	}
-}
-```
-
-#### Custom Config file
-
-You can also define a custom config.json file. But obviously only in the command line.
-
-```bash
-npx dokkie --config=my-config-dokkie-file.json
-```
