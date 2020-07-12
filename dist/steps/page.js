@@ -67,12 +67,22 @@ exports.getLayout = (settings) => __awaiter(void 0, void 0, void 0, function* ()
     try {
         let layoutFile = "";
         if (settings.layout.includes(".hbs") || settings.layout.includes(".html")) {
-            layoutFile = yield readFile(path_1.join(process.cwd(), settings.layout)).then((res) => res.toString());
+            try {
+                layoutFile = yield readFile(path_1.join(process.cwd(), settings.layout)).then((r) => r.toString());
+            }
+            catch (err) {
+                console.log(err);
+            }
         }
         else {
-            layoutFile = yield readFile(path_1.join(__dirname, "../../", `template/${settings.layout}.hbs`)).then((res) => res.toString());
+            try {
+                layoutFile = yield readFile(path_1.join(__dirname, "../../", `template/${settings.layout}.hbs`)).then((r) => r.toString());
+            }
+            catch (err) {
+                console.log(err);
+            }
         }
-        return Object.assign(Object.assign({}, settings), { layout: layoutFile });
+        return Object.assign(Object.assign({}, settings), { layoutFile: layoutFile });
     }
     catch (err) {
         throw new Error(err);
@@ -109,7 +119,7 @@ exports.createPages = (settings) => __awaiter(void 0, void 0, void 0, function* 
     yield utils_1.asyncForEach(partials, (partial) => {
         utils_1.Handlebars.registerPartial(partial.name, partial.file);
     });
-    const template = utils_1.Handlebars.compile(settings.layout);
+    const template = utils_1.Handlebars.compile(settings.layoutFile);
     const getOnce = {
         logo: ((_a = settings.assets) === null || _a === void 0 ? void 0 : _a.logo) ? settings.assets.logo : false,
         package: settings.package ? settings.package : false,
@@ -132,7 +142,6 @@ exports.createPages = (settings) => __awaiter(void 0, void 0, void 0, function* 
                     ? ((_b = settings.package) === null || _b === void 0 ? void 0 : _b.name) ? settings.package.name
                         : file.title
                     : settings.projectTitle, title: file.title, content: file.html, currentLink: currentLink, currentId: currentLink.replace(/\//g, " ").trim().replace(/\s+/g, "-"), headerNavigation: _1.getNavigation(settings, "header"), sidebarNavigation: _1.getNavigation(settings, "sidebar"), footerNavigation: _1.getNavigation(settings, "footer"), overviewNavigation: _1.getNavigation(settings, "overview"), meta: file.meta, hasMeta: ((_c = file.meta) === null || _c === void 0 ? void 0 : _c.author) || ((_d = file.meta) === null || _d === void 0 ? void 0 : _d.tags) ? true : false, language: settings.language, search: settings.files.length > 1 ? settings.search : false }));
-            console.log(file);
             yield utils_1.writeThatFile(file, prettier_1.default.format(contents, { parser: "html" }), settings);
         }
         catch (err) {

@@ -16,11 +16,9 @@ const utils_1 = require("../utils");
 exports.getFileTree = (dir, settings) => __awaiter(void 0, void 0, void 0, function* () {
     const dirents = yield readdir(dir, { withFileTypes: true });
     const files = yield Promise.all(dirents.map((dirent) => __awaiter(void 0, void 0, void 0, function* () {
-        // console.log(dirent);
         const res = path_1.resolve(dir, dirent.name);
         const ext = path_1.extname(res);
         const date = yield stat(res);
-        // console.log(settings.excludeFolders);
         if ((settings.extensions.includes(ext) ||
             settings.extensions.includes("*") ||
             dirent.isDirectory()) &&
@@ -50,7 +48,6 @@ exports.fileData = (settings) => __awaiter(void 0, void 0, void 0, function* () 
     return settings;
 });
 exports.concatPartials = (settings) => __awaiter(void 0, void 0, void 0, function* () {
-    // console.log(settings.files);
     const removeIndexes = [];
     yield utils_1.asyncForEach(settings.files, (file, index) => {
         if (file.name.indexOf("_") == 0) {
