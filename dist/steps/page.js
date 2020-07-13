@@ -42,6 +42,7 @@ const path_1 = require("path");
 // Convert filedata to html.
 exports.convertDataToHtml = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     yield utils_1.asyncForEach(settings.files, (file) => __awaiter(void 0, void 0, void 0, function* () {
+        var _a, _b;
         switch (file.ext) {
             case ".md":
                 const markdownData = yield utils_1.mdToHtml(file);
@@ -52,6 +53,14 @@ exports.convertDataToHtml = (settings) => __awaiter(void 0, void 0, void 0, func
                 file.meta = {};
                 file.html = file.data;
                 break;
+        }
+        // When the file has partials saved in contents, all partials also need the Markdown treatment.
+        if ((_b = (_a = file.contents) === null || _a === void 0 ? void 0 : _a.sections) === null || _b === void 0 ? void 0 : _b.length) {
+            yield utils_1.asyncForEach(file.contents.sections, (subFile, index) => __awaiter(void 0, void 0, void 0, function* () {
+                const rendered = yield utils_1.mdToHtml(subFile);
+                file.contents.sections[index].html = rendered.document;
+                file.contents.sections[index].meta = rendered.meta;
+            }));
         }
     }));
     return Object.assign(Object.assign({}, settings), { files: settings.files });
@@ -113,7 +122,7 @@ exports.reformInjectHtml = (settings) => __awaiter(void 0, void 0, void 0, funct
     return Object.assign(Object.assign({}, settings), { injectHtml: Inject });
 });
 exports.createPages = (settings) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
+    var _c;
     const partials = yield utils_1.loadHandlebarsPartials();
     // Register Partials
     yield utils_1.asyncForEach(partials, (partial) => {
@@ -121,7 +130,7 @@ exports.createPages = (settings) => __awaiter(void 0, void 0, void 0, function* 
     });
     const template = utils_1.Handlebars.compile(settings.layoutFile);
     const getOnce = {
-        logo: ((_a = settings.assets) === null || _a === void 0 ? void 0 : _a.logo) ? settings.assets.logo : false,
+        logo: ((_c = settings.assets) === null || _c === void 0 ? void 0 : _c.logo) ? settings.assets.logo : false,
         package: settings.package ? settings.package : false,
         favicon: settings.faviconData ? settings.faviconData.html.join("") : null,
         enhance: settings.enhance,
@@ -132,16 +141,16 @@ exports.createPages = (settings) => __awaiter(void 0, void 0, void 0, function* 
     };
     !settings.logging.includes("silent") && log.BLOCK_MID("Creating pages");
     yield utils_1.asyncForEach(settings.files, (file) => __awaiter(void 0, void 0, void 0, function* () {
-        var _b, _c, _d;
+        var _d, _e, _f;
         // THe file is newer than today, so don't build it (yet).
         if (file.date > new Date())
             return;
         try {
             const currentLink = file.route.replace("index.html", "");
             const contents = template(Object.assign(Object.assign({}, getOnce), { projectTitle: settings.projectTitle == ""
-                    ? ((_b = settings.package) === null || _b === void 0 ? void 0 : _b.name) ? settings.package.name
+                    ? ((_d = settings.package) === null || _d === void 0 ? void 0 : _d.name) ? settings.package.name
                         : file.title
-                    : settings.projectTitle, title: file.title, content: file.html, currentLink: currentLink, currentId: currentLink.replace(/\//g, " ").trim().replace(/\s+/g, "-"), headerNavigation: _1.getNavigation(settings, "header"), sidebarNavigation: _1.getNavigation(settings, "sidebar"), footerNavigation: _1.getNavigation(settings, "footer"), overviewNavigation: _1.getNavigation(settings, "overview"), meta: file.meta, hasMeta: ((_c = file.meta) === null || _c === void 0 ? void 0 : _c.author) || ((_d = file.meta) === null || _d === void 0 ? void 0 : _d.tags) ? true : false, language: settings.language, search: settings.files.length > 1 ? settings.search : false }));
+                    : settings.projectTitle, title: file.title, content: file.html, currentLink: currentLink, currentId: currentLink.replace(/\//g, " ").trim().replace(/\s+/g, "-"), headerNavigation: _1.getNavigation(settings, "header"), sidebarNavigation: _1.getNavigation(settings, "sidebar"), footerNavigation: _1.getNavigation(settings, "footer"), overviewNavigation: _1.getNavigation(settings, "overview"), meta: file.meta, contents: file.contents ? file.contents : false, hasMeta: ((_e = file.meta) === null || _e === void 0 ? void 0 : _e.author) || ((_f = file.meta) === null || _f === void 0 ? void 0 : _f.tags) ? true : false, language: settings.language, search: settings.files.length > 1 ? settings.search : false }));
             yield utils_1.writeThatFile(file, prettier_1.default.format(contents, { parser: "html" }), settings);
         }
         catch (err) {

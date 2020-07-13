@@ -9,10 +9,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.setFileDate = exports.getFileData = exports.cleanupFilePathAfterOrder = exports.concatPartials = exports.fileData = exports.getFiles = exports.getFileTree = void 0;
+exports.setFileDate = exports.cleanupFilePathAfterOrder = exports.concatPartials = exports.getFileData = exports.fileData = exports.getFiles = exports.getFileTree = void 0;
 const { readdir, readFile, stat } = require("fs").promises;
 const path_1 = require("path");
 const utils_1 = require("../utils");
+const markdown_1 = require("../utils/markdown");
+/*
+    ::getFileTree
+    Get all files and folders from the input
+*/
 exports.getFileTree = (dir, settings) => __awaiter(void 0, void 0, void 0, function* () {
     const dirents = yield readdir(dir, { withFileTypes: true });
     const files = yield Promise.all(dirents.map((dirent) => __awaiter(void 0, void 0, void 0, function* () {
@@ -36,35 +41,99 @@ exports.getFileTree = (dir, settings) => __awaiter(void 0, void 0, void 0, funct
     })));
     return Array.prototype.concat(...files).filter((r) => r !== null);
 });
+/*
+    ::getFiles
+    Get all files based on a fileTree from the input folder.
+*/
 exports.getFiles = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     // Get all pages and order them by Path.
     const files = yield (yield exports.getFileTree(settings.input, settings)).sort((a, b) => (a.path > b.path ? 1 : -1));
     return Object.assign(Object.assign({}, settings), { files: files });
 });
+/*
+    ::fileData
+    Go through all files and there data.
+*/
 exports.fileData = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     yield utils_1.asyncForEach(settings.files, (file, index) => __awaiter(void 0, void 0, void 0, function* () {
         settings.files[index].data = yield exports.getFileData(file);
     }));
     return settings;
 });
+/*
+    ::	getFileData
+    Get the file data from a given file.
+*/
+exports.getFileData = (file) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let fileData = yield readFile(file.path).then((res) => res.toString());
+        return fileData;
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
+/*
+    ::concatParitials
+    Get all partials and add them to the parent or as a contents array.
+*/
 exports.concatPartials = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     const removeIndexes = [];
-    yield utils_1.asyncForEach(settings.files, (file, index) => {
+    yield utils_1.asyncForEach(settings.files, (file, index) => __awaiter(void 0, void 0, void 0, function* () {
         if (file.name.indexOf("_") == 0) {
             const parentIndex = settings.files.findIndex((parentFile) => parentFile.path == file.path.replace(file.name, "readme"));
-            // Add the data to the parent
-            settings.files[parentIndex].data =
-                settings.files[parentIndex].data + file.data;
+            // Check if the Parent has a layout defined.
+            const parentData = yield markdown_1.mdToHtml(settings.files[parentIndex]);
+            // Based on the template, get the classes
+            function getColumnClasses(layout) {
+                switch (layout) {
+                    case "full":
+                        return "small-full medium-full";
+                    case "half":
+                        return "small-full medium-half";
+                    case "third":
+                    case "thirds":
+                        return "small-full medium-third";
+                    case "quarter":
+                        return "small-half medium-quarter";
+                    default:
+                        return "small-full";
+                }
+            }
+            // If the parent has a layout, the partials will be stored as contents.
+            if (parentData.meta.layout) {
+                if (!settings.files[parentIndex].contents)
+                    settings.files[parentIndex].contents = {
+                        sections: [],
+                        name: file.name,
+                        layout: parentData.meta.layout,
+                        classes: getColumnClasses(parentData.meta.layout),
+                    };
+                settings.files[parentIndex].contents.sections.push({
+                    data: file.data,
+                });
+            }
+            // Otherwise, the partials will be added automatically to the parent.
+            else {
+                // Add the data to the parent
+                settings.files[parentIndex].data =
+                    settings.files[parentIndex].data + file.data;
+            }
             // Remove the file from the list.
             removeIndexes.push(index);
         }
-    });
+    }));
     // Remove them all, order the indexes from high to low to not remove the wrong pages.
     yield utils_1.asyncForEach(removeIndexes.sort((a, b) => b - a), (index) => {
         settings.files.splice(index, 1);
     });
     return settings;
 });
+/*
+    ::cleanupFilePathAfterOrder
+    Cleanup the paths and names when they have characters
+    to make partials or order purposes.
+*/
 exports.cleanupFilePathAfterOrder = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     yield utils_1.asyncForEach(settings.files, (file, index) => {
         // Check prefix in filename
@@ -87,15 +156,10 @@ exports.cleanupFilePathAfterOrder = (settings) => __awaiter(void 0, void 0, void
     });
     return settings;
 });
-exports.getFileData = (file) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        let fileData = yield readFile(file.path).then((res) => res.toString());
-        return fileData;
-    }
-    catch (err) {
-        console.log(err);
-    }
-});
+/*
+    :: setFileDate
+    If the file doesn't have a provided date through meta. Use the creation date of the file.
+*/
 exports.setFileDate = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     settings.files = settings.files.map((file) => {
         return Object.assign(Object.assign({}, file), { date: file.meta && file.meta.date

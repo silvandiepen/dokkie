@@ -63,11 +63,9 @@ const findAfter = (str, needle, afterIndex) => {
 */
 exports.getTitleFromMD = (str, clean = true) => {
     let startTitle = str.indexOf("# ");
-    // console.log("index -1:  ", str.charAt(startTitle - 1));
     while (str.charAt(startTitle - 1) == "#") {
         startTitle = findAfter(str, "# ", startTitle);
     }
-    // console.log(startTitle);
     let endTitle = findAfter(str, "\n", startTitle);
     if (startTitle < 0)
         return null;

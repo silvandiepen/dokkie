@@ -12,6 +12,18 @@ export interface IFile {
 	filename?: string;
 	route?: string;
 	date?: Date;
+	contents?: IContents;
+}
+
+export interface IContents {
+	sections: IFileContents[];
+	layout: string;
+}
+
+export interface IFileContents {
+	data: string;
+	html?: string;
+	meta?: string;
 }
 
 export interface IPackageJson {

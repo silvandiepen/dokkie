@@ -5,16 +5,20 @@
 	"main": "dist/index.js",
 	"bin": "dist/index.js",
 	"scripts": {
-		"test": "jest",
 		"build": "tsc",
-		"build:dev": "tsc src -w",
+		"build:dev": "tsc -w",
 		"serve": "serve -l 5555 dokkie",
-		"dev:debug": "npm run build && node dist/index.js --debug=true --skip=favicons",
-		"dev:docs": "npm run build && node dist/index.js --config=docs.config.json",
-		"dev:blog": "npm run build && node dist/index.js --config=blog.config.json --skip=favicons --type=blog --input=posts",
+		"dev:debug": "npm run build && node dist/index.js --config=config/dokkie.config.json --logging=debug --skip=favicons",
+		"dev:docs": "npm run build && node dist/index.js --config=config/docs.config.json",
+		"dev:blog": "npm run build && node dist/index.js --config=config/blog.config.json --skip=favicons --type=blog --input=content/posts",
+		"dev:website": "npm run build && node dist/index.js --config=config/website.config.json --skip=favicons --type=website --input=content/website",
 		"pre": "npm run build && npm run test && npm run dev:docs",
 		"precommit": "npm run pre",
-		"prepublishOnly": "npm run pre"
+		"prepublishOnly": "npm run pre",
+		"test": "npm run build && npm run test:unit",
+		"test:runs": "npm run dev:docs && npm run dev:docs && npm run dev:website",
+		"test:unit": "jest",
+		"pretest:unit": "node src/test/clean.js"
 	},
 	"keywords": [
 		"Documentation",

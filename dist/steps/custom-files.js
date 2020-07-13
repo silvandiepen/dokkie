@@ -40,9 +40,15 @@ exports.getStyles = (settings) => __awaiter(void 0, void 0, void 0, function* ()
     let styles = [];
     let localCss = false;
     if (settings.theme && !settings.theme.includes("http")) {
-        yield utils_1.download(`https://coat.guyn.nl/css/theme/${settings.theme}.css`, path_1.join(process.cwd(), settings.output, "css", "style.css"));
-        styles.push("/css/style.css");
-        localCss = true;
+        console.log("theme", settings.theme);
+        try {
+            yield utils_1.download(`https://coat.guyn.nl/css/theme/${settings.theme}.css`, path_1.join(process.cwd(), settings.output, "css", "style.css"));
+            styles.push("/css/style.css");
+            localCss = true;
+        }
+        catch (err) {
+            console.log(err);
+        }
     }
     // If there are addable stylesheets available
     if ((_b = (_a = settings.localConfig) === null || _a === void 0 ? void 0 : _a.add) === null || _b === void 0 ? void 0 : _b.css)

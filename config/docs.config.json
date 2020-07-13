@@ -14,5 +14,6 @@
 			"link": "https://blog.silvandiepen.nl",
 			"meta": { "menu": ["header", "footer"] }
 		}
-	]
+	],
+	"strip": ["content/pages"]
 }

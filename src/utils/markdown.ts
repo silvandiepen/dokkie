@@ -1,6 +1,6 @@
 // Markdown
 
-import { IMarkdown, IFile, MarkdownItExtended } from "../types";
+import { IMarkdown, IFile, IFileContents, MarkdownItExtended } from "../types";
 
 import meta from "markdown-it-meta";
 import prism from "markdown-it-prism";
@@ -29,7 +29,9 @@ md.use(taskLists, { enabled: true });
 /*
 	Convert Markdown Data to html and filter meta.
 */
-export const mdToHtml = async (file: IFile): Promise<IMarkdown> => {
+export const mdToHtml = async (
+	file: IFile | IFileContents
+): Promise<IMarkdown> => {
 	const renderedDocument = md.render(file.data);
 	const meta = md.meta;
 	md.meta = {};
@@ -55,11 +57,9 @@ const findAfter = (str: string, needle: string, afterIndex: number): number => {
 */
 export const getTitleFromMD = (str: string, clean = true): string => {
 	let startTitle = str.indexOf("# ");
-	// console.log("index -1:  ", str.charAt(startTitle - 1));
 	while (str.charAt(startTitle - 1) == "#") {
 		startTitle = findAfter(str, "# ", startTitle);
 	}
-	// console.log(startTitle);
 	let endTitle = findAfter(str, "\n", startTitle);
 
 	if (startTitle < 0) return null;

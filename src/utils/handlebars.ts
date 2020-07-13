@@ -5,12 +5,11 @@ import { join } from "path";
 const { readFile } = require("fs").promises;
 import { IHandlebarsPartials, IHandlebarsBlock } from "../types";
 
-const loadPartial = async (partial: string, dir: string): Promise<void> => {
+const loadPartial = async (partial: string): Promise<void> => {
 	const partialTemplate = join(
 		__dirname,
 		"../../",
 		"template",
-		dir,
 		`${partial}.hbs`
 	);
 
@@ -20,7 +19,7 @@ const loadPartial = async (partial: string, dir: string): Promise<void> => {
 		);
 		return file;
 	} catch (err) {
-		throw new Error(`${partialTemplate} doesn't exist`);
+		throw new Error(`${partialTemplate.split("/")[1]} doesn't exist`);
 	}
 };
 
@@ -30,24 +29,28 @@ export const loadHandlebarsPartials = async (): Promise<
 > => {
 	// Create Partials
 	const partialNames = [
-		"headerNavigation",
-		"footerNavigation",
-		"sidebarNavigation",
-		"overviewNavigation",
-		"projectTitle",
-		"blogMeta",
-		"headMeta",
-		"searchBlock",
-		"searchScript",
-		"loadScripts",
+		"partials/headerNavigation",
+		"partials/footerNavigation",
+		"partials/sidebarNavigation",
+		"partials/overviewNavigation",
+		"partials/projectTitle",
+		"partials/blogMeta",
+		"partials/headMeta",
+		"partials/searchBlock",
+		"partials/searchScript",
+		"partials/loadScripts",
+		"sections/columns",
 	];
 
 	const partials = [];
 	await asyncForEach(partialNames, async (partial: string) => {
 		try {
 			partials.push({
-				name: partial,
-				file: await loadPartial(partial, "partials").then((r) => r),
+				name:
+					partial.indexOf("/") > 0
+						? partial.split("/")[partial.split("/").length - 1]
+						: partial,
+				file: await loadPartial(partial).then((r) => r),
 			});
 		} catch (err) {
 			console.log(err);

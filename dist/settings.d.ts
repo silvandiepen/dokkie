@@ -21,11 +21,11 @@ export declare const defaultSettings: {
         desktop: boolean;
     }[];
     config: string;
-    debug: boolean;
     enhance: string[];
     language: string;
     search: boolean;
     logging: any[];
+    showHome: boolean;
 };
 export declare const settings: () => ISettings;
 export declare const getDokkiePackage: (settings: ISettings) => Promise<ISettings>;

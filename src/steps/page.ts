@@ -1,4 +1,4 @@
-import { ISettings, IFile } from "../types";
+import { ISettings, IFile, IFileContents } from "../types";
 import {
 	mdToHtml,
 	asyncForEach,
@@ -14,7 +14,6 @@ const { readFile } = require("fs").promises;
 import { join } from "path";
 
 // Convert filedata to html.
-
 export const convertDataToHtml = async (
 	settings: ISettings
 ): Promise<ISettings> => {
@@ -29,6 +28,18 @@ export const convertDataToHtml = async (
 				file.meta = {};
 				file.html = file.data;
 				break;
+		}
+
+		// When the file has partials saved in contents, all partials also need the Markdown treatment.
+		if (file.contents?.sections?.length) {
+			await asyncForEach(
+				file.contents.sections,
+				async (subFile: IFileContents, index: number) => {
+					const rendered = await mdToHtml(subFile);
+					file.contents.sections[index].html = rendered.document;
+					file.contents.sections[index].meta = rendered.meta;
+				}
+			);
 		}
 	});
 	return { ...settings, files: settings.files };
@@ -100,7 +111,6 @@ export const reformInjectHtml = async (
 
 export const createPages = async (settings: ISettings): Promise<void> => {
 	const partials = await loadHandlebarsPartials();
-
 	// Register Partials
 	await asyncForEach(partials, (partial) => {
 		Handlebars.registerPartial(partial.name, partial.file);
@@ -141,6 +151,7 @@ export const createPages = async (settings: ISettings): Promise<void> => {
 				footerNavigation: getNavigation(settings, "footer"),
 				overviewNavigation: getNavigation(settings, "overview"),
 				meta: file.meta,
+				contents: file.contents ? file.contents : false,
 				hasMeta: file.meta?.author || file.meta?.tags ? true : false,
 				language: settings.language,
 				search: settings.files.length > 1 ? settings.search : false,
