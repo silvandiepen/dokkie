@@ -40,7 +40,6 @@ exports.getStyles = (settings) => __awaiter(void 0, void 0, void 0, function* ()
     let styles = [];
     let localCss = false;
     if (settings.theme && !settings.theme.includes("http")) {
-        console.log("theme", settings.theme);
         try {
             yield utils_1.download(`https://coat.guyn.nl/css/theme/${settings.theme}.css`, path_1.join(process.cwd(), settings.output, "css", "style.css"));
             styles.push("/css/style.css");

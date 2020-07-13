@@ -11,7 +11,7 @@
 		"dev:debug": "npm run build && node dist/index.js --config=config/dokkie.config.json --logging=debug --skip=favicons",
 		"dev:docs": "npm run build && node dist/index.js --config=config/docs.config.json",
 		"dev:blog": "npm run build && node dist/index.js --config=config/blog.config.json --skip=favicons --type=blog --input=content/posts",
-		"dev:website": "npm run build && node dist/index.js --config=config/website.config.json --skip=favicons --type=website --input=content/website",
+		"dev:website": "npm run build && node dist/index.js --config=config/website.config.json --skip=favicons --type=website --input=content/website --theme=coat-dark-web",
 		"pre": "npm run build && npm run test && npm run dev:docs",
 		"precommit": "npm run pre",
 		"prepublishOnly": "npm run pre",

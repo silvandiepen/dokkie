@@ -36,7 +36,8 @@ export const mdToHtml = async (
 	const meta = md.meta;
 	md.meta = {};
 
-	if (meta.tags) meta.tags = meta.tags.split(",").map((x) => (x = x.trim()));
+	if (meta.tags)
+		meta.tags = meta.tags.split(",").map((x: string) => (x = x.trim()));
 	return {
 		document: renderedDocument,
 		meta: meta,
@@ -46,12 +47,12 @@ export const mdToHtml = async (
 /*
 	Find the first occurence of a string after a certain index.
 */
-
 const findAfter = (str: string, needle: string, afterIndex: number): number => {
 	for (let i = 0; i < str.length; i++)
 		if (str[i] === needle && i > afterIndex) return i;
 	return 0;
 };
+
 /*
 	Get the title from a Markdown String
 */

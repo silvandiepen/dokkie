@@ -13,11 +13,17 @@ export interface IFile {
 	route?: string;
 	date?: Date;
 	contents?: IContents;
+	sections?: IContents[];
 }
 
 export interface IContents {
-	sections: IFileContents[];
+	articles: IFileContents[];
 	layout: string;
+	name: string;
+	classes: string;
+	background: string;
+	data: string;
+	html?: string;
 }
 
 export interface IFileContents {

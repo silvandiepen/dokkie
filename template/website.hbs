@@ -21,11 +21,19 @@
 
     <!--- Page Main section-->
     <main id="main" class="content">
-
         {{{ injectHtml.mainBefore }}}
         {{{ content }}}
+        {{{ injectHtml.mainAfter }}}
+    </main>
+    <!--- Page Website section-->
+    <main id="web" class="content">
+        {{{ injectHtml.mainBefore }}}
+
         {{#if contents}}
-        {{> columns content=contents }}
+        {{> columns columns=contents }}
+        {{/if}}
+        {{#if sections}}
+        {{> sections sections=sections }}
         {{/if}}
         {{{ injectHtml.mainAfter }}}
     </main>

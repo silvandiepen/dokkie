@@ -1,4 +1,4 @@
-import { ISettings, IFile, IFileContents } from "../types";
+import { ISettings, IFile, IFileContents, IContents } from "../types";
 import {
 	mdToHtml,
 	asyncForEach,
@@ -17,7 +17,7 @@ import { join } from "path";
 export const convertDataToHtml = async (
 	settings: ISettings
 ): Promise<ISettings> => {
-	await asyncForEach(settings.files, async (file: IFile) => {
+	await asyncForEach(settings.files, async (file: IFile, idx1: string) => {
 		switch (file.ext) {
 			case ".md":
 				const markdownData = await mdToHtml(file);
@@ -31,22 +31,43 @@ export const convertDataToHtml = async (
 		}
 
 		// When the file has partials saved in contents, all partials also need the Markdown treatment.
-		if (file.contents?.sections?.length) {
+		if (file.contents?.articles?.length) {
 			await asyncForEach(
-				file.contents.sections,
-				async (subFile: IFileContents, index: number) => {
+				file.contents.articles,
+				async (subFile: IFileContents, idx2: number) => {
 					const rendered = await mdToHtml(subFile);
-					file.contents.sections[index].html = rendered.document;
-					file.contents.sections[index].meta = rendered.meta;
+					settings.files[idx1].contents.articles[idx2].html = rendered.document;
+					settings.files[idx1].contents.articles[idx2].meta = rendered.meta;
+				}
+			);
+		} // When the file has partials saved in contents, all partials also need the Markdown treatment.
+		if (file.sections?.length) {
+			await asyncForEach(
+				file.sections,
+				async (section: IContents, idx2: number) => {
+					const rendered = await mdToHtml(section);
+					settings.files[idx1].sections[idx2].html = rendered.document;
+					settings.files[idx1].sections[idx2].meta = rendered.meta;
+
+					await asyncForEach(
+						section.articles,
+						async (subFile: IFileContents, idx3: number) => {
+							const rendered = await mdToHtml(subFile);
+							settings.files[idx1].sections[idx2].articles[idx3].html =
+								rendered.document;
+							settings.files[idx1].sections[idx2].articles[idx3].meta =
+								rendered.meta;
+						}
+					);
 				}
 			);
 		}
 	});
+
 	return { ...settings, files: settings.files };
 };
 
 // Filter files
-
 export const filterHiddenPages = async (
 	settings: ISettings
 ): Promise<ISettings> => {
@@ -58,7 +79,6 @@ export const filterHiddenPages = async (
 };
 
 // Get the layouts
-
 export const getLayout = async (settings: ISettings): Promise<ISettings> => {
 	try {
 		let layoutFile = "";
@@ -151,6 +171,7 @@ export const createPages = async (settings: ISettings): Promise<void> => {
 				footerNavigation: getNavigation(settings, "footer"),
 				overviewNavigation: getNavigation(settings, "overview"),
 				meta: file.meta,
+				sections: file.sections ? file.sections : false,
 				contents: file.contents ? file.contents : false,
 				hasMeta: file.meta?.author || file.meta?.tags ? true : false,
 				language: settings.language,

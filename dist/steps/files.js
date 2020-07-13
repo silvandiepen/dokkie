@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.setFileDate = exports.cleanupFilePathAfterOrder = exports.concatPartials = exports.getFileData = exports.fileData = exports.getFiles = exports.getFileTree = void 0;
+exports.setFileDate = exports.cleanupFilePathAfterOrder = exports.concatPartials = exports.sectionPartials = exports.getFileData = exports.fileData = exports.getFiles = exports.getFileTree = void 0;
 const { readdir, readFile, stat } = require("fs").promises;
 const path_1 = require("path");
 const utils_1 = require("../utils");
@@ -73,6 +73,30 @@ exports.getFileData = (file) => __awaiter(void 0, void 0, void 0, function* () {
         console.log(err);
     }
 });
+const getLocalPath = (file, settings) => file.replace(path_1.join(__dirname, "../../"), "").replace(settings.output, "");
+/*
+    ::concatParitials
+    Get all partials and add them to the parent or as a contents array.
+*/
+exports.sectionPartials = (settings) => __awaiter(void 0, void 0, void 0, function* () {
+    const removeIndexes = [];
+    yield utils_1.asyncForEach(settings.files, (file, index) => __awaiter(void 0, void 0, void 0, function* () {
+        if (getLocalPath(file.path, settings).indexOf("/_") > 0) {
+            const parentIndex = settings.files.findIndex((parentFile) => parentFile.path == path_1.join(file.path, "../../readme.md"));
+            // If the file doesnt have sections yet, add them.
+            if (!settings.files[parentIndex].sections)
+                settings.files[parentIndex].sections = [];
+            settings.files[parentIndex].sections.push(Object.assign(Object.assign({}, file.contents), { data: file.data }));
+            // Remove the file from the list.
+            removeIndexes.push(index);
+        }
+    }));
+    // Remove them all, order the indexes from high to low to not remove the wrong pages.
+    yield utils_1.asyncForEach(removeIndexes.sort((a, b) => b - a), (index) => {
+        settings.files.splice(index, 1);
+    });
+    return settings;
+});
 /*
     ::concatParitials
     Get all partials and add them to the parent or as a contents array.
@@ -104,12 +128,15 @@ exports.concatPartials = (settings) => __awaiter(void 0, void 0, void 0, functio
             if (parentData.meta.layout) {
                 if (!settings.files[parentIndex].contents)
                     settings.files[parentIndex].contents = {
-                        sections: [],
-                        name: file.name,
+                        articles: [],
+                        name: settings.files[parentIndex].name,
                         layout: parentData.meta.layout,
                         classes: getColumnClasses(parentData.meta.layout),
+                        background: parentData.meta.background
+                            ? parentData.meta.background
+                            : false,
                     };
-                settings.files[parentIndex].contents.sections.push({
+                settings.files[parentIndex].contents.articles.push({
                     data: file.data,
                 });
             }

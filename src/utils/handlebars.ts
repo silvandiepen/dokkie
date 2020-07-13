@@ -40,6 +40,7 @@ export const loadHandlebarsPartials = async (): Promise<
 		"partials/searchScript",
 		"partials/loadScripts",
 		"sections/columns",
+		"sections/sections",
 	];
 
 	const partials = [];

@@ -45,7 +45,6 @@ export const getStyles = async (settings: ISettings): Promise<ISettings> => {
 	let localCss = false;
 
 	if (settings.theme && !settings.theme.includes("http")) {
-		console.log("theme", settings.theme);
 		try {
 			await download(
 				`https://coat.guyn.nl/css/theme/${settings.theme}.css`,

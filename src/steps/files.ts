@@ -1,5 +1,5 @@
 const { readdir, readFile, stat } = require("fs").promises;
-import { basename, extname, resolve } from "path";
+import { basename, extname, resolve, join } from "path";
 import { ISettings, IFile } from "../types";
 import { asyncForEach, convertToDate } from "../utils";
 import { mdToHtml } from "../utils/markdown";
@@ -75,6 +75,47 @@ export const getFileData = async (file: IFile): Promise<IFile> => {
 	}
 };
 
+const getLocalPath = (file: string, settings: ISettings): string =>
+	file.replace(join(__dirname, "../../"), "").replace(settings.output, "");
+
+/*
+	::concatParitials
+	Get all partials and add them to the parent or as a contents array.
+*/
+export const sectionPartials = async (
+	settings: ISettings
+): Promise<ISettings> => {
+	const removeIndexes = [];
+	await asyncForEach(settings.files, async (file: IFile, index: number) => {
+		if (getLocalPath(file.path, settings).indexOf("/_") > 0) {
+			const parentIndex = settings.files.findIndex(
+				(parentFile: IFile) =>
+					parentFile.path == join(file.path, "../../readme.md")
+			);
+
+			// If the file doesnt have sections yet, add them.
+			if (!settings.files[parentIndex].sections)
+				settings.files[parentIndex].sections = [];
+			settings.files[parentIndex].sections.push({
+				...file.contents,
+				data: file.data,
+			});
+
+			// Remove the file from the list.
+			removeIndexes.push(index);
+		}
+	});
+	// Remove them all, order the indexes from high to low to not remove the wrong pages.
+	await asyncForEach(
+		removeIndexes.sort((a, b) => b - a),
+		(index: number) => {
+			settings.files.splice(index, 1);
+		}
+	);
+
+	return settings;
+};
+
 /*
 	::concatParitials
 	Get all partials and add them to the parent or as a contents array.
@@ -113,12 +154,15 @@ export const concatPartials = async (
 			if (parentData.meta.layout) {
 				if (!settings.files[parentIndex].contents)
 					settings.files[parentIndex].contents = {
-						sections: [],
-						name: file.name,
+						articles: [],
+						name: settings.files[parentIndex].name,
 						layout: parentData.meta.layout,
 						classes: getColumnClasses(parentData.meta.layout),
+						background: parentData.meta.background
+							? parentData.meta.background
+							: false,
 					};
-				settings.files[parentIndex].contents.sections.push({
+				settings.files[parentIndex].contents.articles.push({
 					data: file.data,
 				});
 			}

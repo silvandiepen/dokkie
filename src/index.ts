@@ -18,6 +18,7 @@ import {
 	setFileDate,
 	fileData,
 	concatPartials,
+	sectionPartials,
 	cleanupFilePathAfterOrder,
 	getPackageInformation,
 	loadLocalConfig,
@@ -75,6 +76,7 @@ buildDokkie(settings())
 	.then(getFiles)
 	.then(fileData)
 	.then(concatPartials)
+	.then(sectionPartials)
 	.then(cleanupFilePathAfterOrder)
 	.then(getPackageInformation)
 	.then(convertDataToHtml)

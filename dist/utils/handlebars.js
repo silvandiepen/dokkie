@@ -43,6 +43,7 @@ exports.loadHandlebarsPartials = () => __awaiter(void 0, void 0, void 0, functio
         "partials/searchScript",
         "partials/loadScripts",
         "sections/columns",
+        "sections/sections",
     ];
     const partials = [];
     yield cli_block_1.asyncForEach(partialNames, (partial) => __awaiter(void 0, void 0, void 0, function* () {
