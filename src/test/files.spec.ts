@@ -1,6 +1,6 @@
-import { concatPartials } from "./files";
+import { concatPartials } from "../steps/files";
 import { ISettings } from "../types";
-import { baseSettings } from "../test/mock";
+import { baseSettings } from "./mock";
 import { join } from "path";
 const { readdir, readFile } = require("fs").promises;
 

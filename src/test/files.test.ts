@@ -1,6 +1,11 @@
-import { makeFileName, makeRoute, makePath, getPageTitle } from "./files";
+import {
+	makeFileName,
+	makeRoute,
+	makePath,
+	getPageTitle,
+} from "../utils/files";
 import { IFile } from "../types";
-import { baseSettings } from "../test/mock";
+import { baseSettings } from "./mock";
 
 let input: IFile = {
 	ext: ".md",

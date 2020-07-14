@@ -151,7 +151,7 @@ export const concatPartials = async (
 				}
 			}
 			// If the parent has a layout, the partials will be stored as contents.
-			if (parentData.meta.layout) {
+			if (parentData.meta?.layout) {
 				if (!settings.files[parentIndex].contents)
 					settings.files[parentIndex].contents = {
 						articles: [],

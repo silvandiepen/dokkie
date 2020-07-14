@@ -1,4 +1,4 @@
-import { mdToHtml, getTitleFromMD } from "./markdown";
+import { mdToHtml, getTitleFromMD } from "../utils/markdown";
 import { IFile } from "../types";
 
 let input: IFile = {

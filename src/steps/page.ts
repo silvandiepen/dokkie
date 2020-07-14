@@ -13,6 +13,11 @@ import { getNavigation } from "./";
 const { readFile } = require("fs").promises;
 import { join } from "path";
 
+export const toHtml = async (file: IFile | IFileContents) => {
+	const markdownData = await mdToHtml(file);
+	return { meta: markdownData.meta, html: markdownData.document };
+};
+
 // Convert filedata to html.
 export const convertDataToHtml = async (
 	settings: ISettings
@@ -20,16 +25,13 @@ export const convertDataToHtml = async (
 	await asyncForEach(settings.files, async (file: IFile, idx1: string) => {
 		switch (file.ext) {
 			case ".md":
-				const markdownData = await mdToHtml(file);
-				file.meta = markdownData.meta;
-				file.html = markdownData.document;
+				file = { ...file, ...toHtml(file) };
 				break;
 			case ".html":
 				file.meta = {};
 				file.html = file.data;
 				break;
 		}
-
 		// When the file has partials saved in contents, all partials also need the Markdown treatment.
 		if (file.contents?.articles?.length) {
 			await asyncForEach(
@@ -48,17 +50,26 @@ export const convertDataToHtml = async (
 					const rendered = await mdToHtml(section);
 					settings.files[idx1].sections[idx2].html = rendered.document;
 					settings.files[idx1].sections[idx2].meta = rendered.meta;
-
-					await asyncForEach(
-						section.articles,
-						async (subFile: IFileContents, idx3: number) => {
-							const rendered = await mdToHtml(subFile);
-							settings.files[idx1].sections[idx2].articles[idx3].html =
-								rendered.document;
-							settings.files[idx1].sections[idx2].articles[idx3].meta =
-								rendered.meta;
-						}
-					);
+					// settings.files[idx1].sections[idx2] = {
+					// 	...settings.files[idx1].sections[idx2],
+					// 	...toHtml(section),
+					// };
+					console.log(section);
+					if (section.articles)
+						await asyncForEach(
+							section.articles,
+							async (subFile: IFileContents, idx3: number) => {
+								const rendered = await mdToHtml(subFile);
+								settings.files[idx1].sections[idx2].articles[idx3].html =
+									rendered.document;
+								settings.files[idx1].sections[idx2].articles[idx3].meta =
+									rendered.meta;
+								// settings.files[idx1].sections[idx2].articles[idx3] = {
+								// 	...settings.files[idx1].sections[idx2].articles[idx3],
+								// 	...toHtml(subFile),
+								// };
+							}
+						);
 				}
 			);
 		}
@@ -163,6 +174,8 @@ export const createPages = async (settings: ISettings): Promise<void> => {
 							: file.title
 						: settings.projectTitle,
 				title: file.title,
+				type: settings.type,
+				template: settings.layout,
 				content: file.html,
 				currentLink: currentLink,
 				currentId: currentLink.replace(/\//g, " ").trim().replace(/\s+/g, "-"),

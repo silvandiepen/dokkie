@@ -1,6 +1,6 @@
-import { filterHiddenPages, createPages, getLayout } from "./page";
+import { filterHiddenPages, createPages, getLayout } from "../steps/page";
 import { ISettings } from "../types";
-import { baseSettings } from "../test/mock";
+import { baseSettings } from "./mock";
 import { join } from "path";
 const { readdir, readFile } = require("fs").promises;
 
@@ -8,6 +8,7 @@ const mockOutput = "temp/pages";
 const altSettings: ISettings = {
 	...baseSettings,
 	output: mockOutput,
+	layout: "website",
 	navigation: [],
 	files: [
 		{
