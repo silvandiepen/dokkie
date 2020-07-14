@@ -1,3 +1,10 @@
+const ncp = require("ncp").ncp;
+const { readFile } = require("fs").promises;
+
+import * as log from "cli-block";
+import prettier from "prettier";
+import { join } from "path";
+
 import { ISettings, IFile, IFileContents, IContents } from "../types";
 import {
 	mdToHtml,
@@ -6,12 +13,7 @@ import {
 	Handlebars,
 	loadHandlebarsPartials,
 } from "../utils";
-import * as log from "cli-block";
-import prettier from "prettier";
-const ncp = require("ncp").ncp;
 import { getNavigation } from "./";
-const { readFile } = require("fs").promises;
-import { join } from "path";
 
 export const toHtml = async (file: IFile | IFileContents) => {
 	const markdownData = await mdToHtml(file);
@@ -50,11 +52,6 @@ export const convertDataToHtml = async (
 					const rendered = await mdToHtml(section);
 					settings.files[idx1].sections[idx2].html = rendered.document;
 					settings.files[idx1].sections[idx2].meta = rendered.meta;
-					// settings.files[idx1].sections[idx2] = {
-					// 	...settings.files[idx1].sections[idx2],
-					// 	...toHtml(section),
-					// };
-					console.log(section);
 					if (section.articles)
 						await asyncForEach(
 							section.articles,
@@ -64,10 +61,6 @@ export const convertDataToHtml = async (
 									rendered.document;
 								settings.files[idx1].sections[idx2].articles[idx3].meta =
 									rendered.meta;
-								// settings.files[idx1].sections[idx2].articles[idx3] = {
-								// 	...settings.files[idx1].sections[idx2].articles[idx3],
-								// 	...toHtml(subFile),
-								// };
 							}
 						);
 				}

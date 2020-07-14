@@ -11,7 +11,7 @@ import {
 	defaultSettings,
 } from "./settings";
 import { ISettings } from "./types";
-import { createFavicons } from "./utils";
+import { createFavicons, downloadAssets, PurgeCSSFiles } from "./utils";
 
 import {
 	getFiles,
@@ -36,10 +36,8 @@ import {
 	getLayout,
 	setHomePage,
 	reformInjectHtml,
-	downloadAssets,
+	showDist,
 } from "./steps";
-
-import { showDist, PurgeCSSFiles } from "./utils";
 
 const buildDokkie = async (s: ISettings): Promise<ISettings> => s;
 

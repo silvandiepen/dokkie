@@ -32,13 +32,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.setHomePage = exports.createPageData = exports.copyFolders = exports.createPages = exports.reformInjectHtml = exports.getLayout = exports.filterHiddenPages = exports.convertDataToHtml = exports.toHtml = void 0;
-const utils_1 = require("../utils");
+const ncp = require("ncp").ncp;
+const { readFile } = require("fs").promises;
 const log = __importStar(require("cli-block"));
 const prettier_1 = __importDefault(require("prettier"));
-const ncp = require("ncp").ncp;
-const _1 = require("./");
-const { readFile } = require("fs").promises;
 const path_1 = require("path");
+const utils_1 = require("../utils");
+const _1 = require("./");
 exports.toHtml = (file) => __awaiter(void 0, void 0, void 0, function* () {
     const markdownData = yield utils_1.mdToHtml(file);
     return { meta: markdownData.meta, html: markdownData.document };
@@ -69,11 +69,6 @@ exports.convertDataToHtml = (settings) => __awaiter(void 0, void 0, void 0, func
                 const rendered = yield utils_1.mdToHtml(section);
                 settings.files[idx1].sections[idx2].html = rendered.document;
                 settings.files[idx1].sections[idx2].meta = rendered.meta;
-                // settings.files[idx1].sections[idx2] = {
-                // 	...settings.files[idx1].sections[idx2],
-                // 	...toHtml(section),
-                // };
-                console.log(section);
                 if (section.articles)
                     yield utils_1.asyncForEach(section.articles, (subFile, idx3) => __awaiter(void 0, void 0, void 0, function* () {
                         const rendered = yield utils_1.mdToHtml(subFile);
@@ -81,10 +76,6 @@ exports.convertDataToHtml = (settings) => __awaiter(void 0, void 0, void 0, func
                             rendered.document;
                         settings.files[idx1].sections[idx2].articles[idx3].meta =
                             rendered.meta;
-                        // settings.files[idx1].sections[idx2].articles[idx3] = {
-                        // 	...settings.files[idx1].sections[idx2].articles[idx3],
-                        // 	...toHtml(subFile),
-                        // };
                     }));
             }));
         }

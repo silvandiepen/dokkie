@@ -4,14 +4,10 @@ import {
 	filterHiddenPages,
 	convertDataToHtml,
 } from "../steps/page";
-import {
-	sectionPartials,
-	concatPartials,
-	cleanupFilePathAfterOrder,
-} from "../steps/files";
+import { sectionPartials, concatPartials } from "../steps/get-files";
 import { cleanup } from "./clean";
 import { ISettings } from "../types";
-import { baseSettings } from "../test/mock";
+import { baseSettings } from "./mock";
 import { join } from "path";
 const { readdir, readFile } = require("fs").promises;
 
@@ -138,9 +134,11 @@ describe("Website", () => {
 					"index.html"
 				)
 			).then((r: any): string => r.toString());
+			document.body.innerHTML = testFile;
+
 			expect(
-				testFile.includes('<meta name="dokkie" content="website" />')
-			).toBeTruthy();
+				document.body.querySelector('meta[name="dokkie"][content="website"]')
+			).toBeDefined();
 		} catch (err) {
 			console.log(err);
 		}
@@ -186,9 +184,8 @@ describe("Website", () => {
 			const sectionContainer = document.body.querySelector(
 				"main .section__container"
 			);
-			console.log(sectionContainer.querySelectorAll(`h1#item1`)[0]);
-			expect(sectionContainer.querySelectorAll(`h1#item1`).length).toBe(1);
-			expect(sectionContainer.querySelectorAll(`h1#item2`).length).toBe(1);
+			expect(sectionContainer.querySelector(`h1#item1`)).toBeDefined();
+			expect(sectionContainer.querySelector(`h1#item2`)).toBeDefined();
 		} catch (err) {
 			console.log(err);
 		}
