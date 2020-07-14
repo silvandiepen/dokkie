@@ -31,7 +31,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.setHomePage = exports.createPageData = exports.copyFolders = exports.createPages = exports.reformInjectHtml = exports.getLayout = exports.filterHiddenPages = exports.convertDataToHtml = void 0;
+exports.setHomePage = exports.createPageData = exports.copyFolders = exports.createPages = exports.reformInjectHtml = exports.getLayout = exports.filterHiddenPages = exports.convertDataToHtml = exports.toHtml = void 0;
 const utils_1 = require("../utils");
 const log = __importStar(require("cli-block"));
 const prettier_1 = __importDefault(require("prettier"));
@@ -39,15 +39,17 @@ const ncp = require("ncp").ncp;
 const _1 = require("./");
 const { readFile } = require("fs").promises;
 const path_1 = require("path");
+exports.toHtml = (file) => __awaiter(void 0, void 0, void 0, function* () {
+    const markdownData = yield utils_1.mdToHtml(file);
+    return { meta: markdownData.meta, html: markdownData.document };
+});
 // Convert filedata to html.
 exports.convertDataToHtml = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     yield utils_1.asyncForEach(settings.files, (file, idx1) => __awaiter(void 0, void 0, void 0, function* () {
         var _a, _b, _c;
         switch (file.ext) {
             case ".md":
-                const markdownData = yield utils_1.mdToHtml(file);
-                file.meta = markdownData.meta;
-                file.html = markdownData.document;
+                file = Object.assign(Object.assign({}, file), exports.toHtml(file));
                 break;
             case ".html":
                 file.meta = {};
@@ -67,13 +69,23 @@ exports.convertDataToHtml = (settings) => __awaiter(void 0, void 0, void 0, func
                 const rendered = yield utils_1.mdToHtml(section);
                 settings.files[idx1].sections[idx2].html = rendered.document;
                 settings.files[idx1].sections[idx2].meta = rendered.meta;
-                yield utils_1.asyncForEach(section.articles, (subFile, idx3) => __awaiter(void 0, void 0, void 0, function* () {
-                    const rendered = yield utils_1.mdToHtml(subFile);
-                    settings.files[idx1].sections[idx2].articles[idx3].html =
-                        rendered.document;
-                    settings.files[idx1].sections[idx2].articles[idx3].meta =
-                        rendered.meta;
-                }));
+                // settings.files[idx1].sections[idx2] = {
+                // 	...settings.files[idx1].sections[idx2],
+                // 	...toHtml(section),
+                // };
+                console.log(section);
+                if (section.articles)
+                    yield utils_1.asyncForEach(section.articles, (subFile, idx3) => __awaiter(void 0, void 0, void 0, function* () {
+                        const rendered = yield utils_1.mdToHtml(subFile);
+                        settings.files[idx1].sections[idx2].articles[idx3].html =
+                            rendered.document;
+                        settings.files[idx1].sections[idx2].articles[idx3].meta =
+                            rendered.meta;
+                        // settings.files[idx1].sections[idx2].articles[idx3] = {
+                        // 	...settings.files[idx1].sections[idx2].articles[idx3],
+                        // 	...toHtml(subFile),
+                        // };
+                    }));
             }));
         }
     }));
@@ -164,7 +176,7 @@ exports.createPages = (settings) => __awaiter(void 0, void 0, void 0, function* 
             const contents = template(Object.assign(Object.assign({}, getOnce), { projectTitle: settings.projectTitle == ""
                     ? ((_e = settings.package) === null || _e === void 0 ? void 0 : _e.name) ? settings.package.name
                         : file.title
-                    : settings.projectTitle, title: file.title, content: file.html, currentLink: currentLink, currentId: currentLink.replace(/\//g, " ").trim().replace(/\s+/g, "-"), headerNavigation: _1.getNavigation(settings, "header"), sidebarNavigation: _1.getNavigation(settings, "sidebar"), footerNavigation: _1.getNavigation(settings, "footer"), overviewNavigation: _1.getNavigation(settings, "overview"), meta: file.meta, sections: file.sections ? file.sections : false, contents: file.contents ? file.contents : false, hasMeta: ((_f = file.meta) === null || _f === void 0 ? void 0 : _f.author) || ((_g = file.meta) === null || _g === void 0 ? void 0 : _g.tags) ? true : false, language: settings.language, search: settings.files.length > 1 ? settings.search : false }));
+                    : settings.projectTitle, title: file.title, type: settings.type, template: settings.layout, content: file.html, currentLink: currentLink, currentId: currentLink.replace(/\//g, " ").trim().replace(/\s+/g, "-"), headerNavigation: _1.getNavigation(settings, "header"), sidebarNavigation: _1.getNavigation(settings, "sidebar"), footerNavigation: _1.getNavigation(settings, "footer"), overviewNavigation: _1.getNavigation(settings, "overview"), meta: file.meta, sections: file.sections ? file.sections : false, contents: file.contents ? file.contents : false, hasMeta: ((_f = file.meta) === null || _f === void 0 ? void 0 : _f.author) || ((_g = file.meta) === null || _g === void 0 ? void 0 : _g.tags) ? true : false, language: settings.language, search: settings.files.length > 1 ? settings.search : false }));
             yield utils_1.writeThatFile(file, prettier_1.default.format(contents, { parser: "html" }), settings);
         }
         catch (err) {

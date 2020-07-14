@@ -104,6 +104,7 @@ exports.sectionPartials = (settings) => __awaiter(void 0, void 0, void 0, functi
 exports.concatPartials = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     const removeIndexes = [];
     yield utils_1.asyncForEach(settings.files, (file, index) => __awaiter(void 0, void 0, void 0, function* () {
+        var _a;
         if (file.name.indexOf("_") == 0) {
             const parentIndex = settings.files.findIndex((parentFile) => parentFile.path == file.path.replace(file.name, "readme"));
             // Check if the Parent has a layout defined.
@@ -125,7 +126,7 @@ exports.concatPartials = (settings) => __awaiter(void 0, void 0, void 0, functio
                 }
             }
             // If the parent has a layout, the partials will be stored as contents.
-            if (parentData.meta.layout) {
+            if ((_a = parentData.meta) === null || _a === void 0 ? void 0 : _a.layout) {
                 if (!settings.files[parentIndex].contents)
                     settings.files[parentIndex].contents = {
                         articles: [],
