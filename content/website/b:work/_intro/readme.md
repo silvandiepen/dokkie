@@ -1,4 +1,4 @@
 ---
 layout: full
-background: dark
+background: black
 ---

@@ -1,6 +1,6 @@
 ---
 layout: thirds
-background: turquoise
+background: yellow
 ---
 
 # Overview
