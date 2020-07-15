@@ -1,3 +1,3 @@
-import { IMarkdown, IFile, IFileContents } from "../types";
-export declare const mdToHtml: (file: IFile | IFileContents) => Promise<IMarkdown>;
+import { IMarkdown, IFileContents } from "../types";
+export declare const mdToHtml: <T extends IFileContents>(file: T) => Promise<IMarkdown>;
 export declare const getTitleFromMD: (str: string, clean?: boolean) => string;

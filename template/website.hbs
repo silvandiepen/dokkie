@@ -19,12 +19,14 @@
         {{{ injectHtml.headerAfter }}}
     </header>
 
+    {{#if content}}
     <!--- Page Main section-->
     <main id="main" class="content">
         {{{ injectHtml.mainBefore }}}
         {{{ content }}}
         {{{ injectHtml.mainAfter }}}
     </main>
+    {{/if}}
 
     {{#if (or columns sections) }}
     <!--- Page Website section-->

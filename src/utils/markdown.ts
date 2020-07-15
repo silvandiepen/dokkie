@@ -1,6 +1,12 @@
 // Markdown
 
-import { IMarkdown, IFile, IFileContents, MarkdownItExtended } from "../types";
+import {
+	IMarkdown,
+	IFile,
+	IFileContents,
+	MarkdownItExtended,
+	IContents,
+} from "../types";
 
 import meta from "markdown-it-meta";
 import prism from "markdown-it-prism";
@@ -29,8 +35,8 @@ md.use(taskLists, { enabled: true });
 /*
 	Convert Markdown Data to html and filter meta.
 */
-export const mdToHtml = async (
-	file: IFile | IFileContents
+export const mdToHtml = async <T extends IFileContents>(
+	file: T
 ): Promise<IMarkdown> => {
 	const renderedDocument = md.render(file.data);
 	const meta = md.meta;

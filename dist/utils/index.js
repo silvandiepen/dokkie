@@ -17,4 +17,5 @@ __exportStar(require("./files"), exports);
 __exportStar(require("./handlebars"), exports);
 __exportStar(require("./markdown"), exports);
 __exportStar(require("./purgecss"), exports);
+__exportStar(require("./helpers"), exports);
 //# sourceMappingURL=index.js.map

@@ -5,7 +5,13 @@ import * as log from "cli-block";
 import prettier from "prettier";
 import { join } from "path";
 
-import { ISettings, IFile, IFileContents, IContents } from "../types";
+import {
+	ISettings,
+	IFile,
+	IFileContents,
+	IContents,
+	IToMarkdown,
+} from "../types";
 import {
 	mdToHtml,
 	asyncForEach,
@@ -15,7 +21,9 @@ import {
 } from "../utils";
 import { getNavigation } from "./";
 
-export const toHtml = async (file: IFile | IFileContents) => {
+export const toHtml = async (
+	file: IFile | IFileContents
+): Promise<IToMarkdown> => {
 	const markdownData = await mdToHtml(file);
 	return { meta: markdownData.meta, html: markdownData.document };
 };
@@ -223,14 +231,6 @@ export const copyFolders = async (settings: ISettings): Promise<void> => {
 };
 
 export const createPageData = async (settings: ISettings): Promise<void> => {
-	const file = {
-		name: "",
-		title: "data.json",
-		ext: ".json",
-		path: "",
-		destpath: join(settings.output),
-		filename: "data.json",
-	};
 	const fileData = [...settings.files].map((item) => {
 		// Add combined data as data and remove the default data. The combinedata has all information of the
 		// page which can be used for search.
@@ -245,7 +245,22 @@ export const createPageData = async (settings: ISettings): Promise<void> => {
 		delete item.combinedData;
 		return item;
 	});
-	await writeThatFile(file, JSON.stringify(fileData), settings, true);
+	await writeThatFile(
+		{
+			name: "",
+			title: "data.json",
+			ext: ".json",
+			path: "",
+			destpath: join(settings.output),
+			filename: "data.json",
+			data: "",
+			meta: {},
+			html: "",
+		},
+		JSON.stringify(fileData),
+		settings,
+		true
+	);
 };
 
 export const setHomePage = (settings: ISettings): ISettings => {

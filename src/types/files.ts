@@ -1,15 +1,12 @@
 import { IMeta } from "./meta";
 
-export interface IFile {
+export interface IFile extends IFileContents {
 	name: string;
 	title?: string;
 	ext: string;
 	path: string;
 	destpath?: string;
-	data?: string;
 	combinedData?: string;
-	html?: string;
-	meta?: IMeta;
 	filename?: string;
 	route?: string;
 	date?: Date;
@@ -17,20 +14,20 @@ export interface IFile {
 	sections?: IContents[];
 }
 
-export interface IContents {
+export interface IContents extends IFileContents {
 	articles: IFileContents[];
 	layout: string;
 	name: string;
 	classes: string;
 	background?: string;
-	data: string;
-	html?: string;
 }
 
-export interface IFileContents {
+export interface IFileContents extends IToMarkdown {
 	data: string;
-	html?: string;
-	meta?: string;
+}
+export interface IToMarkdown {
+	meta: IMeta;
+	html: string;
 }
 
 export interface IPackageJson {
@@ -43,4 +40,4 @@ export interface IPackageJson {
 	[key: string]: unknown;
 }
 
-export type buildTypes = "docs" | "blog";
+export type buildTypes = "docs" | "blog" | "website";

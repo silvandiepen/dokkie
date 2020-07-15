@@ -12,6 +12,8 @@ let input: IFile = {
 	path: "",
 	data: "",
 	name: "readme",
+	meta: {},
+	html: "",
 };
 
 test("makeFileName - index", () => {

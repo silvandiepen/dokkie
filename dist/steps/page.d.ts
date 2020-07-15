@@ -1,8 +1,5 @@
-import { ISettings, IFile, IFileContents } from "../types";
-export declare const toHtml: (file: IFile | IFileContents) => Promise<{
-    meta: any;
-    html: string;
-}>;
+import { ISettings, IFile, IFileContents, IToMarkdown } from "../types";
+export declare const toHtml: (file: IFile | IFileContents) => Promise<IToMarkdown>;
 export declare const convertDataToHtml: (settings: ISettings) => Promise<ISettings>;
 export declare const filterHiddenPages: (settings: ISettings) => Promise<ISettings>;
 export declare const getLayout: (settings: ISettings) => Promise<ISettings>;
