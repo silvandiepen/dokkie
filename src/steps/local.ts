@@ -84,6 +84,7 @@ export const setLocalConfig = (settings: ISettings): ISettings => {
 			settings.logging = settings.localConfig.logging;
 		if (settings.localConfig.showHome)
 			settings.showHome = settings.localConfig.showHome;
+		if (settings.localConfig.url) settings.url = settings.localConfig.url;
 		if (settings.localConfig.add?.excludeFolders)
 			settings.excludeFolders = settings.excludeFolders.concat(
 				settings.localConfig.add.excludeFolders

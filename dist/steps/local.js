@@ -110,6 +110,8 @@ exports.setLocalConfig = (settings) => {
             settings.logging = settings.localConfig.logging;
         if (settings.localConfig.showHome)
             settings.showHome = settings.localConfig.showHome;
+        if (settings.localConfig.url)
+            settings.url = settings.localConfig.url;
         if ((_a = settings.localConfig.add) === null || _a === void 0 ? void 0 : _a.excludeFolders)
             settings.excludeFolders = settings.excludeFolders.concat(settings.localConfig.add.excludeFolders);
     }

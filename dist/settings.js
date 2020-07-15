@@ -43,6 +43,7 @@ exports.defaultSettings = {
     search: true,
     logging: [],
     showHome: false,
+    url: "",
 };
 exports.settings = () => {
     const cs = yargs_1.default.options({
@@ -164,6 +165,11 @@ exports.settings = () => {
             type: "boolean",
             default: exports.defaultSettings.showHome,
         },
+        url: {
+            require: false,
+            type: "string",
+            default: exports.defaultSettings.url,
+        },
     }).argv;
     return {
         type: cs.type,
@@ -188,6 +194,7 @@ exports.settings = () => {
         search: cs.search,
         logging: cs.logging,
         showHome: cs.showHome,
+        url: cs.url,
     };
 };
 exports.getDokkiePackage = (settings) => __awaiter(void 0, void 0, void 0, function* () {

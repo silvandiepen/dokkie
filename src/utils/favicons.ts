@@ -44,6 +44,7 @@ export const createFavicons = async (
 		destination: faviconDest,
 		appleStatusBarStyle: "default",
 		logging: ["inline", "minimal"],
+		url: settings.url,
 	} as any).then(async (r: IFaviconData) => r);
 
 	return { ...settings, faviconData: faviconData };
