@@ -1,6 +1,13 @@
 /dokkie
-/pages
-/posts
+/content
 /src
 /dist
+/img
+/.github
+/.vercel
+/.vscode
+/config
+/img
+/node_modules
+/temp
 *.config.json
