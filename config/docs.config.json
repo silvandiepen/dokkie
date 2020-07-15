@@ -12,7 +12,7 @@
 	"extendNavigation": [
 		{
 			"name": "Blog",
-			"link": "https://blog.silvandiepen.nl",
+			"link": "https://blog.dokkie.dev",
 			"meta": { "menu": ["header", "footer"] }
 		}
 	]
