@@ -50,7 +50,7 @@ export const getStyles = async (settings: ISettings): Promise<ISettings> => {
 				`https://coat.guyn.nl/css/theme/${settings.theme}.css`,
 				join(process.cwd(), settings.output, "css", "style.css")
 			);
-			styles.push("/css/style.css");
+			styles.push(`${settings.url ? settings.url + "/" : ""}/css/style.css`);
 			localCss = true;
 		} catch (err) {
 			throw Error(err);

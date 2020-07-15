@@ -90,7 +90,7 @@ export const downloadAssets = async (
 		try {
 			await asyncForEach(contentImages, async (img) => {
 				await downloadImage(img.image, settings).then(() => {
-					const filename = "/img/" + filenameFromUrl(img.image);
+					const filename = `${settings.url}/img/${filenameFromUrl(img.image)}`;
 					settings.files[img.fileIdx].html = settings.files[
 						img.fileIdx
 					].html.replace(img.image, filename);

@@ -32,6 +32,7 @@ export const defaultSettings = {
 	search: true,
 	logging: [],
 	showHome: false,
+	url: "",
 };
 
 export const settings = (): ISettings => {
@@ -154,6 +155,11 @@ export const settings = (): ISettings => {
 			type: "boolean",
 			default: defaultSettings.showHome,
 		},
+		url: {
+			require: false,
+			type: "string",
+			default: defaultSettings.url,
+		},
 	}).argv;
 
 	return {
@@ -179,6 +185,7 @@ export const settings = (): ISettings => {
 		search: cs.search,
 		logging: cs.logging,
 		showHome: cs.showHome,
+		url: cs.url,
 	};
 };
 

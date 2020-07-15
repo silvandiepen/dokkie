@@ -26,6 +26,7 @@ export declare const defaultSettings: {
     search: boolean;
     logging: any[];
     showHome: boolean;
+    url: string;
 };
 export declare const settings: () => ISettings;
 export declare const getDokkiePackage: (settings: ISettings) => Promise<ISettings>;

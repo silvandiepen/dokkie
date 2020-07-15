@@ -198,6 +198,7 @@ export const createPages = async (settings: ISettings): Promise<void> => {
 				hasMeta: file.meta?.author || file.meta?.tags ? true : false,
 				language: settings.language,
 				search: settings.files.length > 1 ? settings.search : false,
+				url: settings.url,
 			});
 			await writeThatFile(
 				file,
