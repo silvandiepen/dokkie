@@ -33,7 +33,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.download = exports.getPageTitle = exports.writeThatFile = exports.createFolder = exports.makeFileName = exports.makePath = exports.makeRoute = exports.asyncForEach = void 0;
 const { writeFile, mkdir } = require("fs").promises;
-const { createWriteStream } = require("fs");
+const fs_1 = require("fs");
 const path_1 = require("path");
 const markdown_1 = require("./markdown");
 const log = __importStar(require("cli-block"));
@@ -75,9 +75,14 @@ exports.makeFileName = (file) => {
     return filename + ".html";
 };
 exports.createFolder = (folder) => __awaiter(void 0, void 0, void 0, function* () {
-    yield mkdir(folder, { recursive: true }, () => {
-        return;
-    });
+    try {
+        yield mkdir(folder, { recursive: true }, () => {
+            return;
+        });
+    }
+    catch (err) {
+        throw Error(err);
+    }
 });
 exports.writeThatFile = (file, contents, settings, simple = false) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -86,14 +91,13 @@ exports.writeThatFile = (file, contents, settings, simple = false) => __awaiter(
         yield writeFile(filePath, contents);
         !settings.logging.includes("silent") && log.BLOCK_LINE_SUCCESS(file.title);
         if (!simple) {
-            // log.BLOCK_LINE(`${file.name}${file.ext}`);
             !settings.logging.includes("silent") &&
                 log.BLOCK_LINE(`→ ${kleur_1.blue(file.route)}`);
             !settings.logging.includes("silent") && log.BLOCK_LINE();
         }
     }
     catch (err) {
-        console.log(err);
+        throw Error(err);
     }
 });
 exports.getPageTitle = (file) => {
@@ -112,7 +116,7 @@ exports.download = (url, destination) => __awaiter(void 0, void 0, void 0, funct
     yield exports.createFolder(path_1.dirname(destination));
     yield new Promise((resolve, reject) => {
         var _a, _b;
-        const fileStream = createWriteStream(destination);
+        const fileStream = fs_1.createWriteStream(destination);
         (_a = res.body) === null || _a === void 0 ? void 0 : _a.pipe(fileStream);
         (_b = res.body) === null || _b === void 0 ? void 0 : _b.on("error", (err) => {
             reject(err);

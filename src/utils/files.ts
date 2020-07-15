@@ -1,5 +1,5 @@
 const { writeFile, mkdir } = require("fs").promises;
-const { createWriteStream } = require("fs");
+import { createWriteStream } from "fs";
 import { join, dirname } from "path";
 import { getTitleFromMD } from "./markdown";
 import { IFile, ISettings } from "../types";
@@ -49,9 +49,13 @@ export const makeFileName = (file: IFile): string => {
 };
 
 export const createFolder = async (folder): Promise<void> => {
-	await mkdir(folder, { recursive: true }, () => {
-		return;
-	});
+	try {
+		await mkdir(folder, { recursive: true }, () => {
+			return;
+		});
+	} catch (err) {
+		throw Error(err);
+	}
 };
 export const writeThatFile = async (
 	file: IFile,
@@ -64,14 +68,14 @@ export const writeThatFile = async (
 		await createFolder(dirname(filePath));
 		await writeFile(filePath, contents);
 		!settings.logging.includes("silent") && log.BLOCK_LINE_SUCCESS(file.title);
+
 		if (!simple) {
-			// log.BLOCK_LINE(`${file.name}${file.ext}`);
 			!settings.logging.includes("silent") &&
 				log.BLOCK_LINE(`→ ${blue(file.route)}`);
 			!settings.logging.includes("silent") && log.BLOCK_LINE();
 		}
 	} catch (err) {
-		console.log(err);
+		throw Error(err);
 	}
 };
 

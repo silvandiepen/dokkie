@@ -7,6 +7,7 @@ export interface IFile {
 	path: string;
 	destpath?: string;
 	data?: string;
+	combinedData?: string;
 	html?: string;
 	meta?: IMeta;
 	filename?: string;
@@ -21,7 +22,7 @@ export interface IContents {
 	layout: string;
 	name: string;
 	classes: string;
-	background: string;
+	background?: string;
 	data: string;
 	html?: string;
 }

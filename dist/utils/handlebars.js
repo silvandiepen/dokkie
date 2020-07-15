@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Handlebars = exports.loadHandlebarsPartials = void 0;
 const handlebars_1 = __importDefault(require("handlebars"));
 const format_1 = __importDefault(require("date-fns/format"));
-const cli_block_1 = require("cli-block");
+const _1 = require("./");
 const path_1 = require("path");
 const { readFile } = require("fs").promises;
 const loadPartial = (partial) => __awaiter(void 0, void 0, void 0, function* () {
@@ -46,7 +46,7 @@ exports.loadHandlebarsPartials = () => __awaiter(void 0, void 0, void 0, functio
         "sections/sections",
     ];
     const partials = [];
-    yield cli_block_1.asyncForEach(partialNames, (partial) => __awaiter(void 0, void 0, void 0, function* () {
+    yield _1.asyncForEach(partialNames, (partial) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             partials.push({
                 name: partial.indexOf("/") > 0
@@ -56,7 +56,7 @@ exports.loadHandlebarsPartials = () => __awaiter(void 0, void 0, void 0, functio
             });
         }
         catch (err) {
-            console.log(err);
+            throw Error(err);
         }
     }));
     return partials;

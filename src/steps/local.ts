@@ -11,7 +11,7 @@ export const getPackageInformation = async (
 		);
 		return { ...settings, package: JSON.parse(PackageData) };
 	} catch (err) {
-		// console.log(err);
+		// throw Error(err);
 	}
 	return settings;
 };
@@ -31,7 +31,7 @@ export const loadLocalConfig = async (
 		}
 		return { ...settings, localConfig: configData };
 	} catch (err) {
-		// console.log(err);
+		// throw Error(err);
 	}
 	return settings;
 };

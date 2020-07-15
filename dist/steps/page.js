@@ -56,26 +56,31 @@ exports.convertDataToHtml = (settings) => __awaiter(void 0, void 0, void 0, func
                 file.html = file.data;
                 break;
         }
+        // Actually convert the html for the main file.
+        const rendered1 = yield utils_1.mdToHtml(file);
+        settings.files[idx1].html = rendered1.document;
+        settings.files[idx1].meta = rendered1.meta;
         // When the file has partials saved in contents, all partials also need the Markdown treatment.
         if ((_b = (_a = file.contents) === null || _a === void 0 ? void 0 : _a.articles) === null || _b === void 0 ? void 0 : _b.length) {
             yield utils_1.asyncForEach(file.contents.articles, (subFile, idx2) => __awaiter(void 0, void 0, void 0, function* () {
-                const rendered = yield utils_1.mdToHtml(subFile);
-                settings.files[idx1].contents.articles[idx2].html = rendered.document;
-                settings.files[idx1].contents.articles[idx2].meta = rendered.meta;
+                const rendered2 = yield utils_1.mdToHtml(subFile);
+                settings.files[idx1].contents.articles[idx2].html =
+                    rendered2.document;
+                settings.files[idx1].contents.articles[idx2].meta = rendered2.meta;
             }));
         } // When the file has partials saved in contents, all partials also need the Markdown treatment.
         if ((_c = file.sections) === null || _c === void 0 ? void 0 : _c.length) {
             yield utils_1.asyncForEach(file.sections, (section, idx2) => __awaiter(void 0, void 0, void 0, function* () {
-                const rendered = yield utils_1.mdToHtml(section);
-                settings.files[idx1].sections[idx2].html = rendered.document;
-                settings.files[idx1].sections[idx2].meta = rendered.meta;
+                const rendered3 = yield utils_1.mdToHtml(section);
+                settings.files[idx1].sections[idx2].html = rendered3.document;
+                settings.files[idx1].sections[idx2].meta = rendered3.meta;
                 if (section.articles)
                     yield utils_1.asyncForEach(section.articles, (subFile, idx3) => __awaiter(void 0, void 0, void 0, function* () {
-                        const rendered = yield utils_1.mdToHtml(subFile);
+                        const rendered4 = yield utils_1.mdToHtml(subFile);
                         settings.files[idx1].sections[idx2].articles[idx3].html =
-                            rendered.document;
+                            rendered4.document;
                         settings.files[idx1].sections[idx2].articles[idx3].meta =
-                            rendered.meta;
+                            rendered4.meta;
                     }));
             }));
         }
@@ -97,7 +102,7 @@ exports.getLayout = (settings) => __awaiter(void 0, void 0, void 0, function* ()
                 layoutFile = yield readFile(path_1.join(process.cwd(), settings.layout)).then((r) => r.toString());
             }
             catch (err) {
-                console.log(err);
+                throw Error(err);
             }
         }
         else {
@@ -105,7 +110,7 @@ exports.getLayout = (settings) => __awaiter(void 0, void 0, void 0, function* ()
                 layoutFile = yield readFile(path_1.join(__dirname, "../../", `template/${settings.layout}.hbs`)).then((r) => r.toString());
             }
             catch (err) {
-                console.log(err);
+                throw Error(err);
             }
         }
         return Object.assign(Object.assign({}, settings), { layoutFile: layoutFile });
@@ -171,7 +176,7 @@ exports.createPages = (settings) => __awaiter(void 0, void 0, void 0, function* 
             yield utils_1.writeThatFile(file, prettier_1.default.format(contents, { parser: "html" }), settings);
         }
         catch (err) {
-            console.log(err);
+            throw Error(err);
         }
     }));
 });
@@ -188,7 +193,7 @@ exports.copyFolders = (settings) => __awaiter(void 0, void 0, void 0, function* 
                     !settings.logging.includes("silent") &&
                         log.BLOCK_LINE_SUCCESS(folder);
                 else
-                    console.log(err);
+                    throw Error(err);
             });
         }));
     }
@@ -196,18 +201,25 @@ exports.copyFolders = (settings) => __awaiter(void 0, void 0, void 0, function* 
 exports.createPageData = (settings) => __awaiter(void 0, void 0, void 0, function* () {
     const file = {
         name: "",
-        title: "",
+        title: "data.json",
         ext: ".json",
         path: "",
+        route: path_1.join(settings.output, "data.json"),
         destpath: path_1.join(settings.output),
         filename: "data.json",
     };
     const fileData = [...settings.files].map((item) => {
+        // Add combined data as data and remove the default data. The combinedata has all information of the
+        // page which can be used for search.
+        item.data = item.combinedData;
         delete item.path;
         delete item.ext;
         delete item.html;
         delete item.destpath;
         delete item.filename;
+        delete item.contents;
+        delete item.sections;
+        delete item.combinedData;
         return item;
     });
     yield utils_1.writeThatFile(file, JSON.stringify(fileData), settings, true);

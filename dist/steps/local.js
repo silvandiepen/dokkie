@@ -37,7 +37,7 @@ exports.getPackageInformation = (settings) => __awaiter(void 0, void 0, void 0, 
         return Object.assign(Object.assign({}, settings), { package: JSON.parse(PackageData) });
     }
     catch (err) {
-        // console.log(err);
+        // throw Error(err);
     }
     return settings;
 });
@@ -52,7 +52,7 @@ exports.loadLocalConfig = (settings) => __awaiter(void 0, void 0, void 0, functi
         return Object.assign(Object.assign({}, settings), { localConfig: configData });
     }
     catch (err) {
-        // console.log(err);
+        // throw Error(err);
     }
     return settings;
 });

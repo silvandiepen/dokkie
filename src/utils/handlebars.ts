@@ -1,6 +1,6 @@
 import H from "handlebars";
 import format from "date-fns/format";
-import { asyncForEach } from "cli-block";
+import { asyncForEach } from "./";
 import { join } from "path";
 const { readFile } = require("fs").promises;
 import { IHandlebarsPartials, IHandlebarsBlock } from "../types";
@@ -54,7 +54,7 @@ export const loadHandlebarsPartials = async (): Promise<
 				file: await loadPartial(partial).then((r) => r),
 			});
 		} catch (err) {
-			console.log(err);
+			throw Error(err);
 		}
 	});
 

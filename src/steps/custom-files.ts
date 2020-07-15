@@ -37,7 +37,7 @@ const fixGoogleFonts = async (settings: ISettings): Promise<string[]> => {
 
 		return links;
 	} catch (err) {
-		console.log(err);
+		throw Error(err);
 	}
 };
 export const getStyles = async (settings: ISettings): Promise<ISettings> => {
@@ -53,7 +53,7 @@ export const getStyles = async (settings: ISettings): Promise<ISettings> => {
 			styles.push("/css/style.css");
 			localCss = true;
 		} catch (err) {
-			console.log(err);
+			throw Error(err);
 		}
 	}
 

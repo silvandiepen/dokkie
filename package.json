@@ -15,7 +15,7 @@
 		"pre": "npm run build && npm run test && npm run dev:docs",
 		"precommit": "npm run pre",
 		"prepublishOnly": "npm run pre",
-		"test": "npm run build && npm run test:unit",
+		"test": "npm run build && npm run test:unit && npm run test:runs",
 		"test:runs": "npm run dev:docs && npm run dev:docs && npm run dev:website",
 		"test:unit": "jest",
 		"pretest:unit": "node dist/test/clean.js"

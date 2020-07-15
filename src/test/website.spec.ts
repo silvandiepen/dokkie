@@ -91,7 +91,7 @@ describe("Website", () => {
 			const result = await filterHiddenPages(altSettings_partials);
 			expect(result.files.length).toBe(3);
 		} catch (err) {
-			console.log(err);
+			throw Error(err);
 		}
 	});
 	it("Create Pages", async () => {
@@ -102,7 +102,7 @@ describe("Website", () => {
 			);
 			expect(testDir.length).toBe(3);
 		} catch (err) {
-			console.log(err);
+			throw Error(err);
 		}
 	});
 	it("Create Pages - Concat Partials", async () => {
@@ -115,7 +115,7 @@ describe("Website", () => {
 			);
 			expect(testDir.length).toBe(1);
 		} catch (err) {
-			console.log(err);
+			throw Error(err);
 		}
 	});
 	// Check if the sections are also take up into the page.
@@ -140,7 +140,7 @@ describe("Website", () => {
 				document.body.querySelector('meta[name="dokkie"][content="website"]')
 			).toBeDefined();
 		} catch (err) {
-			console.log(err);
+			throw Error(err);
 		}
 	});
 
@@ -158,7 +158,7 @@ describe("Website", () => {
 			);
 			expect(testDir.length).toBe(1);
 		} catch (err) {
-			console.log(err);
+			throw Error(err);
 		}
 	});
 	it("Create Pages - Concat Sections file", async () => {
@@ -187,7 +187,7 @@ describe("Website", () => {
 			expect(sectionContainer.querySelector(`h1#item1`)).toBeDefined();
 			expect(sectionContainer.querySelector(`h1#item2`)).toBeDefined();
 		} catch (err) {
-			console.log(err);
+			throw Error(err);
 		}
 	});
 });

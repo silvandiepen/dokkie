@@ -32,7 +32,7 @@ const fixGoogleFonts = (settings) => __awaiter(void 0, void 0, void 0, function*
         return links;
     }
     catch (err) {
-        console.log(err);
+        throw Error(err);
     }
 });
 exports.getStyles = (settings) => __awaiter(void 0, void 0, void 0, function* () {
@@ -46,7 +46,7 @@ exports.getStyles = (settings) => __awaiter(void 0, void 0, void 0, function* ()
             localCss = true;
         }
         catch (err) {
-            console.log(err);
+            throw Error(err);
         }
     }
     // If there are addable stylesheets available
