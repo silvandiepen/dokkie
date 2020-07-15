@@ -8,6 +8,7 @@ const mockOutput = "temp/pages";
 const altSettings: ISettings = {
 	...baseSettings,
 	output: mockOutput,
+	layout: "website",
 	navigation: [],
 	files: [
 		{
@@ -45,7 +46,7 @@ describe("Page", () => {
 			const result = await filterHiddenPages(altSettings);
 			expect(result.files.length).toBe(1);
 		} catch (err) {
-			console.log(err);
+			throw Error(err);
 		}
 	});
 	it("Create Pages", async () => {
@@ -57,7 +58,7 @@ describe("Page", () => {
 
 			expect(testDir[1]).toBe("test2");
 		} catch (err) {
-			console.log(err);
+			throw Error(err);
 		}
 	});
 	it("Create Pages - with Filter", async () => {
@@ -69,7 +70,7 @@ describe("Page", () => {
 
 			expect(testDir[0]).toBe("test1");
 		} catch (err) {
-			console.log(err);
+			throw Error(err);
 		}
 	});
 	it("Page has contents", async () => {
@@ -83,7 +84,7 @@ describe("Page", () => {
 
 			expect(testFile.includes("test1")).toBeTruthy();
 		} catch (err) {
-			console.log(err);
+			throw Error(err);
 		}
 	});
 	it("Page has title based on Content title", async () => {
@@ -99,7 +100,7 @@ describe("Page", () => {
 
 			expect(headerTitle.innerHTML).toEqual("Test1");
 		} catch (err) {
-			console.log(err);
+			throw Error(err);
 		}
 	});
 	it("Page has title based on Page title", async () => {
@@ -116,10 +117,9 @@ describe("Page", () => {
 
 			document.body.innerHTML = testFile;
 			const headerTitle = document.body.querySelector("header h1 a");
-
 			expect(headerTitle.innerHTML).toEqual("AnotherTest");
 		} catch (err) {
-			console.log(err);
+			throw Error(err);
 		}
 	});
 });

@@ -11,13 +11,14 @@ import {
 	defaultSettings,
 } from "./settings";
 import { ISettings } from "./types";
-import { createFavicons } from "./utils";
+import { createFavicons, downloadAssets, PurgeCSSFiles } from "./utils";
 
 import {
 	getFiles,
 	setFileDate,
 	fileData,
 	concatPartials,
+	sectionPartials,
 	cleanupFilePathAfterOrder,
 	getPackageInformation,
 	loadLocalConfig,
@@ -35,10 +36,8 @@ import {
 	getLayout,
 	setHomePage,
 	reformInjectHtml,
-	downloadAssets,
+	showDist,
 } from "./steps";
-
-import { showDist, PurgeCSSFiles } from "./utils";
 
 const buildDokkie = async (s: ISettings): Promise<ISettings> => s;
 
@@ -75,6 +74,7 @@ buildDokkie(settings())
 	.then(getFiles)
 	.then(fileData)
 	.then(concatPartials)
+	.then(sectionPartials)
 	.then(cleanupFilePathAfterOrder)
 	.then(getPackageInformation)
 	.then(convertDataToHtml)

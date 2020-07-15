@@ -1,0 +1,19 @@
+{{#if columns.background}}
+<section class="section section--{{columns.name}} background--{{columns.background}}">
+    {{/if}}
+    {{#unless columns.background}}
+    <section class="section section--{{name}}">
+        {{/unless}}
+        <div class="section__container">
+            <div class="row">
+                <div class="column">
+                    {{{columns.html}}}
+                </div>
+            </div>
+            <div class="row {{columns.classes}}">
+                {{#each columns.articles}}
+                <div class="column">{{{html}}}</div>
+                {{/each}}
+            </div>
+        </div>
+    </section>

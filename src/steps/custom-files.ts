@@ -1,8 +1,6 @@
-import { download, writeThatFile } from "../utils";
+import { download } from "../utils";
 import { ISettings } from "../types";
 import { join } from "path";
-import { fileData } from "./files";
-import parseLinkDestination from "markdown-it/lib/helpers/parse_link_destination";
 const { readFile, writeFile } = require("fs").promises;
 
 const fixGoogleFonts = async (settings: ISettings): Promise<string[]> => {
@@ -39,7 +37,7 @@ const fixGoogleFonts = async (settings: ISettings): Promise<string[]> => {
 
 		return links;
 	} catch (err) {
-		console.log(err);
+		throw Error(err);
 	}
 };
 export const getStyles = async (settings: ISettings): Promise<ISettings> => {
@@ -47,12 +45,16 @@ export const getStyles = async (settings: ISettings): Promise<ISettings> => {
 	let localCss = false;
 
 	if (settings.theme && !settings.theme.includes("http")) {
-		await download(
-			`https://coat.guyn.nl/css/theme/${settings.theme}.css`,
-			join(process.cwd(), settings.output, "css", "style.css")
-		);
-		styles.push("/css/style.css");
-		localCss = true;
+		try {
+			await download(
+				`https://coat.guyn.nl/css/theme/${settings.theme}.css`,
+				join(process.cwd(), settings.output, "css", "style.css")
+			);
+			styles.push("/css/style.css");
+			localCss = true;
+		} catch (err) {
+			throw Error(err);
+		}
 	}
 
 	// If there are addable stylesheets available

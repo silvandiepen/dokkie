@@ -1,8 +1,7 @@
-import { concatPartials } from "./files";
+import { concatPartials } from "./get-files";
 import { ISettings } from "../types";
 import { baseSettings } from "../test/mock";
 import { join } from "path";
-const { readdir, readFile } = require("fs").promises;
 
 const mockOutput = "temp/files";
 const altSettings: ISettings = {
@@ -60,7 +59,7 @@ describe("Page", () => {
 			const result = await concatPartials(altSettings);
 			expect(result.files.length).toBe(1);
 		} catch (err) {
-			console.log(err);
+			throw Error(err);
 		}
 	});
 	it("Should add the contents to the parent", async () => {
@@ -70,7 +69,7 @@ describe("Page", () => {
 			// won't get ordered anymore.
 			expect(result.files[0].data).toEqual("# Test1\n# Partial\n# Another\n");
 		} catch (err) {
-			console.log(err);
+			throw Error(err);
 		}
 	});
 });

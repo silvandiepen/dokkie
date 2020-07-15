@@ -1,5 +1,5 @@
 import { ISettings } from "../types";
-import { getFileTree } from "../steps";
+import { getFileTree } from ".";
 import * as log from "cli-block";
 export const showDist = async (settings: ISettings): Promise<void> => {
 	if (settings.logging.includes("debug")) {

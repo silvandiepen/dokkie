@@ -30,7 +30,6 @@ export const createFavicons = async (
 	const source = settings.assets?.favicon
 		? settings.assets.favicon
 		: createFaviconImage(settings);
-	log.BLOCK_MID("Create Favicon");
 
 	const faviconDest = "img/favicons";
 	const faviconData = await Iconator({

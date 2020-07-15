@@ -37,7 +37,7 @@ exports.getPackageInformation = (settings) => __awaiter(void 0, void 0, void 0, 
         return Object.assign(Object.assign({}, settings), { package: JSON.parse(PackageData) });
     }
     catch (err) {
-        // console.log(err);
+        // throw Error(err);
     }
     return settings;
 });
@@ -52,7 +52,7 @@ exports.loadLocalConfig = (settings) => __awaiter(void 0, void 0, void 0, functi
         return Object.assign(Object.assign({}, settings), { localConfig: configData });
     }
     catch (err) {
-        // console.log(err);
+        // throw Error(err);
     }
     return settings;
 });
@@ -106,6 +106,10 @@ exports.setLocalConfig = (settings) => {
             settings.overruleNavigation = settings.localConfig.overruleNavigation;
         if (settings.localConfig.assets)
             settings.assets = settings.localConfig.assets;
+        if (settings.localConfig.logging)
+            settings.logging = settings.localConfig.logging;
+        if (settings.localConfig.showHome)
+            settings.showHome = settings.localConfig.showHome;
         if ((_a = settings.localConfig.add) === null || _a === void 0 ? void 0 : _a.excludeFolders)
             settings.excludeFolders = settings.excludeFolders.concat(settings.localConfig.add.excludeFolders);
     }

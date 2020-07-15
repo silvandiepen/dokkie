@@ -1,4 +1,4 @@
-import { Handlebars } from "./handlebars";
+import { Handlebars } from "../utils/handlebars";
 
 test("Renders Handlebars", () => {
 	const template = Handlebars.compile(`<p>{{{ title }}}</p>`);

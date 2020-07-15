@@ -1,4 +1,4 @@
-import { convertToDate } from "./date";
+import { convertToDate } from "../utils/date";
 
 test("Date conversion - number", () => {
 	// Assert

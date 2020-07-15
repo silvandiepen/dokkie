@@ -11,7 +11,9 @@ export const buildNavigation = async (
 		const parent = linkPath[linkPath.length - 2]
 			? linkPath[linkPath.length - 2]
 			: "";
-		if (!file.meta?.hide)
+		// CHeck if it should show home, if the current page is home.
+		const returning = link == "/" ? settings.showHome : true;
+		if (returning && !file.meta?.hide)
 			nav.push({
 				name: file.title,
 				link: link,

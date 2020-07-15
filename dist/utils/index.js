@@ -10,11 +10,11 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./files"), exports);
-__exportStar(require("./markdown"), exports);
-__exportStar(require("./handlebars"), exports);
-__exportStar(require("./favicons"), exports);
+__exportStar(require("./assets"), exports);
 __exportStar(require("./date"), exports);
+__exportStar(require("./favicons"), exports);
+__exportStar(require("./files"), exports);
+__exportStar(require("./handlebars"), exports);
+__exportStar(require("./markdown"), exports);
 __exportStar(require("./purgecss"), exports);
-__exportStar(require("./dist"), exports);
 //# sourceMappingURL=index.js.map

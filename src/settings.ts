@@ -27,11 +27,11 @@ export const defaultSettings = {
 		{ name: "footer", mobile: true, desktop: true },
 	],
 	config: "dokkie.config.json",
-	debug: false,
 	enhance: ["page-transition"],
 	language: "en",
 	search: true,
 	logging: [],
+	showHome: false,
 };
 
 export const settings = (): ISettings => {
@@ -149,6 +149,11 @@ export const settings = (): ISettings => {
 			type: "array",
 			default: defaultSettings.logging,
 		},
+		showHome: {
+			require: false,
+			type: "boolean",
+			default: defaultSettings.showHome,
+		},
 	}).argv;
 
 	return {
@@ -173,6 +178,7 @@ export const settings = (): ISettings => {
 		language: cs.language,
 		search: cs.search,
 		logging: cs.logging,
+		showHome: cs.showHome,
 	};
 };
 
@@ -197,6 +203,7 @@ export const setAlternativeDefaults = async (
 	switch (settings.type) {
 		case "blog":
 			if (!args.includes("layout")) settings.layout = "blog";
+			if (!args.includes("theme")) settings.theme = "feather-blog";
 			if (!args.includes("flatNavigation")) settings.flatNavigation = true;
 			if (!args.includes("showNavigation"))
 				settings.showNavigation = [
@@ -210,6 +217,11 @@ export const setAlternativeDefaults = async (
 					settings.layout = "simple";
 				}
 			}
+			break;
+		case "website":
+			if (!args.includes("layout")) settings.layout = "website";
+			if (!args.includes("theme")) settings.theme = "feather-web";
+			break;
 	}
 
 	return settings;

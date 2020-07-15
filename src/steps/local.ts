@@ -11,7 +11,7 @@ export const getPackageInformation = async (
 		);
 		return { ...settings, package: JSON.parse(PackageData) };
 	} catch (err) {
-		// console.log(err);
+		// throw Error(err);
 	}
 	return settings;
 };
@@ -31,7 +31,7 @@ export const loadLocalConfig = async (
 		}
 		return { ...settings, localConfig: configData };
 	} catch (err) {
-		// console.log(err);
+		// throw Error(err);
 	}
 	return settings;
 };
@@ -80,6 +80,10 @@ export const setLocalConfig = (settings: ISettings): ISettings => {
 			settings.overruleNavigation = settings.localConfig.overruleNavigation;
 		if (settings.localConfig.assets)
 			settings.assets = settings.localConfig.assets;
+		if (settings.localConfig.logging)
+			settings.logging = settings.localConfig.logging;
+		if (settings.localConfig.showHome)
+			settings.showHome = settings.localConfig.showHome;
 		if (settings.localConfig.add?.excludeFolders)
 			settings.excludeFolders = settings.excludeFolders.concat(
 				settings.localConfig.add.excludeFolders

@@ -1,8 +1,7 @@
-import { ISettings } from "../types";
+import { ISettings, IFile } from "../types";
 const { readFile, writeFile, mkdir, stat } = require("fs").promises;
 import { join, basename, dirname } from "path";
-import { download, createFolder } from "../utils";
-import { asyncForEach } from "cli-block";
+import { download, createFolder, asyncForEach } from "./";
 import * as log from "cli-block";
 
 const downloadImage = async (
@@ -48,18 +47,21 @@ export const downloadAssets = async (
 	const imageRegex = new RegExp('<img src="(.*?)"[^>]+>');
 
 	if (!settings.skip.includes("download"))
-		settings.files.forEach((file, index) => {
-			let images = file.html.match(imageRegex);
-			if (images)
-				images.forEach((img) => {
-					if (!img.includes("<img"))
-						contentImages.push({
-							fileIdx: index,
-							image: img,
-						});
-				});
-		});
-
+		try {
+			settings.files.forEach((file: IFile, index: number) => {
+				let images = file.html.match(imageRegex);
+				if (images)
+					images.forEach((img) => {
+						if (!img.includes("<img"))
+							contentImages.push({
+								fileIdx: index,
+								image: img,
+							});
+					});
+			});
+		} catch (err) {
+			throw Error(err);
+		}
 	// If there arent any image. Do nothing.
 	if (!settings.assets && contentImages.length < 1) return settings;
 
@@ -68,29 +70,36 @@ export const downloadAssets = async (
 
 	// Process Assets
 	if (settings.assets?.logo)
-		await downloadImage(settings.assets.logo, settings).then(() => {
-			const filename = "/img/" + basename(settings.assets.logo);
-			settings.assets.logo = filename;
+		try {
+			await downloadImage(settings.assets.logo, settings).then(() => {
+				const filename = "/img/" + basename(settings.assets.logo);
+				settings.assets.logo = filename;
 
-			!settings.logging.includes("silent") && log.BLOCK_LINE_SUCCESS(filename);
-		});
-
+				!settings.logging.includes("silent") &&
+					log.BLOCK_LINE_SUCCESS(filename);
+			});
+		} catch (err) {
+			throw Error(err);
+		}
 	// Process Content images
 	function filenameFromUrl(str: string): string {
 		return str.split("/")[str.split("/").length - 1];
 	}
 
 	if (contentImages && !settings.skip.includes("download"))
-		await asyncForEach(contentImages, async (img) => {
-			await downloadImage(img.image, settings).then(() => {
-				const filename = "/img/" + filenameFromUrl(img.image);
-				settings.files[img.fileIdx].html = settings.files[
-					img.fileIdx
-				].html.replace(img.image, filename);
-				!settings.logging.includes("silent") &&
-					log.BLOCK_LINE_SUCCESS(filename);
+		try {
+			await asyncForEach(contentImages, async (img) => {
+				await downloadImage(img.image, settings).then(() => {
+					const filename = "/img/" + filenameFromUrl(img.image);
+					settings.files[img.fileIdx].html = settings.files[
+						img.fileIdx
+					].html.replace(img.image, filename);
+					!settings.logging.includes("silent") &&
+						log.BLOCK_LINE_SUCCESS(filename);
+				});
 			});
-		});
-
+		} catch (err) {
+			throw Error(err);
+		}
 	return settings;
 };

@@ -38,11 +38,11 @@ exports.defaultSettings = {
         { name: "footer", mobile: true, desktop: true },
     ],
     config: "dokkie.config.json",
-    debug: false,
     enhance: ["page-transition"],
     language: "en",
     search: true,
     logging: [],
+    showHome: false,
 };
 exports.settings = () => {
     const cs = yargs_1.default.options({
@@ -159,6 +159,11 @@ exports.settings = () => {
             type: "array",
             default: exports.defaultSettings.logging,
         },
+        showHome: {
+            require: false,
+            type: "boolean",
+            default: exports.defaultSettings.showHome,
+        },
     }).argv;
     return {
         type: cs.type,
@@ -182,6 +187,7 @@ exports.settings = () => {
         language: cs.language,
         search: cs.search,
         logging: cs.logging,
+        showHome: cs.showHome,
     };
 };
 exports.getDokkiePackage = (settings) => __awaiter(void 0, void 0, void 0, function* () {
@@ -201,6 +207,8 @@ exports.setAlternativeDefaults = (settings) => __awaiter(void 0, void 0, void 0,
         case "blog":
             if (!args.includes("layout"))
                 settings.layout = "blog";
+            if (!args.includes("theme"))
+                settings.theme = "feather-blog";
             if (!args.includes("flatNavigation"))
                 settings.flatNavigation = true;
             if (!args.includes("showNavigation"))
@@ -215,6 +223,13 @@ exports.setAlternativeDefaults = (settings) => __awaiter(void 0, void 0, void 0,
                     settings.layout = "simple";
                 }
             }
+            break;
+        case "website":
+            if (!args.includes("layout"))
+                settings.layout = "website";
+            if (!args.includes("theme"))
+                settings.theme = "feather-web";
+            break;
     }
     return settings;
 });

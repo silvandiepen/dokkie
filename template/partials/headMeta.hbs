@@ -36,6 +36,13 @@
 <meta name="author" content="{{ package.author }}" />
 {{/if}}
 
+{{#if type}}
+<meta name="dokkie:type" content="{{ type }}" />
+{{/if}}
+{{#if template}}
+<meta name="dokkie:template" content="{{ template }}" />
+{{/if}}
+
 {{#if favicons}}
 <meta itemprop="image" content="/img/favicons/google.png" />
 <meta property="og:image" content="/img/favicon/facebook.png" />

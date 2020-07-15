@@ -7,11 +7,30 @@ export interface IFile {
 	path: string;
 	destpath?: string;
 	data?: string;
+	combinedData?: string;
 	html?: string;
 	meta?: IMeta;
 	filename?: string;
 	route?: string;
 	date?: Date;
+	contents?: IContents;
+	sections?: IContents[];
+}
+
+export interface IContents {
+	articles: IFileContents[];
+	layout: string;
+	name: string;
+	classes: string;
+	background?: string;
+	data: string;
+	html?: string;
+}
+
+export interface IFileContents {
+	data: string;
+	html?: string;
+	meta?: string;
 }
 
 export interface IPackageJson {

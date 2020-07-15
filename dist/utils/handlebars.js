@@ -15,44 +15,48 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Handlebars = exports.loadHandlebarsPartials = void 0;
 const handlebars_1 = __importDefault(require("handlebars"));
 const format_1 = __importDefault(require("date-fns/format"));
-const cli_block_1 = require("cli-block");
+const _1 = require("./");
 const path_1 = require("path");
 const { readFile } = require("fs").promises;
-const loadPartial = (partial, dir) => __awaiter(void 0, void 0, void 0, function* () {
-    const partialTemplate = path_1.join(__dirname, "../../", "template", dir, `${partial}.hbs`);
+const loadPartial = (partial) => __awaiter(void 0, void 0, void 0, function* () {
+    const partialTemplate = path_1.join(__dirname, "../../", "template", `${partial}.hbs`);
     try {
         const file = yield readFile(partialTemplate).then((r) => r.toString());
         return file;
     }
     catch (err) {
-        throw new Error(`${partialTemplate} doesn't exist`);
+        throw new Error(`${partialTemplate.split("/")[1]} doesn't exist`);
     }
 });
 // Create Partials
 exports.loadHandlebarsPartials = () => __awaiter(void 0, void 0, void 0, function* () {
     // Create Partials
     const partialNames = [
-        "headerNavigation",
-        "footerNavigation",
-        "sidebarNavigation",
-        "overviewNavigation",
-        "projectTitle",
-        "blogMeta",
-        "headMeta",
-        "searchBlock",
-        "searchScript",
-        "loadScripts",
+        "partials/headerNavigation",
+        "partials/footerNavigation",
+        "partials/sidebarNavigation",
+        "partials/overviewNavigation",
+        "partials/projectTitle",
+        "partials/blogMeta",
+        "partials/headMeta",
+        "partials/searchBlock",
+        "partials/searchScript",
+        "partials/loadScripts",
+        "sections/columns",
+        "sections/sections",
     ];
     const partials = [];
-    yield cli_block_1.asyncForEach(partialNames, (partial) => __awaiter(void 0, void 0, void 0, function* () {
+    yield _1.asyncForEach(partialNames, (partial) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             partials.push({
-                name: partial,
-                file: yield loadPartial(partial, "partials").then((r) => r),
+                name: partial.indexOf("/") > 0
+                    ? partial.split("/")[partial.split("/").length - 1]
+                    : partial,
+                file: yield loadPartial(partial).then((r) => r),
             });
         }
         catch (err) {
-            console.log(err);
+            throw Error(err);
         }
     }));
     return partials;

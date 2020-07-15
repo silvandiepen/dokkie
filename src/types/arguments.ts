@@ -30,6 +30,7 @@ export interface IArgumentSettings {
 	language: string;
 	search: boolean;
 	logging: string[];
+	showHome: boolean;
 }
 
 export interface ISettings extends IArgumentSettings {

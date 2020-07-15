@@ -1,6 +1,6 @@
 // Markdown
 
-import { IMarkdown, IFile, MarkdownItExtended } from "../types";
+import { IMarkdown, IFile, IFileContents, MarkdownItExtended } from "../types";
 
 import meta from "markdown-it-meta";
 import prism from "markdown-it-prism";
@@ -29,12 +29,15 @@ md.use(taskLists, { enabled: true });
 /*
 	Convert Markdown Data to html and filter meta.
 */
-export const mdToHtml = async (file: IFile): Promise<IMarkdown> => {
+export const mdToHtml = async (
+	file: IFile | IFileContents
+): Promise<IMarkdown> => {
 	const renderedDocument = md.render(file.data);
 	const meta = md.meta;
 	md.meta = {};
 
-	if (meta.tags) meta.tags = meta.tags.split(",").map((x) => (x = x.trim()));
+	if (meta.tags)
+		meta.tags = meta.tags.split(",").map((x: string) => (x = x.trim()));
 	return {
 		document: renderedDocument,
 		meta: meta,
@@ -44,22 +47,20 @@ export const mdToHtml = async (file: IFile): Promise<IMarkdown> => {
 /*
 	Find the first occurence of a string after a certain index.
 */
-
 const findAfter = (str: string, needle: string, afterIndex: number): number => {
 	for (let i = 0; i < str.length; i++)
 		if (str[i] === needle && i > afterIndex) return i;
 	return 0;
 };
+
 /*
 	Get the title from a Markdown String
 */
 export const getTitleFromMD = (str: string, clean = true): string => {
 	let startTitle = str.indexOf("# ");
-	// console.log("index -1:  ", str.charAt(startTitle - 1));
 	while (str.charAt(startTitle - 1) == "#") {
 		startTitle = findAfter(str, "# ", startTitle);
 	}
-	// console.log(startTitle);
 	let endTitle = findAfter(str, "\n", startTitle);
 
 	if (startTitle < 0) return null;

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="{{language}}">
+
+<head>
+    {{> headMeta }}
+    {{{ favicon }}}
+    <title>{{ title }}</title>
+    {{{ styles }}}
+    {{{ scripts }}}
+</head>
+
+<body id="page-{{currentId}}">
+    <!--- Page Header -->
+    <header id="header">
+        {{{ injectHtml.headerBefore }}}
+        {{> projectTitle }}
+        {{> headerNavigation }}
+        {{> searchBlock }}
+        {{{ injectHtml.headerAfter }}}
+    </header>
+
+    <!--- Page Main section-->
+    <main id="main" class="content">
+        {{{ injectHtml.mainBefore }}}
+        {{{ content }}}
+        {{{ injectHtml.mainAfter }}}
+    </main>
+
+    {{#if (or columns sections) }}
+    <!--- Page Website section-->
+    <main id="web" class="content">
+        {{{ injectHtml.mainBefore }}}
+
+        {{#if contents}}
+        {{> columns columns=contents }}
+        {{/if}}
+        {{#if sections}}
+        {{> sections sections=sections }}
+        {{/if}}
+        {{{ injectHtml.mainAfter }}}
+    </main>
+    {{/if}}
+
+    <!--- Page Footer Content -->
+    <footer id="footer">
+        {{{ injectHtml.footerBefore }}}
+        {{> footerNavigation }}
+        {{#if package}}
+        <footnote>
+            {{#if package.name}}<span>&copy; {{package.name}}</span>{{/if}}
+        </footnote>
+        {{/if}}
+        {{{ injectHtml.footerAfter }}}
+    </footer>
+
+</body>
+
+{{> loadScripts }}
+{{> searchScript }}
+
+</html>

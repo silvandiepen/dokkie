@@ -35,7 +35,6 @@ const log = __importStar(require("cli-block"));
 const settings_1 = require("./settings");
 const utils_1 = require("./utils");
 const steps_1 = require("./steps");
-const utils_2 = require("./utils");
 const buildDokkie = (s) => __awaiter(void 0, void 0, void 0, function* () { return s; });
 buildDokkie(settings_1.settings())
     .then(settings_1.getDokkiePackage)
@@ -64,6 +63,7 @@ buildDokkie(settings_1.settings())
     .then(steps_1.getFiles)
     .then(steps_1.fileData)
     .then(steps_1.concatPartials)
+    .then(steps_1.sectionPartials)
     .then(steps_1.cleanupFilePathAfterOrder)
     .then(steps_1.getPackageInformation)
     .then(steps_1.convertDataToHtml)
@@ -81,19 +81,19 @@ buildDokkie(settings_1.settings())
     .then(steps_1.getStyles)
     .then(steps_1.getScripts)
     .then(utils_1.createFavicons)
-    .then(steps_1.downloadAssets)
+    .then(utils_1.downloadAssets)
     .then((s) => __awaiter(void 0, void 0, void 0, function* () {
-    yield utils_2.showDist(s);
+    yield steps_1.showDist(s);
     yield steps_1.createPages(s);
     yield steps_1.copyFolders(s);
     steps_1.createPageData(s);
     return s;
 }))
     .then((s) => __awaiter(void 0, void 0, void 0, function* () {
-    yield utils_2.PurgeCSSFiles(s);
+    yield utils_1.PurgeCSSFiles(s);
     setTimeout(() => {
         !s.logging.includes("silent") && log.BLOCK_END("Done :)");
-        utils_2.showDist(s);
+        steps_1.showDist(s);
     }, 10);
 }));
 //# sourceMappingURL=index.js.map
