@@ -4,13 +4,10 @@
     <meta charset="UTF-8" />
 
     <!-- Google / Search Engine Tags -->
-    <title>Welcome to the Dokkie example website</title>
-    <meta itemprop="name" content="Welcome to the Dokkie example website" />
-    <meta property="og:title" content="Welcome to the Dokkie example website" />
-    <meta
-      name="twitter:title"
-      content="Welcome to the Dokkie example website"
-    />
+    <title>Troubleshooting</title>
+    <meta itemprop="name" content="Troubleshooting" />
+    <meta property="og:title" content="Troubleshooting" />
+    <meta name="twitter:title" content="Troubleshooting" />
 
     <meta
       name="description"
@@ -244,7 +241,7 @@
       rel="yandex-tableau-widget"
       href="/img/favicons/yandex-browser-manifest.json"
     />
-    <title>Welcome to the Dokkie example website</title>
+    <title>Troubleshooting</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -253,7 +250,7 @@
     />
   </head>
 
-  <body id="page-content-website">
+  <body id="page-content-usage-troubleshooting">
     <!--- Page Header -->
     <header id="header">
       <h1><a href="/">dokkie</a></h1>
@@ -284,16 +281,31 @@
 
     <!--- Page Main section-->
     <main id="main" class="content">
-      <h1 id="welcome-to-the-dokkie-example-website">
-        Welcome to the Dokkie example website
-      </h1>
+      <h1 id="troubleshooting">Troubleshooting</h1>
       <p>
-        You can find the repository of this website here;
-        <a href="https://github.com/silvandiepen/dokkie-website-example"
-          >github.com/silvandiepen/dokkie-website-example</a
-        >. You can create a full<br />
-        website just using Markdown files.
+        Sometimes things go wrong, that doesn’t mean you are doing something
+        wrong, but Dokkie doesn’t recognize it well. Here are some things which
+        can be easily solved or sometimes not.
       </p>
+      <h3 id="styling-doesn%E2%80%99t-load.">Styling doesn’t load.</h3>
+      <p>
+        You are probably trying to deploy your generated dokkie in a subfolder.
+        That shouldn’t be an issue but for now it unforatunately is. All links
+        to styling and images are relative. That means that your browser tries
+        to get the assets from the direct domain.
+      </p>
+      <p><strong>fixes</strong></p>
+      <ul>
+        <li>Deploy your website on a direct domain/subdomain.</li>
+      </ul>
+      <p><strong>Issues</strong></p>
+      <ul>
+        <li>
+          <a href="https://github.com/silvandiepen/dokkie/issues/24"
+            >Dokkie in a subfolder #24</a
+          >
+        </li>
+      </ul>
     </main>
 
     <!--- Page Footer Content -->
