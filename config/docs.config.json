@@ -6,7 +6,7 @@
 		{ "name": "sidebar", "desktop": true, "mobile": false }
 	],
 	"add": {
-		"excludeFolders": ["posts"]
+		"excludeFolders": ["posts", "website"]
 	},
 	"extendNavigation": [
 		{
