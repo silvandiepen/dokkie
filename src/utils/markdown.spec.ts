@@ -9,6 +9,8 @@ let input: IFile = {
 # My name
   
 Is Dokkie, I'm a static site generator`,
+	html: "",
+	meta: {},
 };
 let output = {
 	document:

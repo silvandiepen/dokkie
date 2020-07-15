@@ -5,3 +5,4 @@ export * from "./files";
 export * from "./handlebars";
 export * from "./markdown";
 export * from "./purgecss";
+export * from "./helpers";

@@ -1,7 +1,7 @@
 const { readdir, readFile, stat } = require("fs").promises;
 import { basename, extname, resolve, join } from "path";
 import { ISettings, IFile } from "../types";
-import { asyncForEach, convertToDate } from "../utils";
+import { asyncForEach, convertToDate, lastIndex } from "../utils";
 import { mdToHtml } from "../utils/markdown";
 
 /*
@@ -131,10 +131,16 @@ export const concatPartials = async (
 	const removeIndexes = [];
 	await asyncForEach(settings.files, async (file: IFile, index: number) => {
 		if (file.name.indexOf("_") == 0) {
-			const parentIndex = settings.files.findIndex(
-				(parentFile: IFile) =>
-					parentFile.path == file.path.replace(file.name, "readme")
+			const parentPath = join(
+				file.path.substring(0, lastIndex(file.path, file.name)),
+				`readme.md`
 			);
+
+			const parentIndex = settings.files.findIndex(
+				(parentFile: IFile) => parentFile.path == parentPath
+			);
+
+			// console.log(file.path.replace(file.name, "readme"));
 
 			// Check if the Parent has a layout defined.
 			const parentData = await mdToHtml(settings.files[parentIndex]);

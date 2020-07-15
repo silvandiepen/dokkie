@@ -172,7 +172,7 @@ exports.createPages = (settings) => __awaiter(void 0, void 0, void 0, function* 
             const contents = template(Object.assign(Object.assign({}, getOnce), { projectTitle: settings.projectTitle == ""
                     ? ((_e = settings.package) === null || _e === void 0 ? void 0 : _e.name) ? settings.package.name
                         : file.title
-                    : settings.projectTitle, title: file.title, type: settings.type, template: settings.layout, content: file.html, currentLink: currentLink, currentId: currentLink.replace(/\//g, " ").trim().replace(/\s+/g, "-"), headerNavigation: _1.getNavigation(settings, "header"), sidebarNavigation: _1.getNavigation(settings, "sidebar"), footerNavigation: _1.getNavigation(settings, "footer"), overviewNavigation: _1.getNavigation(settings, "overview"), meta: file.meta, sections: file.sections ? file.sections : false, contents: file.contents ? file.contents : false, hasMeta: ((_f = file.meta) === null || _f === void 0 ? void 0 : _f.author) || ((_g = file.meta) === null || _g === void 0 ? void 0 : _g.tags) ? true : false, language: settings.language, search: settings.files.length > 1 ? settings.search : false }));
+                    : settings.projectTitle, title: file.title, type: settings.type, template: settings.layout, content: file.html, currentLink: currentLink, currentId: currentLink.replace(/\//g, " ").trim().replace(/\s+/g, "-"), headerNavigation: _1.getNavigation(settings, "header"), sidebarNavigation: _1.getNavigation(settings, "sidebar"), footerNavigation: _1.getNavigation(settings, "footer"), overviewNavigation: _1.getNavigation(settings, "overview"), meta: file.meta, sections: file.sections, columns: file.contents, hasMeta: ((_f = file.meta) === null || _f === void 0 ? void 0 : _f.author) || ((_g = file.meta) === null || _g === void 0 ? void 0 : _g.tags) ? true : false, language: settings.language, search: settings.files.length > 1 ? settings.search : false }));
             yield utils_1.writeThatFile(file, prettier_1.default.format(contents, { parser: "html" }), settings);
         }
         catch (err) {
@@ -199,14 +199,6 @@ exports.copyFolders = (settings) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.createPageData = (settings) => __awaiter(void 0, void 0, void 0, function* () {
-    const file = {
-        name: "",
-        title: "data.json",
-        ext: ".json",
-        path: "",
-        destpath: path_1.join(settings.output),
-        filename: "data.json",
-    };
     const fileData = [...settings.files].map((item) => {
         // Add combined data as data and remove the default data. The combinedata has all information of the
         // page which can be used for search.
@@ -221,7 +213,17 @@ exports.createPageData = (settings) => __awaiter(void 0, void 0, void 0, functio
         delete item.combinedData;
         return item;
     });
-    yield utils_1.writeThatFile(file, JSON.stringify(fileData), settings, true);
+    yield utils_1.writeThatFile({
+        name: "",
+        title: "data.json",
+        ext: ".json",
+        path: "",
+        destpath: path_1.join(settings.output),
+        filename: "data.json",
+        data: "",
+        meta: {},
+        html: "",
+    }, JSON.stringify(fileData), settings, true);
 });
 exports.setHomePage = (settings) => {
     const customHomePage = settings.files.find((file) => { var _a; return (_a = file.meta) === null || _a === void 0 ? void 0 : _a.home; });
