@@ -1,6 +1,6 @@
 ---
-layout: half
+layout: thirds
 background: turquoise
 ---
 
-## Highlights
+# Overview
