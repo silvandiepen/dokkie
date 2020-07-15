@@ -105,7 +105,7 @@ describe("Website", () => {
 			throw Error(err);
 		}
 	});
-	it("Create Pages - Concat Partials", async () => {
+	it("Concat Partials", async () => {
 		try {
 			await concatPartials(altSettings_partials)
 				.then(getLayout)
@@ -119,7 +119,7 @@ describe("Website", () => {
 		}
 	});
 	// Check if the sections are also take up into the page.
-	it("Create Pages - Has meta tag", async () => {
+	it("Page has meta tag", async () => {
 		try {
 			await getLayout(altSettings_partials).then(createPages);
 			const testDir = await readdir(
@@ -145,7 +145,7 @@ describe("Website", () => {
 	});
 
 	// Check if the sections are also take up into the page.
-	it("Create Pages - Concat Sections", async () => {
+	it("Concat Sections", async () => {
 		try {
 			const result = await concatPartials(altSettings_sections)
 				.then(sectionPartials)
@@ -161,7 +161,7 @@ describe("Website", () => {
 			throw Error(err);
 		}
 	});
-	it("Create Pages - Concat Sections file", async () => {
+	it("Concat Sections file", async () => {
 		try {
 			const result = await concatPartials(altSettings_sections)
 				.then(sectionPartials)
@@ -170,7 +170,17 @@ describe("Website", () => {
 			await createPages(result);
 
 			expect(result.files[0].sections[0].articles.length).toBe(2);
-
+		} catch (err) {
+			throw Error(err);
+		}
+	});
+	it("Sections have the right columns", async () => {
+		try {
+			const result = await concatPartials(altSettings_sections)
+				.then(sectionPartials)
+				.then(getLayout)
+				.then(convertDataToHtml);
+			await createPages(result);
 			const testFile = await readFile(
 				join(
 					__dirname,
