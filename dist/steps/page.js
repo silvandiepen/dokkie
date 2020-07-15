@@ -204,7 +204,6 @@ exports.createPageData = (settings) => __awaiter(void 0, void 0, void 0, functio
         title: "data.json",
         ext: ".json",
         path: "",
-        route: path_1.join(settings.output, "data.json"),
         destpath: path_1.join(settings.output),
         filename: "data.json",
     };
