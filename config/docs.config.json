@@ -5,6 +5,7 @@
 		"footer",
 		{ "name": "sidebar", "desktop": true, "mobile": false }
 	],
+	"strip": ["content/pages"],
 	"add": {
 		"excludeFolders": ["posts", "website"]
 	},
@@ -14,6 +15,5 @@
 			"link": "https://blog.silvandiepen.nl",
 			"meta": { "menu": ["header", "footer"] }
 		}
-	],
-	"strip": ["content/pages"]
+	]
 }

@@ -7,7 +7,7 @@
 | `input`          | `.`                        | any folder                                              | Input folder to search for files.                                                                          |
 | `output`         | `dokkie`                   | any new folder                                          | Output folder for pages                                                                                    |
 | `layout`         | `default`                  | `default`,`simple`,`advanced` or a custom hbs/html file | Html layout used                                                                                           |
-| `theme`          | `coat`                     |                                                         | When a default layout is chosen, you can choose a theme from (coat)[https://coat.guyn.nl]                  |
+| `theme`          | `coat`                     |                                                         | When a default layout is chosen, you can choose a theme from [coat](https://coat.guyn.nl)                  |
 | `cleanBefore`    | `true`                     | `true` / `false`                                        | Remove the docs folder before creating a new one.                                                          |
 | `extensions`     | `.md`                      | `.md`,`.html`                                           | All file extensions which can be used (supported; .md, .html)                                              |
 | `exclude`        | `node_modules, dist, docs` | any folder                                              | Exclude folders from searching for files.                                                                  |
