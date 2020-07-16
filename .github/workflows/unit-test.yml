@@ -27,4 +27,4 @@ jobs:
       - name: Build
         run: npm run build
       - name: Test
-        run: npm test:unit
+        run: npm run test:unit
