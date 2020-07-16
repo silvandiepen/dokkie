@@ -86,7 +86,7 @@ exports.createFolder = (folder) => __awaiter(void 0, void 0, void 0, function* (
 });
 exports.writeThatFile = (file, contents, settings, simple = false) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const filePath = path_1.join(file.destpath, file.filename);
+        const filePath = path_1.join(file.destpath, file.filename).toLowerCase();
         yield exports.createFolder(path_1.dirname(filePath));
         yield writeFile(filePath, contents);
         !settings.logging.includes("silent") && log.BLOCK_LINE_SUCCESS(file.title);

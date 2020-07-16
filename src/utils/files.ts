@@ -64,7 +64,7 @@ export const writeThatFile = async (
 	simple: boolean = false
 ): Promise<void> => {
 	try {
-		const filePath = join(file.destpath, file.filename);
+		const filePath = join(file.destpath, file.filename).toLowerCase();
 		await createFolder(dirname(filePath));
 		await writeFile(filePath, contents);
 		!settings.logging.includes("silent") && log.BLOCK_LINE_SUCCESS(file.title);
