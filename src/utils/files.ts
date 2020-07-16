@@ -48,7 +48,7 @@ export const makeFileName = (file: IFile): string => {
 	return filename + ".html";
 };
 
-export const createFolder = async (folder): Promise<void> => {
+export const createFolder = async (folder: string): Promise<void> => {
 	try {
 		await mkdir(folder, { recursive: true }, () => {
 			return;

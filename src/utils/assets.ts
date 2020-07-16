@@ -17,8 +17,7 @@ const downloadImage = async (
 			"img",
 			basename(image)
 		);
-		await mkdir(dirname(filePath), { recursive: true });
-
+		await createFolder(dirname(filePath));
 		if (image.includes("http")) {
 			await download(image, filePath).then(async () => {
 				if (settings.logging.includes("debug")) {

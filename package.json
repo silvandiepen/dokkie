@@ -36,6 +36,7 @@
 		"@types/favicons": "^5.5.0",
 		"@types/jest": "^26.0.4",
 		"@types/markdown-it": "^10.0.1",
+		"@types/mkdirp": "^1.0.1",
 		"@types/node-fetch": "^2.5.7",
 		"@types/rimraf": "^3.0.0",
 		"husky": "^4.2.5",
