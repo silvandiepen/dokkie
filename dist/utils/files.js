@@ -93,6 +93,8 @@ exports.writeThatFile = (file, contents, settings, simple = false) => __awaiter(
         if (!simple) {
             !settings.logging.includes("silent") &&
                 log.BLOCK_LINE(`→ ${kleur_1.blue(file.route)}`);
+            settings.logging.includes("debug") &&
+                log.BLOCK_LINE(`→ ${kleur_1.blue(filePath)}`);
             !settings.logging.includes("silent") && log.BLOCK_LINE();
         }
     }

@@ -32,7 +32,6 @@ const altSettings_partials: ISettings = {
 	output: mockOutput,
 	layout: "website",
 	navigation: [],
-	logging: ["debug"],
 	files: [
 		{
 			...basePage("Work"),
@@ -175,7 +174,10 @@ describe("Website", () => {
 	});
 	it("Sections have the right columns", async () => {
 		try {
-			const result = await concatPartials(altSettings_sections)
+			const result = await concatPartials({
+				...altSettings_sections,
+				logging: ["debug"],
+			})
 				.then(sectionPartials)
 				.then(getLayout)
 				.then(convertDataToHtml);

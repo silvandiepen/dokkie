@@ -72,6 +72,8 @@ export const writeThatFile = async (
 		if (!simple) {
 			!settings.logging.includes("silent") &&
 				log.BLOCK_LINE(`→ ${blue(file.route)}`);
+			settings.logging.includes("debug") &&
+				log.BLOCK_LINE(`→ ${blue(filePath)}`);
 			!settings.logging.includes("silent") && log.BLOCK_LINE();
 		}
 	} catch (err) {
