@@ -26,7 +26,7 @@ jobs:
       - name: Build
         run: npm run build
       - name: Run Dokkie
-        run: npx run dokkie --config=config/docs.config.json --url=https://silvandiepen.github.io/dokkie
+        run: node dist/index.js --config=config/docs.config.json --url=https://silvandiepen.github.io/dokkie
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
