@@ -32,6 +32,7 @@ export const createFavicons = async (
 		: createFaviconImage(settings);
 
 	const faviconDest = "img/favicons";
+
 	const faviconData = await Iconator({
 		input: source,
 		output: join(settings.output, faviconDest),
