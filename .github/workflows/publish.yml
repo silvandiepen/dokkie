@@ -1,11 +1,12 @@
+name: Publish package
+
 on:
-  pull-request:
+  pull_request:
     branches:
       - master
   push:
     branches:
       - master
-name: Publish package
 jobs:
   test:
     name: Build & Test
