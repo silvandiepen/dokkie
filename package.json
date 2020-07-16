@@ -14,10 +14,10 @@
 		"dev:website": "npm run build && node dist/index.js --config=config/website.config.json --type=website --input=content/website --url=https://dokkie.dev",
 		"pre": "npm run build && npm run test && npm run dev:docs",
 		"prepublishOnly": "npm run pre",
-		"test": "npm run build && npm run test:unit && npm run test:runs",
+		"test": "npm run build && npm run test:unit  && npm run test:runs --logging=debug",
 		"test:runs": "npm run dev:docs && npm run dev:docs && npm run dev:website",
-		"test:unit": "jest",
-		"test:date": "jest date.spec.ts --watch",
+		"test:unit": "jest --verbose",
+		"test:date": "jest website.spec.ts --watch",
 		"pretest:unit": "node dist/test/clean.js"
 	},
 	"keywords": [
