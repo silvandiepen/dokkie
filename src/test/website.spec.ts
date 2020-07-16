@@ -3,7 +3,8 @@ import {
 	getLayout,
 	filterHiddenPages,
 	convertDataToHtml,
-} from "../steps/page";
+	getFileTree,
+} from "../steps";
 import { sectionPartials, concatPartials } from "../steps/get-files";
 import { cleanup } from "./clean";
 import { ISettings } from "../types";
@@ -181,6 +182,11 @@ describe("Website", () => {
 			console.log("dirname:", __dirname);
 			console.log("altsettings-output:", altSettings_sections.output);
 			console.log("work/index.html");
+			await getFileTree(join(__dirname, "../../"), altSettings_sections).then(
+				(r) => {
+					console.log(r);
+				}
+			);
 			const testFile = await readFile(
 				join(
 					__dirname,

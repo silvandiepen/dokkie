@@ -17,7 +17,7 @@
 		"test": "npm run build && npm run test:unit  && npm run test:runs --logging=debug",
 		"test:runs": "npm run dev:docs && npm run dev:docs && npm run dev:website",
 		"test:unit": "jest --verbose",
-		"test:date": "jest website.spec.ts --watch",
+		"test:web": "jest website.spec.ts --watch",
 		"pretest:unit": "node dist/test/clean.js"
 	},
 	"keywords": [
