@@ -35,17 +35,17 @@ const altSettings_partials: ISettings = {
 		{
 			...basePage("Work"),
 			name: "readme",
-			path: "/Users/silvandiepen/Repos/_projects/dokkie/pages/work/readme.md",
+			path: "/pages/work/readme.md",
 		},
 		{
 			...basePage("Item1"),
 			name: "_item1",
-			path: "/Users/silvandiepen/Repos/_projects/dokkie/pages/work/_item1.md",
+			path: "/pages/work/_item1.md",
 		},
 		{
 			...basePage("Item2"),
 			name: "_item2",
-			path: "/Users/silvandiepen/Repos/_projects/dokkie/pages/work/_item2.md",
+			path: "/pages/work/_item2.md",
 		},
 	],
 };
@@ -56,13 +56,13 @@ const altSettings_sections: ISettings = {
 		{
 			...basePage("Work"),
 			name: "readme",
-			path: "/Users/silvandiepen/Repos/_projects/dokkie/pages/work/readme.md",
+			path: "/pages/work/readme.md",
 		},
 		{
 			...basePage("_overview"),
 			name: "readme",
 			path:
-				"/Users/silvandiepen/Repos/_projects/dokkie/pages/work/_overview/readme.md",
+				"/pages/work/_overview/readme.md",
 			meta: {
 				layout: "thirds",
 			},
@@ -72,13 +72,13 @@ const altSettings_sections: ISettings = {
 			...basePage("Item1"),
 			name: "_item1",
 			path:
-				"/Users/silvandiepen/Repos/_projects/dokkie/pages/work/_overview/_item1.md",
+				"/pages/work/_overview/_item1.md",
 		},
 		{
 			...basePage("Item2"),
 			name: "_item2",
 			path:
-				"/Users/silvandiepen/Repos/_projects/dokkie/pages/work/_overview/_item2.md",
+				"/pages/work/_overview/_item2.md",
 		},
 	],
 };
