@@ -10,7 +10,8 @@ import { mdToHtml } from "../utils/markdown";
 */
 export const getFileTree = async (
 	dir: string,
-	settings: ISettings
+	settings: ISettings,
+	notfilter: boolean = false
 ): Promise<IFile[]> => {
 	const dirents = await readdir(dir, { withFileTypes: true });
 	const files = await Promise.all(

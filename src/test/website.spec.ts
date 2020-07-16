@@ -32,6 +32,7 @@ const altSettings_partials: ISettings = {
 	output: mockOutput,
 	layout: "website",
 	navigation: [],
+	logging: ["debug"],
 	files: [
 		{
 			...basePage("Work"),
@@ -179,15 +180,7 @@ describe("Website", () => {
 				.then(getLayout)
 				.then(convertDataToHtml);
 			await createPages(result);
-			console.log("dirname:", __dirname);
-			console.log("altsettings-output:", altSettings_sections.output);
-			console.log("work/index.html");
-			await getFileTree(
-				join(__dirname, "../../", altSettings_sections.output),
-				altSettings_sections
-			).then((r) => {
-				console.log(r);
-			});
+
 			const testFile = await readFile(
 				join(
 					__dirname,
