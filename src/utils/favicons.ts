@@ -33,23 +33,6 @@ export const createFavicons = async (
 
 	const faviconDest = "img/favicons";
 
-	// const faviconData = {
-	// 	icons: [],
-	// 	html: [],
-	// 	settings: {
-	// 		input: "",
-	// 		output: "",
-	// 		destination: "",
-	// 		color: "",
-	// 		appleStatusBarStyle: "",
-	// 		themeColor: "",
-	// 		appName: "",
-	// 		appDeveloper: "",
-	// 		appDeveloperUrl: "",
-	// 		appDescription: "",
-	// 		url: "",
-	// 	},
-	// };
 	const faviconData = await Iconator({
 		input: source,
 		output: join(settings.output, faviconDest),
@@ -65,6 +48,5 @@ export const createFavicons = async (
 		url: settings.url,
 	} as any).then(async (r: IFaviconData) => r);
 
-	console.log("GODVERDOMMMEEEEEE");
 	return { ...settings, faviconData: faviconData };
 };
