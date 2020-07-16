@@ -141,8 +141,6 @@ export const concatPartials = async (
 				(parentFile: IFile) => parentFile.path == parentPath
 			);
 
-			// console.log(file.path.replace(file.name, "readme"));
-
 			// Check if the Parent has a layout defined.
 			const parentData = await mdToHtml(settings.files[parentIndex]);
 
