@@ -26,9 +26,11 @@ jobs:
         with:
           path: node_modules
           key: ${{ matrix.node-version }}-${{ runner.OS }}-build-${{ hashFiles('package.json') }}
-      - name: Build
+      - name: Install
         if: steps.cache-modules.outputs.cache-hit != 'true'
         run: npm install
+      - name: Build
+        run: npm run build
       - name: Test
         run: npm test
   publish:
@@ -44,9 +46,11 @@ jobs:
         with:
           path: node_modules
           key: 12.x-${{ runner.OS }}-build-${{ hashFiles('package.json') }}
-      - name: Build
+      - name: Install
         if: steps.cache-modules.outputs.cache-hit != 'true'
         run: npm install
+      - name: Build
+        run: npm run build
       - name: Test
         run: npm test
 

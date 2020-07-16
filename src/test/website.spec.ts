@@ -181,6 +181,9 @@ describe("Website", () => {
 				.then(getLayout)
 				.then(convertDataToHtml);
 			await createPages(result);
+			console.log("dirname:", __dirname);
+			console.log("altsettings-output:", altSettings_sections.output);
+			console.log("work/index.html");
 			const testFile = await readFile(
 				join(
 					__dirname,

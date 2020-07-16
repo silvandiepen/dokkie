@@ -27,7 +27,8 @@ const downloadImage = async (
 				}
 			});
 		} else {
-			imageFile = await readFile(image);
+			imageFile = await readFile(image).then((r: any): string => r.toString());
+
 			await writeFile(filePath, imageFile).then(async () => {
 				if (settings.logging.includes("debug")) {
 					const stats = await stat(filePath);

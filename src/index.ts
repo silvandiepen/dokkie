@@ -92,6 +92,7 @@ buildDokkie(settings())
 	.then(getStyles)
 	.then(getScripts)
 	.then(createFavicons)
+
 	.then(downloadAssets)
 	.then(async (s) => {
 		await showDist(s);
