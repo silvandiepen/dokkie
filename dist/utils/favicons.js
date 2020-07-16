@@ -36,6 +36,23 @@ exports.createFavicons = (settings) => __awaiter(void 0, void 0, void 0, functio
     const source = ((_a = settings.assets) === null || _a === void 0 ? void 0 : _a.favicon) ? settings.assets.favicon
         : createFaviconImage(settings);
     const faviconDest = "img/favicons";
+    // const faviconData = {
+    // 	icons: [],
+    // 	html: [],
+    // 	settings: {
+    // 		input: "",
+    // 		output: "",
+    // 		destination: "",
+    // 		color: "",
+    // 		appleStatusBarStyle: "",
+    // 		themeColor: "",
+    // 		appName: "",
+    // 		appDeveloper: "",
+    // 		appDeveloperUrl: "",
+    // 		appDescription: "",
+    // 		url: "",
+    // 	},
+    // };
     const faviconData = yield iconator_1.default({
         input: source,
         output: path_1.join(settings.output, faviconDest),
@@ -50,6 +67,7 @@ exports.createFavicons = (settings) => __awaiter(void 0, void 0, void 0, functio
         logging: ["inline", "minimal"],
         url: settings.url,
     }).then((r) => __awaiter(void 0, void 0, void 0, function* () { return r; }));
+    console.log("GODVERDOMMMEEEEEE");
     return Object.assign(Object.assign({}, settings), { faviconData: faviconData });
 });
 //# sourceMappingURL=favicons.js.map
