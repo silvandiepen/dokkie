@@ -11,3 +11,11 @@ export const lastIndex = (source: string, find: string): number => {
 	}
 	return Math.max(...result) - 1;
 };
+export const splice = (
+	insert: string,
+	idx: number,
+	rem: number,
+	str: string
+): string => {
+	return insert.slice(0, idx) + str + insert.slice(idx + Math.abs(rem));
+};

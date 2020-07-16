@@ -17,6 +17,7 @@
 		"test": "npm run build && npm run test:unit && npm run test:runs",
 		"test:runs": "npm run dev:docs && npm run dev:docs && npm run dev:website",
 		"test:unit": "jest",
+		"test:date": "jest date.spec.ts --watch",
 		"pretest:unit": "node dist/test/clean.js"
 	},
 	"keywords": [
