@@ -8,14 +8,27 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-18.04
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Run Dokkie
-        run: npx run dokkie --config=config/docs.config.json
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dokkie
+      steps:
+        - uses: actions/checkout@v2
+        - name: Use Node.js ${{ matrix.node-version }}
+          uses: actions/setup-node@v1
+          with:
+            node-version: ${{ matrix.node-version }}
+        - name: Cache node_modules
+          id: cache-modules
+          uses: actions/cache@v1
+          with:
+            path: node_modules
+            key: ${{ matrix.node-version }}-${{ runner.OS }}-build-${{ hashFiles('package.json') }}
+        - name: Install
+          if: steps.cache-modules.outputs.cache-hit != 'true'
+          run: npm install
+        - name: Build
+          run: npm run build
+        - name: Run Dokkie
+          run: npx run dokkie --config=config/docs.config.json
+        - name: Deploy
+          uses: peaceiris/actions-gh-pages@v3
+          with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            publish_dir: ./dokkie
