@@ -1,10 +1,10 @@
-name: Test Runs
+name: Test:runs
 
 on: [push, pull_request]
 
 jobs:
   test:
-    name: Test Runs
+    name: Test runs
     runs-on: ubuntu-latest
     strategy:
       matrix:
