@@ -1,9 +1,7 @@
-// import favicons from "favicons";
 import Iconator from "iconator";
 import { ISettings } from "../types";
 import { createImage } from "./";
 
-// import Frame from "canvas-to-buffer";
 import { join } from "path";
 import { IOutput as IFaviconData } from "iconator/src/types";
 
