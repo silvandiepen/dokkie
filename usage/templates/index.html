@@ -30,7 +30,6 @@
     <meta name="dokkie:template" content="default" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="dokkie:template" content="default" />
     <link
       rel="manifest"
       href="https://silvandiepen.github.io/dokkie/img/favicons/manifest.json"
@@ -252,7 +251,7 @@
       rel="stylesheet"
       type="text/css"
       media="screen and (min-width: 0px)"
-      href="https://silvandiepen.github.io/dokkie//css/style.css"
+      href="https://silvandiepen.github.io/dokkie/css/style.css"
     />
   </head>
 
@@ -279,6 +278,8 @@
               <li><a href="/about/in-use/">In use</a></li>
 
               <li><a href="/about/why/">Dokkie</a></li>
+
+              <li><a href="/usage/pages/">Pages</a></li>
             </ul>
           </li>
 
@@ -290,10 +291,6 @@
               <li><a href="/usage/configuration/">Configuration</a></li>
 
               <li><a href="/usage/deployment/">Deployment</a></li>
-
-              <li><a href="/usage/pages/">Pages</a></li>
-
-              <li><a href="/usage/navigation/">Navigation</a></li>
               <li class="active">
                 <a href="/usage/templates/">Templates</a>
               </li>
@@ -350,6 +347,10 @@
               <li>
                 <a href="/about/why/">Dokkie</a>
               </li>
+
+              <li>
+                <a href="/usage/pages/">Pages</a>
+              </li>
             </ul>
           </li>
 
@@ -366,14 +367,6 @@
 
               <li>
                 <a href="/usage/deployment/">Deployment</a>
-              </li>
-
-              <li>
-                <a href="/usage/pages/">Pages</a>
-              </li>
-
-              <li>
-                <a href="/usage/navigation/">Navigation</a>
               </li>
               <li class="active">
                 <a href="/usage/templates/">Templates</a>
@@ -402,105 +395,21 @@
 
     <!--- Page Main section-->
     <main id="main" class="content">
-      <h1 id="templates">Templates</h1>
       <p>
-        Dokkie comes with a few html templates. You can use these, or create
-        your own template based on Dokkie’s.
+        -------- | ------------------------------ | ------------------ |<br />
+        | headerBefore | Add html in top of header | default, blog |<br />
+        | headerAfter | Add html in bottom of header | default, blog |<br />
+        | sidebarBefore | Add html in top of sidebar | default |<br />
+        | sidebarAfter | Add html in bottom of sidebar | default |<br />
+        | mainBefore | Add html in top of main | default |<br />
+        | mainAfter | Add html in bottom of main | default |<br />
+        | footerBefore | Add html in top of footer | default |<br />
+        | footerAfter | Add html in bottom of footer | default |<br />
+        | overviewBefore | Add html in top of overview | blog |<br />
+        | overviewAfter | Add html in bottom of overview | blog |<br />
+        | articleBefore | Add html in top of article | blog |<br />
+        | articleAfter | Add html in bottom of article | blog |
       </p>
-      <h3 id="use-your-own">Use your own</h3>
-      <pre
-        class="language-bash"
-      ><code class="language-bash">    npx dokkie --template<span class="token operator">=</span>myown-template.html
-</code></pre>
-      <h3 id="simple-template">Simple Template</h3>
-      <script src="https://gist-it.appspot.com/github/silvandiepen/dokkie/blob/master/template/simple.hbs"></script>
-      <h3 id="default-template">Default Template</h3>
-      <script src="https://gist-it.appspot.com/github/silvandiepen/dokkie/blob/master/template/default.hbs"></script>
-      <h3 id="blog-template">Blog Template</h3>
-      <script src="https://gist-it.appspot.com/github/silvandiepen/dokkie/blob/master/template/blog.hbs"></script>
-      <h2 id="inject-html">Inject Html</h2>
-      <p>It’s also possible to inject html into the templates.</p>
-      <p><strong>dokkie.config.json</strong></p>
-      <pre
-        class="language-json"
-      ><code class="language-json"><span class="token punctuation">{</span>
-	<span class="token property">"injectHtml"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-		<span class="token property">"mainBefore"</span><span class="token operator">:</span> <span class="token string">"&lt;my-html>string&lt;/my-html>"</span>
-	<span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-      <p><strong>options</strong></p>
-      <table>
-        <thead>
-          <tr>
-            <th>option</th>
-            <th>description</th>
-            <th>availabe in layout</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>headerBefore</td>
-            <td>Add html in top of header</td>
-            <td>default, blog</td>
-          </tr>
-          <tr>
-            <td>headerAfter</td>
-            <td>Add html in bottom of header</td>
-            <td>default, blog</td>
-          </tr>
-          <tr>
-            <td>sidebarBefore</td>
-            <td>Add html in top of sidebar</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>sidebarAfter</td>
-            <td>Add html in bottom of sidebar</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>mainBefore</td>
-            <td>Add html in top of main</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>mainAfter</td>
-            <td>Add html in bottom of main</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>footerBefore</td>
-            <td>Add html in top of footer</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>footerAfter</td>
-            <td>Add html in bottom of footer</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>overviewBefore</td>
-            <td>Add html in top of overview</td>
-            <td>blog</td>
-          </tr>
-          <tr>
-            <td>overviewAfter</td>
-            <td>Add html in bottom of overview</td>
-            <td>blog</td>
-          </tr>
-          <tr>
-            <td>articleBefore</td>
-            <td>Add html in top of article</td>
-            <td>blog</td>
-          </tr>
-          <tr>
-            <td>articleAfter</td>
-            <td>Add html in bottom of article</td>
-            <td>blog</td>
-          </tr>
-        </tbody>
-      </table>
       <h3 id="custom">Custom</h3>
       <p>A custom layout can be used by giving a layout argument;</p>
       <pre
@@ -539,6 +448,10 @@
               <li>
                 <a href="/about/why/">Dokkie</a>
               </li>
+
+              <li>
+                <a href="/usage/pages/">Pages</a>
+              </li>
             </ul>
           </li>
 
@@ -555,10 +468,6 @@
 
               <li>
                 <a href="/usage/deployment/">Deployment</a>
-              </li>
-
-              <li>
-                <a href="/usage/pages/">Pages</a>
               </li>
 
               <li>
