@@ -4,6 +4,10 @@
 	"description": "Create good looking documentation from your Readme",
 	"main": "dist/index.js",
 	"bin": "dist/index.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/silvandiepen/dokkie.git"
+	},
 	"scripts": {
 		"build": "tsc",
 		"build:dev": "tsc -w",
