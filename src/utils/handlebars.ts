@@ -14,12 +14,13 @@ const loadPartial = async (partial: string): Promise<void> => {
 	);
 
 	try {
-		const file = await readFile(partialTemplate).then((r: any): string =>
-			r.toString()
+		const fileData = await readFile(partialTemplate).then((res) =>
+			res.toString()
 		);
-		return file;
+
+		return fileData;
 	} catch (err) {
-		throw new Error(`${partialTemplate.split("/")[1]} doesn't exist`);
+		throw new Error(`${partialTemplate} doesn't exist`);
 	}
 };
 
@@ -41,6 +42,11 @@ export const loadHandlebarsPartials = async (): Promise<
 		"partials/loadScripts",
 		"sections/columns",
 		"sections/sections",
+		"sections/full",
+		"sections/half",
+		"sections/third",
+		"sections/quarter",
+		"sections/intro",
 	];
 
 	const partials = [];
@@ -76,15 +82,15 @@ const helpers = {
 	or(): boolean {
 		return Array.prototype.slice.call(arguments, 0, -1).some(Boolean);
 	},
-	ternary: function (cond: any, v1: any, v2: any) {
+	ternary(cond: any, v1: any, v2: any) {
 		return cond ? v1 : v2;
 	},
 	//  usage: {{dateFormat date format="MMMM YYYY"}}
-	dateFormat: function (context: string, block: IHandlebarsBlock): string {
+	dateFormat(context: string, block: IHandlebarsBlock): string {
 		const f = block.hash.format || "MMM Do, YYYY";
 		return format(new Date(context), f);
 	},
-	join: function (context: string[], block: IHandlebarsBlock) {
+	join(context: string[], block: IHandlebarsBlock) {
 		return context.join(block.hash.delimiter ? block.hash.delimited : ", ");
 	},
 };

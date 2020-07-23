@@ -12,5 +12,6 @@
 	"input": "content/website",
 	"add": {
 		"excludeFolders": ["posts", "pages"]
-	}
+	},
+	"type": "website"
 }

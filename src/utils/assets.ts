@@ -22,7 +22,7 @@ const downloadImage = async (
 			await download(image, filePath).then(async () => {
 				if (settings.logging.includes("debug")) {
 					const stats = await stat(filePath);
-					console.log(stats);
+					log.BLOCK_SETTINGS(stats);
 				}
 			});
 		} else {
@@ -31,12 +31,12 @@ const downloadImage = async (
 			await writeFile(filePath, imageFile).then(async () => {
 				if (settings.logging.includes("debug")) {
 					const stats = await stat(filePath);
-					console.log(stats);
+					log.BLOCK_SETTINGS(stats);
 				}
 			});
 		}
 	} catch (err) {
-		console.error(err);
+		throw Error(err);
 	}
 };
 export const downloadAssets = async (
@@ -49,7 +49,7 @@ export const downloadAssets = async (
 	if (!settings.skip.includes("download"))
 		try {
 			settings.files.forEach((file: IFile, index: number) => {
-				let images = file.html.match(imageRegex);
+				const images = file.html.match(imageRegex);
 				if (images)
 					images.forEach((img) => {
 						if (!img.includes("<img"))

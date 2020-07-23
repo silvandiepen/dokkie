@@ -17,8 +17,8 @@ const fixGoogleFonts = async (settings: ISettings): Promise<string[]> => {
 			);
 
 		// Replace Import for css for Link elements.
-		let importRegex = new RegExp(/@import.*?[\"\']([^\"\']+)[\"\'].*?;/gi);
-		let matches = file.match(importRegex);
+		const importRegex = new RegExp(/@import.*?[\"\']([^\"\']+)[\"\'].*?;/gi);
+		const matches = file.match(importRegex);
 
 		if (matches)
 			matches.forEach((match: string) => {
@@ -50,7 +50,7 @@ export const getStyles = async (settings: ISettings): Promise<ISettings> => {
 				`https://coat.guyn.nl/css/theme/${settings.theme}.css`,
 				join(process.cwd(), settings.output, "css", "style.css")
 			);
-			styles.push(`${settings.url ? settings.url + "/" : ""}/css/style.css`);
+			styles.push(`${settings.url ? settings.url : ""}/css/style.css`);
 			localCss = true;
 		} catch (err) {
 			throw Error(err);
@@ -66,7 +66,7 @@ export const getStyles = async (settings: ISettings): Promise<ISettings> => {
 		styles = settings.localConfig?.overrule?.css;
 
 	// To Embeddable link scripts
-	let stylesScripts = styles.map(
+	const stylesScripts = styles.map(
 		(s) =>
 			(s = `<link rel="stylesheet" type="text/css" media='screen and (min-width: 0px)' href="${s}"/>`)
 	);

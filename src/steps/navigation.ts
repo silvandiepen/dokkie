@@ -12,11 +12,11 @@ export const buildNavigation = async (
 			? linkPath[linkPath.length - 2]
 			: "";
 		// CHeck if it should show home, if the current page is home.
-		const returning = link == "/" ? settings.showHome : true;
+		const returning = link === "/" ? settings.showHome : true;
 		if (returning && !file.meta?.hide)
 			nav.push({
 				name: file.title,
-				link: link,
+				link,
 				path: linkPath,
 				self: linkPath[linkPath.length - 1],
 				parent: file.meta?.parent
@@ -37,7 +37,7 @@ export const buildNavigation = async (
 	if (settings.overruleNavigation) {
 		// When it's a blog. None of the menu's should be shown by default. So, first all items found
 		// are put into the menu 'overview'. Then the overruled menus will be added to their respective menus.
-		if (settings.type == "blog") {
+		if (settings.type === "blog") {
 			nav.forEach((item) => (item.meta.menu = ["overview"]));
 			settings.overruleNavigation.forEach((item: INavigation) => {
 				if (!item.parent) item.parent = "";
@@ -66,12 +66,14 @@ export const buildNavigation = async (
 			overruleMenus.forEach((menu) => {
 				nav = nav
 					.map((item) =>
-						item.meta?.menu?.find(menu, menu.name == menu)
+						item.meta?.menu?.find(menu, menu.name === menu)
 							? {
 									...item,
 									meta: {
 										...item.meta,
-										menu: item.meta.menu.filter((item) => item.name !== menu),
+										menu: item.meta.menu.filter(
+											(menuitem: INavigation) => menuitem.name !== menu
+										),
 									},
 							  }
 							: item
@@ -86,10 +88,10 @@ export const buildNavigation = async (
 	}
 
 	// Flat navigation can be an option.
-	let newNav = [];
+	const newNav = [];
 	if (!settings.flatNavigation)
 		nav
-			.filter((item) => item.parent == "")
+			.filter((item) => item.parent === "")
 			.forEach((item) => {
 				newNav.push({
 					...item,
@@ -100,9 +102,7 @@ export const buildNavigation = async (
 			});
 
 	// If the project is a blog. The menu's are sorted by date.
-	if (settings.type == "blog") {
-		nav.sort((a, b) => (a.date < b.date ? 1 : -1));
-	}
+	if (settings.type === "blog") nav.sort((a, b) => (a.date < b.date ? 1 : -1));
 
 	return { ...settings, navigation: settings.flatNavigation ? nav : newNav };
 };
@@ -128,7 +128,7 @@ const filterNavigation = (
 };
 
 export const getNavigation = (settings: ISettings, filter: string): IMenu => {
-	const current = settings.showNavigation?.find((nav) => nav.name == filter);
+	const current = settings.showNavigation?.find((nav) => nav.name === filter);
 
 	if (current)
 		return {

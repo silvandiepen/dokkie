@@ -31,7 +31,7 @@ export const getFileTree = async (
 					: {
 							name: basename(res).replace(ext, ""),
 							path: res,
-							ext: ext,
+							ext,
 							date: new Date(date.birthtime),
 					  };
 			else return null;
@@ -49,7 +49,7 @@ export const getFiles = async (settings: ISettings): Promise<ISettings> => {
 	const files = await (
 		await getFileTree(settings.input, settings)
 	).sort((a, b) => (a.path > b.path ? 1 : -1));
-	return { ...settings, files: files };
+	return { ...settings, files };
 };
 
 /*
@@ -71,8 +71,7 @@ export const fileData = async (settings: ISettings): Promise<ISettings> => {
 */
 export const getFileData = async (file: IFile): Promise<IFile> => {
 	try {
-		let fileData = await readFile(file.path).then((res) => res.toString());
-		return fileData;
+		return await readFile(file.path).then((res) => res.toString());
 	} catch (err) {
 		throw Error(err);
 	}
@@ -93,7 +92,7 @@ export const sectionPartials = async (
 		if (getLocalPath(file.path, settings).indexOf("/_") > 0) {
 			const parentIndex = settings.files.findIndex(
 				(parentFile: IFile) =>
-					parentFile.path == join(file.path, "../../readme.md")
+					parentFile.path === join(file.path, "../../readme.md")
 			);
 
 			// If the file doesnt have sections yet, add them.
@@ -131,14 +130,14 @@ export const concatPartials = async (
 ): Promise<ISettings> => {
 	const removeIndexes = [];
 	await asyncForEach(settings.files, async (file: IFile, index: number) => {
-		if (file.name.indexOf("_") == 0) {
+		if (file.name.indexOf("_") === 0) {
 			const parentPath = join(
 				file.path.substring(0, lastIndex(file.path, file.name)),
 				`readme.md`
 			);
 
 			const parentIndex = settings.files.findIndex(
-				(parentFile: IFile) => parentFile.path == parentPath
+				(parentFile: IFile) => parentFile.path === parentPath
 			);
 
 			// Check if the Parent has a layout defined.
@@ -204,7 +203,7 @@ export const concatPartials = async (
 
 /*
 	::cleanupFilePathAfterOrder
-	Cleanup the paths and names when they have characters 
+	Cleanup the paths and names when they have characters
 	to make partials or order purposes.
 */
 export const cleanupFilePathAfterOrder = async (settings: ISettings) => {
@@ -240,7 +239,7 @@ export const setFileDate = async (settings: ISettings): Promise<ISettings> => {
 			...file,
 			date:
 				file.meta && file.meta.date
-					? file.meta.date.toString().length == 8
+					? file.meta.date.toString().length === 8
 						? convertToDate(file.meta.date)
 						: new Date(file.meta.date)
 					: file.date,

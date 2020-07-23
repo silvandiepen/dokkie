@@ -1,12 +1,12 @@
 import { IMeta } from "./meta";
 
-export interface showNavigation {
+export interface ShowNavigation {
 	name: string;
 	desktop: boolean;
 	mobile: boolean;
 }
 
-export interface IMenu extends showNavigation {
+export interface IMenu extends ShowNavigation {
 	menu: INavigation[];
 	showClass: string;
 }

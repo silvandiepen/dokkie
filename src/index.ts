@@ -53,9 +53,9 @@ buildDokkie(settings())
 		}
 		return s;
 	})
-	.then(setAlternativeDefaults)
 	.then(loadLocalConfig)
 	.then(setLocalConfig)
+	.then(setAlternativeDefaults)
 	.then((s) => {
 		!s.logging.includes("silent") && log.BLOCK_MID("Settings");
 
