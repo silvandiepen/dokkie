@@ -95,7 +95,7 @@ export const filterHiddenPages = async (
 		file.meta?.remove ? null : file
 	);
 
-	return { ...settings, files: files };
+	return { ...settings, files };
 };
 
 // Get the layouts
@@ -119,7 +119,7 @@ export const getLayout = async (settings: ISettings): Promise<ISettings> => {
 				throw Error(err);
 			}
 		}
-		return { ...settings, layoutFile: layoutFile };
+		return { ...settings, layoutFile };
 	} catch (err) {
 		throw new Error(err);
 	}
@@ -128,8 +128,8 @@ export const getLayout = async (settings: ISettings): Promise<ISettings> => {
 export const reformInjectHtml = async (
 	settings: ISettings
 ): Promise<ISettings> => {
-	let Inject = {};
-	function isLink(str: string): Boolean {
+	const Inject = {};
+	function isLink(str: string): boolean {
 		if (str.indexOf(".html") > -1) return true;
 		return false;
 	}
@@ -139,7 +139,7 @@ export const reformInjectHtml = async (
 				try {
 					Inject[option] = await readFile(settings.injectHtml[option]);
 				} catch (err) {
-					console.error(err);
+					throw Error(err);
 				}
 			} else {
 				Inject[option] = settings.injectHtml[option];
@@ -177,7 +177,7 @@ export const createPages = async (settings: ISettings): Promise<void> => {
 			const contents = template({
 				...getOnce,
 				projectTitle:
-					settings.projectTitle == ""
+					settings.projectTitle === ""
 						? settings.package?.name
 							? settings.package.name
 							: file.title
@@ -186,7 +186,7 @@ export const createPages = async (settings: ISettings): Promise<void> => {
 				type: settings.type,
 				template: settings.layout,
 				content: file.html,
-				currentLink: currentLink,
+				currentLink,
 				currentId: currentLink.replace(/\//g, " ").trim().replace(/\s+/g, "-"),
 				headerNavigation: getNavigation(settings, "header"),
 				sidebarNavigation: getNavigation(settings, "sidebar"),

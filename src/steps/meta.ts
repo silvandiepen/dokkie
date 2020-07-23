@@ -15,5 +15,5 @@ export const setMetadata = async (settings: ISettings): Promise<ISettings> => {
 		)
 	).then((res) => res);
 
-	return { ...settings, files: files };
+	return { ...settings, files };
 };

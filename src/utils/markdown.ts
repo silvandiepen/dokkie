@@ -1,12 +1,6 @@
 // Markdown
 
-import {
-	IMarkdown,
-	IFile,
-	IFileContents,
-	MarkdownItExtended,
-	IContents,
-} from "../types";
+import { IMarkdown, IFileContents, MarkdownItExtended } from "../types";
 
 import meta from "markdown-it-meta";
 import prism from "markdown-it-prism";
@@ -16,6 +10,7 @@ import emoji from "markdown-it-emoji";
 import MarkdownIt from "markdown-it";
 import taskLists from "markdown-it-task-lists";
 import alert from "markdown-it-alert";
+import { extractMeta, removeMeta } from "./markdown-meta";
 
 const md: MarkdownItExtended = new MarkdownIt({
 	html: true,
@@ -24,29 +19,25 @@ const md: MarkdownItExtended = new MarkdownIt({
 	typographer: true,
 });
 
-md.use(meta);
 md.use(prism);
 md.use(anchors);
 md.use(html5Media);
 md.use(emoji);
 md.use(alert);
 md.use(taskLists, { enabled: true });
-
 /*
 	Convert Markdown Data to html and filter meta.
 */
 export const mdToHtml = async <T extends IFileContents>(
 	file: T
 ): Promise<IMarkdown> => {
-	const renderedDocument = md.render(file.data);
-	const meta = md.meta;
-	md.meta = {};
+	const strippedData = await removeMeta(file.data);
+	const renderedDocument = md.render(strippedData);
+	const metaData = await extractMeta(file.data);
 
-	if (meta.tags)
-		meta.tags = meta.tags.split(",").map((x: string) => (x = x.trim()));
 	return {
 		document: renderedDocument,
-		meta: meta,
+		meta: metaData,
 	};
 };
 
@@ -64,13 +55,13 @@ const findAfter = (str: string, needle: string, afterIndex: number): number => {
 */
 export const getTitleFromMD = (str: string, clean = true): string => {
 	let startTitle = str.indexOf("# ");
-	while (str.charAt(startTitle - 1) == "#") {
+	while (str.charAt(startTitle - 1) === "#") {
 		startTitle = findAfter(str, "# ", startTitle);
 	}
 	let endTitle = findAfter(str, "\n", startTitle);
 
 	if (startTitle < 0) return null;
-	if (startTitle > -1 && endTitle == 0) endTitle = str.length;
+	if (startTitle > -1 && endTitle === 0) endTitle = str.length;
 
 	if (clean) return str.substr(startTitle + 2, endTitle).split("\n")[0];
 	return str.substr(startTitle, endTitle).split("\n")[0];

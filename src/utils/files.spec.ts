@@ -7,7 +7,7 @@ import {
 import { IFile } from "../types";
 import { baseSettings } from "../test/mock";
 
-let input: IFile = {
+const input: IFile = {
 	ext: ".md",
 	path: "",
 	data: "",

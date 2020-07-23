@@ -1,4 +1,4 @@
-import { showNavigation, INavigation } from "./navigation";
+import { ShowNavigation, INavigation } from "./navigation";
 import {
 	ILocalConfig,
 	ILocalConfigAssets,
@@ -19,7 +19,7 @@ export interface IArgumentSettings {
 	copy: string[];
 	strip: string[];
 	flatNavigation: boolean;
-	showNavigation: showNavigation[];
+	showNavigation: ShowNavigation[];
 	codeHighlight: boolean;
 	projectTitle: string;
 	favicon: string;

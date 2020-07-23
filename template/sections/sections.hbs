@@ -1,3 +1,20 @@
 {{#each sections}}
-{{> columns columns=this }}
+{{#if (eq layout 'full')}}
+{{> full columns=this}}
+{{/if}}
+{{#if (eq layout 'half')}}
+{{> half columns=this}}
+{{/if}}
+{{#if (eq layout 'third')}}
+{{> third columns=this}}
+{{/if}}
+{{#if (eq layout 'thirds')}}
+{{> third columns=this}}
+{{/if}}
+{{#if (eq layout 'quarter')}}
+{{> quarter columns=this}}
+{{/if}}
+{{#if (eq layout 'intro')}}
+{{> intro columns=this}}
+{{/if}}
 {{/each}}

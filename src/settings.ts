@@ -189,47 +189,44 @@ export const settings = (): ISettings => {
 	};
 };
 
-export const getDokkiePackage = async (
-	settings: ISettings
-): Promise<ISettings> => {
+export const getDokkiePackage = async (s: ISettings): Promise<ISettings> => {
 	try {
 		const dokkiePackage = await readFile(join(__dirname, "../package.json"));
-		return { ...settings, dokkie: JSON.parse(dokkiePackage) };
+		return { ...s, dokkie: JSON.parse(dokkiePackage) };
 	} catch (err) {
 		throw new Error(err);
 	}
 };
 
 export const setAlternativeDefaults = async (
-	settings: ISettings
+	s: ISettings
 ): Promise<ISettings> => {
-	var args = process.argv
+	const args = process.argv
 		.slice(2)
 		.map((arg) => (arg = arg.split("=")[0].replace("--", "")));
 
-	switch (settings.type) {
+	switch (s.type) {
 		case "blog":
-			if (!args.includes("layout")) settings.layout = "blog";
-			if (!args.includes("theme")) settings.theme = "feather-blog";
-			if (!args.includes("flatNavigation")) settings.flatNavigation = true;
+			if (!args.includes("layout")) s.layout = "blog";
+			if (!args.includes("theme")) s.theme = "feather-blog";
+			if (!args.includes("flatNavigation")) s.flatNavigation = true;
 			if (!args.includes("showNavigation"))
-				settings.showNavigation = [
+				s.showNavigation = [
+					...s.showNavigation,
 					{ name: "overview", desktop: true, mobile: true },
 				];
 			break;
 		case "docs":
 			if (!args.includes("input")) {
-				const files = await getFileTree(settings.input, settings);
-				if (files.length == 1) {
-					settings.layout = "simple";
-				}
+				const files = await getFileTree(s.input, s);
+				if (files.length === 1) s.layout = "simple";
 			}
 			break;
 		case "website":
-			if (!args.includes("layout")) settings.layout = "website";
-			if (!args.includes("theme")) settings.theme = "feather-web";
+			if (!args.includes("layout")) s.layout = "website";
+			if (!args.includes("theme")) s.theme = "feather-web";
 			break;
 	}
 
-	return settings;
+	return s;
 };

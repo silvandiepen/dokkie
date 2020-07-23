@@ -42,7 +42,7 @@ export const makePath = (file: IFile, settings: ISettings): string => {
 };
 export const makeFileName = (file: IFile): string => {
 	const filename =
-		file.name == "README" || file.name == "Readme" || file.name == "readme"
+		file.name === "README" || file.name === "Readme" || file.name === "readme"
 			? "index"
 			: file.name.toLowerCase() + "/index";
 	return filename + ".html";
@@ -103,7 +103,7 @@ export const download = async (
 		res.body?.on("error", (err) => {
 			reject(err);
 		});
-		fileStream.on("finish", function () {
+		fileStream.on("finish", () => {
 			resolve();
 		});
 	});

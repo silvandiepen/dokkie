@@ -27,7 +27,7 @@ const basePage: any = (name: string) => {
 		title: name,
 	};
 };
-const altSettings_partials: ISettings = {
+const altSettingsPartials: ISettings = {
 	...baseSettings,
 	output: mockOutput,
 	layout: "website",
@@ -51,8 +51,8 @@ const altSettings_partials: ISettings = {
 	],
 };
 
-const altSettings_sections: ISettings = {
-	...altSettings_partials,
+const altSettingsSections: ISettings = {
+	...altSettingsPartials,
 	files: [
 		{
 			...basePage("Work"),
@@ -86,7 +86,7 @@ afterEach(() => cleanup(join(__dirname, "../../", mockOutput)));
 describe("Website", () => {
 	it("Build a website", async () => {
 		try {
-			const result = await filterHiddenPages(altSettings_partials);
+			const result = await filterHiddenPages(altSettingsPartials);
 			expect(result.files.length).toBe(3);
 		} catch (err) {
 			throw Error(err);
@@ -94,9 +94,9 @@ describe("Website", () => {
 	});
 	it("Create Pages", async () => {
 		try {
-			await getLayout(altSettings_partials).then(createPages);
+			await getLayout(altSettingsPartials).then(createPages);
 			const testDir = await readdir(
-				join(__dirname, "../../", altSettings_partials.output)
+				join(__dirname, "../../", altSettingsPartials.output)
 			);
 			expect(testDir.length).toBe(3);
 		} catch (err) {
@@ -105,11 +105,11 @@ describe("Website", () => {
 	});
 	it("Concat Partials", async () => {
 		try {
-			await concatPartials(altSettings_partials)
+			await concatPartials(altSettingsPartials)
 				.then(getLayout)
 				.then(createPages);
 			const testDir = await readdir(
-				join(__dirname, "../../", altSettings_partials.output)
+				join(__dirname, "../../", altSettingsPartials.output)
 			);
 			expect(testDir.length).toBe(1);
 		} catch (err) {
@@ -119,15 +119,15 @@ describe("Website", () => {
 	// Check if the sections are also take up into the page.
 	it("Page has meta tag", async () => {
 		try {
-			await getLayout(altSettings_partials).then(createPages);
+			await getLayout(altSettingsPartials).then(createPages);
 			const testDir = await readdir(
-				join(__dirname, "../../", altSettings_sections.output)
+				join(__dirname, "../../", altSettingsSections.output)
 			);
 			const testFile = await readFile(
 				join(
 					__dirname,
 					"../../",
-					altSettings_sections.output,
+					altSettingsSections.output,
 					testDir[0],
 					"index.html"
 				)
@@ -145,14 +145,14 @@ describe("Website", () => {
 	// Check if the sections are also take up into the page.
 	it("Concat Sections", async () => {
 		try {
-			const result = await concatPartials(altSettings_sections)
+			const result = await concatPartials(altSettingsSections)
 				.then(sectionPartials)
 				.then(getLayout);
 
 			await createPages(result);
 
 			const testDir = await readdir(
-				join(__dirname, "../../", altSettings_sections.output)
+				join(__dirname, "../../", altSettingsSections.output)
 			);
 			expect(testDir.length).toBe(1);
 		} catch (err) {
@@ -161,7 +161,7 @@ describe("Website", () => {
 	});
 	it("Concat Sections file", async () => {
 		try {
-			const result = await concatPartials(altSettings_sections)
+			const result = await concatPartials(altSettingsSections)
 				.then(sectionPartials)
 				.then(getLayout)
 				.then(convertDataToHtml);
@@ -175,7 +175,7 @@ describe("Website", () => {
 	it("Sections have the right columns", async () => {
 		try {
 			const result = await concatPartials({
-				...altSettings_sections,
+				...altSettingsSections,
 				logging: ["debug"],
 			})
 				.then(sectionPartials)
@@ -184,12 +184,7 @@ describe("Website", () => {
 			await createPages(result);
 
 			const testFile = await readFile(
-				join(
-					__dirname,
-					"../../",
-					altSettings_sections.output,
-					"work/index.html"
-				)
+				join(__dirname, "../../", altSettingsSections.output, "work/index.html")
 			).then((r: any): string => r.toString());
 
 			document.body.innerHTML = testFile;

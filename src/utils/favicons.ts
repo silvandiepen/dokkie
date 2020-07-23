@@ -1,25 +1,34 @@
 // import favicons from "favicons";
 import Iconator from "iconator";
 import { ISettings } from "../types";
-import * as log from "cli-block";
-const { createCanvas } = require("canvas");
-import Frame from "canvas-to-buffer";
+import { createImage } from "./";
+
+// import Frame from "canvas-to-buffer";
 import { join } from "path";
 import { IOutput as IFaviconData } from "iconator/src/types";
 
-const createFaviconImage = (settings: ISettings): string => {
-	const canvas = createCanvas(1024, 1024);
-	const ctx = canvas.getContext("2d");
-	// Draw line under text
-	ctx.font = "800px Helvetica";
-	let firstLetter = ("" ? settings.package.name : settings.projectTitle).substr(
-		0,
-		1
-	);
-	ctx.fillStyle = "#7f7f7f"; // Most mid-color, so it will always be visible.
-	ctx.fillText(firstLetter, 200, 768);
-	const frame = new Frame(canvas);
-	return frame.toBuffer();
+const createFaviconImage = async (settings: ISettings): Promise<string> => {
+	const image = await createImage({
+		size: {
+			width: 1200,
+			height: 1200,
+		},
+		text: "default",
+		background: "#fff",
+		textSettings: {
+			fontSize: 70,
+			fontWeight: "bold",
+			fontFamily: "Menlo",
+			align: "center",
+			baseline: "top",
+			color: "#ff0000",
+		},
+	});
+	return image;
+
+	// const frame = new Frame(canvas, {});
+	// const frameBuffer = frame.toBuffer()!;
+	// return frameBuffer.toString();
 };
 
 export const createFavicons = async (
@@ -29,7 +38,7 @@ export const createFavicons = async (
 
 	const source = settings.assets?.favicon
 		? settings.assets.favicon
-		: createFaviconImage(settings);
+		: await createFaviconImage(settings);
 
 	const faviconDest = "img/favicons";
 
@@ -48,5 +57,5 @@ export const createFavicons = async (
 		url: settings.url,
 	} as any).then(async (r: IFaviconData) => r);
 
-	return { ...settings, faviconData: faviconData };
+	return { ...settings, faviconData };
 };

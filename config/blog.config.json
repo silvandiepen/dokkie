@@ -1,5 +1,7 @@
 {
 	"projectTitle": "Dokkie Blog",
+	"type": "blog",
+	"input": "content/posts",
 	"showNavigation": ["header", "footer", "overview"],
 	"assets": {
 		"logo": "src/assets/logo_dokkie-color.svg",
