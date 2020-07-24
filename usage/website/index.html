@@ -278,19 +278,19 @@
               <li><a href="/about/in-use/">In use</a></li>
 
               <li><a href="/about/why/">Dokkie</a></li>
-
-              <li><a href="/usage/pages/">Pages</a></li>
             </ul>
           </li>
 
           <li>
             <a href="/usage/">Usage</a>
             <ul>
-              <li><a href="/usage/troubleshooting/">Troubleshooting</a></li>
-
               <li><a href="/usage/configuration/">Configuration</a></li>
 
               <li><a href="/usage/deployment/">Deployment</a></li>
+
+              <li><a href="/usage/pages/">Pages</a></li>
+
+              <li><a href="/usage/navigation/">Navigation</a></li>
 
               <li><a href="/usage/templates/">Templates</a></li>
 
@@ -302,6 +302,8 @@
               <li class="active">
                 <a href="/usage/website/">Website</a>
               </li>
+
+              <li><a href="/usage/troubleshooting/">Troubleshooting</a></li>
             </ul>
           </li>
 
@@ -347,10 +349,6 @@
               <li>
                 <a href="/about/why/">Dokkie</a>
               </li>
-
-              <li>
-                <a href="/usage/pages/">Pages</a>
-              </li>
             </ul>
           </li>
 
@@ -358,15 +356,19 @@
             <a href="/usage/">Usage</a>
             <ul>
               <li>
-                <a href="/usage/troubleshooting/">Troubleshooting</a>
-              </li>
-
-              <li>
                 <a href="/usage/configuration/">Configuration</a>
               </li>
 
               <li>
                 <a href="/usage/deployment/">Deployment</a>
+              </li>
+
+              <li>
+                <a href="/usage/pages/">Pages</a>
+              </li>
+
+              <li>
+                <a href="/usage/navigation/">Navigation</a>
               </li>
 
               <li>
@@ -387,6 +389,10 @@
               <li class="active">
                 <a href="/usage/website/">Website</a>
               </li>
+
+              <li>
+                <a href="/usage/troubleshooting/">Troubleshooting</a>
+              </li>
             </ul>
           </li>
         </ul>
@@ -395,17 +401,55 @@
 
     <!--- Page Main section-->
     <main id="main" class="content">
-      <pre><code>
-Will result in a three column layout using the other `_`-partials as it's content.
-
-### Columns
-
-As for now, there are three options to use;
-
-- **full** 1 column layout
-- **half** 2 columns layout
-- **thirds** 3 columns layout
+      <h1 id="website">Website</h1>
+      <p>
+        With Dokkie you can create also a full web page with sections and
+        columns using just Markdown files.
+      </p>
+      <p>
+        You can find an example of a dokkie website on
+        <a href="https://website-example.dokkie.dev"
+          >website-example.dokkie.dev</a
+        >.
+      </p>
+      <h2 id="usage">Usage</h2>
+      <pre
+        class="language-bash"
+      ><code class="language-bash">npx dokkie --type<span class="token operator">=</span>website
 </code></pre>
+      <h2 id="section-%26-partials">Section &amp; Partials</h2>
+      <p>Website are build up out of Sections and Partials.</p>
+      <h3 id="partials">Partials</h3>
+      <p>
+        Partials can be achieved by adding <code>_</code> in front of a markdown
+        file. Every file with an underscore will automatically be added to the
+        parent (<a href="http://readme.md">readme.md</a>) in alphabetical order.
+        In this way you can build up a full page from several files.
+      </p>
+      <h3 id="sections">Sections</h3>
+      <p>
+        Sections have a column layout. A section will be be added to it’s parent
+        when the folder has an <code>_</code> AND defined a layout in the meta
+        data like
+      </p>
+      <p><code>_overview/readme.md</code></p>
+      <pre
+        class="language-markdown"
+      ><code class="language-markdown"><span class="token hr punctuation">---</span>
+<span class="token title important">layout: thirds
+<span class="token punctuation">---</span></span>
+</code></pre>
+      <p>
+        Will result in a three column layout using the other
+        <code>_</code>-partials as it’s content.
+      </p>
+      <h3 id="columns">Columns</h3>
+      <p>As for now, there are three options to use;</p>
+      <ul>
+        <li><strong>full</strong> 1 column layout</li>
+        <li><strong>half</strong> 2 columns layout</li>
+        <li><strong>thirds</strong> 3 columns layout</li>
+      </ul>
     </main>
 
     <!--- Page Footer Content -->
@@ -438,10 +482,6 @@ As for now, there are three options to use;
               <li>
                 <a href="/about/why/">Dokkie</a>
               </li>
-
-              <li>
-                <a href="/usage/pages/">Pages</a>
-              </li>
             </ul>
           </li>
 
@@ -449,15 +489,15 @@ As for now, there are three options to use;
             <a href="/usage/">Usage</a>
             <ul>
               <li>
-                <a href="/usage/troubleshooting/">Troubleshooting</a>
-              </li>
-
-              <li>
                 <a href="/usage/configuration/">Configuration</a>
               </li>
 
               <li>
                 <a href="/usage/deployment/">Deployment</a>
+              </li>
+
+              <li>
+                <a href="/usage/pages/">Pages</a>
               </li>
 
               <li>
@@ -481,6 +521,10 @@ As for now, there are three options to use;
               </li>
               <li class="active">
                 <a href="/usage/website/">Website</a>
+              </li>
+
+              <li>
+                <a href="/usage/troubleshooting/">Troubleshooting</a>
               </li>
             </ul>
           </li>

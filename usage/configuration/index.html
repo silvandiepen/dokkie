@@ -278,20 +278,21 @@
               <li><a href="/about/in-use/">In use</a></li>
 
               <li><a href="/about/why/">Dokkie</a></li>
-
-              <li><a href="/usage/pages/">Pages</a></li>
             </ul>
           </li>
 
           <li>
             <a href="/usage/">Usage</a>
             <ul>
-              <li><a href="/usage/troubleshooting/">Troubleshooting</a></li>
               <li class="active">
                 <a href="/usage/configuration/">Configuration</a>
               </li>
 
               <li><a href="/usage/deployment/">Deployment</a></li>
+
+              <li><a href="/usage/pages/">Pages</a></li>
+
+              <li><a href="/usage/navigation/">Navigation</a></li>
 
               <li><a href="/usage/templates/">Templates</a></li>
 
@@ -302,6 +303,8 @@
               <li><a href="/usage/blog/">Blog</a></li>
 
               <li><a href="/usage/website/">Website</a></li>
+
+              <li><a href="/usage/troubleshooting/">Troubleshooting</a></li>
             </ul>
           </li>
 
@@ -347,25 +350,26 @@
               <li>
                 <a href="/about/why/">Dokkie</a>
               </li>
-
-              <li>
-                <a href="/usage/pages/">Pages</a>
-              </li>
             </ul>
           </li>
 
           <li>
             <a href="/usage/">Usage</a>
             <ul>
-              <li>
-                <a href="/usage/troubleshooting/">Troubleshooting</a>
-              </li>
               <li class="active">
                 <a href="/usage/configuration/">Configuration</a>
               </li>
 
               <li>
                 <a href="/usage/deployment/">Deployment</a>
+              </li>
+
+              <li>
+                <a href="/usage/pages/">Pages</a>
+              </li>
+
+              <li>
+                <a href="/usage/navigation/">Navigation</a>
               </li>
 
               <li>
@@ -387,6 +391,10 @@
               <li>
                 <a href="/usage/website/">Website</a>
               </li>
+
+              <li>
+                <a href="/usage/troubleshooting/">Troubleshooting</a>
+              </li>
             </ul>
           </li>
         </ul>
@@ -395,57 +403,156 @@
 
     <!--- Page Main section-->
     <main id="main" class="content">
+      <h1 id="configuration">Configuration</h1>
       <p>
-        ---------- | -------------------------- |
-        ------------------------------------------------------- |
-        ----------------------------------------------------------------------------------------------------------
-        |<br />
-        | <code>input</code> | <code>.</code> | any folder | Input folder to
-        search for files. |<br />
-        | <code>output</code> | <code>dokkie</code> | any new folder | Output
-        folder for pages |<br />
-        | <code>layout</code> | <code>default</code> |
-        <code>default</code>,<code>simple</code>,<code>advanced</code> or a
-        custom hbs/html file | Html layout used |<br />
-        | <code>theme</code> | <code>coat</code> | | When a default layout is
-        chosen, you can choose a theme from
-        <a href="https://coat.guyn.nl">coat</a> |<br />
-        | <code>cleanBefore</code> | <code>true</code> | <code>true</code> /
-        <code>false</code> | Remove the docs folder before creating a new one.
-        |<br />
-        | <code>extensions</code> | <code>.md</code> | <code>.md</code>,<code
-          >.html</code
-        >
-        | All file extensions which can be used (supported; .md, .html) |<br />
-        | <code>exclude</code> | <code>node_modules, dist, docs</code> | any
-        folder | Exclude folders from searching for files. |<br />
-        | <code>copy</code> | <code>null</code> | any folder | &quot;Copy a
-        folder into your output. |<br />
-        | <code>strip</code> | <code>pages</code> | any folder | Remove parts of
-        paths to get files directly in their root. All files in
-        <code>pages</code>, will be directly in docs. |<br />
-        | <code>showNavigation</code> | <code>header, footer</code> |
-        <code>header</code>, <code>footer</code>,<code>sidebar</code> | Define
-        which navigations should be shown |<br />
-        | <code>flatNavigation</code> | <code>false</code> | <code>true</code> /
-        <code>false</code> | Make the navigation flat. |<br />
-        | <code>codeHighlight</code> | <code>true</code> | <code>true</code> /
-        <code>false</code> | Use Prism to create highlighted code |<br />
-        | <code>projectTitle</code> | <code>&quot;&quot;</code> | | Title of the
-        documentation |<br />
-        | <code>favicon</code> | Custom generated | path to image | Create
-        favicons and other meta tags automatically |<br />
-        | <code>skip</code> | <code>null</code> | <code>favicons</code> | Skip
-        parts of the build process to speed it up. For now this can only be done
-        with Favicons |<br />
-        | <code>config</code> | <code>dokkie.config.json</code> | path to json
-        config file | Give an alternative path to the config for dokkie |<br />
-        | <code>logging</code> | <code>[]</code> | <code>silent</code>,
-        <code>debug</code> | Run Dokkie with silent mode or debug. |<br />
-        | <code>language</code> | <code>en</code> | Any language shortname, ex;
-        <code>en</code>, <code>nl</code> or <code>es</code> | Language of the
-        page, this is set in the templates |
+        Configuration can be done multiple ways, the easiest way is doing this
+        through the API, you can set all navigation just in your build script
+        during deployment. But you could also add a
+        <code>dokkie.config.json</code> to your repository where you can set all
+        configuration, in that case you can just run <code>npx dokkie</code> and
+        it will set it all.
       </p>
+      <h3 id="settings">Settings</h3>
+      <p><strong>Default configuration</strong></p>
+      <table>
+        <thead>
+          <tr>
+            <th>argument</th>
+            <th>default</th>
+            <th>options</th>
+            <th>description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>input</code></td>
+            <td><code>.</code></td>
+            <td>any folder</td>
+            <td>Input folder to search for files.</td>
+          </tr>
+          <tr>
+            <td><code>output</code></td>
+            <td><code>dokkie</code></td>
+            <td>any new folder</td>
+            <td>Output folder for pages</td>
+          </tr>
+          <tr>
+            <td><code>layout</code></td>
+            <td><code>default</code></td>
+            <td>
+              <code>default</code>,<code>simple</code>,<code>advanced</code> or
+              a custom hbs/html file
+            </td>
+            <td>Html layout used</td>
+          </tr>
+          <tr>
+            <td><code>theme</code></td>
+            <td><code>coat</code></td>
+            <td></td>
+            <td>
+              When a default layout is chosen, you can choose a theme from
+              <a href="https://coat.guyn.nl">coat</a>
+            </td>
+          </tr>
+          <tr>
+            <td><code>cleanBefore</code></td>
+            <td><code>true</code></td>
+            <td><code>true</code> / <code>false</code></td>
+            <td>Remove the docs folder before creating a new one.</td>
+          </tr>
+          <tr>
+            <td><code>extensions</code></td>
+            <td><code>.md</code></td>
+            <td><code>.md</code>,<code>.html</code></td>
+            <td>
+              All file extensions which can be used (supported; .md, .html)
+            </td>
+          </tr>
+          <tr>
+            <td><code>exclude</code></td>
+            <td><code>node_modules, dist, docs</code></td>
+            <td>any folder</td>
+            <td>Exclude folders from searching for files.</td>
+          </tr>
+          <tr>
+            <td><code>copy</code></td>
+            <td><code>null</code></td>
+            <td>any folder</td>
+            <td>&quot;Copy a folder into your output.</td>
+          </tr>
+          <tr>
+            <td><code>strip</code></td>
+            <td><code>pages</code></td>
+            <td>any folder</td>
+            <td>
+              Remove parts of paths to get files directly in their root. All
+              files in <code>pages</code>, will be directly in docs.
+            </td>
+          </tr>
+          <tr>
+            <td><code>showNavigation</code></td>
+            <td><code>header, footer</code></td>
+            <td>
+              <code>header</code>, <code>footer</code>,<code>sidebar</code>
+            </td>
+            <td>Define which navigations should be shown</td>
+          </tr>
+          <tr>
+            <td><code>flatNavigation</code></td>
+            <td><code>false</code></td>
+            <td><code>true</code> / <code>false</code></td>
+            <td>Make the navigation flat.</td>
+          </tr>
+          <tr>
+            <td><code>codeHighlight</code></td>
+            <td><code>true</code></td>
+            <td><code>true</code> / <code>false</code></td>
+            <td>Use Prism to create highlighted code</td>
+          </tr>
+          <tr>
+            <td><code>projectTitle</code></td>
+            <td><code>&quot;&quot;</code></td>
+            <td></td>
+            <td>Title of the documentation</td>
+          </tr>
+          <tr>
+            <td><code>favicon</code></td>
+            <td>Custom generated</td>
+            <td>path to image</td>
+            <td>Create favicons and other meta tags automatically</td>
+          </tr>
+          <tr>
+            <td><code>skip</code></td>
+            <td><code>null</code></td>
+            <td><code>favicons</code></td>
+            <td>
+              Skip parts of the build process to speed it up. For now this can
+              only be done with Favicons
+            </td>
+          </tr>
+          <tr>
+            <td><code>config</code></td>
+            <td><code>dokkie.config.json</code></td>
+            <td>path to json config file</td>
+            <td>Give an alternative path to the config for dokkie</td>
+          </tr>
+          <tr>
+            <td><code>logging</code></td>
+            <td><code>[]</code></td>
+            <td><code>silent</code>, <code>debug</code></td>
+            <td>Run Dokkie with silent mode or debug.</td>
+          </tr>
+          <tr>
+            <td><code>language</code></td>
+            <td><code>en</code></td>
+            <td>
+              Any language shortname, ex; <code>en</code>, <code>nl</code> or
+              <code>es</code>
+            </td>
+            <td>Language of the page, this is set in the templates</td>
+          </tr>
+        </tbody>
+      </table>
       <h3 id="api">API</h3>
       <p>All above settings can be altered using the cli</p>
       <p><strong>example</strong></p>
@@ -551,25 +658,22 @@
               <li>
                 <a href="/about/why/">Dokkie</a>
               </li>
-
-              <li>
-                <a href="/usage/pages/">Pages</a>
-              </li>
             </ul>
           </li>
 
           <li>
             <a href="/usage/">Usage</a>
             <ul>
-              <li>
-                <a href="/usage/troubleshooting/">Troubleshooting</a>
-              </li>
               <li class="active">
                 <a href="/usage/configuration/">Configuration</a>
               </li>
 
               <li>
                 <a href="/usage/deployment/">Deployment</a>
+              </li>
+
+              <li>
+                <a href="/usage/pages/">Pages</a>
               </li>
 
               <li>
@@ -594,6 +698,10 @@
 
               <li>
                 <a href="/usage/website/">Website</a>
+              </li>
+
+              <li>
+                <a href="/usage/troubleshooting/">Troubleshooting</a>
               </li>
             </ul>
           </li>
