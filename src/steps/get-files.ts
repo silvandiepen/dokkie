@@ -182,6 +182,9 @@ export const concatPartials = async (
 				settings.files[parentIndex].data += `\n\n${file.data}`;
 			}
 
+			// Set the fact that this is a parent.
+			settings.files[parentIndex].isParent = true;
+
 			// Add data to a combined property for search
 			settings.files[parentIndex].combinedData += `\n\n${file.data}`;
 

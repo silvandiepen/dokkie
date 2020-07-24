@@ -20,3 +20,8 @@ export interface INavigation {
 	children?: INavigation[];
 	date?: Date;
 }
+
+export interface INavItem {
+	name: string;
+	link: string;
+}

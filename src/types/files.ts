@@ -12,6 +12,7 @@ export interface IFile extends IFileContents {
 	date?: Date;
 	contents?: IContents;
 	sections?: IContents[];
+	isParent?: boolean;
 }
 
 export interface IContents extends IFileContents {
