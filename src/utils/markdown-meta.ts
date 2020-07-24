@@ -6,7 +6,7 @@ export const extractMeta = async (input: string): Promise<IMeta> => {
 	const endLine = nthIndex(input, "---", 1);
 
 	const meta = {};
-	if (startLine > -1 && endLine > -1) {
+	if (startLine > -1 && startLine < 10 && endLine > -1) {
 		input
 			.substring(startLine + 3, endLine)
 			.split("\n")
@@ -41,7 +41,9 @@ export const extractMeta = async (input: string): Promise<IMeta> => {
 	return meta;
 };
 export const removeMeta = async (input: string): Promise<string> => {
+	const startLine = nthIndex(input, "---", 0);
 	const endLine = nthIndex(input, "---", 1);
-	if (endLine > -1) return input.substring(endLine + 3, input.length);
+	if (endLine > -1 && startLine < 10)
+		return input.substring(endLine + 3, input.length);
 	else return input.trim();
 };

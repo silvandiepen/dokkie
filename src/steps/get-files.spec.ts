@@ -67,7 +67,9 @@ describe("Page", () => {
 			const result = await concatPartials(altSettings);
 			// The order is not correct, but that happens when the files are being loaded. In the mock, order is manual and
 			// won't get ordered anymore.
-			expect(result.files[0].data).toEqual("# Test1\n# Partial\n# Another\n");
+			expect(result.files[0].data).toEqual(
+				"# Test1\n\n\n# Partial\n\n\n# Another\n"
+			);
 		} catch (err) {
 			throw Error(err);
 		}

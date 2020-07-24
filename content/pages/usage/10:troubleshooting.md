@@ -13,3 +13,11 @@ You are probably trying to deploy your generated dokkie in a subfolder. That sho
 **Issues**
 
 - [Dokkie in a subfolder #24](https://github.com/silvandiepen/dokkie/issues/24)
+
+### Meta data isn't being loaded and comes in my page.
+
+Make sure you add the meta data (the first ---) at the first line of your document. If not, the --- will be seen as a `hr` and being rendered as such.
+
+### When I have more than 10 items, the order isn't right.
+
+If you are adding numbers like `1:filename.md` to your files to get them in the right order. 10 will be "smaller" than 1 and thus will be ordered to the start. If you have have more than 10 items, just ad add 0 in front `01:filename.md` > `10:otherfile.md`.
