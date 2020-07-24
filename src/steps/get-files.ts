@@ -95,9 +95,13 @@ export const sectionPartials = async (
 					parentFile.path === join(file.path, "../../readme.md")
 			);
 
+			// If the file doesn't exist for some reason, just return.
+			if (!settings.files[parentIndex]) return;
 			// If the file doesnt have sections yet, add them.
 			if (!settings.files[parentIndex].sections)
 				settings.files[parentIndex].sections = [];
+
+			// Add the section to an array
 			settings.files[parentIndex].sections.push({
 				...file.contents,
 				data: file.data,
