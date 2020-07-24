@@ -1,5 +1,5 @@
 import { ISettings, INavigation, IFile, IMenu, INavItem } from "../types";
-import { dirname } from "path";
+import { dirname, join } from "path";
 import rimraf from "rimraf";
 export const buildNavigation = async (
 	settings: ISettings
@@ -153,16 +153,15 @@ export const getItem = (
 ): INavItem | boolean => {
 	// Get Siblings..
 
-	const siblings = settings.files.filter((cfile) =>
-		cfile.path.includes(dirname(file.path))
+	const siblings = settings.files.filter((cfile: IFile) =>
+		file.isParent
+			? cfile.path.includes(dirname(join(file.path, "../")))
+			: cfile.path.includes(dirname(file.path))
 	);
-	siblings.forEach((myfile) => {
-		console.log(`- ${myfile.title}`);
-	});
-	console.log("------");
 
 	// If there is only one sibling, you don't need navigation.
-	if (siblings.length === 1) return false;
+	if (siblings.length === 1 || settings.skip.includes("content-navigation"))
+		return false;
 
 	const currentIndex = siblings.findIndex(
 		(sibling: IFile) => sibling.route === file.route

@@ -18,7 +18,7 @@
 | `codeHighlight`  | `true`                     | `true` / `false`                                        | Use Prism to create highlighted code                                                                       |
 | `projectTitle`   | `""`                       |                                                         | Title of the documentation                                                                                 |
 | `favicon`        | Custom generated           | path to image                                           | Create favicons and other meta tags automatically                                                          |
-| `skip`           | `null`                     | `favicons`                                              | Skip parts of the build process to speed it up. For now this can only be done with Favicons                |
+| `skip`           | `null`                     | `favicons`,`content-navigation`                         | Skip parts of the build process or remove items from templates to speed it up.                             |
 | `config`         | `dokkie.config.json`       | path to json config file                                | Give an alternative path to the config for dokkie                                                          |
 | `logging`        | `[]`                       | `silent`, `debug`                                       | Run Dokkie with silent mode or debug.                                                                      |
 | `language`       | `en`                       | Any language shortname, ex; `en`, `nl` or `es`          | Language of the page, this is set in the templates                                                         |
