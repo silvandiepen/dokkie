@@ -2,7 +2,6 @@
 
 import { IMarkdown, IFileContents, MarkdownItExtended } from "../types";
 
-import meta from "markdown-it-meta";
 import prism from "markdown-it-prism";
 import anchors from "markdown-it-anchor";
 import { html5Media } from "markdown-it-html5-media";

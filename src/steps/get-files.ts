@@ -179,7 +179,7 @@ export const concatPartials = async (
 			// Otherwise, the partials will be added automatically to the parent.
 			else {
 				// Add the data to the parent
-				settings.files[parentIndex].data += file.data;
+				settings.files[parentIndex].data += `\n\n${file.data}`;
 			}
 
 			// Add data to a combined property for search
