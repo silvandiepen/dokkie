@@ -19,7 +19,7 @@ import {
 	Handlebars,
 	loadHandlebarsPartials,
 } from "../utils";
-import { getNavigation } from "./";
+import { getNavigation, getItem } from "./";
 
 export const toHtml = async (
 	file: IFile | IFileContents
@@ -192,6 +192,8 @@ export const createPages = async (settings: ISettings): Promise<void> => {
 				sidebarNavigation: getNavigation(settings, "sidebar"),
 				footerNavigation: getNavigation(settings, "footer"),
 				overviewNavigation: getNavigation(settings, "overview"),
+				nextItem: getItem(settings, file, "next"),
+				prevItem: getItem(settings, file, "prev"),
 				meta: file.meta,
 				sections: file.sections,
 				columns: file.contents,

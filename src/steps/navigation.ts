@@ -1,4 +1,5 @@
-import { ISettings, INavigation, IFile, IMenu } from "../types";
+import { ISettings, INavigation, IFile, IMenu, INavItem } from "../types";
+import { dirname } from "path";
 import rimraf from "rimraf";
 export const buildNavigation = async (
 	settings: ISettings
@@ -143,4 +144,48 @@ export const getNavigation = (settings: ISettings, filter: string): IMenu => {
 		};
 
 	return null;
+};
+
+export const getItem = (
+	settings: ISettings,
+	file: IFile,
+	direction: "prev" | "next"
+): INavItem | boolean => {
+	// Get Siblings..
+
+	const siblings = settings.files.filter((cfile) =>
+		cfile.path.includes(dirname(file.path))
+	);
+	siblings.forEach((myfile) => {
+		console.log(`- ${myfile.title}`);
+	});
+	console.log("------");
+
+	// If there is only one sibling, you don't need navigation.
+	if (siblings.length === 1) return false;
+
+	const currentIndex = siblings.findIndex(
+		(sibling: IFile) => sibling.route === file.route
+	);
+
+	const prevIndex =
+		-1 < currentIndex - 1 ? currentIndex - 1 : siblings.length - 1;
+	const prevItem = siblings[prevIndex];
+
+	const nextIndex = siblings.length <= currentIndex + 1 ? 0 : currentIndex + 1;
+	const nextItem = siblings[nextIndex];
+
+	if (direction === "prev" && prevItem) {
+		return {
+			name: `previous: ${prevItem.title}`,
+			link: prevItem.route,
+		};
+	} else if (direction === "next" && nextItem) {
+		return {
+			name: `next: ${nextItem.title}`,
+			link: nextItem.route,
+		};
+	} else {
+		return false;
+	}
 };

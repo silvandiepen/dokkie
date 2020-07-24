@@ -1,8 +1,8 @@
 import H from "handlebars";
 import format from "date-fns/format";
 import { asyncForEach } from "./";
-import { join } from "path";
-const { readFile } = require("fs").promises;
+import { join, basename } from "path";
+const { readFile, readdir } = require("fs").promises;
 import { IHandlebarsPartials, IHandlebarsBlock } from "../types";
 
 const loadPartial = async (partial: string): Promise<void> => {
@@ -29,39 +29,27 @@ export const loadHandlebarsPartials = async (): Promise<
 	IHandlebarsPartials[]
 > => {
 	// Create Partials
-	const partialNames = [
-		"partials/headerNavigation",
-		"partials/footerNavigation",
-		"partials/sidebarNavigation",
-		"partials/overviewNavigation",
-		"partials/projectTitle",
-		"partials/blogMeta",
-		"partials/headMeta",
-		"partials/searchBlock",
-		"partials/searchScript",
-		"partials/loadScripts",
-		"sections/columns",
-		"sections/sections",
-		"sections/full",
-		"sections/half",
-		"sections/third",
-		"sections/quarter",
-		"sections/intro",
-	];
 
+	const partialFolders = ["partials", "sections"];
 	const partials = [];
-	await asyncForEach(partialNames, async (partial: string) => {
-		try {
-			partials.push({
-				name:
-					partial.indexOf("/") > 0
-						? partial.split("/")[partial.split("/").length - 1]
-						: partial,
-				file: await loadPartial(partial).then((r) => r),
-			});
-		} catch (err) {
-			throw Error(err);
-		}
+
+	await asyncForEach(partialFolders, async (folder: string) => {
+		const files = await readdir(join(__dirname, "../../", "template", folder));
+
+		await asyncForEach(files, async (file) => {
+			const partial = join(folder, basename(file, ".hbs"));
+			try {
+				partials.push({
+					name:
+						partial.indexOf("/") > 0
+							? partial.split("/")[partial.split("/").length - 1]
+							: partial,
+					file: await loadPartial(partial).then((r) => r),
+				});
+			} catch (err) {
+				throw Error(err);
+			}
+		});
 	});
 
 	return partials;
