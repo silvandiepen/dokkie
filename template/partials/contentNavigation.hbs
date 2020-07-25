@@ -1,8 +1,8 @@
 <nav id="content-nav">
     {{#if prevItem}}
-    <a href="{{prevItem.link}}">{{prevItem.name}}</a>
+    <a class="content-nav__link content-nav__link--prev" href="{{prevItem.link}}">{{prevItem.name}}</a>
     {{/if}}
     {{#if nextItem}}
-    <a href="{{nextItem.link}}">{{nextItem.name}}</a>
+    <a class="content-nav__link content-nav__link--next" href="{{nextItem.link}}">{{nextItem.name}}</a>
     {{/if}}
 </nav>

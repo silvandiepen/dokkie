@@ -176,12 +176,12 @@ export const getItem = (
 
 	if (direction === "prev" && prevItem) {
 		return {
-			name: `previous: ${prevItem.title}`,
+			name: `${prevItem.title}`,
 			link: prevItem.route,
 		};
 	} else if (direction === "next" && nextItem) {
 		return {
-			name: `next: ${nextItem.title}`,
+			name: `${nextItem.title}`,
 			link: nextItem.route,
 		};
 	} else {
