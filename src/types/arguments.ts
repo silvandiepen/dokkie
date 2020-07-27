@@ -8,6 +8,10 @@ import { IHandlebarsPartials } from "./handleBars";
 import { buildTypes, IFile, IPackageJson } from "./files";
 import { IOutput as IFaviconData } from "iconator/src/types";
 
+interface IAssets {
+	logo?: string;
+	favicon?: string;
+}
 export interface IArgumentSettings {
 	input: string;
 	output: string;

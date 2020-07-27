@@ -3,10 +3,7 @@
 	"type": "blog",
 	"input": "content/posts",
 	"showNavigation": ["header", "footer", "overview"],
-	"assets": {
-		"logo": "src/assets/logo_dokkie-color.svg",
-		"favicon": "src/assets/logo_dokkie-icon-color.png"
-	},
+
 	"add": {
 		"excludeFolders": ["pages"]
 	},

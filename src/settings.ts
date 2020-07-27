@@ -11,6 +11,7 @@ export const defaultSettings = {
 	input: ".",
 	output: "dokkie",
 	layout: "default",
+	assets: {},
 	cleanBefore: true,
 	theme: "feather-ext",
 	extensions: [".md"],
@@ -120,6 +121,12 @@ export const settings = (): ISettings => {
 			type: "string",
 			default: defaultSettings.favicon,
 		},
+		logo: {
+			required: false,
+			type: "string",
+			default: null,
+		},
+
 		skip: {
 			require: false,
 			type: "array",
@@ -171,6 +178,7 @@ export const settings = (): ISettings => {
 		extensions: cs.extensions,
 		cleanBefore: cs.cleanBefore,
 		theme: cs.theme,
+		assets: { logo: cs.logo, favicon: cs.favicon },
 		copy: cs.copy,
 		strip: cs.strip,
 		flatNavigation: cs.flatNavigation,
@@ -204,6 +212,8 @@ export const setAlternativeDefaults = async (
 	const args = process.argv
 		.slice(2)
 		.map((arg) => (arg = arg.split("=")[0].replace("--", "")));
+
+	console.log(s.assets);
 
 	switch (s.type) {
 		case "blog":
