@@ -213,8 +213,6 @@ export const setAlternativeDefaults = async (
 		.slice(2)
 		.map((arg) => (arg = arg.split("=")[0].replace("--", "")));
 
-	console.log(s.assets);
-
 	switch (s.type) {
 		case "blog":
 			if (!args.includes("layout")) s.layout = "blog";
