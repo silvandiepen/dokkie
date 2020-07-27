@@ -311,27 +311,6 @@
           </li>
         </ul>
       </nav>
-      <div class="search" id="search">
-        <label for="search-field">
-          <input
-            type="search"
-            v-model="searchTerm"
-            @focus="initSearch"
-            @blur="show = false"
-            id="search-field"
-            name="search-field"
-          />
-        </label>
-        <ul
-          v-if="posts"
-          class="search__results"
-          :class="{'search__results--has-values' : filteredPosts.length, 'search__results--visible' : show}"
-        >
-          <li class="search__result" v-for="post in filteredPosts">
-            <a class="search__link" :href="post.route">{{ post.title }}</a>
-          </li>
-        </ul>
-      </div>
     </header>
 
     <!--- Page Sidebar -->
@@ -523,7 +502,7 @@
         </ul>
       </nav>
       <footnote>
-        <span>dokkie@0.1.18</span>
+        <span>dokkie@0.1.19</span>
         <span>MIT</span>
         <span>&copy; Sil van Diepen</span>
       </footnote>
@@ -531,36 +510,5 @@
   </body>
 
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-  <script>
-    Vue.config.delimiters = ["${", "}"];
-    new Vue({
-      el: "#search",
-      data: {
-        searchTerm: "",
-        show: false,
-        initialized: false,
-        posts: [],
-      },
-      methods: {
-        initSearch() {
-          this.show = true;
-          if (!this.initialized)
-            fetch("/data.json")
-              .then((response) => response.json())
-              .then((json) => {
-                this.initialized = true;
-                this.posts = json;
-              });
-        },
-      },
-      computed: {
-        filteredPosts() {
-          if (!this.posts.length || this.searchTerm == "") return [];
-          return this.posts.filter((item) =>
-            item.data.toLowerCase().includes(this.searchTerm.toLowerCase())
-          );
-        },
-      },
-    });
-  </script>
+  <script src="/scripts/search.js" />
 </html>
