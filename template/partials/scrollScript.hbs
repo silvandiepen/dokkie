@@ -41,7 +41,7 @@
     const observer = new IntersectionObserver(handleIntersect, {
         threshold: thresholdArray(10),
     })
-
-    observer.observe(document.querySelector('footer'))
+    const el = document.querySelector('main') ? document.querySelector('main') : document.querySelector('article');
+    observer.observe(document.querySelector(el);
 </script>
 {{/if}}
