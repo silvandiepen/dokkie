@@ -10,8 +10,7 @@ import { mdToHtml } from "../utils/markdown";
 */
 export const getFileTree = async (
 	dir: string,
-	settings: ISettings,
-	notfilter: boolean = false
+	settings: ISettings
 ): Promise<IFile[]> => {
 	const dirents = await readdir(dir, { withFileTypes: true });
 	const files = await Promise.all(
@@ -46,9 +45,9 @@ export const getFileTree = async (
 */
 export const getFiles = async (settings: ISettings): Promise<ISettings> => {
 	// Get all pages and order them by Path.
-	const files = await (
-		await getFileTree(settings.input, settings)
-	).sort((a, b) => (a.path > b.path ? 1 : -1));
+	const files = (await getFileTree(settings.input, settings)).sort((a, b) =>
+		a.path > b.path ? 1 : -1
+	);
 	return { ...settings, files };
 };
 

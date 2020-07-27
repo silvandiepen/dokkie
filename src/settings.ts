@@ -16,7 +16,7 @@ export const defaultSettings = {
 	theme: "feather-ext",
 	extensions: [".md"],
 	excludeFolders: ["node_modules", "dist", "public"],
-	copy: ["src/assets/scripts"],
+	copy: [],
 	strip: ["pages"],
 	codeHighlight: true,
 	projectTitle: "",

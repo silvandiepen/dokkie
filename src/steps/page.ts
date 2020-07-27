@@ -235,6 +235,21 @@ export const copyFolders = async (settings: ISettings): Promise<void> => {
 		});
 	}
 };
+export const copyScripts = async (settings: ISettings): Promise<void> => {
+	if (Object.keys(settings.enhance).length) {
+		const folder = join(__dirname, "../../src/assets/scripts");
+		await ncp(
+			folder,
+			settings.output + "/" + folder.split("/")[folder.split("/").length - 1],
+			(err) => {
+				if (!err)
+					!settings.logging.includes("silent") &&
+						log.BLOCK_LINE_SUCCESS(folder);
+				else throw Error(err);
+			}
+		);
+	}
+};
 
 export const createPageData = async (settings: ISettings): Promise<void> => {
 	const fileData = [...settings.files].map((item) => {

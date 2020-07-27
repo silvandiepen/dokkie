@@ -34,6 +34,7 @@ import {
 	createPages,
 	createPageData,
 	copyFolders,
+	copyScripts,
 	getLayout,
 	setHomePage,
 	reformInjectHtml,
@@ -98,6 +99,7 @@ buildDokkie(settings())
 		await showDist(s);
 		await createPages(s);
 		await copyFolders(s);
+		await copyScripts(s);
 		createPageData(s);
 		return s;
 	})
