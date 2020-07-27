@@ -1,0 +1,47 @@
+{{#if scroll}}
+<script>
+    const thresholdArray = steps => Array(steps + 1)
+        .fill(0)
+        .map((_, index) => index / steps || 0)
+
+    let previousY = 0
+    let previousRatio = 0
+
+    const handleIntersect = entry => {
+        const currentY = entry[0].boundingClientRect.y
+        const currentRatio = entry[0].intersectionRatio
+        const isIntersecting = entry[0].isIntersecting
+
+        const bodyClass = document.body.classList;
+        if (window.scrollY < 1) {
+            bodyClass.add('on-top');
+            bodyClass.remove('off-top');
+        } else {
+            bodyClass.add('off-top');
+            bodyClass.remove('on-top');
+        }
+        // Scrolling down/up
+        if (currentY < previousY) {
+            if (currentRatio > previousRatio && isIntersecting) {
+                bodyClass.add('scroll-down');
+                bodyClass.remove('scroll-up');
+            }
+        } else if (currentY > previousY && isIntersecting) {
+            if (currentRatio < previousRatio) {
+                bodyClass.add('scroll-up');
+                bodyClass.remove('scroll-down');
+            }
+        }
+
+        previousY = currentY
+        previousRatio = currentRatio
+
+    }
+
+    const observer = new IntersectionObserver(handleIntersect, {
+        threshold: thresholdArray(10),
+    })
+
+    observer.observe(document.querySelector('footer'))
+</script>
+{{/if}}

@@ -201,6 +201,7 @@ export const createPages = async (settings: ISettings): Promise<void> => {
 				language: settings.language,
 				search: settings.files.length > 1 ? settings.search : false,
 				url: settings.url,
+				scroll: true,
 			});
 			await writeThatFile(
 				file,
