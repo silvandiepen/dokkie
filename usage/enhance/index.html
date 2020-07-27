@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
 
     <!-- Google / Search Engine Tags -->
-    <title>Templates</title>
-    <meta itemprop="name" content="Templates" />
-    <meta property="og:title" content="Templates" />
-    <meta name="twitter:title" content="Templates" />
+    <title>Enhance</title>
+    <meta itemprop="name" content="Enhance" />
+    <meta property="og:title" content="Enhance" />
+    <meta name="twitter:title" content="Enhance" />
 
     <meta
       name="description"
@@ -246,7 +246,7 @@
       rel="yandex-tableau-widget"
       href="https://silvandiepen.github.io/dokkie/img/favicons/yandex-browser-manifest.json"
     />
-    <title>Templates</title>
+    <title>Enhance</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -255,7 +255,7 @@
     />
   </head>
 
-  <body id="page-usage-templates">
+  <body id="page-usage-enhance">
     <!--- Page Header -->
     <header id="header">
       <h1><a href="/">Doccie</a></h1>
@@ -291,15 +291,15 @@
               <li><a href="/usage/pages/">Pages</a></li>
 
               <li><a href="/usage/navigation/">Navigation</a></li>
-              <li class="active">
-                <a href="/usage/templates/">Templates</a>
-              </li>
+
+              <li><a href="/usage/templates/">Templates</a></li>
 
               <li><a href="/usage/markdown/">Markdown</a></li>
 
               <li><a href="/usage/favicons/">Favicons</a></li>
-
-              <li><a href="/usage/enhance/">Enhance</a></li>
+              <li class="active">
+                <a href="/usage/enhance/">Enhance</a>
+              </li>
 
               <li><a href="/usage/blog/">Blog</a></li>
 
@@ -351,7 +351,8 @@
               <li>
                 <a href="/usage/navigation/">Navigation</a>
               </li>
-              <li class="active">
+
+              <li>
                 <a href="/usage/templates/">Templates</a>
               </li>
 
@@ -362,8 +363,7 @@
               <li>
                 <a href="/usage/favicons/">Favicons</a>
               </li>
-
-              <li>
+              <li class="active">
                 <a href="/usage/enhance/">Enhance</a>
               </li>
 
@@ -386,122 +386,95 @@
 
     <!--- Page Main section-->
     <main id="main" class="content">
-      <h1 id="templates">Templates</h1>
+      <h1 id="enhance">Enhance</h1>
       <p>
-        Dokkie comes with a few html templates. You can use these, or create
-        your own template based on Dokkie’s.
+        Or what it means, is the possibility to add extra scripts to enhance and
+        make your project better.
       </p>
-      <h3 id="use-your-own">Use your own</h3>
+      <h3 id="search">Search</h3>
+      <p>
+        By default the search is enabled, this means that you will always get a
+        search when there are than 2 pages in your project. You can disable this
+        by adding <code>--search=false</code>
+      </p>
+      <h3 id="scroll-classes">Scroll Classes</h3>
+      <p>
+        To make your header on mobile dissapear and appear when scroll
+        automatically, we need to enable the scroll classes. This is a little
+        bit of JavaScript which just adds a few classes which can be used for
+        anything else too, if you want. You can
+      </p>
+      <h3 id="google-analytics">Google Analytics</h3>
+      <p>
+        Adding Google Analytics to your project is as easy as adding it to your
+        build scripts. You can
+      </p>
+      <h3 id="any-ideas%3F">Any ideas?</h3>
+      <p>
+        Please feel free to do a Pull Request, create an issue or just contact
+        me.
+      </p>
+      <h3 id="usage">Usage</h3>
+      <p>
+        You can add functions through the CLI, Environment settings or in the
+        config file;
+      </p>
+      <p><strong>Cli</strong></p>
       <pre
         class="language-bash"
-      ><code class="language-bash">    npx dokkie --template<span class="token operator">=</span>myown-template.html
+      ><code class="language-bash">--googleAnalytics<span class="token operator">=</span>YOURCODE --scrollClasses<span class="token operator">=</span>true --search<span class="token operator">=</span>true
 </code></pre>
-      <h3 id="simple-template">Simple Template</h3>
-      <script src="https://gist-it.appspot.com/github/silvandiepen/dokkie/blob/master/template/simple.hbs"></script>
-      <h3 id="default-template">Default Template</h3>
-      <script src="https://gist-it.appspot.com/github/silvandiepen/dokkie/blob/master/template/default.hbs"></script>
-      <h3 id="blog-template">Blog Template</h3>
-      <script src="https://gist-it.appspot.com/github/silvandiepen/dokkie/blob/master/template/blog.hbs"></script>
-      <h2 id="inject-html">Inject Html</h2>
-      <p>It’s also possible to inject html into the templates.</p>
-      <p><strong>dokkie.config.json</strong></p>
+      <p><strong>Config</strong></p>
       <pre
         class="language-json"
       ><code class="language-json"><span class="token punctuation">{</span>
-	<span class="token property">"injectHtml"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-		<span class="token property">"mainBefore"</span><span class="token operator">:</span> <span class="token string">"&lt;my-html>string&lt;/my-html>"</span>
+	<span class="token property">"enhance"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+		<span class="token property">"googleAnalytics"</span><span class="token operator">:</span> <span class="token string">"YOURCODE"</span><span class="token punctuation">,</span>
+		<span class="token property">"scrollClasses"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+		<span class="token property">"search"</span><span class="token operator">:</span> <span class="token boolean">true</span>
 	<span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-      <p><strong>options</strong></p>
+      <div class="alert alert-warning" role="alert">
+        <p>
+          By using the config, you will overrule the default. That means that if
+          you still want the search, don’t forget to add it.
+        </p>
+      </div>
+      <p><strong>env</strong></p>
       <table>
         <thead>
           <tr>
-            <th>option</th>
-            <th>description</th>
-            <th>availabe in layout</th>
+            <th>key</th>
+            <th>value</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>headerBefore</td>
-            <td>Add html in top of header</td>
-            <td>default, blog</td>
+            <td>GOOGLE_ANALYTICS</td>
+            <td>YOURCODE</td>
           </tr>
           <tr>
-            <td>headerAfter</td>
-            <td>Add html in bottom of header</td>
-            <td>default, blog</td>
+            <td>SCROLL_CLASSES</td>
+            <td>true</td>
           </tr>
           <tr>
-            <td>sidebarBefore</td>
-            <td>Add html in top of sidebar</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>sidebarAfter</td>
-            <td>Add html in bottom of sidebar</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>mainBefore</td>
-            <td>Add html in top of main</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>mainAfter</td>
-            <td>Add html in bottom of main</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>footerBefore</td>
-            <td>Add html in top of footer</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>footerAfter</td>
-            <td>Add html in bottom of footer</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>overviewBefore</td>
-            <td>Add html in top of overview</td>
-            <td>blog</td>
-          </tr>
-          <tr>
-            <td>overviewAfter</td>
-            <td>Add html in bottom of overview</td>
-            <td>blog</td>
-          </tr>
-          <tr>
-            <td>articleBefore</td>
-            <td>Add html in top of article</td>
-            <td>blog</td>
-          </tr>
-          <tr>
-            <td>articleAfter</td>
-            <td>Add html in bottom of article</td>
-            <td>blog</td>
+            <td>SEARCH</td>
+            <td>true</td>
           </tr>
         </tbody>
       </table>
-      <h3 id="custom">Custom</h3>
-      <p>A custom layout can be used by giving a layout argument;</p>
-      <pre
-        class="language-bash"
-      ><code class="language-bash">    npx dokkie --layout<span class="token operator">=</span>src/my-own/layout.html
-</code></pre>
 
       <nav id="content-nav">
         <a
           class="content-nav__link content-nav__link--prev"
-          href="/usage/navigation/index.html"
-          >Navigation</a
+          href="/usage/favicons/index.html"
+          >Favicons</a
         >
         <a
           class="content-nav__link content-nav__link--next"
-          href="/usage/markdown/index.html"
-          >Markdown</a
+          href="/usage/blog/index.html"
+          >Blog</a
         >
       </nav>
     </main>
@@ -557,7 +530,8 @@
               <li>
                 <a href="/usage/navigation/">Navigation</a>
               </li>
-              <li class="active">
+
+              <li>
                 <a href="/usage/templates/">Templates</a>
               </li>
 
@@ -568,8 +542,7 @@
               <li>
                 <a href="/usage/favicons/">Favicons</a>
               </li>
-
-              <li>
+              <li class="active">
                 <a href="/usage/enhance/">Enhance</a>
               </li>
 

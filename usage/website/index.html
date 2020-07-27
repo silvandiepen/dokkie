@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
 
     <!-- Google / Search Engine Tags -->
-    <title>Templates</title>
-    <meta itemprop="name" content="Templates" />
-    <meta property="og:title" content="Templates" />
-    <meta name="twitter:title" content="Templates" />
+    <title>Website</title>
+    <meta itemprop="name" content="Website" />
+    <meta property="og:title" content="Website" />
+    <meta name="twitter:title" content="Website" />
 
     <meta
       name="description"
@@ -246,7 +246,7 @@
       rel="yandex-tableau-widget"
       href="https://silvandiepen.github.io/dokkie/img/favicons/yandex-browser-manifest.json"
     />
-    <title>Templates</title>
+    <title>Website</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -255,7 +255,7 @@
     />
   </head>
 
-  <body id="page-usage-templates">
+  <body id="page-usage-website">
     <!--- Page Header -->
     <header id="header">
       <h1><a href="/">Doccie</a></h1>
@@ -291,9 +291,8 @@
               <li><a href="/usage/pages/">Pages</a></li>
 
               <li><a href="/usage/navigation/">Navigation</a></li>
-              <li class="active">
-                <a href="/usage/templates/">Templates</a>
-              </li>
+
+              <li><a href="/usage/templates/">Templates</a></li>
 
               <li><a href="/usage/markdown/">Markdown</a></li>
 
@@ -302,8 +301,9 @@
               <li><a href="/usage/enhance/">Enhance</a></li>
 
               <li><a href="/usage/blog/">Blog</a></li>
-
-              <li><a href="/usage/website/">Website</a></li>
+              <li class="active">
+                <a href="/usage/website/">Website</a>
+              </li>
 
               <li><a href="/usage/troubleshooting/">Troubleshooting</a></li>
             </ul>
@@ -351,7 +351,8 @@
               <li>
                 <a href="/usage/navigation/">Navigation</a>
               </li>
-              <li class="active">
+
+              <li>
                 <a href="/usage/templates/">Templates</a>
               </li>
 
@@ -370,8 +371,7 @@
               <li>
                 <a href="/usage/blog/">Blog</a>
               </li>
-
-              <li>
+              <li class="active">
                 <a href="/usage/website/">Website</a>
               </li>
 
@@ -386,122 +386,66 @@
 
     <!--- Page Main section-->
     <main id="main" class="content">
-      <h1 id="templates">Templates</h1>
+      <h1 id="website">Website</h1>
       <p>
-        Dokkie comes with a few html templates. You can use these, or create
-        your own template based on Dokkie’s.
+        With Dokkie you can create also a full web page with sections and
+        columns using just Markdown files.
       </p>
-      <h3 id="use-your-own">Use your own</h3>
+      <p>
+        You can find an example of a dokkie website on
+        <a href="https://website-example.dokkie.dev"
+          >website-example.dokkie.dev</a
+        >.
+      </p>
+      <h2 id="usage">Usage</h2>
       <pre
         class="language-bash"
-      ><code class="language-bash">    npx dokkie --template<span class="token operator">=</span>myown-template.html
+      ><code class="language-bash">npx dokkie --type<span class="token operator">=</span>website
 </code></pre>
-      <h3 id="simple-template">Simple Template</h3>
-      <script src="https://gist-it.appspot.com/github/silvandiepen/dokkie/blob/master/template/simple.hbs"></script>
-      <h3 id="default-template">Default Template</h3>
-      <script src="https://gist-it.appspot.com/github/silvandiepen/dokkie/blob/master/template/default.hbs"></script>
-      <h3 id="blog-template">Blog Template</h3>
-      <script src="https://gist-it.appspot.com/github/silvandiepen/dokkie/blob/master/template/blog.hbs"></script>
-      <h2 id="inject-html">Inject Html</h2>
-      <p>It’s also possible to inject html into the templates.</p>
-      <p><strong>dokkie.config.json</strong></p>
+      <h2 id="section-%26-partials">Section &amp; Partials</h2>
+      <p>Website are build up out of Sections and Partials.</p>
+      <h3 id="partials">Partials</h3>
+      <p>
+        Partials can be achieved by adding <code>_</code> in front of a markdown
+        file. Every file with an underscore will automatically be added to the
+        parent (<a href="http://readme.md">readme.md</a>) in alphabetical order.
+        In this way you can build up a full page from several files.
+      </p>
+      <h3 id="sections">Sections</h3>
+      <p>
+        Sections have a column layout. A section will be be added to it’s parent
+        when the folder has an <code>_</code> AND defined a layout in the meta
+        data like
+      </p>
+      <p><code>_overview/readme.md</code></p>
       <pre
-        class="language-json"
-      ><code class="language-json"><span class="token punctuation">{</span>
-	<span class="token property">"injectHtml"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-		<span class="token property">"mainBefore"</span><span class="token operator">:</span> <span class="token string">"&lt;my-html>string&lt;/my-html>"</span>
-	<span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+        class="language-markdown"
+      ><code class="language-markdown"><span class="token hr punctuation">---</span>
+<span class="token title important">layout: thirds
+<span class="token punctuation">---</span></span>
 </code></pre>
-      <p><strong>options</strong></p>
-      <table>
-        <thead>
-          <tr>
-            <th>option</th>
-            <th>description</th>
-            <th>availabe in layout</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>headerBefore</td>
-            <td>Add html in top of header</td>
-            <td>default, blog</td>
-          </tr>
-          <tr>
-            <td>headerAfter</td>
-            <td>Add html in bottom of header</td>
-            <td>default, blog</td>
-          </tr>
-          <tr>
-            <td>sidebarBefore</td>
-            <td>Add html in top of sidebar</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>sidebarAfter</td>
-            <td>Add html in bottom of sidebar</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>mainBefore</td>
-            <td>Add html in top of main</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>mainAfter</td>
-            <td>Add html in bottom of main</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>footerBefore</td>
-            <td>Add html in top of footer</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>footerAfter</td>
-            <td>Add html in bottom of footer</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>overviewBefore</td>
-            <td>Add html in top of overview</td>
-            <td>blog</td>
-          </tr>
-          <tr>
-            <td>overviewAfter</td>
-            <td>Add html in bottom of overview</td>
-            <td>blog</td>
-          </tr>
-          <tr>
-            <td>articleBefore</td>
-            <td>Add html in top of article</td>
-            <td>blog</td>
-          </tr>
-          <tr>
-            <td>articleAfter</td>
-            <td>Add html in bottom of article</td>
-            <td>blog</td>
-          </tr>
-        </tbody>
-      </table>
-      <h3 id="custom">Custom</h3>
-      <p>A custom layout can be used by giving a layout argument;</p>
-      <pre
-        class="language-bash"
-      ><code class="language-bash">    npx dokkie --layout<span class="token operator">=</span>src/my-own/layout.html
-</code></pre>
+      <p>
+        Will result in a three column layout using the other
+        <code>_</code>-partials as it’s content.
+      </p>
+      <h3 id="columns">Columns</h3>
+      <p>As for now, there are three options to use;</p>
+      <ul>
+        <li><strong>full</strong> 1 column layout</li>
+        <li><strong>half</strong> 2 columns layout</li>
+        <li><strong>thirds</strong> 3 columns layout</li>
+      </ul>
 
       <nav id="content-nav">
         <a
           class="content-nav__link content-nav__link--prev"
-          href="/usage/navigation/index.html"
-          >Navigation</a
+          href="/usage/blog/index.html"
+          >Blog</a
         >
         <a
           class="content-nav__link content-nav__link--next"
-          href="/usage/markdown/index.html"
-          >Markdown</a
+          href="/usage/troubleshooting/index.html"
+          >Troubleshooting</a
         >
       </nav>
     </main>
@@ -557,7 +501,8 @@
               <li>
                 <a href="/usage/navigation/">Navigation</a>
               </li>
-              <li class="active">
+
+              <li>
                 <a href="/usage/templates/">Templates</a>
               </li>
 
@@ -576,8 +521,7 @@
               <li>
                 <a href="/usage/blog/">Blog</a>
               </li>
-
-              <li>
+              <li class="active">
                 <a href="/usage/website/">Website</a>
               </li>
 

@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
 
     <!-- Google / Search Engine Tags -->
-    <title>Templates</title>
-    <meta itemprop="name" content="Templates" />
-    <meta property="og:title" content="Templates" />
-    <meta name="twitter:title" content="Templates" />
+    <title>Troubleshooting</title>
+    <meta itemprop="name" content="Troubleshooting" />
+    <meta property="og:title" content="Troubleshooting" />
+    <meta name="twitter:title" content="Troubleshooting" />
 
     <meta
       name="description"
@@ -246,7 +246,7 @@
       rel="yandex-tableau-widget"
       href="https://silvandiepen.github.io/dokkie/img/favicons/yandex-browser-manifest.json"
     />
-    <title>Templates</title>
+    <title>Troubleshooting</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -255,7 +255,7 @@
     />
   </head>
 
-  <body id="page-usage-templates">
+  <body id="page-usage-troubleshooting">
     <!--- Page Header -->
     <header id="header">
       <h1><a href="/">Doccie</a></h1>
@@ -291,9 +291,8 @@
               <li><a href="/usage/pages/">Pages</a></li>
 
               <li><a href="/usage/navigation/">Navigation</a></li>
-              <li class="active">
-                <a href="/usage/templates/">Templates</a>
-              </li>
+
+              <li><a href="/usage/templates/">Templates</a></li>
 
               <li><a href="/usage/markdown/">Markdown</a></li>
 
@@ -304,8 +303,9 @@
               <li><a href="/usage/blog/">Blog</a></li>
 
               <li><a href="/usage/website/">Website</a></li>
-
-              <li><a href="/usage/troubleshooting/">Troubleshooting</a></li>
+              <li class="active">
+                <a href="/usage/troubleshooting/">Troubleshooting</a>
+              </li>
             </ul>
           </li>
 
@@ -351,7 +351,8 @@
               <li>
                 <a href="/usage/navigation/">Navigation</a>
               </li>
-              <li class="active">
+
+              <li>
                 <a href="/usage/templates/">Templates</a>
               </li>
 
@@ -374,8 +375,7 @@
               <li>
                 <a href="/usage/website/">Website</a>
               </li>
-
-              <li>
+              <li class="active">
                 <a href="/usage/troubleshooting/">Troubleshooting</a>
               </li>
             </ul>
@@ -386,122 +386,60 @@
 
     <!--- Page Main section-->
     <main id="main" class="content">
-      <h1 id="templates">Templates</h1>
+      <h1 id="troubleshooting">Troubleshooting</h1>
       <p>
-        Dokkie comes with a few html templates. You can use these, or create
-        your own template based on Dokkie’s.
+        Sometimes things go wrong, that doesn’t mean you are doing something
+        wrong, but Dokkie doesn’t recognize it well. Here are some things which
+        can be easily solved or sometimes not.
       </p>
-      <h3 id="use-your-own">Use your own</h3>
-      <pre
-        class="language-bash"
-      ><code class="language-bash">    npx dokkie --template<span class="token operator">=</span>myown-template.html
-</code></pre>
-      <h3 id="simple-template">Simple Template</h3>
-      <script src="https://gist-it.appspot.com/github/silvandiepen/dokkie/blob/master/template/simple.hbs"></script>
-      <h3 id="default-template">Default Template</h3>
-      <script src="https://gist-it.appspot.com/github/silvandiepen/dokkie/blob/master/template/default.hbs"></script>
-      <h3 id="blog-template">Blog Template</h3>
-      <script src="https://gist-it.appspot.com/github/silvandiepen/dokkie/blob/master/template/blog.hbs"></script>
-      <h2 id="inject-html">Inject Html</h2>
-      <p>It’s also possible to inject html into the templates.</p>
-      <p><strong>dokkie.config.json</strong></p>
-      <pre
-        class="language-json"
-      ><code class="language-json"><span class="token punctuation">{</span>
-	<span class="token property">"injectHtml"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-		<span class="token property">"mainBefore"</span><span class="token operator">:</span> <span class="token string">"&lt;my-html>string&lt;/my-html>"</span>
-	<span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-      <p><strong>options</strong></p>
-      <table>
-        <thead>
-          <tr>
-            <th>option</th>
-            <th>description</th>
-            <th>availabe in layout</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>headerBefore</td>
-            <td>Add html in top of header</td>
-            <td>default, blog</td>
-          </tr>
-          <tr>
-            <td>headerAfter</td>
-            <td>Add html in bottom of header</td>
-            <td>default, blog</td>
-          </tr>
-          <tr>
-            <td>sidebarBefore</td>
-            <td>Add html in top of sidebar</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>sidebarAfter</td>
-            <td>Add html in bottom of sidebar</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>mainBefore</td>
-            <td>Add html in top of main</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>mainAfter</td>
-            <td>Add html in bottom of main</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>footerBefore</td>
-            <td>Add html in top of footer</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>footerAfter</td>
-            <td>Add html in bottom of footer</td>
-            <td>default</td>
-          </tr>
-          <tr>
-            <td>overviewBefore</td>
-            <td>Add html in top of overview</td>
-            <td>blog</td>
-          </tr>
-          <tr>
-            <td>overviewAfter</td>
-            <td>Add html in bottom of overview</td>
-            <td>blog</td>
-          </tr>
-          <tr>
-            <td>articleBefore</td>
-            <td>Add html in top of article</td>
-            <td>blog</td>
-          </tr>
-          <tr>
-            <td>articleAfter</td>
-            <td>Add html in bottom of article</td>
-            <td>blog</td>
-          </tr>
-        </tbody>
-      </table>
-      <h3 id="custom">Custom</h3>
-      <p>A custom layout can be used by giving a layout argument;</p>
-      <pre
-        class="language-bash"
-      ><code class="language-bash">    npx dokkie --layout<span class="token operator">=</span>src/my-own/layout.html
-</code></pre>
+      <h3 id="styling-doesn%E2%80%99t-load.">Styling doesn’t load.</h3>
+      <p>
+        You are probably trying to deploy your generated dokkie in a subfolder.
+        That shouldn’t be an issue but for now it unforatunately is. All links
+        to styling and images are relative. That means that your browser tries
+        to get the assets from the direct domain.
+      </p>
+      <p><strong>fixes</strong></p>
+      <ul>
+        <li>Deploy your website on a direct domain/subdomain.</li>
+      </ul>
+      <p><strong>Issues</strong></p>
+      <ul>
+        <li>
+          <a href="https://github.com/silvandiepen/dokkie/issues/24"
+            >Dokkie in a subfolder #24</a
+          >
+        </li>
+      </ul>
+      <h3 id="meta-data-isn%E2%80%99t-being-loaded-and-comes-in-my-page.">
+        Meta data isn’t being loaded and comes in my page.
+      </h3>
+      <p>
+        Make sure you add the meta data (the first —) at the first line of your
+        document. If not, the — will be seen as a <code>hr</code> and being
+        rendered as such.
+      </p>
+      <h3 id="when-i-have-more-than-10-items%2C-the-order-isn%E2%80%99t-right.">
+        When I have more than 10 items, the order isn’t right.
+      </h3>
+      <p>
+        If you are adding numbers like <code>1:filename.md</code> to your files
+        to get them in the right order. 10 will be “smaller” than 1 and thus
+        will be ordered to the start. If you have have more than 10 items, just
+        ad add 0 in front <code>01:filename.md</code> &gt;
+        <code>10:otherfile.md</code>.
+      </p>
 
       <nav id="content-nav">
         <a
           class="content-nav__link content-nav__link--prev"
-          href="/usage/navigation/index.html"
-          >Navigation</a
+          href="/usage/website/index.html"
+          >Website</a
         >
         <a
           class="content-nav__link content-nav__link--next"
-          href="/usage/markdown/index.html"
-          >Markdown</a
+          href="/usage/index.html"
+          >Usage</a
         >
       </nav>
     </main>
@@ -557,7 +495,8 @@
               <li>
                 <a href="/usage/navigation/">Navigation</a>
               </li>
-              <li class="active">
+
+              <li>
                 <a href="/usage/templates/">Templates</a>
               </li>
 
@@ -580,8 +519,7 @@
               <li>
                 <a href="/usage/website/">Website</a>
               </li>
-
-              <li>
+              <li class="active">
                 <a href="/usage/troubleshooting/">Troubleshooting</a>
               </li>
             </ul>
