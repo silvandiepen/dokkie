@@ -211,10 +211,11 @@ export const setAlternativeDefaults = async (
 			if (!args.includes("theme")) s.theme = "feather-blog";
 			if (!args.includes("flatNavigation")) s.flatNavigation = true;
 			if (!args.includes("showNavigation"))
-				s.showNavigation = [
-					...s.showNavigation,
-					{ name: "overview", desktop: true, mobile: true },
-				];
+				if (!args.includes("showNavigation")) {
+					s.showNavigation = [
+						{ name: "overview", desktop: true, mobile: true },
+					];
+				}
 			break;
 		case "docs":
 			if (!args.includes("input")) {
