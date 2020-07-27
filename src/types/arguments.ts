@@ -30,14 +30,19 @@ export interface IArgumentSettings {
 	skip: string[];
 	type: string | buildTypes;
 	config: string;
-	enhance: string[];
+	enhance: IEnhance;
 	language: string;
-	search: boolean;
 	logging: string[];
 	showHome: boolean;
 	url: string;
 }
 
+export interface IEnhance {
+	googleAnalytics: string | boolean;
+	search: boolean;
+	pageTransition: boolean;
+	scrollClasses: boolean;
+}
 export interface ISettings extends IArgumentSettings {
 	files?: IFile[] | any;
 	navigation?: INavigation[];
@@ -47,7 +52,7 @@ export interface ISettings extends IArgumentSettings {
 	localConfig?: ILocalConfig;
 	faviconData?: IFaviconData;
 	assets?: ILocalConfigAssets;
-	dokkie?: any;
+	version?: string;
 	injectHtml?: ILocalConfigInject;
 	extendNavigation?: INavigation[];
 	overruleNavigation?: INavigation[];

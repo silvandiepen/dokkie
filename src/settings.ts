@@ -16,7 +16,7 @@ export const defaultSettings = {
 	theme: "feather-ext",
 	extensions: [".md"],
 	excludeFolders: ["node_modules", "dist", "public"],
-	copy: [],
+	copy: ["src/assets/scripts"],
 	strip: ["pages"],
 	codeHighlight: true,
 	projectTitle: "",
@@ -28,12 +28,16 @@ export const defaultSettings = {
 		{ name: "footer", mobile: true, desktop: true },
 	],
 	config: "dokkie.config.json",
-	enhance: ["page-transition"],
 	language: "en",
-	search: true,
 	logging: [],
 	showHome: false,
 	url: "",
+	enhance: {
+		search: true,
+		googleAnalytics: false,
+		pageTransition: false,
+		scrollClasses: false,
+	},
 };
 
 export const settings = (): ISettings => {
@@ -89,7 +93,6 @@ export const settings = (): ISettings => {
 			required: false,
 			type: "array",
 			default: defaultSettings.copy,
-			alias: "c",
 		},
 		strip: {
 			required: false,
@@ -137,20 +140,10 @@ export const settings = (): ISettings => {
 			type: "string",
 			default: defaultSettings.config,
 		},
-		enhance: {
-			require: false,
-			type: "array",
-			default: defaultSettings.enhance,
-		},
 		language: {
 			require: false,
 			type: "string",
 			default: defaultSettings.language,
-		},
-		search: {
-			require: false,
-			type: "boolean",
-			default: defaultSettings.search,
 		},
 		logging: {
 			require: false,
@@ -166,6 +159,26 @@ export const settings = (): ISettings => {
 			require: false,
 			type: "string",
 			default: defaultSettings.url,
+		},
+		googleAnalytics: {
+			require: false,
+			type: "string",
+			default: defaultSettings.enhance.googleAnalytics,
+		},
+		pageTransition: {
+			require: false,
+			type: "boolean",
+			default: defaultSettings.enhance.pageTransition,
+		},
+		search: {
+			require: false,
+			type: "boolean",
+			default: defaultSettings.enhance.search,
+		},
+		scrollClasses: {
+			require: false,
+			type: "boolean",
+			default: defaultSettings.enhance.scrollClasses,
 		},
 	}).argv;
 
@@ -188,19 +201,23 @@ export const settings = (): ISettings => {
 		favicon: cs.favicon,
 		skip: cs.skip,
 		config: cs.config,
-		enhance: cs.enhance,
+		enhance: {
+			googleAnalytics: cs.googleAnalytics,
+			search: cs.search,
+			pageTransition: cs.pageTransition,
+			scrollClasses: cs.scrollClasses,
+		},
 		language: cs.language,
-		search: cs.search,
 		logging: cs.logging,
 		showHome: cs.showHome,
 		url: cs.url,
 	};
 };
 
-export const getDokkiePackage = async (s: ISettings): Promise<ISettings> => {
+export const getDokkieVersion = async (s: ISettings): Promise<ISettings> => {
 	try {
 		const dokkiePackage = await readFile(join(__dirname, "../package.json"));
-		return { ...s, dokkie: JSON.parse(dokkiePackage) };
+		return { ...s, version: JSON.parse(dokkiePackage).version };
 	} catch (err) {
 		throw new Error(err);
 	}

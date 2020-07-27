@@ -7,9 +7,10 @@ import * as log from "cli-block";
 import {
 	settings,
 	setAlternativeDefaults,
-	getDokkiePackage,
+	getDokkieVersion,
 	defaultSettings,
 } from "./settings";
+
 import { ISettings } from "./types";
 import { createFavicons, downloadAssets, PurgeCSSFiles } from "./utils";
 
@@ -42,13 +43,13 @@ import {
 const buildDokkie = async (s: ISettings): Promise<ISettings> => s;
 
 buildDokkie(settings())
-	.then(getDokkiePackage)
+	.then(getDokkieVersion)
 	.then((s) => {
 		if (!s.logging.includes("silent")) {
 			log.START("Creating Your documentation");
 			log.BLOCK_START();
 			log.BLOCK_LINE(
-				`Dokkie (${s.dokkie.version}) is now building your documentation`
+				`Dokkie (${s.version}) is now building your documentation`
 			);
 		}
 		return s;
@@ -92,7 +93,6 @@ buildDokkie(settings())
 	.then(getStyles)
 	.then(getScripts)
 	.then(createFavicons)
-
 	.then(downloadAssets)
 	.then(async (s) => {
 		await showDist(s);

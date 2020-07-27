@@ -7,6 +7,10 @@
 	"add": {
 		"excludeFolders": ["pages"]
 	},
+	"enhance": {
+		"googleAnalytics": "something",
+		"scrollClasses": true
+	},
 	"overruleNavigation": [
 		{
 			"name": "Docs",

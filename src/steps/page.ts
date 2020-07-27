@@ -161,7 +161,10 @@ export const createPages = async (settings: ISettings): Promise<void> => {
 		logo: settings.assets?.logo ? settings.assets.logo : false,
 		package: settings.package ? settings.package : false,
 		favicon: settings.faviconData ? settings.faviconData.html.join("") : null,
-		enhance: settings.enhance,
+		enhance: {
+			...settings.enhance,
+			search: settings.files.length > 1 ? settings.enhance.search : false,
+		},
 		skip: settings.skip,
 		injectHtml: settings.injectHtml,
 		styles: settings.styles ? settings.styles : null,
@@ -199,7 +202,6 @@ export const createPages = async (settings: ISettings): Promise<void> => {
 				columns: file.contents,
 				hasMeta: file.meta?.author || file.meta?.tags ? true : false,
 				language: settings.language,
-				search: settings.files.length > 1 ? settings.search : false,
 				url: settings.url,
 				scroll: true,
 			});

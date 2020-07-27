@@ -1,3 +1,16 @@
+{{#if enhance.scrollClasses}}
+<script src="/scripts/scroll-classes.js" />
+{{/if}}
+{{#if enhance.search}}
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="/scripts/search.js" />
+{{/if}}
+
+{{#if enhance.pageTransition}}
+<script src="/scripts/page-transition.js"></script>
+{{/if}}
+
+{{#if enhance.googleAnalytics}}
 <!-- Google Analytics -->
 <script>
     (function (i, s, o, g, r, a, m) {
@@ -7,7 +20,8 @@
             m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
     })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-    ga('create', '{{enhance.google-analytics}}', 'auto');
+    ga('create', '{{enhance.googleAnalytics}}', 'auto');
     ga('send', 'pageview');
 </script>
 <!-- End Google Analytics -->
+{{/if}}
