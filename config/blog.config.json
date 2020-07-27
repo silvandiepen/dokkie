@@ -8,8 +8,9 @@
 		"excludeFolders": ["pages"]
 	},
 	"enhance": {
-		"googleAnalytics": "something",
-		"scrollClasses": true
+		"search": true,
+		"scrollClasses": true,
+		"googleAnalytics": "UA-173538718-1"
 	},
 	"overruleNavigation": [
 		{

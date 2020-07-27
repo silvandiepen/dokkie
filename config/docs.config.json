@@ -9,6 +9,11 @@
 	"add": {
 		"excludeFolders": ["posts", "website"]
 	},
+	"enhance": {
+		"search": true,
+		"scrollClasses": true,
+		"googleAnalytics": "UA-173538718-1"
+	},
 	"extendNavigation": [
 		{
 			"name": "Blog",

@@ -9,6 +9,7 @@
 	"add": {
 		"excludeFolders": ["posts", "website"]
 	},
+
 	"assets": {
 		"logo": "src/assets/logo_dokkie-color.svg",
 		"favicon": "src/assets/logo_dokkie-icon-color.png"
@@ -20,8 +21,9 @@
 			"meta": { "menu": ["header", "footer"] }
 		}
 	],
-	"enhance": [
-		{ "name": "page-transitions" },
-		{ "name": "google-analytics", "value": "UA-169353077-1" }
-	]
+	"enhance": {
+		"search": true,
+		"scrollClasses": true,
+		"googleAnalytics": "UA-173538718-1"
+	}
 }
