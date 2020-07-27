@@ -13,13 +13,11 @@ const handleScroll = () => {
 	}
 	// Scrolling down/up
 	if (currentY < previousY) {
-		console.log("hoiiii");
-		bodyClass.add("scroll-down");
-		bodyClass.remove("scroll-up");
-	} else if (currentY > previousY) {
-		console.log("doeiiii");
 		bodyClass.add("scroll-up");
 		bodyClass.remove("scroll-down");
+	} else if (currentY > previousY) {
+		bodyClass.add("scroll-down");
+		bodyClass.remove("scroll-up");
 	}
 	previousY = window.scrollY;
 };
