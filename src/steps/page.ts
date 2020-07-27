@@ -237,7 +237,7 @@ export const copyFolders = async (settings: ISettings): Promise<void> => {
 };
 export const copyScripts = async (settings: ISettings): Promise<void> => {
 	if (Object.keys(settings.enhance).length) {
-		const folder = join(__dirname, "../../src/assets/scripts");
+		const folder = join(__dirname, "../../template/scripts");
 		await ncp(
 			folder,
 			settings.output + "/" + folder.split("/")[folder.split("/").length - 1],
