@@ -315,9 +315,10 @@
         </ul>
       </nav>
       <div class="search" id="search">
-        <label for="search-field">
+        <label class="search__label" aria-label="Click to Search">
           <input
             type="search"
+            aria-label="Search"
             v-model="searchTerm"
             @focus="initSearch"
             @blur="show = false"
@@ -526,7 +527,7 @@
         </ul>
       </nav>
       <footnote>
-        <span>dokkie@0.1.23</span>
+        <span>dokkie@0.1.24</span>
         <span>MIT</span>
         <span>&copy; Sil van Diepen</span>
       </footnote>
