@@ -67,19 +67,6 @@ describe("Get Files", () => {
 		}
 	});
 
-	it("Get Files", async () => {
-		try {
-			const result = await getFiles({
-				...altSettings,
-				input: "content/website",
-			});
-			// This can change when the example is altered. It will just return the total amount of files in content/website.
-			expect(result.files.length).toBe(12);
-		} catch (err) {
-			throw Error(err);
-		}
-	});
-
 	it("Check File Date", async () => {
 		try {
 			const result = await getFiles({

@@ -11,30 +11,36 @@ const getGitCreationDate = async (res: any, dir: string, dirent: any) => {
 	// If it's not a file, who bothers?! Just return today.
 	if (!stats.isFile()) return new Date();
 
+	// Define the file to search for
 	const file = join(dir.replace(join(__dirname, "../../"), ""), dirent.name);
-	console.log(basename(file));
-	const log = gitlog({
+
+	// Just for the Log();
+	console.log(
+		gitlog({
+			repo: join(__dirname + "../../"),
+			fields: ["subject", "authorName", "authorDate"] as const,
+			number: 500,
+			all: true,
+		}).length
+	);
+
+	// Get all commits with this file and return just their dates.
+	const date = gitlog({
 		repo: join(__dirname + "../../"),
 		fields: ["subject", "authorName", "authorDate"] as const,
 		number: 500,
-		// file: basename(file),
 		all: true,
-	});
-	const current = log.filter((logs) => logs.files.includes(file));
-	let date = new Date(stats.birthtime ? stats.birthtime : null);
+	})
+		.filter((logs) => logs.files.includes(file)) // Only get the commits with this file
+		.map((c) => c.authorDate) // Just reply the authorDate of the files.
+		.sort()[0]; // Sort the array and return the first.
 
-	// console.log(log);
+	console.log(date);
 
-	if (current.length > 0) {
-		const dates = [];
-		current.forEach((c) => {
-			dates.push(c.authorDate);
-		});
-		dates.sort();
-		console.log(dates);
-		date = new Date(dates[0]);
-	}
-	return date;
+	// If there are any dates, return the first, otherwise use the stats creationdate.
+	return date
+		? new Date(date)
+		: new Date(stats.birthtime ? stats.birthtime : null);
 };
 
 /*
