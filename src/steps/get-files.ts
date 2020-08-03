@@ -17,6 +17,7 @@ const getGitCreationDate = async (res: any, dir: string, dirent: any) => {
 		repo: join(__dirname + "../../"),
 		fields: ["subject", "authorName", "authorDate"] as const,
 		number: 500,
+		all: true,
 	});
 	const current = log.filter((logs) => logs.files.includes(file));
 	let date = new Date(stats.birthtime ? stats.birthtime : null);
