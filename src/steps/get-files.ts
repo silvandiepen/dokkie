@@ -16,7 +16,7 @@ const getGitCreationDate = async (res: any, dir: string, dirent: any) => {
 	const log = gitlog({
 		repo: join(__dirname + "../../"),
 		fields: ["subject", "authorName", "authorDate"] as const,
-		number: 100,
+		number: 500,
 	});
 	const current = log.filter((logs) => logs.files.includes(file));
 	let date = new Date(stats.birthtime ? stats.birthtime : null);
@@ -28,8 +28,12 @@ const getGitCreationDate = async (res: any, dir: string, dirent: any) => {
 		});
 		dates.sort();
 		date = new Date(dates[0]);
+		console.log("multiple entries:", date);
 	} else if (current.length === 1) {
 		date = new Date(current[0].authorDate);
+		console.log("single entry:", date);
+	} else {
+		console.log("no entry");
 	}
 	return date;
 };
