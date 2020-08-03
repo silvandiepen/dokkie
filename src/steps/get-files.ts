@@ -28,12 +28,9 @@ const getGitCreationDate = async (res: any, dir: string, dirent: any) => {
 		});
 		dates.sort();
 		date = new Date(dates[0]);
-		console.log("multiple entries:", date);
 	} else if (current.length === 1) {
 		date = new Date(current[0].authorDate);
-		console.log("single entry:", date);
-	} else {
-		console.log("no entry");
+		console.log("single entry:", date, current[0]);
 	}
 	return date;
 };
