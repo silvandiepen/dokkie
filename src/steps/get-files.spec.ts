@@ -87,10 +87,9 @@ describe("Get Files", () => {
 				type: "blog",
 				input: "content/website",
 			});
+			const file = result.files.find((f) => f.name === "about");
 			// This can change when the example is altered. It will just return the total amount of files in content/website.
-			expect(result.files[0].date).toEqual(
-				new Date("2020-07-15T10:13:29.000Z")
-			);
+			expect(file.date).toEqual(new Date("2020-07-15T10:13:29.000Z"));
 		} catch (err) {
 			throw Error(err);
 		}

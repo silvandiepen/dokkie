@@ -31,7 +31,6 @@ const getGitCreationDate = async (res: any, dir: string, dirent: any) => {
 	} else if (current.length === 1) {
 		date = new Date(current[0].authorDate);
 	}
-	console.log(current);
 	return date;
 };
 
