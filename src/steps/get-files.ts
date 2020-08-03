@@ -3,6 +3,36 @@ import { basename, extname, resolve, join } from "path";
 import { ISettings, IFile } from "../types";
 import { asyncForEach, convertToDate, lastIndex } from "../utils";
 import { mdToHtml } from "../utils/markdown";
+import gitlog from "gitlog";
+
+const getGitCreationDate = async (res: any, dir: string, dirent: any) => {
+	const stats = await stat(res);
+
+	// If it's not a file, who bothers?! Just return today.
+	if (!stats.isFile()) return new Date();
+
+	const file = join(dir.replace(join(__dirname, "../../"), ""), dirent.name);
+
+	const log = gitlog({
+		repo: join(__dirname + "../../"),
+		fields: ["subject", "authorName", "authorDate"] as const,
+		number: 100,
+	});
+	const current = log.filter((logs) => logs.files.includes(file));
+	let date = new Date(stats.birthtime ? stats.birthtime : null);
+
+	if (current.length > 1) {
+		const dates = [];
+		current.forEach((c) => {
+			dates.push(c.authorDate);
+		});
+		dates.sort();
+		date = new Date(dates[0]);
+	} else if (current.length === 1) {
+		date = new Date(current[0].authorDate);
+	}
+	return date;
+};
 
 /*
 	::getFileTree
@@ -17,7 +47,18 @@ export const getFileTree = async (
 		dirents.map(async (dirent: any) => {
 			const res = resolve(dir, dirent.name);
 			const ext = extname(res);
-			const date = await stat(res);
+			// Only need the date on blog posts
+			const date =
+				settings.type === "blog" && dir === settings.input
+					? await getGitCreationDate(res, dir, dirent)
+					: new Date();
+
+			if (
+				dirent.name.includes(".git") ||
+				dirent.name.includes("/dist/") ||
+				dirent.name.includes("/node_modules")
+			)
+				return null;
 
 			if (
 				(settings.extensions.includes(ext) ||
@@ -31,7 +72,7 @@ export const getFileTree = async (
 							name: basename(res).replace(ext, ""),
 							path: res,
 							ext,
-							date: new Date(date.birthtime),
+							date,
 					  };
 			else return null;
 		})

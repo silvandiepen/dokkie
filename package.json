@@ -24,7 +24,7 @@
 		"test": "npm run build && npm run test:unit  && npm run test:runs",
 		"test:runs": "npm run build:docs && npm run build:blog && npm run build:website",
 		"test:unit": "jest --verbose",
-		"test:markdown": "jest markdown.spec.ts --watch",
+		"test:files": "jest get-files.spec.ts --watch",
 		"pretest:unit": "node dist/test/clean.js",
 		"lint": "tslint --project tsconfig.json",
 		"lint:fix": "tslint --project tsconfig.json --fix"
@@ -61,6 +61,7 @@
 		"canvas-to-buffer": "^1.1.0",
 		"cli-block": "^1.1.7",
 		"date-fns": "^2.15.0",
+		"gitlog": "^4.0.0",
 		"handlebars": "^4.7.6",
 		"iconator": "^0.1.17",
 		"markdown-it": "^11.0.0",

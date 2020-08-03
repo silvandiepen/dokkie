@@ -1,4 +1,4 @@
-import { concatPartials } from "./get-files";
+import { concatPartials, getFiles } from "./get-files";
 import { ISettings } from "../types";
 import { baseSettings } from "../test/mock";
 import { join } from "path";
@@ -53,7 +53,49 @@ const altSettings: ISettings = {
 	],
 };
 
-describe("Page", () => {
+describe("Get Files", () => {
+	it("Get Files", async () => {
+		try {
+			const result = await getFiles({
+				...altSettings,
+				input: "content/website",
+			});
+			// This can change when the example is altered. It will just return the total amount of files in content/website.
+			expect(result.files.length).toBe(12);
+		} catch (err) {
+			throw Error(err);
+		}
+	});
+
+	it("Get Files", async () => {
+		try {
+			const result = await getFiles({
+				...altSettings,
+				input: "content/website",
+			});
+			// This can change when the example is altered. It will just return the total amount of files in content/website.
+			expect(result.files.length).toBe(12);
+		} catch (err) {
+			throw Error(err);
+		}
+	});
+
+	it("Check File Date", async () => {
+		try {
+			const result = await getFiles({
+				...altSettings,
+				type: "blog",
+				input: "content/website",
+			});
+			// This can change when the example is altered. It will just return the total amount of files in content/website.
+			expect(result.files[0].date).toEqual(
+				new Date("2020-07-15T10:13:29.000Z")
+			);
+		} catch (err) {
+			throw Error(err);
+		}
+	});
+
 	it("Filter out partial files", async () => {
 		try {
 			const result = await concatPartials(altSettings);
