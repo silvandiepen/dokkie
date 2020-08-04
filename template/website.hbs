@@ -21,17 +21,19 @@
 
     {{#if content}}
     <!--- Page Main section-->
-    <main id="main" class="content">
-        {{{ injectHtml.mainBefore }}}
-        {{{ content }}}
-        {{{ injectHtml.mainAfter }}}
+    <main id="main">
+        <div class="content">
+            {{{ injectHtml.mainBefore }}}
+            {{{ content }}}
+            {{{ injectHtml.mainAfter }}}
+        </div>
     </main>
     {{/if}}
 
     {{#if (or columns sections) }}
 
     <!--- Page Website section-->
-    <main id="web" class="content">
+    <main id="web">
         {{{ injectHtml.mainBefore }}}
         {{#if columns}}
         {{> columns columns=columns }}

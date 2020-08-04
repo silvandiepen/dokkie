@@ -4,17 +4,20 @@
     {{#unless columns.background}}
     <section class="section section--{{name}}">
         {{/unless}}
+
         <div class="section__container">
             {{#if columns.html}}
             <div class="row">
                 <div class="column">
-                    {{{columns.html}}}
+                    <div class="content"> {{{columns.html}}}</div>
                 </div>
             </div>
             {{/if}}
             <div class="row {{columns.classes}}">
                 {{#each columns.articles}}
-                <div class="column">{{{html}}}</div>
+                <div class="column">
+                    <div class="content">{{{html}}}</div>
+                </div>
                 {{/each}}
             </div>
         </div>
