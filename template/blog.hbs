@@ -21,12 +21,13 @@
 	</header>
 
 	<!--- Main Content -->
-	<article id="article" class="article content">
-		{{{injectHtml.articleBefore }}}
-		{{{ content }}}
-		{{> blogMeta}}
-		{{> contentNavigation }}
-		{{{injectHtml.articleAfter }}}
+	<article id="article" class="article">
+		<div class="content"> {{{injectHtml.articleBefore }}}
+			{{{ content }}}
+			{{> blogMeta}}
+			{{> contentNavigation }}
+			{{{injectHtml.articleAfter }}}
+		</div>
 	</article>
 
 
