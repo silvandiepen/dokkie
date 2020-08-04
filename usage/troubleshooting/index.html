@@ -423,63 +423,67 @@
     </aside>
 
     <!--- Page Main section-->
-    <main id="main" class="content">
-      <h1 id="troubleshooting">Troubleshooting</h1>
-      <p>
-        Sometimes things go wrong, that doesn’t mean you are doing something
-        wrong, but Dokkie doesn’t recognize it well. Here are some things which
-        can be easily solved or sometimes not.
-      </p>
-      <h3 id="styling-doesn%E2%80%99t-load.">Styling doesn’t load.</h3>
-      <p>
-        You are probably trying to deploy your generated dokkie in a subfolder.
-        That shouldn’t be an issue but for now it unforatunately is. All links
-        to styling and images are relative. That means that your browser tries
-        to get the assets from the direct domain.
-      </p>
-      <p><strong>fixes</strong></p>
-      <ul>
-        <li>Deploy your website on a direct domain/subdomain.</li>
-      </ul>
-      <p><strong>Issues</strong></p>
-      <ul>
-        <li>
-          <a href="https://github.com/silvandiepen/dokkie/issues/24"
-            >Dokkie in a subfolder #24</a
-          >
-        </li>
-      </ul>
-      <h3 id="meta-data-isn%E2%80%99t-being-loaded-and-comes-in-my-page.">
-        Meta data isn’t being loaded and comes in my page.
-      </h3>
-      <p>
-        Make sure you add the meta data (the first —) at the first line of your
-        document. If not, the — will be seen as a <code>hr</code> and being
-        rendered as such.
-      </p>
-      <h3 id="when-i-have-more-than-10-items%2C-the-order-isn%E2%80%99t-right.">
-        When I have more than 10 items, the order isn’t right.
-      </h3>
-      <p>
-        If you are adding numbers like <code>1:filename.md</code> to your files
-        to get them in the right order. 10 will be “smaller” than 1 and thus
-        will be ordered to the start. If you have have more than 10 items, just
-        ad add 0 in front <code>01:filename.md</code> &gt;
-        <code>10:otherfile.md</code>.
-      </p>
+    <main id="main">
+      <div class="content">
+        <h1 id="troubleshooting">Troubleshooting</h1>
+        <p>
+          Sometimes things go wrong, that doesn’t mean you are doing something
+          wrong, but Dokkie doesn’t recognize it well. Here are some things
+          which can be easily solved or sometimes not.
+        </p>
+        <h3 id="styling-doesn%E2%80%99t-load.">Styling doesn’t load.</h3>
+        <p>
+          You are probably trying to deploy your generated dokkie in a
+          subfolder. That shouldn’t be an issue but for now it unforatunately
+          is. All links to styling and images are relative. That means that your
+          browser tries to get the assets from the direct domain.
+        </p>
+        <p><strong>fixes</strong></p>
+        <ul>
+          <li>Deploy your website on a direct domain/subdomain.</li>
+        </ul>
+        <p><strong>Issues</strong></p>
+        <ul>
+          <li>
+            <a href="https://github.com/silvandiepen/dokkie/issues/24"
+              >Dokkie in a subfolder #24</a
+            >
+          </li>
+        </ul>
+        <h3 id="meta-data-isn%E2%80%99t-being-loaded-and-comes-in-my-page.">
+          Meta data isn’t being loaded and comes in my page.
+        </h3>
+        <p>
+          Make sure you add the meta data (the first —) at the first line of
+          your document. If not, the — will be seen as a <code>hr</code> and
+          being rendered as such.
+        </p>
+        <h3
+          id="when-i-have-more-than-10-items%2C-the-order-isn%E2%80%99t-right."
+        >
+          When I have more than 10 items, the order isn’t right.
+        </h3>
+        <p>
+          If you are adding numbers like <code>1:filename.md</code> to your
+          files to get them in the right order. 10 will be “smaller” than 1 and
+          thus will be ordered to the start. If you have have more than 10
+          items, just ad add 0 in front <code>01:filename.md</code> &gt;
+          <code>10:otherfile.md</code>.
+        </p>
 
-      <nav id="content-nav">
-        <a
-          class="content-nav__link content-nav__link--prev"
-          href="/usage/enhance/index.html"
-          >Enhance</a
-        >
-        <a
-          class="content-nav__link content-nav__link--next"
-          href="/usage/index.html"
-          >Usage</a
-        >
-      </nav>
+        <nav id="content-nav">
+          <a
+            class="content-nav__link content-nav__link--prev"
+            href="/usage/enhance/index.html"
+            >Enhance</a
+          >
+          <a
+            class="content-nav__link content-nav__link--next"
+            href="/usage/index.html"
+            >Usage</a
+          >
+        </nav>
+      </div>
     </main>
 
     <!--- Page Footer Content -->

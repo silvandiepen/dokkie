@@ -423,163 +423,170 @@
     </aside>
 
     <!--- Page Main section-->
-    <main id="main" class="content">
-      <h1 id="pages">Pages</h1>
-      <p>
-        All <code>.md</code> files within the reach of <code>input</code> will
-        be found and made into pages. The pages will be made in the same
-        structure as the markdown files found.
-      </p>
-      <p>
-        You can create a folder called <code>pages</code> where you can store
-        markdown documentation files. These files won’t get the prefix ‘pages/’
-        in the url but will be put into the root of the docs.
-      </p>
-      <h3 id="settings">Settings</h3>
-      <p>
-        If you want to have a specific page under another root, but you don’t
-        want to change the position of the file in your folder structure. You
-        can add metadata to the markdown file.
-      </p>
-      <p>
-        For instance, the <a href="http://License.md">License.md</a> in this
-        project should be placed in the root in order to be picked up by certain
-        platforms as the License. But you don’t want to show the license
-        directly in your menu. In that case you can add meta data as following
-        to your file.
-      </p>
-      <pre
-        class="language-md"
-      ><code class="language-md"><span class="token hr punctuation">---</span>
+    <main id="main">
+      <div class="content">
+        <h1 id="pages">Pages</h1>
+        <p>
+          All <code>.md</code> files within the reach of <code>input</code> will
+          be found and made into pages. The pages will be made in the same
+          structure as the markdown files found.
+        </p>
+        <p>
+          You can create a folder called <code>pages</code> where you can store
+          markdown documentation files. These files won’t get the prefix
+          ‘pages/’ in the url but will be put into the root of the docs.
+        </p>
+        <h3 id="settings">Settings</h3>
+        <p>
+          If you want to have a specific page under another root, but you don’t
+          want to change the position of the file in your folder structure. You
+          can add metadata to the markdown file.
+        </p>
+        <p>
+          For instance, the <a href="http://License.md">License.md</a> in this
+          project should be placed in the root in order to be picked up by
+          certain platforms as the License. But you don’t want to show the
+          license directly in your menu. In that case you can add meta data as
+          following to your file.
+        </p>
+        <pre
+          class="language-md"
+        ><code class="language-md"><span class="token hr punctuation">---</span>
 <span class="token title important">parent: about
 <span class="token punctuation">---</span></span>
 </code></pre>
-      <p>
-        This markdown file will be placed under “about”. (see this
-        documentation). More about the menu property in the settings in
-        <a href="/usage/navigation#Settings-from-within-the-page">Navigation</a
-        >.
-      </p>
-      <p>
-        There are a few other options you can add to the metadata which can be
-        used;
-      </p>
-      <table>
-        <thead>
-          <tr>
-            <th>key</th>
-            <th>default</th>
-            <th>options</th>
-            <th>description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>title</td>
-            <td>first H1 from file</td>
-            <td></td>
-            <td>
-              The title will be used in the menu and route instead of the h1 in
-              the top of the page.
-            </td>
-          </tr>
-          <tr>
-            <td>parent</td>
-            <td>Current parent</td>
-            <td></td>
-            <td>Parent will be the folder where file is placed in the route</td>
-          </tr>
-          <tr>
-            <td>hide</td>
-            <td><code>false</code></td>
-            <td></td>
-            <td>
-              Add <code>hide: true</code> if you don’t want the page to show up
-              in the menu
-            </td>
-          </tr>
-          <tr>
-            <td>remove</td>
-            <td><code>false</code></td>
-            <td></td>
-            <td>
-              add <code>remove: true</code> if you don’t this file to be used at
-              all.
-            </td>
-          </tr>
-          <tr>
-            <td>menu</td>
-            <td>All menus</td>
-            <td>
-              <code>header</code>,<code>footer</code>,<code>sidebar</code>
-            </td>
-            <td>Add the page only to a specific menu only.</td>
-          </tr>
-        </tbody>
-      </table>
-      <h2 id="partials">Partials</h2>
-      <p>
-        A page can also be build out of partials. That means, that you can have
-        multiple markdown files, which will form one page instead of separate
-        pages.
-      </p>
-      <p>For instance this Pages page is build up out of partials.</p>
-      <p>
-        Partials can be made by giving a underscore <code>_</code> to your file
-        in the beginning. That will make the file not be rendered as a page, but
-        automatically added to the readme in the same same directory.
-      </p>
-      <pre><code>folder
+        <p>
+          This markdown file will be placed under “about”. (see this
+          documentation). More about the menu property in the settings in
+          <a href="/usage/navigation#Settings-from-within-the-page"
+            >Navigation</a
+          >.
+        </p>
+        <p>
+          There are a few other options you can add to the metadata which can be
+          used;
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>key</th>
+              <th>default</th>
+              <th>options</th>
+              <th>description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>title</td>
+              <td>first H1 from file</td>
+              <td></td>
+              <td>
+                The title will be used in the menu and route instead of the h1
+                in the top of the page.
+              </td>
+            </tr>
+            <tr>
+              <td>parent</td>
+              <td>Current parent</td>
+              <td></td>
+              <td>
+                Parent will be the folder where file is placed in the route
+              </td>
+            </tr>
+            <tr>
+              <td>hide</td>
+              <td><code>false</code></td>
+              <td></td>
+              <td>
+                Add <code>hide: true</code> if you don’t want the page to show
+                up in the menu
+              </td>
+            </tr>
+            <tr>
+              <td>remove</td>
+              <td><code>false</code></td>
+              <td></td>
+              <td>
+                add <code>remove: true</code> if you don’t this file to be used
+                at all.
+              </td>
+            </tr>
+            <tr>
+              <td>menu</td>
+              <td>All menus</td>
+              <td>
+                <code>header</code>,<code>footer</code>,<code>sidebar</code>
+              </td>
+              <td>Add the page only to a specific menu only.</td>
+            </tr>
+          </tbody>
+        </table>
+        <h2 id="partials">Partials</h2>
+        <p>
+          A page can also be build out of partials. That means, that you can
+          have multiple markdown files, which will form one page instead of
+          separate pages.
+        </p>
+        <p>For instance this Pages page is build up out of partials.</p>
+        <p>
+          Partials can be made by giving a underscore <code>_</code> to your
+          file in the beginning. That will make the file not be rendered as a
+          page, but automatically added to the readme in the same same
+          directory.
+        </p>
+        <pre><code>folder
     - Readme.md
     - _partial.md
     - _second-partial.md
 </code></pre>
-      <p>
-        Will become; <code>[website]/folder/index.html</code> with all the
-        partials automatically added.
-      </p>
-      <h2 id="ordering">Ordering</h2>
-      <p>
-        By default the pages will in the menu will be ordered alphabetically.
-        But if you want a different order you can also achieve this.
-      </p>
-      <p>
-        You can create filesnames with a <code>:</code> in it. Everything before
-        the <code>:</code> will not be used in routes or names. Which means that
-        you could for instance a number <code>1:filename.md</code> and this file
-        will be added to the top in the menu.
-      </p>
-      <p>
-        The same counts for the ordering of the partials in. They will also be
-        added to the main file based on alphabetical order. Which means you can
-        prefix the files with anything before the <code>:</code> to be ordering
-        your page.
-      </p>
-      <h3 id="example">Example</h3>
-      <p>An example of the documententation for this pages page;</p>
-      <pre><code>3:pages
+        <p>
+          Will become; <code>[website]/folder/index.html</code> with all the
+          partials automatically added.
+        </p>
+        <h2 id="ordering">Ordering</h2>
+        <p>
+          By default the pages will in the menu will be ordered alphabetically.
+          But if you want a different order you can also achieve this.
+        </p>
+        <p>
+          You can create filesnames with a <code>:</code> in it. Everything
+          before the <code>:</code> will not be used in routes or names. Which
+          means that you could for instance a number
+          <code>1:filename.md</code> and this file will be added to the top in
+          the menu.
+        </p>
+        <p>
+          The same counts for the ordering of the partials in. They will also be
+          added to the main file based on alphabetical order. Which means you
+          can prefix the files with anything before the <code>:</code> to be
+          ordering your page.
+        </p>
+        <h3 id="example">Example</h3>
+        <p>An example of the documententation for this pages page;</p>
+        <pre><code>3:pages
     - _1:settings.md
     - _2:partials.md
     - _3:ordering.md
 </code></pre>
-      <p>
-        Which results in the <code>pages</code> being the third item in the menu
-        under usage and the sections of this page being in the order or the
-        order above.
-      </p>
+        <p>
+          Which results in the <code>pages</code> being the third item in the
+          menu under usage and the sections of this page being in the order or
+          the order above.
+        </p>
 
-      <nav id="content-nav">
-        <a
-          class="content-nav__link content-nav__link--prev"
-          href="/usage/deployment/index.html"
-          >Deployment</a
-        >
-        <a
-          class="content-nav__link content-nav__link--next"
-          href="/usage/navigation/index.html"
-          >Navigation</a
-        >
-      </nav>
+        <nav id="content-nav">
+          <a
+            class="content-nav__link content-nav__link--prev"
+            href="/usage/deployment/index.html"
+            >Deployment</a
+          >
+          <a
+            class="content-nav__link content-nav__link--next"
+            href="/usage/navigation/index.html"
+            >Navigation</a
+          >
+        </nav>
+      </div>
     </main>
 
     <!--- Page Footer Content -->

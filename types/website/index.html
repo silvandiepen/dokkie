@@ -423,69 +423,72 @@
     </aside>
 
     <!--- Page Main section-->
-    <main id="main" class="content">
-      <h1 id="website">Website</h1>
-      <p>
-        With Dokkie you can create also a full web page with sections and
-        columns using just Markdown files.
-      </p>
-      <p>
-        You can find an example of a dokkie website on
-        <a href="https://website-example.dokkie.dev"
-          >website-example.dokkie.dev</a
-        >.
-      </p>
-      <h2 id="usage">Usage</h2>
-      <pre
-        class="language-bash"
-      ><code class="language-bash">npx dokkie --type<span class="token operator">=</span>website
+    <main id="main">
+      <div class="content">
+        <h1 id="website">Website</h1>
+        <p>
+          With Dokkie you can create also a full web page with sections and
+          columns using just Markdown files.
+        </p>
+        <p>
+          You can find an example of a dokkie website on
+          <a href="https://website-example.dokkie.dev"
+            >website-example.dokkie.dev</a
+          >.
+        </p>
+        <h2 id="usage">Usage</h2>
+        <pre
+          class="language-bash"
+        ><code class="language-bash">npx dokkie --type<span class="token operator">=</span>website
 </code></pre>
-      <h2 id="section-%26-partials">Section &amp; Partials</h2>
-      <p>Website are build up out of Sections and Partials.</p>
-      <h3 id="partials">Partials</h3>
-      <p>
-        Partials can be achieved by adding <code>_</code> in front of a markdown
-        file. Every file with an underscore will automatically be added to the
-        parent (<a href="http://readme.md">readme.md</a>) in alphabetical order.
-        In this way you can build up a full page from several files.
-      </p>
-      <h3 id="sections">Sections</h3>
-      <p>
-        Sections have a column layout. A section will be be added to it’s parent
-        when the folder has an <code>_</code> AND defined a layout in the meta
-        data like
-      </p>
-      <p><code>_overview/readme.md</code></p>
-      <pre
-        class="language-markdown"
-      ><code class="language-markdown"><span class="token hr punctuation">---</span>
+        <h2 id="section-%26-partials">Section &amp; Partials</h2>
+        <p>Website are build up out of Sections and Partials.</p>
+        <h3 id="partials">Partials</h3>
+        <p>
+          Partials can be achieved by adding <code>_</code> in front of a
+          markdown file. Every file with an underscore will automatically be
+          added to the parent (<a href="http://readme.md">readme.md</a>) in
+          alphabetical order. In this way you can build up a full page from
+          several files.
+        </p>
+        <h3 id="sections">Sections</h3>
+        <p>
+          Sections have a column layout. A section will be be added to it’s
+          parent when the folder has an <code>_</code> AND defined a layout in
+          the meta data like
+        </p>
+        <p><code>_overview/readme.md</code></p>
+        <pre
+          class="language-markdown"
+        ><code class="language-markdown"><span class="token hr punctuation">---</span>
 <span class="token title important">layout: thirds
 <span class="token punctuation">---</span></span>
 </code></pre>
-      <p>
-        Will result in a three column layout using the other
-        <code>_</code>-partials as it’s content.
-      </p>
-      <h3 id="columns">Columns</h3>
-      <p>As for now, there are three options to use;</p>
-      <ul>
-        <li><strong>full</strong> 1 column layout</li>
-        <li><strong>half</strong> 2 columns layout</li>
-        <li><strong>thirds</strong> 3 columns layout</li>
-      </ul>
+        <p>
+          Will result in a three column layout using the other
+          <code>_</code>-partials as it’s content.
+        </p>
+        <h3 id="columns">Columns</h3>
+        <p>As for now, there are three options to use;</p>
+        <ul>
+          <li><strong>full</strong> 1 column layout</li>
+          <li><strong>half</strong> 2 columns layout</li>
+          <li><strong>thirds</strong> 3 columns layout</li>
+        </ul>
 
-      <nav id="content-nav">
-        <a
-          class="content-nav__link content-nav__link--prev"
-          href="/types/blog/index.html"
-          >Blog</a
-        >
-        <a
-          class="content-nav__link content-nav__link--next"
-          href="/types/index.html"
-          >Output Types</a
-        >
-      </nav>
+        <nav id="content-nav">
+          <a
+            class="content-nav__link content-nav__link--prev"
+            href="/types/blog/index.html"
+            >Blog</a
+          >
+          <a
+            class="content-nav__link content-nav__link--next"
+            href="/types/index.html"
+            >Output Types</a
+          >
+        </nav>
+      </div>
     </main>
 
     <!--- Page Footer Content -->

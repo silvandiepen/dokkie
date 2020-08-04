@@ -423,66 +423,69 @@
     </aside>
 
     <!--- Page Main section-->
-    <main id="main" class="content">
-      <h1 id="creating-a-blog">Creating a blog</h1>
-      <p>
-        Besides easily creating documentation, you can also use Dokkie to build
-        your blog! The only thing you do is set up a repository with markdown
-        files and build it with one command;
-      </p>
-      <pre
-        class="language-bash"
-      ><code class="language-bash">npx dokkie --type<span class="token operator">=</span>blog
+    <main id="main">
+      <div class="content">
+        <h1 id="creating-a-blog">Creating a blog</h1>
+        <p>
+          Besides easily creating documentation, you can also use Dokkie to
+          build your blog! The only thing you do is set up a repository with
+          markdown files and build it with one command;
+        </p>
+        <pre
+          class="language-bash"
+        ><code class="language-bash">npx dokkie --type<span class="token operator">=</span>blog
 </code></pre>
-      <h3 id="sorted-on-date.">Sorted on date.</h3>
-      <p>
-        Blogs are automatically ordered by their file creation date. If you
-        don’t want that, you can set an alternate date in your files with the
-        following format;
-      </p>
-      <pre
-        class="language-md"
-      ><code class="language-md"><span class="token hr punctuation">---</span>
+        <h3 id="sorted-on-date.">Sorted on date.</h3>
+        <p>
+          Blogs are automatically ordered by their file creation date. If you
+          don’t want that, you can set an alternate date in your files with the
+          following format;
+        </p>
+        <pre
+          class="language-md"
+        ><code class="language-md"><span class="token hr punctuation">---</span>
 <span class="token title important">date: 2020-02-22
 <span class="token punctuation">---</span></span>
 </code></pre>
-      <h3 id="meta">Meta</h3>
-      <p>
-        A blog post by default has just a title and text, but if you want to
-        give extra info like the tags. You can also just add them to your post;
-      </p>
-      <p><strong>Tags</strong></p>
-      <pre
-        class="language-md"
-      ><code class="language-md"><span class="token hr punctuation">---</span>
+        <h3 id="meta">Meta</h3>
+        <p>
+          A blog post by default has just a title and text, but if you want to
+          give extra info like the tags. You can also just add them to your
+          post;
+        </p>
+        <p><strong>Tags</strong></p>
+        <pre
+          class="language-md"
+        ><code class="language-md"><span class="token hr punctuation">---</span>
 <span class="token title important">tags: test, tag, for, post
 <span class="token punctuation">---</span></span>
 </code></pre>
-      <p>
-        <strong>Author + Link</strong><br />
-        The author also supports a authorLink, which will automatically be the
-        link for the author when clicked on.
-      </p>
-      <pre
-        class="language-md"
-      ><code class="language-md"><span class="token hr punctuation">---</span>
+        <p>
+          <strong>Author + Link</strong><br />
+          The author also supports a authorLink, which will automatically be the
+          link for the author when clicked on.
+        </p>
+        <pre
+          class="language-md"
+        ><code class="language-md"><span class="token hr punctuation">---</span>
 author: Sil
 <span class="token title important">authorLink: https://silvandiepen.nl
 <span class="token punctuation">---</span></span>
 </code></pre>
 
-      <nav id="content-nav">
-        <a
-          class="content-nav__link content-nav__link--prev"
-          href="/types/docs/index.html"
-          >Docs</a
-        >
-        <a
-          class="content-nav__link content-nav__link--next"
-          href="/types/website/index.html"
-          >Website</a
-        >
-      </nav>
+        <nav id="content-nav">
+          <a
+            class="content-nav__link content-nav__link--prev"
+            href="/types/docs/index.html"
+            >Docs</a
+          >
+          <a
+            class="content-nav__link content-nav__link--next"
+            href="/types/website/index.html"
+            >Website</a
+          >
+        </nav>
+      </div>
     </main>
 
     <!--- Page Footer Content -->

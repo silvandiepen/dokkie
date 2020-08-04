@@ -423,16 +423,17 @@
     </aside>
 
     <!--- Page Main section-->
-    <main id="main" class="content">
-      <h1 id="deployment">Deployment</h1>
-      <h2 id="github-pages">Github pages</h2>
-      <ol>
-        <li>Create a Github Action</li>
-        <li>Copy the following workflow</li>
-      </ol>
-      <pre
-        class="language-yaml"
-      ><code class="language-yaml"><span class="token key atrule">name</span><span class="token punctuation">:</span> Deploy Dokkie to GH Pages
+    <main id="main">
+      <div class="content">
+        <h1 id="deployment">Deployment</h1>
+        <h2 id="github-pages">Github pages</h2>
+        <ol>
+          <li>Create a Github Action</li>
+          <li>Copy the following workflow</li>
+        </ol>
+        <pre
+          class="language-yaml"
+        ><code class="language-yaml"><span class="token key atrule">name</span><span class="token punctuation">:</span> Deploy Dokkie to GH Pages
 
 <span class="token key atrule">on</span><span class="token punctuation">:</span>
   <span class="token key atrule">push</span><span class="token punctuation">:</span>
@@ -454,42 +455,43 @@
           <span class="token key atrule">github_token</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span><span class="token punctuation">{</span> secrets.GITHUB_TOKEN <span class="token punctuation">}</span><span class="token punctuation">}</span>
           <span class="token key atrule">publish_dir</span><span class="token punctuation">:</span> ./dokkie
 </code></pre>
-      <ol start="3">
-        <li>Push a change on your masterbranch and you are set!</li>
-        <li>
-          Your docs now live at; ```https://[username].github.io/[reponame]
-        </li>
-      </ol>
-      <h2 id="using-netlify">Using Netlify</h2>
-      <ol>
-        <li>Make sure you have an account at Netlify.</li>
-        <li>Login and click on “Net site from git”</li>
-        <li>Connect to your provider and find your repository.</li>
-        <li>Build commands;</li>
-        <li>
-          <img
-            src="https://silvandiepen.github.io/dokkie/img/Screenshot-2020-05-31-at-17-38-59.png"
-            alt="Build command"
-          />
-          <ul>
-            <li>Build command: <code>npx dokkie</code></li>
-            <li>Publish directory: <code>dokkie</code></li>
-          </ul>
-        </li>
-      </ol>
+        <ol start="3">
+          <li>Push a change on your masterbranch and you are set!</li>
+          <li>
+            Your docs now live at; ```https://[username].github.io/[reponame]
+          </li>
+        </ol>
+        <h2 id="using-netlify">Using Netlify</h2>
+        <ol>
+          <li>Make sure you have an account at Netlify.</li>
+          <li>Login and click on “Net site from git”</li>
+          <li>Connect to your provider and find your repository.</li>
+          <li>Build commands;</li>
+          <li>
+            <img
+              src="https://silvandiepen.github.io/dokkie/img/Screenshot-2020-05-31-at-17-38-59.png"
+              alt="Build command"
+            />
+            <ul>
+              <li>Build command: <code>npx dokkie</code></li>
+              <li>Publish directory: <code>dokkie</code></li>
+            </ul>
+          </li>
+        </ol>
 
-      <nav id="content-nav">
-        <a
-          class="content-nav__link content-nav__link--prev"
-          href="/usage/configuration/index.html"
-          >Configuration</a
-        >
-        <a
-          class="content-nav__link content-nav__link--next"
-          href="/usage/pages/index.html"
-          >Pages</a
-        >
-      </nav>
+        <nav id="content-nav">
+          <a
+            class="content-nav__link content-nav__link--prev"
+            href="/usage/configuration/index.html"
+            >Configuration</a
+          >
+          <a
+            class="content-nav__link content-nav__link--next"
+            href="/usage/pages/index.html"
+            >Pages</a
+          >
+        </nav>
+      </div>
     </main>
 
     <!--- Page Footer Content -->
