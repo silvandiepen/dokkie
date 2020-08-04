@@ -99,7 +99,10 @@ export const downloadAssets = async (
 				});
 			});
 		} catch (err) {
-			throw Error(err);
+			!settings.logging.includes("silent") &&
+				log.BLOCK_LINE_ERROR(
+					`Couldn\'t download ${err.message.match(/'([^']+)'/)[1]}`
+				);
 		}
 	return settings;
 };
