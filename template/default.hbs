@@ -29,11 +29,13 @@
 	{{/if}}
 
 	<!--- Page Main section-->
-	<main id="main" class="content">
-		{{{ injectHtml.mainBefore }}}
-		{{{ content }}}
-		{{> contentNavigation }}
-		{{{ injectHtml.mainAfter }}}
+	<main id="main">
+		<div class="content">
+			{{{ injectHtml.mainBefore }}}
+			{{{ content }}}
+			{{> contentNavigation }}
+			{{{ injectHtml.mainAfter }}}
+		</div>
 	</main>
 
 
