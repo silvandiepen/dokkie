@@ -153,11 +153,14 @@ Test alert success block
 
 	// //
 	it("Render tasklist", async () => {
-		input.data = "\n- [x] Done \n - [] Todo";
-		output.document = `<ul class=\"contains-task-list\">\n<li class=\"task-list-item enabled\"><input class=\"task-list-item-checkbox\" checked=\"\"type=\"checkbox\"> Done</li>\n<li>[] Todo</li>\n</ul>\n`;
-		output.meta = {};
+		input.data = "\n- [x] Done \n - [ ] Todo";
+		const outputData = await mdToHtml(input);
 		// Assert
-		expect(await mdToHtml(input)).toEqual(output);
+		expect(outputData.document.includes("label")).toBeTruthy();
+		expect(outputData.document.match(/<ul/g)).toHaveLength(1);
+		expect(outputData.document.match(/<li/g)).toHaveLength(2);
+		expect(outputData.document.match(/label/g)).toHaveLength(6);
+		expect(outputData.document.match(/input/g)).toHaveLength(2);
 	});
 
 	// //

@@ -31,7 +31,7 @@ md.use(definitionList);
 md.use(footnote);
 md.use(multiLineTable);
 md.use(abbr);
-md.use(taskLists, { enabled: true });
+md.use(taskLists, { enabled: true, label: true, labelAfter: true });
 /*
 	Convert Markdown Data to html and filter meta.
 */
