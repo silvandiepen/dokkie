@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
 
     <!-- Google / Search Engine Tags -->
-    <title>License</title>
-    <meta itemprop="name" content="License" />
-    <meta property="og:title" content="License" />
-    <meta name="twitter:title" content="License" />
+    <title>Docs</title>
+    <meta itemprop="name" content="Docs" />
+    <meta property="og:title" content="Docs" />
+    <meta name="twitter:title" content="Docs" />
 
     <meta
       name="description"
@@ -246,7 +246,7 @@
       rel="yandex-tableau-widget"
       href="https://silvandiepen.github.io/dokkie/img/favicons/yandex-browser-manifest.json"
     />
-    <title>License</title>
+    <title>Docs</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -255,7 +255,7 @@
     />
   </head>
 
-  <body id="page-license">
+  <body id="page-types-docs">
     <!--- Page Header -->
     <header id="header">
       <h1><a href="/">Doccie</a></h1>
@@ -284,7 +284,9 @@
           <li>
             <a href="/types/">Output Types</a>
             <ul>
-              <li><a href="/types/docs/">Docs</a></li>
+              <li class="active">
+                <a href="/types/docs/">Docs</a>
+              </li>
 
               <li><a href="/types/website/">Website</a></li>
             </ul>
@@ -362,7 +364,7 @@
           <li>
             <a href="/types/">Output Types</a>
             <ul>
-              <li>
+              <li class="active">
                 <a href="/types/docs/">Docs</a>
               </li>
 
@@ -418,40 +420,24 @@
 
     <!--- Page Main section-->
     <main id="main" class="content">
-      <h1 id="license">License</h1>
-      <h2 id="the-mit-license-(mit)">The MIT License (MIT)</h2>
-      <p>Copyright © <code>2020</code> <code>Sil van Diepen</code></p>
+      <h1 id="creating-docs">Creating docs</h1>
       <p>
-        Permission is hereby granted, free of charge, to any person obtaining a
-        copy of this software and associated documentation files (the
-        “Software”), to deal in the Software without restriction, including
-        without limitation the rights to use, copy, modify, merge, publish,
-        distribute, sublicense, and/or sell copies of the Software, and to
-        permit persons to whom the Software is furnished to do so, subject to
-        the following conditions:
+        Docs is the default output of dokkie. Dokkie will create a documentation
+        website out of all your markdown files and create it’s menus.
       </p>
-      <p>
-        The above copyright notice and this permission notice shall be included
-        in all copies or substantial portions of the Software.
-      </p>
-      <p>
-        THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND,EXPRESS
-        OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-        MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-        IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-        CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-        TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-        SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-      </p>
+      <pre class="language-bash"><code class="language-bash">npx dokkie
+</code></pre>
 
       <nav id="content-nav">
         <a
           class="content-nav__link content-nav__link--prev"
-          href="/usage/index.html"
-          >Usage</a
+          href="/types/index.html"
+          >Output Types</a
         >
-        <a class="content-nav__link content-nav__link--next" href="/index.html"
-          >Dokkie</a
+        <a
+          class="content-nav__link content-nav__link--next"
+          href="/types/website/index.html"
+          >Website</a
         >
       </nav>
     </main>
@@ -463,7 +449,7 @@
           <li>
             <a href="/about/">About</a>
             <ul>
-              <li class="active">
+              <li>
                 <a href="/license/">License</a>
               </li>
 
@@ -492,7 +478,7 @@
           <li>
             <a href="/types/">Output Types</a>
             <ul>
-              <li>
+              <li class="active">
                 <a href="/types/docs/">Docs</a>
               </li>
 

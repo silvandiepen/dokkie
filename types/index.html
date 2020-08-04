@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
 
     <!-- Google / Search Engine Tags -->
-    <title>Website</title>
-    <meta itemprop="name" content="Website" />
-    <meta property="og:title" content="Website" />
-    <meta name="twitter:title" content="Website" />
+    <title>Output Types</title>
+    <meta itemprop="name" content="Output Types" />
+    <meta property="og:title" content="Output Types" />
+    <meta name="twitter:title" content="Output Types" />
 
     <meta
       name="description"
@@ -246,7 +246,7 @@
       rel="yandex-tableau-widget"
       href="https://silvandiepen.github.io/dokkie/img/favicons/yandex-browser-manifest.json"
     />
-    <title>Website</title>
+    <title>Output Types</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -255,7 +255,7 @@
     />
   </head>
 
-  <body id="page-usage-website">
+  <body id="page-types">
     <!--- Page Header -->
     <header id="header">
       <h1><a href="/">Doccie</a></h1>
@@ -281,6 +281,15 @@
             </ul>
           </li>
 
+          <li class="active">
+            <a href="/types/">Output Types</a>
+            <ul>
+              <li><a href="/types/docs/">Docs</a></li>
+
+              <li><a href="/types/website/">Website</a></li>
+            </ul>
+          </li>
+
           <li>
             <a href="/usage/">Usage</a>
             <ul>
@@ -299,11 +308,6 @@
               <li><a href="/usage/favicons/">Favicons</a></li>
 
               <li><a href="/usage/enhance/">Enhance</a></li>
-
-              <li><a href="/usage/blog/">Blog</a></li>
-              <li class="active">
-                <a href="/usage/website/">Website</a>
-              </li>
 
               <li><a href="/usage/troubleshooting/">Troubleshooting</a></li>
             </ul>
@@ -354,6 +358,18 @@
               </li>
             </ul>
           </li>
+          <li class="active">
+            <a href="/types/">Output Types</a>
+            <ul>
+              <li>
+                <a href="/types/docs/">Docs</a>
+              </li>
+
+              <li>
+                <a href="/types/website/">Website</a>
+              </li>
+            </ul>
+          </li>
 
           <li>
             <a href="/usage/">Usage</a>
@@ -391,13 +407,6 @@
               </li>
 
               <li>
-                <a href="/usage/blog/">Blog</a>
-              </li>
-              <li class="active">
-                <a href="/usage/website/">Website</a>
-              </li>
-
-              <li>
                 <a href="/usage/troubleshooting/">Troubleshooting</a>
               </li>
             </ul>
@@ -408,66 +417,23 @@
 
     <!--- Page Main section-->
     <main id="main" class="content">
-      <h1 id="website">Website</h1>
+      <h1 id="output-types">Output Types</h1>
       <p>
-        With Dokkie you can create also a full web page with sections and
-        columns using just Markdown files.
+        Dokkie has multiple output types available for different purposes. By
+        default Dokkie outputs a documentation website. But with a little tweak
+        you can create a blog or a website using Dokkie.
       </p>
-      <p>
-        You can find an example of a dokkie website on
-        <a href="https://website-example.dokkie.dev"
-          >website-example.dokkie.dev</a
-        >.
-      </p>
-      <h2 id="usage">Usage</h2>
-      <pre
-        class="language-bash"
-      ><code class="language-bash">npx dokkie --type<span class="token operator">=</span>website
-</code></pre>
-      <h2 id="section-%26-partials">Section &amp; Partials</h2>
-      <p>Website are build up out of Sections and Partials.</p>
-      <h3 id="partials">Partials</h3>
-      <p>
-        Partials can be achieved by adding <code>_</code> in front of a markdown
-        file. Every file with an underscore will automatically be added to the
-        parent (<a href="http://readme.md">readme.md</a>) in alphabetical order.
-        In this way you can build up a full page from several files.
-      </p>
-      <h3 id="sections">Sections</h3>
-      <p>
-        Sections have a column layout. A section will be be added to it’s parent
-        when the folder has an <code>_</code> AND defined a layout in the meta
-        data like
-      </p>
-      <p><code>_overview/readme.md</code></p>
-      <pre
-        class="language-markdown"
-      ><code class="language-markdown"><span class="token hr punctuation">---</span>
-<span class="token title important">layout: thirds
-<span class="token punctuation">---</span></span>
-</code></pre>
-      <p>
-        Will result in a three column layout using the other
-        <code>_</code>-partials as it’s content.
-      </p>
-      <h3 id="columns">Columns</h3>
-      <p>As for now, there are three options to use;</p>
-      <ul>
-        <li><strong>full</strong> 1 column layout</li>
-        <li><strong>half</strong> 2 columns layout</li>
-        <li><strong>thirds</strong> 3 columns layout</li>
-      </ul>
 
       <nav id="content-nav">
         <a
           class="content-nav__link content-nav__link--prev"
-          href="/usage/blog/index.html"
-          >Blog</a
+          href="/types/website/index.html"
+          >Website</a
         >
         <a
           class="content-nav__link content-nav__link--next"
-          href="/usage/troubleshooting/index.html"
-          >Troubleshooting</a
+          href="/types/docs/index.html"
+          >Docs</a
         >
       </nav>
     </main>
@@ -504,6 +470,18 @@
               </li>
             </ul>
           </li>
+          <li class="active">
+            <a href="/types/">Output Types</a>
+            <ul>
+              <li>
+                <a href="/types/docs/">Docs</a>
+              </li>
+
+              <li>
+                <a href="/types/website/">Website</a>
+              </li>
+            </ul>
+          </li>
 
           <li>
             <a href="/usage/">Usage</a>
@@ -538,13 +516,6 @@
 
               <li>
                 <a href="/usage/enhance/">Enhance</a>
-              </li>
-
-              <li>
-                <a href="/usage/blog/">Blog</a>
-              </li>
-              <li class="active">
-                <a href="/usage/website/">Website</a>
               </li>
 
               <li>

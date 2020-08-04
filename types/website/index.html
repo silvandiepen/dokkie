@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
 
     <!-- Google / Search Engine Tags -->
-    <title>Blog</title>
-    <meta itemprop="name" content="Blog" />
-    <meta property="og:title" content="Blog" />
-    <meta name="twitter:title" content="Blog" />
+    <title>Website</title>
+    <meta itemprop="name" content="Website" />
+    <meta property="og:title" content="Website" />
+    <meta name="twitter:title" content="Website" />
 
     <meta
       name="description"
@@ -246,7 +246,7 @@
       rel="yandex-tableau-widget"
       href="https://silvandiepen.github.io/dokkie/img/favicons/yandex-browser-manifest.json"
     />
-    <title>Blog</title>
+    <title>Website</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -255,7 +255,7 @@
     />
   </head>
 
-  <body id="page-usage-blog">
+  <body id="page-types-website">
     <!--- Page Header -->
     <header id="header">
       <h1><a href="/">Doccie</a></h1>
@@ -282,6 +282,16 @@
           </li>
 
           <li>
+            <a href="/types/">Output Types</a>
+            <ul>
+              <li><a href="/types/docs/">Docs</a></li>
+              <li class="active">
+                <a href="/types/website/">Website</a>
+              </li>
+            </ul>
+          </li>
+
+          <li>
             <a href="/usage/">Usage</a>
             <ul>
               <li><a href="/usage/configuration/">Configuration</a></li>
@@ -299,11 +309,6 @@
               <li><a href="/usage/favicons/">Favicons</a></li>
 
               <li><a href="/usage/enhance/">Enhance</a></li>
-              <li class="active">
-                <a href="/usage/blog/">Blog</a>
-              </li>
-
-              <li><a href="/usage/website/">Website</a></li>
 
               <li><a href="/usage/troubleshooting/">Troubleshooting</a></li>
             </ul>
@@ -356,6 +361,18 @@
           </li>
 
           <li>
+            <a href="/types/">Output Types</a>
+            <ul>
+              <li>
+                <a href="/types/docs/">Docs</a>
+              </li>
+              <li class="active">
+                <a href="/types/website/">Website</a>
+              </li>
+            </ul>
+          </li>
+
+          <li>
             <a href="/usage/">Usage</a>
             <ul>
               <li>
@@ -389,13 +406,6 @@
               <li>
                 <a href="/usage/enhance/">Enhance</a>
               </li>
-              <li class="active">
-                <a href="/usage/blog/">Blog</a>
-              </li>
-
-              <li>
-                <a href="/usage/website/">Website</a>
-              </li>
 
               <li>
                 <a href="/usage/troubleshooting/">Troubleshooting</a>
@@ -408,63 +418,66 @@
 
     <!--- Page Main section-->
     <main id="main" class="content">
-      <h1 id="creating-a-blog">Creating a blog</h1>
+      <h1 id="website">Website</h1>
       <p>
-        Besides easily creating documentation, you can also use Dokkie to build
-        your blog! The only thing you do is set up a repository with markdown
-        files and build it with one command;
+        With Dokkie you can create also a full web page with sections and
+        columns using just Markdown files.
       </p>
+      <p>
+        You can find an example of a dokkie website on
+        <a href="https://website-example.dokkie.dev"
+          >website-example.dokkie.dev</a
+        >.
+      </p>
+      <h2 id="usage">Usage</h2>
       <pre
         class="language-bash"
-      ><code class="language-bash">npx dokkie --type<span class="token operator">=</span>blog
+      ><code class="language-bash">npx dokkie --type<span class="token operator">=</span>website
 </code></pre>
-      <h3 id="sorted-on-date.">Sorted on date.</h3>
+      <h2 id="section-%26-partials">Section &amp; Partials</h2>
+      <p>Website are build up out of Sections and Partials.</p>
+      <h3 id="partials">Partials</h3>
       <p>
-        Blogs are automatically ordered by their file creation date. If you
-        don’t want that, you can set an alternate date in your files with the
-        following format;
+        Partials can be achieved by adding <code>_</code> in front of a markdown
+        file. Every file with an underscore will automatically be added to the
+        parent (<a href="http://readme.md">readme.md</a>) in alphabetical order.
+        In this way you can build up a full page from several files.
       </p>
-      <pre
-        class="language-md"
-      ><code class="language-md"><span class="token hr punctuation">---</span>
-<span class="token title important">date: 2020-02-22
-<span class="token punctuation">---</span></span>
-</code></pre>
-      <h3 id="meta">Meta</h3>
+      <h3 id="sections">Sections</h3>
       <p>
-        A blog post by default has just a title and text, but if you want to
-        give extra info like the tags. You can also just add them to your post;
+        Sections have a column layout. A section will be be added to it’s parent
+        when the folder has an <code>_</code> AND defined a layout in the meta
+        data like
       </p>
-      <p><strong>Tags</strong></p>
+      <p><code>_overview/readme.md</code></p>
       <pre
-        class="language-md"
-      ><code class="language-md"><span class="token hr punctuation">---</span>
-<span class="token title important">tags: test, tag, for, post
+        class="language-markdown"
+      ><code class="language-markdown"><span class="token hr punctuation">---</span>
+<span class="token title important">layout: thirds
 <span class="token punctuation">---</span></span>
 </code></pre>
       <p>
-        <strong>Author + Link</strong><br />
-        The author also supports a authorLink, which will automatically be the
-        link for the author when clicked on.
+        Will result in a three column layout using the other
+        <code>_</code>-partials as it’s content.
       </p>
-      <pre
-        class="language-md"
-      ><code class="language-md"><span class="token hr punctuation">---</span>
-author: Sil
-<span class="token title important">authorLink: https://silvandiepen.nl
-<span class="token punctuation">---</span></span>
-</code></pre>
+      <h3 id="columns">Columns</h3>
+      <p>As for now, there are three options to use;</p>
+      <ul>
+        <li><strong>full</strong> 1 column layout</li>
+        <li><strong>half</strong> 2 columns layout</li>
+        <li><strong>thirds</strong> 3 columns layout</li>
+      </ul>
 
       <nav id="content-nav">
         <a
           class="content-nav__link content-nav__link--prev"
-          href="/usage/enhance/index.html"
-          >Enhance</a
+          href="/types/docs/index.html"
+          >Docs</a
         >
         <a
           class="content-nav__link content-nav__link--next"
-          href="/usage/website/index.html"
-          >Website</a
+          href="/types/index.html"
+          >Output Types</a
         >
       </nav>
     </main>
@@ -503,6 +516,18 @@ author: Sil
           </li>
 
           <li>
+            <a href="/types/">Output Types</a>
+            <ul>
+              <li>
+                <a href="/types/docs/">Docs</a>
+              </li>
+              <li class="active">
+                <a href="/types/website/">Website</a>
+              </li>
+            </ul>
+          </li>
+
+          <li>
             <a href="/usage/">Usage</a>
             <ul>
               <li>
@@ -535,13 +560,6 @@ author: Sil
 
               <li>
                 <a href="/usage/enhance/">Enhance</a>
-              </li>
-              <li class="active">
-                <a href="/usage/blog/">Blog</a>
-              </li>
-
-              <li>
-                <a href="/usage/website/">Website</a>
               </li>
 
               <li>
