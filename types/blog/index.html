@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
 
     <!-- Google / Search Engine Tags -->
-    <title>Output Types</title>
-    <meta itemprop="name" content="Output Types" />
-    <meta property="og:title" content="Output Types" />
-    <meta name="twitter:title" content="Output Types" />
+    <title>Blog</title>
+    <meta itemprop="name" content="Blog" />
+    <meta property="og:title" content="Blog" />
+    <meta name="twitter:title" content="Blog" />
 
     <meta
       name="description"
@@ -246,7 +246,7 @@
       rel="yandex-tableau-widget"
       href="https://silvandiepen.github.io/dokkie/img/favicons/yandex-browser-manifest.json"
     />
-    <title>Output Types</title>
+    <title>Blog</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -255,7 +255,7 @@
     />
   </head>
 
-  <body id="page-types">
+  <body id="page-types-blog">
     <!--- Page Header -->
     <header id="header">
       <h1><a href="/">Doccie</a></h1>
@@ -281,12 +281,13 @@
             </ul>
           </li>
 
-          <li class="active">
+          <li>
             <a href="/types/">Output Types</a>
             <ul>
               <li><a href="/types/docs/">Docs</a></li>
-
-              <li><a href="/types/blog/">Blog</a></li>
+              <li class="active">
+                <a href="/types/blog/">Blog</a>
+              </li>
 
               <li><a href="/types/website/">Website</a></li>
             </ul>
@@ -360,14 +361,14 @@
               </li>
             </ul>
           </li>
-          <li class="active">
+
+          <li>
             <a href="/types/">Output Types</a>
             <ul>
               <li>
                 <a href="/types/docs/">Docs</a>
               </li>
-
-              <li>
+              <li class="active">
                 <a href="/types/blog/">Blog</a>
               </li>
 
@@ -423,23 +424,63 @@
 
     <!--- Page Main section-->
     <main id="main" class="content">
-      <h1 id="output-types">Output Types</h1>
+      <h1 id="creating-a-blog">Creating a blog</h1>
       <p>
-        Dokkie has multiple output types available for different purposes. By
-        default Dokkie outputs a documentation website. But with a little tweak
-        you can create a blog or a website using Dokkie.
+        Besides easily creating documentation, you can also use Dokkie to build
+        your blog! The only thing you do is set up a repository with markdown
+        files and build it with one command;
       </p>
+      <pre
+        class="language-bash"
+      ><code class="language-bash">npx dokkie --type<span class="token operator">=</span>blog
+</code></pre>
+      <h3 id="sorted-on-date.">Sorted on date.</h3>
+      <p>
+        Blogs are automatically ordered by their file creation date. If you
+        don’t want that, you can set an alternate date in your files with the
+        following format;
+      </p>
+      <pre
+        class="language-md"
+      ><code class="language-md"><span class="token hr punctuation">---</span>
+<span class="token title important">date: 2020-02-22
+<span class="token punctuation">---</span></span>
+</code></pre>
+      <h3 id="meta">Meta</h3>
+      <p>
+        A blog post by default has just a title and text, but if you want to
+        give extra info like the tags. You can also just add them to your post;
+      </p>
+      <p><strong>Tags</strong></p>
+      <pre
+        class="language-md"
+      ><code class="language-md"><span class="token hr punctuation">---</span>
+<span class="token title important">tags: test, tag, for, post
+<span class="token punctuation">---</span></span>
+</code></pre>
+      <p>
+        <strong>Author + Link</strong><br />
+        The author also supports a authorLink, which will automatically be the
+        link for the author when clicked on.
+      </p>
+      <pre
+        class="language-md"
+      ><code class="language-md"><span class="token hr punctuation">---</span>
+author: Sil
+<span class="token title important">authorLink: https://silvandiepen.nl
+<span class="token punctuation">---</span></span>
+</code></pre>
 
       <nav id="content-nav">
         <a
           class="content-nav__link content-nav__link--prev"
-          href="/types/website/index.html"
-          >Website</a
+          href="/types/docs/index.html"
+          >Docs</a
         >
         <a
           class="content-nav__link content-nav__link--next"
-          href="/types/docs/index.html"
-          >Docs</a
+          href="/types/website/index.html"
+          >Website</a
         >
       </nav>
     </main>
@@ -476,14 +517,14 @@
               </li>
             </ul>
           </li>
-          <li class="active">
+
+          <li>
             <a href="/types/">Output Types</a>
             <ul>
               <li>
                 <a href="/types/docs/">Docs</a>
               </li>
-
-              <li>
+              <li class="active">
                 <a href="/types/blog/">Blog</a>
               </li>
 
