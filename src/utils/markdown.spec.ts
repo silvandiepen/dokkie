@@ -168,6 +168,95 @@ Test alert success block
 		// Assert
 		expect(await mdToHtml(input)).toEqual(output);
 	});
+	// //
+	it("Render Definition List", async () => {
+		input.data = "\n term\n: definition";
+		output.document = `<dl>
+<dt>term</dt>
+<dd>definition</dd>
+</dl>\n`;
+		output.meta = {};
+		// Assert
+		expect(await mdToHtml(input)).toEqual(output);
+	});
+	// //
+	it("Render Footnote", async () => {
+		input.data =
+			"\nHere's a sentence with a footnote. [^1] \n [^1]: This is the footnote.";
+		output.document = `<p>Here’s a sentence with a footnote. <sup class=\"footnote-ref\"><a href=\"#fn1\" id=\"fnref1\">[1]</a></sup></p>
+<hr class=\"footnotes-sep\">
+<section class=\"footnotes\">
+<ol class=\"footnotes-list\">
+<li id=\"fn1\" class=\"footnote-item\"><p>This is the footnote. <a href=\"#fnref1\" class=\"footnote-backref\">↩︎</a></p>
+</li>
+</ol>
+</section>\n`;
+		output.meta = {};
+		// Assert
+		expect(await mdToHtml(input)).toEqual(output);
+	});
+	// //
+	it("Render Abbr", async () => {
+		input.data =
+			"\n *[HTML]: Hyper Text Markup Language\n *[W3C]:  World Wide Web Consortium\n The HTML specification\n is maintained by the W3C.";
+		output.document = `<p>The <abbr title=\"Hyper Text Markup Language\">HTML</abbr> specification<br>
+is maintained by the <abbr title=\"World Wide Web Consortium\">W3C</abbr>.</p>\n`;
+		output.meta = {};
+		// Assert
+		expect(await mdToHtml(input)).toEqual(output);
+	});
+	// //
+	it("Render Multiline table", async () => {
+		input.data =
+			"|             |          Grouping           || \n" +
+			"First Header  | Second Header | Third Header | \n" +
+			" ------------ | :-----------: | -----------: | \n" +
+			"Content       |          *Long Cell*        || \n" +
+			"Content       |   **Cell**    |         Cell | \n" +
+			"                                               \n" +
+			"New section   |     More      |         Data | \n" +
+			"And more      | With an escaped '\\|'       || \n" +
+			"[Prototype table]                              \n";
+		output.document = `<table>
+<caption id=\"prototypetable\">Prototype table</caption>
+<thead>
+<tr>
+<th></th>
+<th style=\"text-align:center\" colspan=\"2\">Grouping</th>
+</tr>
+<tr>
+<th>First Header</th>
+<th style=\"text-align:center\">Second Header</th>
+<th style=\"text-align:right\">Third Header</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content</td>
+<td style=\"text-align:center\" colspan=\"2\"><em>Long Cell</em></td>
+</tr>
+<tr>
+<td>Content</td>
+<td style=\"text-align:center\"><strong>Cell</strong></td>
+<td style=\"text-align:right\">Cell</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td>New section</td>
+<td style=\"text-align:center\">More</td>
+<td style=\"text-align:right\">Data</td>
+</tr>
+<tr>
+<td>And more</td>
+<td style=\"text-align:center\" colspan=\"2\">With an escaped ‘|’</td>
+</tr>
+</tbody>
+</table>\n`;
+		output.meta = {};
+		// Assert
+		expect(await mdToHtml(input)).toEqual(output);
+	});
 });
 describe("getTitlefromMd - Get the first h1", () => {
 	// Assert

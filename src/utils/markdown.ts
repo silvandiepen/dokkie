@@ -8,7 +8,11 @@ import { html5Media } from "markdown-it-html5-media";
 import emoji from "markdown-it-emoji";
 import MarkdownIt from "markdown-it";
 import taskLists from "markdown-it-task-lists";
+import definitionList from "markdown-it-deflist";
 import alert from "markdown-it-alert";
+import abbr from "markdown-it-abbr";
+import footnote from "markdown-it-footnote";
+import multiLineTable from "markdown-it-multimd-table";
 import { extractMeta, removeMeta } from "./markdown-meta";
 
 const md: MarkdownItExtended = new MarkdownIt({
@@ -23,6 +27,10 @@ md.use(anchors);
 md.use(html5Media);
 md.use(emoji);
 md.use(alert);
+md.use(definitionList);
+md.use(footnote);
+md.use(multiLineTable);
+md.use(abbr);
 md.use(taskLists, { enabled: true });
 /*
 	Convert Markdown Data to html and filter meta.
