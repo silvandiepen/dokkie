@@ -76,6 +76,22 @@ describe("Get Files", () => {
 			});
 			const file = result.files.find((f) => f.name === "about");
 			// This can change when the example is altered. It will just return the total amount of files in content/website.
+			expect(typeof file.date).toEqual(
+				typeof new Date("2020-07-13T10:30:17.000Z")
+			);
+		} catch (err) {
+			throw Error(err);
+		}
+	});
+	it("Check File Correct Date", async () => {
+		try {
+			const result = await getFiles({
+				...altSettings,
+				type: "blog",
+				input: "content/website",
+			});
+			const file = result.files.find((f) => f.name === "about");
+			// This can change when the example is altered. It will just return the total amount of files in content/website.
 			expect(file.date).toEqual(new Date("2020-07-13T10:30:17.000Z"));
 		} catch (err) {
 			throw Error(err);
