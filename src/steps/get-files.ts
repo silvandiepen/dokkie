@@ -3,6 +3,45 @@ import { basename, extname, resolve, join } from "path";
 import { ISettings, IFile } from "../types";
 import { asyncForEach, convertToDate, lastIndex } from "../utils";
 import { mdToHtml } from "../utils/markdown";
+import gitlog from "gitlog";
+
+const getGitCreationDate = async (res: any, dir: string, dirent: any) => {
+	const stats = await stat(res);
+
+	// If it's not a file, who bothers?! Just return today.
+	if (!stats.isFile()) return new Date();
+
+	// Define the file to search for
+	const file = join(dir.replace(join(__dirname, "../../"), ""), dirent.name);
+
+	// Just for the Log();
+	console.log(
+		gitlog({
+			repo: join(__dirname + "../../"),
+			fields: ["subject", "authorName", "authorDate"] as const,
+			number: 500,
+			all: true,
+		}).length
+	);
+
+	// Get all commits with this file and return just their dates.
+	const date = gitlog({
+		repo: join(__dirname + "../../"),
+		fields: ["subject", "authorName", "authorDate"] as const,
+		number: 500,
+		all: true,
+	})
+		.filter((logs) => logs.files.includes(file)) // Only get the commits with this file
+		.map((c) => c.authorDate) // Just reply the authorDate of the files.
+		.sort()[0]; // Sort the array and return the first.
+
+	console.log(date);
+
+	// If there are any dates, return the first, otherwise use the stats creationdate.
+	return date
+		? new Date(date)
+		: new Date(stats.birthtime ? stats.birthtime : null);
+};
 
 /*
 	::getFileTree
@@ -17,7 +56,18 @@ export const getFileTree = async (
 		dirents.map(async (dirent: any) => {
 			const res = resolve(dir, dirent.name);
 			const ext = extname(res);
-			const date = await stat(res);
+			// Only need the date on blog posts
+			const date =
+				settings.type === "blog" && dir === settings.input
+					? await getGitCreationDate(res, dir, dirent)
+					: new Date();
+
+			if (
+				dirent.name.includes(".git") ||
+				dirent.name.includes("/dist/") ||
+				dirent.name.includes("/node_modules")
+			)
+				return null;
 
 			if (
 				(settings.extensions.includes(ext) ||
@@ -31,7 +81,7 @@ export const getFileTree = async (
 							name: basename(res).replace(ext, ""),
 							path: res,
 							ext,
-							date: new Date(date.birthtime),
+							date,
 					  };
 			else return null;
 		})
