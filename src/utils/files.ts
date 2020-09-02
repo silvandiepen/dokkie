@@ -1,5 +1,7 @@
 const { writeFile, mkdir } = require("fs").promises;
 import { createWriteStream } from "fs";
+import https from "https";
+
 import { join, dirname } from "path";
 import { getTitleFromMD } from "./markdown";
 import { IFile, ISettings } from "../types";
@@ -95,7 +97,10 @@ export const download = async (
 	url: string,
 	destination: string
 ): Promise<void> => {
-	const res: any = await fetch(url);
+	const agent = new https.Agent({
+		rejectUnauthorized: false,
+	});
+	const res: any = await fetch(url, { agent });
 	await createFolder(dirname(destination));
 	await new Promise((resolve, reject) => {
 		const fileStream = createWriteStream(destination);
