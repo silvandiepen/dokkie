@@ -26,7 +26,7 @@ md.use(prism);
 md.use(anchors);
 md.use(html5Media);
 md.use(emoji);
-md.use(alert);
+md.use(alert, { bem: true });
 md.use(definitionList);
 md.use(footnote);
 md.use(multiLineTable);
