@@ -13,7 +13,7 @@ export const defaultSettings = {
 	layout: "default",
 	assets: {},
 	cleanBefore: true,
-	theme: "feather-ext",
+	theme: "feather",
 	extensions: [".md"],
 	excludeFolders: ["node_modules", "dist", "public"],
 	copy: [],
@@ -233,7 +233,7 @@ export const setAlternativeDefaults = async (
 	switch (s.type) {
 		case "blog":
 			if (!args.includes("layout")) s.layout = "blog";
-			if (!args.includes("theme")) s.theme = "feather-blog";
+			if (!args.includes("theme")) s.theme = "feather";
 			if (!args.includes("flatNavigation")) s.flatNavigation = true;
 			if (!args.includes("showNavigation"))
 				if (!args.includes("showNavigation")) {
@@ -250,7 +250,7 @@ export const setAlternativeDefaults = async (
 			break;
 		case "website":
 			if (!args.includes("layout")) s.layout = "website";
-			if (!args.includes("theme")) s.theme = "feather-web";
+			if (!args.includes("theme")) s.theme = "feather";
 			break;
 	}
 
