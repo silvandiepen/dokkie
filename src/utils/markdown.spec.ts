@@ -132,14 +132,15 @@ Test alert success block
 :::`,
 		};
 		const currentOutput = {
-			document: `<div class="alert alert-success" role="alert">
+			document: `<div class="alert alert--success" role="alert">
 <p>Test alert success block</p>
 </div>
 `,
 			meta: {},
 		};
+		const result = await mdToHtml(currentInput);
 		// Assert
-		expect(await mdToHtml(currentInput)).toEqual(currentOutput);
+		expect(result).toEqual(currentOutput);
 	});
 
 	// //
